@@ -121,3 +121,29 @@ No findings have been confirmed. No calls have been placed.
   59 tests, zero skips, 93.3% combined coverage, clean secret/dependency scans, and matching
   package checksums. The first parallel run showed harmless cache-write contention;
   limited cache saving to the quality job while all jobs can restore the same cache.
+
+
+## 2026-09-18 — account setup and pre-call verification
+
+- Authorized the personal LiveKit project and saved credentials only in the ignored local
+  `.env` with permissions 0600. Authenticated read-only room/trunk API requests succeed.
+- Grant funded Twilio and purchased one US voice number, then created its Elastic SIP
+  trunk, credential list, and number association. The LiveKit outbound trunk has the
+  matching caller number, Twilio termination hostname, and TCP transport.
+- Read-only verification caught missing authentication fields after initial trunk creation.
+  The dashboard placed these under collapsed Optional settings. After entering them,
+  the API confirms the expected SIP username and a nonempty password. This proves saved
+  configuration, not that Twilio accepts the credentials; a real call must establish that.
+- Selected Cartesia Jacqueline (`9626c31c-bec5-4cca-baa8-f8ba9e84c8bc`) for the synthetic
+  patient, keeping the planned Sonic 3.6 model. LiveKit's current documentation lists both
+  as supported. The voice remains fixed for calibration; its call quality is untested.
+- Read the project's Observability settings: agent observability is On and PII redaction
+  is Off. No project recording or privacy setting was changed. Billing reports the Build
+  plan and a $0.00 next invoice; that display is not a forecast of test-call costs.
+- All required local configuration fields validate. The credential-free smoke dry run
+  passes. The local Python 1.8.2 worker registered in LiveKit US West B, then was stopped
+  cleanly without dispatching a call. The SDK emitted deprecation notices for the current
+  download-files/dev entry points; both commands still completed their intended checks.
+- No phone call, provider inference request, or evidence recording has been verified yet.
+  The next step is one read-only office-information call during a genuine recorded
+  debugging session, followed by end-to-end listening and transcript comparison.
