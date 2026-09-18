@@ -30,6 +30,8 @@ jobs:
           version: "0.12.17"
           python-version: "3.12"
           enable-cache: true
+          # One writer avoids races between the parallel jobs sharing this lockfile.
+          save-cache: ${{ github.job == 'quality' }}
           cache-dependency-glob: uv.lock
       - name: Check source, types, workflows, and shell scripts
         run: ./scripts/check.sh quality
@@ -50,6 +52,8 @@ jobs:
           version: "0.12.17"
           python-version: "3.12"
           enable-cache: true
+          # One writer avoids races between the parallel jobs sharing this lockfile.
+          save-cache: ${{ github.job == 'quality' }}
           cache-dependency-glob: uv.lock
       - name: Scan history, working tree, and locked dependencies
         run: ./scripts/check.sh security
@@ -80,6 +84,8 @@ jobs:
           version: "0.12.17"
           python-version: "3.12"
           enable-cache: true
+          # One writer avoids races between the parallel jobs sharing this lockfile.
+          save-cache: ${{ github.job == 'quality' }}
           cache-dependency-glob: uv.lock
       - name: Install recording verification tools
         run: |
@@ -138,6 +144,8 @@ jobs:
           version: "0.12.17"
           python-version: "3.12"
           enable-cache: true
+          # One writer avoids races between the parallel jobs sharing this lockfile.
+          save-cache: ${{ github.job == 'quality' }}
           cache-dependency-glob: uv.lock
 
       - name: Build and smoke-test the installed package

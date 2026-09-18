@@ -116,3 +116,8 @@ No findings have been confirmed. No calls have been placed.
 - Corrected the distinction between our 12-call/8-kind internal targets and the employer's
   minimum of ten complete pairs. Further cloud infrastructure is unnecessary; finish this
   CI pass and prioritize account setup, genuine recorded debugging, and the first call.
+
+- Expanded hosted CI run 35398379043 passed all four jobs. Downloaded reports confirm
+  59 tests, zero skips, 93.3% combined coverage, clean secret/dependency scans, and matching
+  package checksums. The first parallel run showed harmless cache-write contention;
+  limited cache saving to the quality job while all jobs can restore the same cache.
