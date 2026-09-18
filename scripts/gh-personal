@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Keep this assessment account separate from other GitHub CLI sessions.
+set -euo pipefail
+export GH_CONFIG_DIR="${PATIENT_SIM_GH_CONFIG_DIR:-$HOME/.config/gh-patient-sim}"
+exec gh "$@"
