@@ -33,8 +33,9 @@ Introspected from the installed package, not from documentation.
 - `EndpointingOptions{mode: 'fixed'|'dynamic', min_delay, max_delay, alpha}`.
 - `InterruptionOptions{mode: 'adaptive'|'vad', min_duration, min_words,
   backchannel_boundary, ...}`.
-- `AgentSession(ivr_detection: bool = False)` — a first-class answer to "SIP 200 OK does
-  not mean a human answered."
+- **[R4]** `ivr_detection=True` enables proactive IVR behavior, not a standalone
+  voicemail classifier. Source inspection showed replies after silence and DTMF tools.
+  Keep it off for initial observation; answered-call classification remains unknown.
 - `EndCallTool` lives in `livekit.agents.beta`, with `delete_room=True`,
   `end_instructions='say goodbye to the user'`, and `on_tool_completed`.
 - `record` takes `RecordingOptions{audio, traces, logs, transcript, redaction}`.
@@ -96,8 +97,8 @@ promising ones if the difference is unclear.
 
 | Config | STT | Turn detection |
 |---|---|---|
-| A | `deepgram/nova-3` | default |
-| B | `deepgram/nova-2-phonecall` | default |
+| A | `deepgram/nova-3` | LiveKit audio detector, pinned `v1-mini` **[R4]** |
+| B | `deepgram/nova-2-phonecall` | LiveKit audio detector, pinned `v1-mini` **[R4]** |
 | C | `deepgram/flux-general-en` | `turn_detection="stt"` |
 
 Held fixed across all three: voice, TTS model, LLM, temperature, scenario, patient facts.
@@ -163,7 +164,10 @@ the room.
 
 Explicit handling required for: dispatch failure · ringing timeout / no answer · remote
 hangup · IVR or voicemail answering · our own crash mid-call · recording completion.
-`ended_by` ∈ `end_call_tool | failsafe | remote_hangup | dispatch_error | no_answer`.
+`ended_by` ∈ `end_call_tool | failsafe | remote_hangup | dispatch_error | no_answer |
+rejected | sip_error | worker_error | worker_shutdown | telephony_error | unknown_disconnect`.
+**[R4]** Preserve specific provider/network failure causes rather than labeling them as
+no-answer. IVR/voicemail classification is an unresolved first-call observation.
 
 The worker start command is documented in the README, not assumed.
 

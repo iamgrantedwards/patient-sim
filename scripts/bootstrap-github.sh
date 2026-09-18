@@ -126,7 +126,7 @@ Acceptance:
 
 iss "Classify every way a call can end" \
 "ended_by in {end_call_tool, failsafe, remote_hangup, dispatch_error, no_answer}, plus
-IVR/voicemail detection via AgentSession(ivr_detection=True).
+unknown answer type until verified from the recording. SDK IVR navigation is not a voicemail classifier.
 
 Acceptance:
 - [ ] Each outcome produces a record rather than an exception
