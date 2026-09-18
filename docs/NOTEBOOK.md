@@ -173,3 +173,25 @@ No findings have been confirmed. No calls have been placed.
   worker was stopped. No second call was dispatched.
 - Original call artifacts remain ignored and local pending review. No recordings
   or transcripts were added to the public repository.
+
+
+## 2026-09-18 — UI priority and GitHub reconciliation
+
+- Grant explicitly requested a usable UI before filming. This supersedes the earlier
++  request to pause immediately for Loom. Next is real-call review UI #23, then explicit
++  outbound call controls/live status #24, then genuine recorded debugging #25.
++- Audited the repository: completed external setup tasks were still open and PR #20
++  still claimed no call had occurred. Closed setup #6/#7 with evidence, marked code
++  work #9/#10/#11/#16 as in review pending merge, and kept unverified Athena context
++  #8 and first-good-call acceptance open. No completed history was invented.
++- Opened actual simulator bug #21 from the captured AgentHandoff error; updated #12
++  with the partial ending and attribution uncertainty rather than duplicating it.
++- Created UI epic #22 and its milestone; added owners, workflow labels, linked epic
++  task lists, and separate video/submission issues #25/#26. PR #20 now states the real
++  call evidence and remaining blockers. Main protection was verified unchanged.
++- Added ROADMAP.md with focused branches/PRs and dependency handling. UI code will
++  have its own PR rather than expanding the foundation PR. Existing 59-test hosted
++  CI passed at checkpoint 338e7f8 (run 35405543960); code and acceptance remain distinct.
++- No caller/provider settings changed and no additional call was made in this
++  planning/management update. Original recordings remain local and unreviewed.
++

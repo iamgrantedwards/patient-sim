@@ -72,13 +72,17 @@ explicitly adding selected submission evidence to the public repository.
 
 ## Design and progress
 
+- [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The first milestone is one good recorded call. Calibration, broader scenario collection,
-findings, and submission videos follow it. There are no confirmed bugs yet.
+The next build is the local call-review UI and explicit outbound controls, as Grant
+requested before recording the debugging video. The first-good-call gate remains open;
+calibration, broader call collection, findings, and the final walkthrough follow it.
+The first run exposed a simulator event-handler bug (#21) and an unresolved closing
+issue (#12). No bug in the assessment agent has been confirmed.
 
 ## Personal GitHub account
 

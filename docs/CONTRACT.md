@@ -1,7 +1,8 @@
 # patient-sim — implementation contract
 
-Revision 3. Supersedes the planning notes. Changes in this revision came from an
-external review and are marked **[R3]** where they overturn an earlier decision.
+Revision 5. Supersedes the planning notes. Earlier external-review decisions retain
+their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
+build the local UI before recording the debugging video; call-quality gates are unchanged.
 
 ## What this is
 
@@ -202,16 +203,22 @@ The 12-call / 8-kind plan and safety/privacy mix below are internal targets. The
 requires at least 10 complete call pairs and varied scenarios, not those exact counts.
 See [the original-brief compliance review](ASSESSMENT.md) for submission requirements.
 
-**M1 is the only milestone that matters until it is done:** one natural conversation, a
-clean ending, and a downloaded recording that matches the saved transcript.
+**M1 remains the first call-quality gate:** one natural conversation, a clean ending,
+and a downloaded recording that matches the saved transcript, reviewed by listening.
+**[R5]** The first technical call has been captured. Grant explicitly requested a usable
+UI before recording the debugging session: build the call-review UI and explicit
+outbound controls first, then record genuine debugging and finish M1. This UI is a
+requested local interface, not a new employer requirement. [ROADMAP.md](ROADMAP.md)
+links the issues, dependencies, and focused PRs; recording readiness does not block UI work.
 
 | # | Milestone | Done when |
 |---|---|---|
-| M0 | Accounts and trunk | Twilio DID + Elastic SIP Trunk registered as a LiveKit outbound trunk; redaction confirmed off |
+| M0 | Accounts and context | Twilio DID + Elastic SIP Trunk registered in LiveKit; redaction confirmed off; required Athena product exploration documented |
+| UI | **[R5] Local call console** | Existing recordings/transcripts reviewable; explicit outbound controls and real status; browser-verified before debugging video |
 | M1 | **First good call** | One 1–3 min conversation · ends via `EndCallTool`, not a failsafe · recording downloaded, playable, and matching the transcript |
 | M2 | Calibration screen | Three configurations on a read-only scenario; one chosen with a written reason |
 | M3 | Evidence pipeline | Incremental events · reconciled turns · timing from audio offsets · provenance per call |
-| M4 | Call collection | 12 calls, ≥8 scenario kinds, state sequence run or its failure documented |
+| M4 | Call collection | At least 10 complete reviewed call pairs across varied scenarios; 12 calls/≥8 kinds are stretch targets; state support documented |
 | M5 | Findings | Hand-written findings with basis and uncertainty; quote verification passing |
 | M6 | Submission | README · architecture doc · two Looms · public repo |
 
