@@ -1,7 +1,8 @@
 # patient-sim — implementation contract
 
-Revision 3. Supersedes the planning notes. Changes in this revision came from an
-external review and are marked **[R3]** where they overturn an earlier decision.
+Revision 5. Supersedes the planning notes. Earlier external-review decisions retain
+their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
+build the local UI before recording the debugging video; call-quality gates are unchanged.
 
 ## What this is
 
@@ -33,8 +34,9 @@ Introspected from the installed package, not from documentation.
 - `EndpointingOptions{mode: 'fixed'|'dynamic', min_delay, max_delay, alpha}`.
 - `InterruptionOptions{mode: 'adaptive'|'vad', min_duration, min_words,
   backchannel_boundary, ...}`.
-- `AgentSession(ivr_detection: bool = False)` — a first-class answer to "SIP 200 OK does
-  not mean a human answered."
+- **[R4]** `ivr_detection=True` enables proactive IVR behavior, not a standalone
+  voicemail classifier. Source inspection showed replies after silence and DTMF tools.
+  Keep it off for initial observation; answered-call classification remains unknown.
 - `EndCallTool` lives in `livekit.agents.beta`, with `delete_room=True`,
   `end_instructions='say goodbye to the user'`, and `on_tool_completed`.
 - `record` takes `RecordingOptions{audio, traces, logs, transcript, redaction}`.
@@ -96,8 +98,8 @@ promising ones if the difference is unclear.
 
 | Config | STT | Turn detection |
 |---|---|---|
-| A | `deepgram/nova-3` | default |
-| B | `deepgram/nova-2-phonecall` | default |
+| A | `deepgram/nova-3` | LiveKit audio detector, pinned `v1-mini` **[R4]** |
+| B | `deepgram/nova-2-phonecall` | LiveKit audio detector, pinned `v1-mini` **[R4]** |
 | C | `deepgram/flux-general-en` | `turn_detection="stt"` |
 
 Held fixed across all three: voice, TTS model, LLM, temperature, scenario, patient facts.
@@ -163,7 +165,10 @@ the room.
 
 Explicit handling required for: dispatch failure · ringing timeout / no answer · remote
 hangup · IVR or voicemail answering · our own crash mid-call · recording completion.
-`ended_by` ∈ `end_call_tool | failsafe | remote_hangup | dispatch_error | no_answer`.
+`ended_by` ∈ `end_call_tool | failsafe | remote_hangup | dispatch_error | no_answer |
+rejected | sip_error | worker_error | worker_shutdown | telephony_error | unknown_disconnect`.
+**[R4]** Preserve specific provider/network failure causes rather than labeling them as
+no-answer. IVR/voicemail classification is an unresolved first-call observation.
 
 The worker start command is documented in the README, not assumed.
 
@@ -194,16 +199,26 @@ connection caused it.
 
 ## Milestones
 
-**M1 is the only milestone that matters until it is done:** one natural conversation, a
-clean ending, and a downloaded recording that matches the saved transcript.
+The 12-call / 8-kind plan and safety/privacy mix below are internal targets. The employer
+requires at least 10 complete call pairs and varied scenarios, not those exact counts.
+See [the original-brief compliance review](ASSESSMENT.md) for submission requirements.
+
+**M1 remains the first call-quality gate:** one natural conversation, a clean ending,
+and a downloaded recording that matches the saved transcript, reviewed by listening.
+**[R5]** The first technical call has been captured. Grant explicitly requested a usable
+UI before recording the debugging session: build the call-review UI and explicit
+outbound controls first, then record genuine debugging and finish M1. This UI is a
+requested local interface, not a new employer requirement. [ROADMAP.md](ROADMAP.md)
+links the issues, dependencies, and focused PRs; recording readiness does not block UI work.
 
 | # | Milestone | Done when |
 |---|---|---|
-| M0 | Accounts and trunk | Twilio DID + Elastic SIP Trunk registered as a LiveKit outbound trunk; redaction confirmed off |
+| M0 | Accounts and context | Twilio DID + Elastic SIP Trunk registered in LiveKit; redaction confirmed off; required Athena product exploration documented |
+| UI | **[R5] Local call console** | Existing recordings/transcripts reviewable; explicit outbound controls and real status; browser-verified before debugging video |
 | M1 | **First good call** | One 1–3 min conversation · ends via `EndCallTool`, not a failsafe · recording downloaded, playable, and matching the transcript |
 | M2 | Calibration screen | Three configurations on a read-only scenario; one chosen with a written reason |
 | M3 | Evidence pipeline | Incremental events · reconciled turns · timing from audio offsets · provenance per call |
-| M4 | Call collection | 12 calls, ≥8 scenario kinds, state sequence run or its failure documented |
+| M4 | Call collection | At least 10 complete reviewed call pairs across varied scenarios; 12 calls/≥8 kinds are stretch targets; state support documented |
 | M5 | Findings | Hand-written findings with basis and uncertainty; quote verification passing |
 | M6 | Submission | README · architecture doc · two Looms · public repo |
 
@@ -217,7 +232,7 @@ short, cut the automated judge and the HTML report — never the listening time.
 1. **Ten complete, playable transcript–recording pairs** — pairs, not a count of call
    records **[R3]**
 2. Every quote in BUGS.md verified byte-exact against a raw transcript
-3. Scenario-set non-vacuity test: ≥8 distinct kinds, ≥1 safety, ≥1 privacy
+3. Varied realistic scenarios; internal stretch target: ≥8 kinds, ≥1 safety, ≥1 privacy
 4. Fixture tests passing: evidence validation · transcript reconciliation · termination
    behavior · prompt does not leak traps **[R3]**
 5. `.env` absent from `git log -p`; `uv.lock` committed

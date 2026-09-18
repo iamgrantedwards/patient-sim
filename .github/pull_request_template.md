@@ -10,6 +10,7 @@
 
 <!-- Pick what applies. Delete the rest. Be honest about what was NOT checked. -->
 
+- [ ] `./scripts/verify.sh` (lint, types, tests/coverage, security, packaging)
 - [ ] `uv run pytest`
 - [ ] Made a real call — call id(s):
 - [ ] Listened to the recording end to end

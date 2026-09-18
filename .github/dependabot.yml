@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      development-tools:
+        dependency-type: development
+    # The experiment contract pins this SDK. Updates require an explicit design decision.
+    ignore:
+      - dependency-name: livekit-agents
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 2
+    groups:
+      github-actions:
+        patterns: ["*"]
