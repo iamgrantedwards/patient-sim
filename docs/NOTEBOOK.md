@@ -46,3 +46,14 @@ No findings have been confirmed. No calls have been placed.
   ordering/limits, disconnect attribution, secret-free provenance, prompt separation,
   event recovery, and a full generated-OGG decode. CLI help and the no-network dry run
   also succeeded. No live call has been made.
+
+## 2026-09-18 — publication approved and completed
+
+- Grant approved public publication. Created iamgrantedwards/patient-sim and pushed
+  the initial scaffold to main and the first-call implementation to codex/first-call.
+- Created seven milestones, nine project labels, and nineteen issues (five epics and
+  fourteen tasks). These are planned work, not claims of completed live verification.
+- Opened draft PR #20 with the completed review template, offline test evidence, and
+  an explicit statement that real calls and listening are still pending.
+- The earlier publication approval blocker is resolved. LiveKit Cloud and Twilio setup
+  remain the prerequisites for the first real-call milestone.
