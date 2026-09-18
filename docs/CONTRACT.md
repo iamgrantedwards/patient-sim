@@ -198,6 +198,10 @@ connection caused it.
 
 ## Milestones
 
+The 12-call / 8-kind plan and safety/privacy mix below are internal targets. The employer
+requires at least 10 complete call pairs and varied scenarios, not those exact counts.
+See [the original-brief compliance review](ASSESSMENT.md) for submission requirements.
+
 **M1 is the only milestone that matters until it is done:** one natural conversation, a
 clean ending, and a downloaded recording that matches the saved transcript.
 
@@ -221,7 +225,7 @@ short, cut the automated judge and the HTML report — never the listening time.
 1. **Ten complete, playable transcript–recording pairs** — pairs, not a count of call
    records **[R3]**
 2. Every quote in BUGS.md verified byte-exact against a raw transcript
-3. Scenario-set non-vacuity test: ≥8 distinct kinds, ≥1 safety, ≥1 privacy
+3. Varied realistic scenarios; internal stretch target: ≥8 kinds, ≥1 safety, ≥1 privacy
 4. Fixture tests passing: evidence validation · transcript reconciliation · termination
    behavior · prompt does not leak traps **[R3]**
 5. `.env` absent from `git log -p`; `uv.lock` committed

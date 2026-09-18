@@ -14,17 +14,118 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality:
+    name: Lint, types, and workflow checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install uv and select Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Check source, types, workflows, and shell scripts
+        run: ./scripts/check.sh quality
+
+  security:
+    name: Secrets and dependency audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install uv and select Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Scan history, working tree, and locked dependencies
+        run: ./scripts/check.sh security
+      - name: Preserve redacted security reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: security-reports-${{ github.sha }}-${{ github.run_attempt }}
+          path: reports/*.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  tests:
+    name: Tests and branch coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      PYTHON_DOTENV_DISABLED: "1"
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install uv and select Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install recording verification tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
+      - name: Run network-isolated tests and coverage gate
+        run: ./scripts/check.sh tests
+      - name: Preserve test and coverage reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            reports/junit.xml
+            reports/coverage.xml
+            reports/coverage.json
+          if-no-files-found: warn
+          retention-days: 14
+
   verify:
+    # Keep the existing required check; explicitly fail if any upstream job did not pass.
+    needs: [quality, security, tests]
+    if: ${{ always() }}
     name: Verify and package
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       PYTHON_DOTENV_DISABLED: "1"
     steps:
+      - name: Require every quality gate to pass
+        env:
+          GATE_RESULTS: ${{ toJSON(needs) }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          results = json.loads(os.environ['GATE_RESULTS'])
+          failures = {name: job['result'] for name, job in results.items() if job['result'] != 'success'}
+          if failures:
+              print(f'Required quality gates did not pass: {failures}')
+              sys.exit(1)
+          PY
       - name: Set output paths
         run: |
           printf 'BUILD_DIR=%s/patient-sim-build\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
-          printf 'JUNIT_XML=%s/test-results/junit.xml\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
 
       - name: Check out the tested revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,13 +140,8 @@ jobs:
           enable-cache: true
           cache-dependency-glob: uv.lock
 
-      - name: Install recording verification tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends ffmpeg
-
-      - name: Test, build, and smoke-test the installed package
-        run: ./scripts/verify.sh "$BUILD_DIR"
+      - name: Build and smoke-test the installed package
+        run: ./scripts/build.sh "$BUILD_DIR"
 
       - name: Add build provenance and checksums
         id: package
@@ -79,16 +175,7 @@ jobs:
       - name: Deliver verified packages
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: patient-sim-${{ steps.package.outputs.version }}-${{ github.sha }}
+          name: patient-sim-${{ steps.package.outputs.version }}-${{ github.sha }}-${{ github.run_attempt }}
           path: ${{ env.BUILD_DIR }}/
           if-no-files-found: error
           retention-days: 30
-
-      - name: Preserve test results, including on failure
-        if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: test-results-${{ github.sha }}
-          path: ${{ env.JUNIT_XML }}
-          if-no-files-found: warn
-          retention-days: 14

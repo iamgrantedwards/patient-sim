@@ -91,3 +91,28 @@ No findings have been confirmed. No calls have been placed.
   no reviewer-count requirement because this is a personal repository.
 - PR #20 remains a draft for the live-call milestone. Main/manual workflow triggers will
   become available after merge; PR verification and artifact delivery are active now.
+
+## 2026-09-18 — quality gates and original-brief review
+
+- Measured the original 41-test baseline at roughly 70% coverage. Added dispatch timeout,
+  provider rejection, cleanup failure, finalization failure, media disconnect, and duration
+  watchdog regression tests. All 59 tests pass at 93.3% combined statement/branch coverage;
+  the enforced floor is 90%. These remain synthetic and mocked tests, not live-call proof.
+- Reproduced a real local bug: failing metadata/transcript writes skipped room deletion.
+  Nested cleanup now closes the journal and attempts room deletion despite those errors;
+  room deletion errors also no longer prevent local shutdown. Regression tests failed on
+  the original behavior and pass with the fix.
+- Pyright found three SDK boundary mismatches. Narrowed runtime-validated config types
+  and passed the end-call tools as the list requested by the SDK. Providers and models
+  remain unchanged. Ruff standardized formatting/imports across the small Python codebase.
+- Added pinned lint, type, coverage, workflow, shell, secret, and dependency checks. Native
+  tool archives are SHA-256 verified. Full Git history and unignored working files passed
+  secret scanning; the locked dependency audit found no known vulnerabilities. Existing
+  runtime dependency versions did not change when development tools were added.
+- Compared code and deliverables with Grant's original challenge brief. Mandatory stack
+  and destination restrictions are met in code; live voice quality, ten complete call
+  pairs, varied scenarios, findings, the fixed owned DID, and two public webcam/voice
+  videos remain outstanding. Condensed the architecture explanation to two paragraphs.
+- Corrected the distinction between our 12-call/8-kind internal targets and the employer's
+  minimum of ten complete pairs. Further cloud infrastructure is unnecessary; finish this
+  CI pass and prioritize account setup, genuine recorded debugging, and the first call.

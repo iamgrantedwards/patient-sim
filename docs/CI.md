@@ -1,51 +1,76 @@
 # CI and artifact delivery
 
-GitHub Actions runs **CI / Verify and package** for every pull request (including
-drafts), pushes to `main`, and manual runs. Main and manual triggers become available
-when the workflow is merged. Pull requests test GitHub's proposed merge commit, so
-the artifact's commit SHA can differ from the feature branch's head SHA.
+GitHub Actions runs on pull requests (including drafts), pushes to `main`, and manual
+runs. Main/manual triggers and Dependabot configuration activate after merge. PRs test
+GitHub's proposed merge commit, which can differ from the branch head.
 
-The job uses Python 3.12 and uv 0.12.17, installs the dependencies from `uv.lock`, and:
+Three independent jobs run in parallel. The required **Verify and package** job checks
+that all three succeeded before building or uploading packages. Failure, cancellation,
+or skipping an upstream job fails this final gate rather than allowing a skipped build
+to satisfy branch protection.
 
-1. Requires ffmpeg and ffprobe so the recording test cannot silently skip for missing tools.
-2. Runs the test suite, the no-network patient dry run, and the worker's CLI help.
-3. Builds a wheel and source distribution.
-4. Installs the wheel in a fresh environment using the locked production dependencies,
-   then repeats the CLI checks outside the source checkout.
-5. Uploads the verified packages, `build.json` provenance, and `SHA256SUMS` in an artifact
-   named `patient-sim-<version>-<tested commit>`, retained for 30 days. JUnit test reports
-   are retained for 14 days, including after a test failure.
+| Job | Required checks |
+| --- | --- |
+| Lint, types, and workflow checks | Ruff lint/format; Pyright standard mode on application and Python tooling; actionlint; ShellCheck on all shell scripts |
+| Tests and branch coverage | pytest with TCP/UDP sockets disabled, synthetic/mocked providers, real ffmpeg decode, and a 90% combined statement/branch coverage floor |
+| Secrets and dependency audit | Gitleaks on full available Git history and tracked/unignored working files; pip-audit on hashed exports of locked runtime and development dependencies |
+| Verify and package | All preceding jobs must succeed; build wheel/sdist with the locked backend; install wheel with locked production dependencies and check its CLI outside the checkout |
 
-Find a successful run in the repository's **Actions** tab and download its build artifact.
-The source distribution includes the code, lockfile, tests, and operating documentation.
-The wheel smoke test proves packaging/imports; actual calling still uses a shared checkout
-for the dispatcher and worker as described in the README.
+The measured baseline was 70% coverage with 41 tests. Targeted dispatch, finalization,
+and worker-failure tests raised this to 93.3% with 59 tests. Coverage measures exercised
+code, not voice quality or live telephony correctness. Tests do not dial the assessment
+line. Unix sockets remain allowed for the local asyncio event loop.
 
 ## Local equivalent
 
-Install uv, Python 3.12, and ffmpeg, then run:
+Requires Python 3.12, uv, Git, curl, tar, and ffmpeg/ffprobe on PATH. Run:
 
 ```sh
 ./scripts/verify.sh
 ```
 
-This writes packages to a new temporary directory and prints its location. An optional
-first argument chooses an empty output directory; `JUNIT_XML` enables a test report.
-The script disables `.env` loading. It never starts a worker or passes `--call`.
+The same scripts power CI. `./scripts/check.sh quality`, `tests`, or `security` runs an
+individual gate; `./scripts/build.sh` runs packaging alone and is not full verification.
+Checks write reports to ignored `reports/` (override with `REPORT_DIR`). Packages go to
+a fresh temporary directory, or an optional empty directory passed to `verify.sh`.
 
-## Permissions and delivery boundary
+The native tools are pinned in `scripts/ci-tools.json` and installed from official
+GitHub releases only after verifying their archive SHA-256 hashes. Their ignored cache
+is `.ci-tools/`. Pinned binaries cover macOS Apple Silicon and Linux x86-64, the current
+development and CI targets. Other platforms need reviewed manifest entries. Python tools
+and the build backend are locked in `uv.lock`; Pyright's Python wrapper uses Node.js and
+can download it when no usable Node is installed. First runs and security audits need
+network access; the pytest suite disables IP sockets and `.env` loading.
 
-The workflow has read-only repository permissions and needs no repository secrets.
-Third-party actions are pinned to reviewed commit SHAs; checkout does not persist Git
-credentials. It uses `pull_request`, so untrusted pull requests receive no privileged
-deployment context.
+## Reports and packages
 
-For now, continuous delivery means tested, downloadable build artifacts. Cloud deployment
-is pending personal LiveKit/Twilio setup and a change to the current local-filesystem
-handoff between dispatcher and worker. There is no deployment job or automatic dial.
-No release tag or successful CI run is evidence that a real call has been verified.
+Successful runs provide `patient-sim-<version>-<tested commit>-<attempt>` artifacts with
+a wheel, source distribution, `build.json` provenance, and `SHA256SUMS`, retained for
+30 days. Test/coverage and redacted security reports are retained for 14 days, including
+when their check fails. Download them from the run's **Artifacts** section.
 
-`main` requires a pull request and the **Verify and package** check from GitHub Actions,
-with the branch up to date. These protections include administrators; force-pushes and
-branch deletion are blocked. No additional reviewer is required for this personal repo.
-The first-call PR remains a draft until its separate live-call milestone is met.
+Packages contain explicitly selected source, tests, lockfile, and documentation; raw
+calls and local credentials are excluded. Actual calling uses a Git checkout shared by
+the dispatcher and worker. Passing package smoke tests does not establish successful
+SIP connection or a coherent conversation.
+
+## Maintenance and boundaries
+
+Workflow permissions are read-only; no telephony secrets are provided. Actions are pinned
+to commit SHAs, checkout does not persist credentials, and untrusted PRs run under
+`pull_request`. Secret findings are redacted. Scanners can miss issues; a clean audit is
+not a security guarantee. Fix confirmed findings rather than hiding failures; any future
+exception needs a narrow scope, documented rationale, and review date.
+
+Dependabot proposes weekly Python and Actions updates without auto-merge. Development
+tools are grouped; the contract-pinned LiveKit Agents version requires an explicit manual
+decision. Review runtime/provider changes before collecting more experimental evidence.
+Native tool versions/checksums are reviewed manually.
+
+`main` requires an up-to-date **Verify and package** check from GitHub Actions and a pull
+request, including for administrators. Force-pushes and branch deletion are blocked.
+No additional reviewer is required for this personal repository.
+
+Artifact delivery is the current delivery boundary. This assessment does not require
+cloud deployment, a production service, or automatic calls. Finish the first real-call
+milestone before considering additional infrastructure.

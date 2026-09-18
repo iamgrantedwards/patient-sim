@@ -40,12 +40,13 @@ or automatic redial. Stop the worker with Ctrl-C after the session has finalized
 
 ## Automated checks and builds
 
-GitHub Actions runs the tests, checks the CLI without placing a call, and builds and
-smoke-tests installable packages on pull requests and pushes to main. Successful runs
+GitHub Actions checks formatting/lint, types, workflows, shell scripts, secrets, and
+locked dependencies. Network-isolated tests enforce a 90% coverage floor with branch
+measurement enabled. Passing every check permits package builds and CLI smoke tests. Successful runs
 provide downloadable packages with commit provenance and checksums. Run the same checks
 locally with `./scripts/verify.sh`; see [CI and artifact delivery](docs/CI.md).
 
-Cloud deployment is pending account setup and the remote-worker handoff design.
+Cloud deployment is not required for this assessment; the next milestone is the first real call.
 
 ## Evidence
 
@@ -69,6 +70,7 @@ explicitly adding selected submission evidence to the public repository.
 
 ## Design and progress
 
+- [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)

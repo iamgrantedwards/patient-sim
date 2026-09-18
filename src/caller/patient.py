@@ -1,6 +1,7 @@
 """Stable synthetic patient facts. Evaluation criteria never enter the prompt."""
-from dataclasses import dataclass
+
 import json
+from dataclasses import dataclass
 
 from .scenarios import CallScenario
 

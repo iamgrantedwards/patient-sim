@@ -1,35 +1,5 @@
 # Architecture
 
-`dial.py` validates local settings and dispatches a uniquely named room to the local
-`AgentServer`. The worker validates dispatch metadata, connects to that room, prepares
-`AgentSession` with recording, and creates the SIP participant itself. Twilio provides
-the outbound PSTN leg. The caller waits for the remote greeting. The model path is
-explicitly STT → text LLM → TTS; no realtime or speech-to-speech model is used.
+The Python dispatcher validates the single permitted assessment destination and asks a local LiveKit Agents worker to start a uniquely named room. The worker joins, prepares recording and its STT → text LLM → TTS session, then places the outbound call through a Twilio Elastic SIP trunk using one fixed caller number. The initial providers are Deepgram Flux, GPT-4.1-mini, and Cartesia Sonic 3.6 through LiveKit Inference: one provider-access configuration keeps setup small while retaining separate pipeline components. Flux is our initial turn-detection candidate; VAD handles interruptions. The patient waits for the office greeting, uses synthetic facts, and speaks toward a scenario objective without receiving evaluator traps. Preemptive generation is initially off to avoid replies to incomplete turns; noise cancellation and automatic gain control are off to preserve the audio we evaluate. These are starting tradeoffs, not measured claims about voice quality or latency. Calibration will compare read-only scenarios and document observed results before changing the selected configuration.
 
-The initial configuration is Deepgram Flux endpointing, GPT-4.1-mini, and Cartesia
-Sonic 3.6 with an explicitly selected voice. This is a starting hypothesis, not a
-measured winner. Calibration is still pending and uses the same read-only office
-information scenario. The alternate `default` detector option pins LiveKit's
-`v1-mini` audio turn model for reproducibility. Interruption handling uses VAD;
-preemptive generation, noise cancellation, and automatic gain control are off initially.
-
-The worker journals raw events immediately. Committed message IDs determine dialogue
-turns; STT partials never create duplicate committed turns. The session-end hook runs
-after SDK session closure, copies the SDK's stereo OGG before temporary cleanup, and
-verifies container and decoding with ffmpeg tools. Speech timing metrics remain null
-until measured against that audio timeline. An abrupt process kill preserves journaled
-events but does not yet guarantee an exported recording.
-
-The built-in end-call tool has no generated closing instruction; the patient prompt
-handles the farewell. Refusal/unavailability can end normally. Server call duration,
-ring timeout, a local watchdog, and a committed-turn cap bound failures. Initial SDK
-source inspection showed `ivr_detection=True` proactively generates replies after
-silence and exposes DTMF; it is not a standalone voicemail classifier. It remains off
-until the actual assessment line is inspected.
-
-## Verification limits
-
-Offline tests exercise config rejection, prompt separation, event recovery and
-reconciliation, recording decode, and mocked lifecycle ordering/limits. No test result
-in this repository currently establishes successful SIP connection, natural pacing,
-correct voice selection, or a real conversation. Those require the first live call.
+The worker journals events as they arrive and turns committed message IDs into transcripts, keeping partial speech without duplicating turns. On session closure it preserves the SDK's stereo OGG before temporary cleanup and checks the container and complete decoding; only listening can establish a usable conversation. Provenance records code revision, scenario, prompt hash, models, and settings. Transcript claims remain separate from independently verified outcomes, and audio-derived timing stays unset until measured. The patient handles the farewell, with no second generated goodbye from the end-call tool. Ringing, duration, and turn limits bound failures, while cleanup still runs when evidence writing fails. The current local worker/dispatcher share a checkout; cloud deployment and a separate recording service are unnecessary for this assessment. Offline tests verify safeguards and failure handling, but no real SIP conversation has yet been verified. Abrupt process termination can still lose an unfinished recording, and IVR behavior remains a first-call observation.
