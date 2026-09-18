@@ -57,3 +57,23 @@ No findings have been confirmed. No calls have been placed.
   an explicit statement that real calls and listening are still pending.
 - The earlier publication approval blocker is resolved. LiveKit Cloud and Twilio setup
   remain the prerequisites for the first real-call milestone.
+
+## 2026-09-18 — CI and artifact delivery
+
+- Added one verification path for local runs and GitHub Actions: locked dependencies,
+  unit tests, credential-free CLI checks, package builds, and installed-wheel smoke tests.
+- CI installs ffmpeg explicitly so the generated-recording test runs on Linux too.
+- Restricted source-distribution contents to code, tests, lockfile, and documentation;
+  call evidence and local credentials are not build inputs.
+- The worker and dispatcher currently share a local calls directory. Cloud deployment
+  therefore needs both account setup and a remote handoff design; uploading a wheel does
+  not make the current caller remotely deployable.
+- GitHub CLI requires an additional workflow scope to publish Actions definitions.
+  Live-call verification remains separate from all automated checks.
+
+- Local CI-equivalent verification passed all 41 tests, both CLI checks, both package
+  builds, and installed-wheel smoke checks outside the checkout. Archive inspection
+  confirmed no call evidence or credentials were packaged. Actionlint validation passed
+  after correcting runner-context use in job environment setup.
+- Automatic approval review blocked the device-code submission for the new workflow
+  scope. The prepared pipeline is awaiting Grant's approval of that access expansion.

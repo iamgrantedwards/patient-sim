@@ -4,7 +4,7 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** first-call implementation under local verification. No real calls or findings
+**Status:** first-call implementation under offline verification. No real calls or findings
 yet. M1 remains open until a natural conversation ends cleanly and its recording has
 been listened to alongside its transcript. LiveKit Cloud and Twilio setup is pending.
 
@@ -37,6 +37,15 @@ The local dispatcher and worker must use this same checkout. The worker prepares
 and recording, then dials the sole allowlisted destination. The scenario asks about
 office information without changing appointments. There is no initial caller greeting
 or automatic redial. Stop the worker with Ctrl-C after the session has finalized.
+
+## Automated checks and builds
+
+GitHub Actions runs the tests, checks the CLI without placing a call, and builds and
+smoke-tests installable packages on pull requests and pushes to main. Successful runs
+provide downloadable packages with commit provenance and checksums. Run the same checks
+locally with `./scripts/verify.sh`; see [CI and artifact delivery](docs/CI.md).
+
+Cloud deployment is pending account setup and the remote-worker handoff design.
 
 ## Evidence
 

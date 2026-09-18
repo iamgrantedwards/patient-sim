@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify and package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHON_DOTENV_DISABLED: "1"
+    steps:
+      - name: Set output paths
+        run: |
+          printf 'BUILD_DIR=%s/patient-sim-build\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
+          printf 'JUNIT_XML=%s/test-results/junit.xml\n' "$RUNNER_TEMP" >> "$GITHUB_ENV"
+
+      - name: Check out the tested revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv and select Python
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          version: "0.12.17"
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install recording verification tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
+
+      - name: Test, build, and smoke-test the installed package
+        run: ./scripts/verify.sh "$BUILD_DIR"
+
+      - name: Add build provenance and checksums
+        id: package
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          SOURCE_REF: ${{ github.ref }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          uv run --locked python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import tomllib
+
+          version = tomllib.loads(Path('pyproject.toml').read_text())['project']['version']
+          directory = Path(os.environ['BUILD_DIR'])
+          files = sorted(directory.glob('*.whl')) + sorted(directory.glob('*.tar.gz'))
+          checksums = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+          manifest = {
+              'version': version, 'commit': os.environ['COMMIT_SHA'],
+              'ref': os.environ['SOURCE_REF'], 'run_url': os.environ['RUN_URL'],
+              'sha256': checksums, 'live_call_verified': False,
+          }
+          (directory / 'build.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          (directory / 'SHA256SUMS').write_text(''.join(f'{v}  {k}\n' for k, v in checksums.items()))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'version={version}\n')
+          PY
+
+      - name: Deliver verified packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: patient-sim-${{ steps.package.outputs.version }}-${{ github.sha }}
+          path: ${{ env.BUILD_DIR }}/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Preserve test results, including on failure
+        if: ${{ always() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results-${{ github.sha }}
+          path: ${{ env.JUNIT_XML }}
+          if-no-files-found: warn
+          retention-days: 14

@@ -22,3 +22,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
+
+# Explicit source contents keep credentials and collected calls out of build artifacts.
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src", "/tests", "/scripts/verify.sh", "/pyproject.toml", "/uv.lock",
+    "/README.md", "/ARCHITECTURE.md", "/AGENTS.md", "/docs", "/.env.example",
+]
