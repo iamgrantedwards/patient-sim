@@ -77,3 +77,17 @@ No findings have been confirmed. No calls have been placed.
   after correcting runner-context use in job environment setup.
 - Automatic approval review blocked the device-code submission for the new workflow
   scope. The prepared pipeline is awaiting Grant's approval of that access expansion.
+
+## 2026-09-18 — hosted CI verified
+
+- Grant completed workflow authorization; the earlier access blocker is resolved.
+- Pushed CI commit 23007c7 to PR #20. GitHub Actions run 35395971856 passed on Linux:
+  all 41 tests, zero skipped, source/installed-wheel CLI checks, builds, and artifact upload.
+- Downloaded both artifacts and checked their package hashes against build.json. The
+  packages contain no local credentials or collected call evidence. The manifest names
+  the tested PR merge commit ef6ced7ad62880f1c787a1f0d4ffd60a04af3b2c, not the branch head.
+- Protected main: pull requests and an up-to-date GitHub Actions Verify and package check
+  are required, including for administrators. Force-pushes/deletion are blocked. There is
+  no reviewer-count requirement because this is a personal repository.
+- PR #20 remains a draft for the live-call milestone. Main/manual workflow triggers will
+  become available after merge; PR verification and artifact delivery are active now.

@@ -45,5 +45,7 @@ is pending personal LiveKit/Twilio setup and a change to the current local-files
 handoff between dispatcher and worker. There is no deployment job or automatic dial.
 No release tag or successful CI run is evidence that a real call has been verified.
 
-Keep the **Verify and package** check required on `main`. The first-call PR remains a
-draft until its separate live-call milestone is met.
+`main` requires a pull request and the **Verify and package** check from GitHub Actions,
+with the branch up to date. These protections include administrators; force-pushes and
+branch deletion are blocked. No additional reviewer is required for this personal repo.
+The first-call PR remains a draft until its separate live-call milestone is met.
