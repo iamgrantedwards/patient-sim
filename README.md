@@ -4,10 +4,11 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** offline verification passes; LiveKit and Twilio configuration is in place.
-The local worker registers with LiveKit, but no real call has verified the SIP credentials,
-voice quality, or recording yet. M1 remains open until a natural conversation ends cleanly
-and its recording has been listened to alongside its transcript.
+**Status:** the first live assessment call connected and saved a 70-second stereo OGG
+recording with a transcript. Audio decoding passes; listening review is still pending.
+The run exposed a non-dialogue event-handler error, and the remote agent hung up while
+the patient began another question. M1 remains open until the caller ends naturally and
+its recording has been listened to alongside its transcript.
 
 ## Run locally
 

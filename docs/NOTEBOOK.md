@@ -147,3 +147,29 @@ No findings have been confirmed. No calls have been placed.
 - No phone call, provider inference request, or evidence recording has been verified yet.
   The next step is one read-only office-information call during a genuine recorded
   debugging session, followed by end-to-end listening and transcript comparison.
+
+
+## 2026-09-18 — first real assessment call
+
+- Call `call-20260918-231955-765427d8` ran from clean revision `b1a6cda` using
+  the read-only smoke scenario and the configured single caller number. The sole
+  permitted assessment destination answered, establishing that outbound SIP works.
+- Preserved the original 70.289583-second stereo Opus/OGG recording and seven
+  committed transcript items (four remote, three patient). The last patient item is
+  partial. Full audio decoding passed; human listening review is still pending.
+  An MP3 playback copy was created without replacing the original OGG evidence.
+- The event handler raised `AttributeError: 'AgentHandoff' object has no attribute
+  'role'` during session startup. The raw handoff event was captured before the
+  exception; subsequent dialogue capture and the call continued. This is our code
+  defect, not a finding against the assessment agent. It remains unfixed at this
+  checkpoint so it can be investigated in the requested debugging recording.
+- The transcript shows the remote agent offering a demo patient profile, declining
+  to give office hours/address, and saying goodbye. Our caller began asking about
+  an insurance card before the remote hung up. This does not establish a defect in
+  their agent; we need to assess our caller's handling of a goodbye and listen for
+  timing/overlap before attributing the cutoff.
+- The call ended as `remote_hangup`, not our `EndCallTool`; the clean-ending M1 gate
+  remains open. The room was deleted, verified through the room API, and the local
+  worker was stopped. No second call was dispatched.
+- Original call artifacts remain ignored and local pending review. No recordings
+  or transcripts were added to the public repository.
