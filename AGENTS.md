@@ -19,3 +19,8 @@ Link the issue in the PR and the PR in an issue comment. Post actual discoveries
 verification results as work happens, with remaining acceptance and the next action.
 Close an issue only when all its acceptance is met; code landing does not close pending
 live-call or human-review checks. Label later reconciliations with their actual date.
+
+Every PR needs exactly one delivery type (type:task or type:docs) and at least one
+recognized area label. Set them when opening the draft, using --label with gh-personal.
+The separate required PR labels check reads current labels on PR and label changes.
+Use PR draft/open/merged state for delivery status; status: labels track issue acceptance.

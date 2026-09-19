@@ -102,3 +102,24 @@ or that missing progress updates happened at the time.
 - **Evaluation:** collect the complete reviewed pairs #18 and write findings #19 from
   the first useful calls; verify the claims distinction #17 while writing. Final video,
   logged-out access checks and submission remain #26.
+
+
+## Required PR labels
+
+Every PR, including drafts and Dependabot updates, needs exactly one delivery type:
+`type:task` for implementation/fixes or `type:docs` for documentation-only work. Add
+at least one of `area:analysis`, `area:ci`, `area:evidence`, `area:process`,
+`area:simulator`, `area:telephony`, or `area:ui`. Multiple areas are allowed. `bug` and
+`accessibility` provide additional context; `type:finding` is reserved for evaluation
+issues. Set labels with `gh-personal pr create --label ...` when opening the draft.
+
+The required **PR labels** check reads current GitHub metadata on opening, commits,
+reopening, readiness, edits (including base changes), and label addition/removal.
+API errors and missing/ambiguous labels fail the check. Metadata events do not restart
+the separate application CI suite. A stale event rerun still reads current labels.
+The workflow has read-only permissions and receives no provider credentials.
+
+PR draft/open/merged state records delivery status. Keep `status:` labels on task
+issues, where acceptance can remain open after a code merge. On 2026-09-19, #42 applied
+scope labels retrospectively to existing PRs and removed stale PR status labels;
+that reconciliation does not claim those labels were present earlier.

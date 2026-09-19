@@ -382,3 +382,20 @@ No findings have been confirmed. No calls have been placed.
   combined coverage, 39 browser tests, all audits/lints/types and installed-package
   smoke checks. The issue audit confirmed every one of the 31 task/epic issues had an
   owner and a dated progress comment, with no duplicate status labels.
+
+
+## 2026-09-19 — required PR labels (#42)
+
+- Grant identified unlabeled recent PRs. Opened #42 before implementation, classified
+  all nine existing PRs by actual scope, and removed obsolete PR status labels.
+  Native PR states now carry draft/open/merged status; issue labels retain acceptance.
+- Added a separate read-only metadata workflow requiring one task/docs type and a
+  recognized area. It reads current GitHub labels, including on label removal or an
+  old run's retry, and fails closed on API/data errors. Label-only changes do not rerun
+  application/browser CI. Dependabot configuration supplies the same required labels.
+- Local tests exercise accepted scopes, missing/removal/ambiguous labels, invalid data,
+  and CLI failure status. Hosted missing-label and recovery checks plus branch-protection
+  enforcement are still pending; code alone is not proof of the required merge gate.
+- Full local verification passed: 182 Python tests, 95.5% combined coverage, 42 browser
+  tests, quality/workflow checks, secret/dependency scans and installed-package smoke.
+  The merged workflow base has identical file contents to the verified base.

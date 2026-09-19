@@ -2,6 +2,10 @@
 
 <!-- One or two sentences. What a reviewer would say this PR does. -->
 
+<!-- Required PR labels: exactly one type:task / type:docs, plus at least one area:
+analysis, ci, evidence, process, simulator, telephony, or ui. Add these when opening
+this PR; bug/accessibility are supplementary. PR labels is a required CI check. -->
+
 ## Why
 
 <!-- Link the task issue and explain the problem. If it came out of a call, link its ID.
