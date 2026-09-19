@@ -27,7 +27,7 @@ test("original evidence, partial speech, literal unsafe content, and downloadabl
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await loaded(page);
-  await expect(page.locator("#metric-calls")).toHaveText("4");
+  await expect(page.locator("#library-count")).toHaveText("4 calls");
   await expect(page.locator("#metric-pairs")).toHaveText("2");
   await expect(page.locator("#metric-reviewed")).toHaveText("1/4");
   await expect(page.getByText("Listening review pending.", { exact: true })).toBeVisible();
@@ -47,7 +47,7 @@ test("original evidence, partial speech, literal unsafe content, and downloadabl
   await accessible(page);
 });
 
-test("keyboard tabs expose provenance and honest governance", async ({ page }) => {
+test("keyboard tabs expose provenance and concrete controls", async ({ page }) => {
   await loaded(page);
   const conversation = page.getByRole("tab", { name: "Conversation", exact: true });
   await conversation.focus();
@@ -56,21 +56,19 @@ test("keyboard tabs expose provenance and honest governance", async ({ page }) =
   await expect(page.getByText("fixture-revision-only")).toBeVisible();
   await accessible(page);
   await page.getByRole("tab", { name: "Provenance" }).press("End");
-  await expect(page.getByRole("tab", { name: "AI governance" })).toBeFocused();
-  await expect(page.getByText("Not established", { exact: true })).toHaveCount(3);
-  await expect(page.getByText(/not a certification or a claim of HIPAA compliance/)).toBeVisible();
-  await expect(page.getByText(/Review recordings before publication/)).toBeVisible();
-  const privacy = page.getByLabel("Details: Privacy & publication", { exact: true });
-  const detail = page.getByText(/Redaction was disabled for evidence capture/);
-  await expect(detail).toBeHidden();
-  await privacy.focus();
-  await privacy.press("Enter");
-  await expect(detail).toBeVisible();
+  await expect(page.getByRole("tab", { name: "Controls & data" })).toBeFocused();
+  await expect(page.getByText("Read-only · calling disabled", { exact: true })).toBeVisible();
+  await expect(page.getByText(/One at a time · fixed test destination/)).toBeVisible();
+  await expect(
+    page.getByText(/LiveKit, Twilio and inference providers handle live calls/),
+  ).toBeVisible();
+  await expect(page.getByText("Human oversight", { exact: true })).toHaveCount(0);
+  await expect(page.getByText("Not established", { exact: true })).toHaveCount(0);
   await accessible(page);
-  await page.getByRole("tab", { name: "AI governance" }).press("Home");
+  await page.getByRole("tab", { name: "Controls & data" }).press("Home");
   await expect(conversation).toBeFocused();
   if (await page.locator("#review-nav").isVisible()) {
-    await page.getByRole("button", { name: "AI governance", exact: true }).click();
+    await page.getByRole("button", { name: "Controls & data", exact: true }).click();
     await page.locator("#review-nav").click();
     await expect(conversation).toHaveAttribute("aria-selected", "true");
   }
@@ -79,6 +77,7 @@ test("keyboard tabs expose provenance and honest governance", async ({ page }) =
 
 test("search, filters, audio loading and genuine offset seeking", async ({ page }) => {
   await loaded(page);
+  await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Search calls").fill("reschedule");
   await expect(page.locator(".call-card")).toHaveCount(1);
   await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).click();
@@ -91,8 +90,9 @@ test("search, filters, audio loading and genuine offset seeking", async ({ page 
   await expect
     .poll(() => page.locator("audio").evaluate((audio) => audio.currentTime))
     .toBeCloseTo(0.5, 1);
+  await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Search calls").fill("");
-  await page.getByLabel("Filter calls").selectOption("partial");
+  await page.getByLabel("Filter calls", { exact: true }).selectOption("partial");
   await expect(page.locator(".call-card")).toHaveCount(1);
   await page.getByLabel("Search calls").fill("no-matching-scenario");
   await expect(page.getByText(/No matching calls/)).toBeVisible();
@@ -102,7 +102,8 @@ test("missing and malformed evidence remains reviewable without fabricated succe
   page,
 }) => {
   await loaded(page);
-  await page.getByLabel("Filter calls").selectOption("missing");
+  await page.getByRole("button", { name: /Search and filter calls/ }).click();
+  await page.getByLabel("Filter calls", { exact: true }).selectOption("missing");
   await expect(page.locator(".call-card")).toHaveCount(2);
   await page.getByRole("button", { name: /missing recording · call-fixture-01/ }).click();
   await expect(page.locator("audio")).toBeHidden();
@@ -121,10 +122,8 @@ test("empty state has project governance without stale call tabs", async ({ page
   await expect(page.getByText("No call artifacts yet.", { exact: false })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your evidence starts here" })).toBeVisible();
   await accessible(page);
-  await page.getByRole("button", { name: "AI governance", exact: true }).click();
-  await expect(
-    page.getByRole("heading", { name: "Evidence, oversight, and limits" }),
-  ).toBeVisible();
+  await page.getByRole("button", { name: "Controls & data", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Controls & data" })).toBeVisible();
   await expect(page.getByRole("tab", { name: "Conversation" })).toBeDisabled();
   await expect(page.getByRole("tab", { name: "Provenance" })).toBeDisabled();
   if (await page.locator("#review-nav").isVisible()) {
@@ -186,4 +185,82 @@ test("Cloud evidence is dated, accessible and never accepts a call", async ({ pa
   await expect(panel.getByText("No Cloud confirmation recorded for this call.")).toBeVisible();
   await expect(panel.getByRole("link")).toHaveCount(0);
   await accessible(page);
+});
+
+test("card rail and list preserve selection, URL and stored preference without calls", async ({
+  page,
+}) => {
+  const mutations = [];
+  page.on("request", (request) => {
+    if (!["GET", "HEAD"].includes(request.method())) mutations.push(request.url());
+  });
+  await page.route("**/api/calls", async (route) => {
+    const response = await route.fetch();
+    const data = await response.json();
+    data.calls.push(
+      ...Array.from({ length: 8 }, (_, i) => ({ ...data.calls[0], call_id: `call-extra-${i}` })),
+    );
+    await route.fulfill({ json: data });
+  });
+  await loaded(page);
+  await expect(page.getByRole("button", { name: "Card view", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.locator("#search-panel")).toBeHidden();
+  const rail = page.locator("#call-list");
+  expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+  await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/call=call-fixture-02/);
+  await expect(page.getByRole("button", { name: /reschedule · call-fixture-02/ })).toBeFocused();
+  const list = page.getByRole("button", { name: "List view", exact: true });
+  await list.click();
+  await expect(list).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-02");
+  await accessible(page);
+  await page.reload();
+  await expect(list).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-02");
+  await page.getByRole("button", { name: "Card view", exact: true }).click();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const selected = page.locator('.call-card[aria-current="true"]');
+  await selected.hover();
+  expect(await selected.evaluate((el) => getComputedStyle(el).transform)).toBe("none");
+  expect(await selected.evaluate((el) => getComputedStyle(el).transitionDuration)).toBe("0s");
+  await accessible(page);
+  expect(mutations).toEqual([]);
+});
+
+test("search menu dismisses, shows active filters and clears without losing selection", async ({
+  page,
+}) => {
+  await loaded(page);
+  const opener = page.getByRole("button", { name: /Search and filter calls/ });
+  await opener.focus();
+  await opener.press("Enter");
+  const search = page.getByLabel("Search calls", { exact: true });
+  await expect(search).toBeFocused();
+  await search.fill("reschedule");
+  await expect(page.locator("#library-count")).toHaveText("1 of 4");
+  await expect(opener).toHaveAccessibleName("Search and filter calls, filters active");
+  await accessible(page);
+  const box = await page.locator("#search-panel").boundingBox();
+  expect(box.x).toBeGreaterThanOrEqual(0);
+  expect(box.x + box.width).toBeLessThanOrEqual(page.viewportSize().width);
+  await search.press("Escape");
+  await expect(opener).toBeFocused();
+  await expect(page.locator("#search-panel")).toBeHidden();
+  await opener.click();
+  await expect(search).toHaveValue("reschedule");
+  await page.getByRole("button", { name: "Clear filters", exact: true }).click();
+  await expect(page.locator("#library-count")).toHaveText("4 calls");
+  await expect(search).toBeFocused();
+  await expect(opener).toHaveAccessibleName("Search and filter calls");
+  await page.getByRole("button", { name: "Done", exact: true }).click();
+  await expect(opener).toBeFocused();
+  await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-03");
+  await opener.click();
+  await page.getByRole("heading", { name: "Call review.", exact: true }).click();
+  await expect(page.locator("#search-panel")).toBeHidden();
 });

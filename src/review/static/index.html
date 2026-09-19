@@ -181,12 +181,6 @@
           <p id="console-message" class="notice" role="status" hidden></p>
           <p id="console-error" class="notice error" role="alert" hidden></p>
           <div id="active-operation" hidden>
-            <div class="operation-meta">
-              <span id="operation-id" class="mono"></span
-              ><a id="open-evidence" class="text-link" href="#calls" hidden
-                >Open saved evidence ↗</a
-              >
-            </div>
             <p id="operation-summary" class="context-note"></p>
             <details id="live-dialogue">
               <summary>Live transcript · committed turns</summary>
@@ -214,48 +208,168 @@
             </button>
           </div>
         </dialog>
-        <section class="metrics" aria-label="Evidence overview">
-          <div class="metric">
-            <span data-learn="attempts">Call attempts</span><strong id="metric-calls">—</strong
-            ><small>Saved attempts</small>
-          </div>
-          <div class="metric">
-            <span data-learn="pairs">Audio + transcript</span><strong id="metric-pairs">—</strong
-            ><small>Available files · quality unchecked</small>
-          </div>
-          <div class="metric">
-            <span data-learn="review">Listening review</span><strong id="metric-reviewed">—</strong
-            ><small>Human reviews recorded</small>
-          </div>
-        </section>
         <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
         <div id="global-error" class="notice error" role="alert" hidden></div>
-        <section class="review-grid" id="calls" aria-label="Call evidence">
+        <section class="review-grid" id="calls" data-view="cards" aria-label="Call evidence">
           <div class="call-library">
             <div class="library-heading">
-              <h2 data-learn="library">Calls</h2>
-              <span id="library-count" class="subtle">Loading</span>
+              <div class="library-title">
+                <h2 data-learn="library">Calls</h2>
+                <span id="library-count" class="subtle">Loading</span>
+                <div class="library-search">
+                  <button
+                    type="button"
+                    id="search-toggle"
+                    class="icon-button"
+                    aria-label="Search and filter calls"
+                    data-tooltip="Search & filter"
+                    aria-expanded="false"
+                    aria-controls="search-panel"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="10.5" cy="10.5" r="6.5" />
+                      <path d="m16 16 5 5" />
+                    </svg>
+                  </button>
+                  <section
+                    id="search-panel"
+                    class="search-panel"
+                    aria-label="Search and filter calls"
+                    hidden
+                  >
+                    <label class="search-label" for="search">Search calls</label>
+                    <input
+                      type="search"
+                      id="search"
+                      placeholder="Scenario or call ID…"
+                      autocomplete="off"
+                    >
+                    <label class="search-label" for="filter">Filter calls</label>
+                    <select id="filter">
+                      <option value="all">All calls</option>
+                      <option value="pending">Needs listening review</option>
+                      <option value="partial">Incomplete speech</option>
+                      <option value="missing">Missing evidence</option>
+                    </select>
+                    <div class="search-actions">
+                      <button type="button" id="search-clear" class="footer-link">
+                        Clear filters
+                      </button><button type="button" id="search-close" class="button">Done</button>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="library-tools">
+                <fieldset class="view-switch" aria-label="Call view">
+                  <button
+                    type="button"
+                    id="view-cards"
+                    class="icon-button"
+                    aria-label="Card view"
+                    data-tooltip="Card view"
+                    aria-pressed="true"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect x="3" y="5" width="12" height="14" rx="2" />
+                      <path d="M19 5h2v14h-2M7 10h4M7 14h2" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    id="view-list"
+                    class="icon-button"
+                    aria-label="List view"
+                    data-tooltip="List view"
+                    aria-pressed="false"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+                    </svg>
+                  </button>
+                </fieldset>
+                <fieldset class="rail-controls" id="rail-controls" aria-label="Scroll calls" hidden>
+                  <button
+                    type="button"
+                    id="rail-prev"
+                    class="icon-button"
+                    aria-label="Previous calls"
+                    data-tooltip="Previous calls"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m14 6-6 6 6 6" />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    id="rail-next"
+                    class="icon-button"
+                    aria-label="Next calls"
+                    data-tooltip="Next calls"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m10 6 6 6-6 6" />
+                    </svg>
+                  </button>
+                </fieldset>
+              </div>
             </div>
-            <label class="search-label" for="search">Search calls</label>
-            <input
-              type="search"
-              id="search"
-              placeholder="Search scenario or call ID…"
-              autocomplete="off"
-            >
-            <label class="sr-only" for="filter">Filter calls</label
-            ><select id="filter">
-              <option value="all">All calls</option>
-              <option value="pending">Needs listening review</option>
-              <option value="partial">Incomplete speech</option>
-              <option value="missing">Missing evidence</option>
-            </select>
+            <section class="library-summary" aria-label="Evidence overview">
+              <span data-learn="pairs"><strong id="metric-pairs">—</strong> audio + text</span>
+              <span data-learn="review"><strong id="metric-reviewed">—</strong> reviewed</span>
+            </section>
+            <div id="latest-operation" class="latest-operation" hidden></div>
             <div id="call-list" class="call-list" aria-busy="true">
               <p class="empty-small">Loading call records…</p>
-            </div>
-            <div class="library-note">
-              <span aria-hidden="true">↳</span>
-              Original artifacts stay unchanged.
             </div>
           </div>
           <article
@@ -302,7 +416,7 @@
                   aria-controls="governance"
                   tabindex="-1"
                 >
-                  AI governance
+                  Controls &amp; data
                 </button>
               </div>
               <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: WAI-ARIA tab panels are keyboard-focusable. -->
@@ -366,7 +480,7 @@
             ><span class="footer-separator" aria-hidden="true">·</span
             ><span id="scope-details">Original files preserved.</span>
           </div>
-          <button type="button" class="footer-link" id="governance-nav">AI governance</button>
+          <button type="button" class="footer-link" id="governance-nav">Controls &amp; data</button>
         </footer>
         <noscript
           ><p class="notice">
@@ -431,11 +545,8 @@
             The models, settings, code revision and prompt fingerprint recorded for that call. Later
             changes do not rewrite them.
           </dd>
-          <dt>AI governance</dt>
-          <dd>
-            Safeguards, human-review requirements and limits. Spoken claims, cross-call consistency
-            and independently verified outcomes are separate.
-          </dd>
+          <dt>Controls &amp; data</dt>
+          <dd>The current console mode, call limits and where files are stored.</dd>
         </dl>
       </details>
       <details class="guide-section">

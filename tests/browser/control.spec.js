@@ -118,12 +118,13 @@ test("confirmed single call, committed dialogue, refresh, stop and saved evidenc
   await expect(page.locator("#call-start")).toBeDisabled();
   await page.getByRole("button", { name: "Stop call", exact: true }).click();
   await expect(page.locator("#console-phase")).toHaveText("Ended");
-  await expect(page.locator("#operation-summary")).toContainText("operator stop");
-  await expect(page.locator("#operation-summary")).toContainText("may be incomplete");
-  await expect(page.getByRole("link", { name: "Open saved evidence" })).toHaveAttribute(
-    "href",
-    "?call=call-browser-fixture",
-  );
+  await expect(page.locator("#active-operation")).toBeHidden();
+  await expect(page.locator("#latest-operation")).toContainText("Stopped by operator");
+  await expect(page.locator("#latest-operation")).toContainText("Evidence incomplete");
+  await expect(page.locator("#latest-operation")).toContainText("Room closed");
+  await expect(
+    page.locator("#calls").getByRole("button", { name: "Latest attempt" }),
+  ).toBeVisible();
   expect(requests.map((r) => r.route)).toEqual(["start", "stop"]);
   expect(errors).toEqual([]);
 });

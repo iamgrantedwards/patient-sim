@@ -92,6 +92,11 @@ test("blocked browser storage does not prevent learning or review", async ({ pag
   await page.getByRole("button", { name: "Learning mode", exact: true }).click();
   await page.getByRole("button", { name: "Help: Audio + transcript", exact: true }).click();
   await expect(page.getByRole("tooltip")).toContainText("complete, usable conversation");
+  await page.getByRole("button", { name: "List view", exact: true }).click();
+  await expect(page.getByRole("button", { name: "List view", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   expect(mutations).toEqual([]);
 });
 

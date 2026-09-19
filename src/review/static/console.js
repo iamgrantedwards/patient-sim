@@ -156,13 +156,12 @@ function render(data) {
   byId("call-stop").hidden = !active || !op.call_id;
   byId("call-stop").disabled = busy || (op.stop_requested && op.phase !== "recovery_required");
   byId("call-stop").textContent = op.phase === "recovery_required" ? "Stop / recover" : "Stop call";
-  const message = op.message || data.configuration.message || "";
+  const message =
+    (active || op.phase === "failed" ? op.message : "") || data.configuration.message || "";
   byId("console-message").textContent = message;
   byId("console-message").hidden = !message;
-  byId("active-operation").hidden = !op.call_id;
-  byId("operation-id").textContent = op.call_id || "";
-  byId("open-evidence").hidden = !terminal.has(op.phase) || !op.call_id;
-  if (op.call_id) byId("open-evidence").href = `?call=${encodeURIComponent(op.call_id)}`;
+  byId("active-operation").hidden = !active || !op.call_id;
+  document.dispatchEvent(new CustomEvent("operation-updated", { detail: op }));
   const summary = [];
   if (op.stop_requested) summary.push("Operator stop requested.");
   if (op.ended_by) summary.push(`Recorded ending: ${op.ended_by.replaceAll("_", " ")}.`);
