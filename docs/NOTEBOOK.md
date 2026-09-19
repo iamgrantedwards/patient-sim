@@ -271,6 +271,23 @@ No findings have been confirmed. No calls have been placed.
   #24 needs a real UI call and listening. No new call, patient-state mutation, or public
   release of original recordings occurred in this implementation session.
 
+## 2026-09-19 — dependency-update compatibility (#36)
+
+- After the green foundation/review/controls PRs were merged at Grant's request, the
+  first uv Dependabot run proposed OpenAI 3.14.1. Resolution failed because our pinned
+  LiveKit Agents 1.8.2 requires OpenAI >=2,<3. The application's existing lock resolves;
+  this failed update proposal is separate from the npm audit maintenance outage #34.
+- Added a scoped Dependabot ignore for OpenAI >=3 while this SDK is pinned. Compatible
+  2.x proposals remain eligible, and vulnerability audits still inspect the actual
+  locked dependencies. Revisit this rule when upgrading LiveKit. No dependency version,
+  prompt, runtime behavior, call artifact or assessment claim changed.
+- Parsed the YAML and checked its ignored range against the installed SDK metadata:
+  OpenAI 3.14.1 is excluded; 2.x remains eligible; installed OpenAI 2.54.0 satisfies
+  the SDK requirement. Local quality, 168 Python tests, 95.5% combined coverage,
+  secret/Python audits and Biome passed. Full verification remains blocked at the npm
+  audit maintenance response. Hosted Dependabot execution requires landing this config
+  and a new update run; static validation is not claimed as that end-to-end result.
+
 ## 2026-09-19 — contextual learning mode (#29)
 
 - Grant requested a top-of-screen light bulb, contextual explanations, a manual, less
