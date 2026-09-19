@@ -226,3 +226,7 @@ No findings have been confirmed. No calls have been placed.
   focused diff; main retargeting follows foundation acceptance.
 - No caller/provider settings changed, patient state mutated, or new call placed.
   #21/#12 and M1 are still open. Live calling controls remain the separate #24 task.
+
+- Final navigation review caught that the sidebar's Call review link only scrolled
+  while leaving AI governance selected. It now restores Conversation, or the empty
+  review state when no call is selected; browser regression checks cover both paths.

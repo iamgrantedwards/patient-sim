@@ -61,6 +61,11 @@ test("keyboard tabs expose provenance and honest governance", async ({ page }) =
   await accessible(page);
   await page.getByRole("tab", { name: "AI governance" }).press("Home");
   await expect(conversation).toBeFocused();
+  if (await page.locator("#review-nav").isVisible()) {
+    await page.getByRole("button", { name: "AI governance", exact: true }).click();
+    await page.locator("#review-nav").click();
+    await expect(conversation).toHaveAttribute("aria-selected", "true");
+  }
   await expect(page.getByRole("heading", { name: "Call recording", exact: true })).toBeVisible();
 });
 
@@ -114,6 +119,10 @@ test("empty state has project governance without stale call tabs", async ({ page
   ).toBeVisible();
   await expect(page.getByRole("tab", { name: "Conversation" })).toBeDisabled();
   await expect(page.getByRole("tab", { name: "Provenance" })).toBeDisabled();
+  if (await page.locator("#review-nav").isVisible()) {
+    await page.locator("#review-nav").click();
+    await expect(page.getByRole("heading", { name: "Your evidence starts here" })).toBeVisible();
+  }
   await accessible(page);
 });
 

@@ -461,6 +461,17 @@ async function refresh() {
     $("call-list").setAttribute("aria-busy", "false");
   }
 }
+$("review-nav").addEventListener("click", () => {
+  if (state.detail) {
+    selectTab("conversation", true);
+  } else {
+    $("call-content").hidden = true;
+    emptyHeader(
+      "Your evidence starts here",
+      "Select a call to review its recording, transcript, and provenance.",
+    );
+  }
+});
 $("search").addEventListener("input", renderList);
 $("filter").addEventListener("change", renderList);
 $("refresh").addEventListener("click", refresh);
