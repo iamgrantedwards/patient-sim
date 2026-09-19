@@ -11,6 +11,10 @@ updates:
     # The experiment contract pins this SDK. Updates require an explicit design decision.
     ignore:
       - dependency-name: livekit-agents
+      # LiveKit Agents 1.8.2 requires OpenAI >=2,<3. Review these together on SDK upgrade.
+      # Compatible 2.x updates remain eligible; dependency audits still cover the lockfile.
+      - dependency-name: openai
+        versions: [">=3"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
