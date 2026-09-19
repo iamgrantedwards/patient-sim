@@ -25,8 +25,8 @@ free local port. Node.js is only required for UI development checks, not to run 
 Missing recordings and unknown review/timing/state remain explicit. Opening or playing
 an artifact never marks it human-reviewed. Original call evidence stays unchanged.
 
-Calls open in a horizontal card rail. Use the Cards/List icons to change views; your
-choice stays in this browser. The magnifying glass beside the call count opens search
+Calls open in a horizontal card rail. Use the Cards/List icons to switch to full-width rows in
+the same area; your choice stays in this browser. The magnifying glass beside the call count opens search
 and filters. Select a card or list entry to open its evidence.
 
 Use the light bulb for optional hover, focus or tap explanations. The book icon beside

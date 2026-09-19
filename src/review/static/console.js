@@ -146,9 +146,7 @@ function render(data) {
   byId("console-phase").className =
     `badge ${["failed", "recovery_required"].includes(op.phase) ? "error" : active ? "warning" : "neutral"}`;
   byId("call-destination").textContent = data.configuration.destination;
-  byId("call-caller").textContent = data.configuration.caller_id
-    ? `From ${data.configuration.caller_id}`
-    : "Caller not configured";
+  byId("call-caller").textContent = data.configuration.caller_id || "Not configured";
   byId("call-start").disabled = busy || active || !data.configuration.ready;
   byId("scenario").disabled = busy || active;
   picker.disabled = busy || active;

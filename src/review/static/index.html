@@ -111,6 +111,12 @@
             <div>
               <h2 id="console-title" data-learn="calling">Run a test call</h2>
             </div>
+            <div class="call-route">
+              <span class="route-chip"
+                ><span>To · fixed</span><strong id="call-destination"></strong></span
+              >
+              <span class="route-chip"><span>From</span><strong id="call-caller"></strong></span>
+            </div>
             <span class="badge neutral" id="console-phase">Loading status</span>
           </div>
           <div class="console-controls">
@@ -149,10 +155,6 @@
                   hidden
                 ></div>
               </div>
-            </div>
-            <div class="call-destination">
-              <span>Fixed destination</span><strong id="call-destination"></strong
-              ><small id="call-caller"></small>
             </div>
             <button type="button" class="button primary" id="call-start" disabled>
               <svg
@@ -290,8 +292,8 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     >
-                      <rect x="3" y="5" width="12" height="14" rx="2" />
-                      <path d="M19 5h2v14h-2M7 10h4M7 14h2" />
+                      <rect x="3" y="5" width="7" height="14" rx="1.5" />
+                      <rect x="14" y="5" width="7" height="14" rx="1.5" />
                     </svg>
                   </button>
                   <button

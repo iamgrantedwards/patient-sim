@@ -210,6 +210,17 @@ test("card rail and list preserve selection, URL and stored preference without c
   await expect(page.locator("#search-panel")).toBeHidden();
   const rail = page.locator("#call-list");
   expect(await rail.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true);
+  const geometry = () =>
+    page.locator(".call-card").evaluateAll((cards) =>
+      cards.slice(0, 2).map((card) => {
+        const { x, y, width, height } = card.getBoundingClientRect();
+        return { x, y, width, height };
+      }),
+    );
+  const cardRects = await geometry();
+  expect(cardRects[1].x).toBeGreaterThan(cardRects[0].x + cardRects[0].width);
+  expect(cardRects[1].y).toBeCloseTo(cardRects[0].y, 0);
+  await expect(page.locator("#call-list")).toHaveCSS("display", "flex");
   await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/call=call-fixture-02/);
@@ -217,12 +228,25 @@ test("card rail and list preserve selection, URL and stored preference without c
   const list = page.getByRole("button", { name: "List view", exact: true });
   await list.click();
   await expect(list).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("#call-list")).toHaveCSS("display", "block");
+  const listRects = await geometry();
+  expect(listRects[1].y).toBeGreaterThanOrEqual(listRects[0].y + listRects[0].height - 1);
+  const libraryBox = await page.locator(".call-library").boundingBox();
+  const detailBox = await page.locator("#review-panel").boundingBox();
+  expect(detailBox.y).toBeGreaterThanOrEqual(libraryBox.y + libraryBox.height - 1);
+  expect(listRects[0].width).toBeGreaterThan(libraryBox.width - 60);
+  expect(listRects[1].x).toBeCloseTo(listRects[0].x, 0);
+  const toolbar = await page
+    .locator("#search-toggle, #view-list")
+    .evaluateAll((items) => items.map((item) => item.getBoundingClientRect().y));
+  expect(Math.abs(toolbar[0] - toolbar[1])).toBeLessThan(8);
   await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-02");
   await accessible(page);
   await page.reload();
   await expect(list).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-02");
   await page.getByRole("button", { name: "Card view", exact: true }).click();
+  await expect(page.locator("#call-list")).toHaveCSS("display", "flex");
   await page.emulateMedia({ reducedMotion: "reduce" });
   const selected = page.locator('.call-card[aria-current="true"]');
   await selected.hover();

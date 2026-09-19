@@ -1432,7 +1432,7 @@ summary:focus-visible {
 .console-controls > div:first-child {
   flex: 1;
   min-width: 180px;
-  max-width: 520px;
+  max-width: none;
 }
 .call-destination {
   margin-right: auto;
@@ -1632,7 +1632,7 @@ summary:focus-visible {
   }
 }
 
-/* Calls: a horizontal evidence rail by default, with the original split list view. */
+/* Calls: horizontal cards or full-width rows, with selected evidence below. */
 .review-grid {
   overflow: visible;
 }
@@ -1643,9 +1643,9 @@ summary:focus-visible {
   border-radius: 14px 0 0 14px;
 }
 .library-heading {
-  gap: 10px;
-  flex-wrap: wrap;
-  padding: 12px 16px 4px;
+  gap: 8px;
+  flex-wrap: nowrap;
+  padding: 12px 14px 4px;
 }
 .library-title,
 .library-tools,
@@ -1656,7 +1656,14 @@ summary:focus-visible {
   gap: 6px;
 }
 .library-title {
-  gap: 10px;
+  gap: 7px;
+  min-width: 0;
+}
+.library-title .subtle {
+  white-space: nowrap;
+}
+.library-tools {
+  flex-shrink: 0;
 }
 .library-title h2 {
   font-size: 15px;
@@ -1679,10 +1686,10 @@ summary:focus-visible {
   background: #eef1eb;
 }
 .view-switch .icon-button[aria-pressed="true"] {
-  color: #174d3d;
-  background: #fff;
-  border-color: #d4dfd1;
-  box-shadow: 0 1px 3px #24372a13;
+  color: #fff;
+  background: #215548;
+  border-color: #215548;
+  box-shadow: 0 2px 4px #24372a20;
 }
 .library-summary {
   display: flex;
@@ -1761,18 +1768,36 @@ summary:focus-visible {
   font-size: 11px;
   padding: 0;
 }
-.card-emblem,
 .card-files {
   display: none;
 }
-.review-grid[data-view="cards"] {
+.card-emblem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+.card-date {
+  font-size: 12px;
+  font-weight: 450;
+  color: #626f67;
+}
+.selected-mark {
+  margin-left: auto;
+  color: #215548;
+  font-size: 15px;
+}
+.call-card[aria-current="false"] .selected-mark {
+  visibility: hidden;
+}
+.review-grid[data-view] {
   display: block;
 }
-[data-view="cards"] .call-library {
+.review-grid[data-view] .call-library {
   border-right: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 14px 14px 0 0;
-  background: linear-gradient(120deg, #f5f8f2, #fcfdfb 55%, #f3f6f0);
+  background: #f6f8f4;
 }
 [data-view="cards"] .call-list {
   display: flex;
@@ -1787,7 +1812,7 @@ summary:focus-visible {
   scrollbar-color: #afbeaa transparent;
 }
 [data-view="cards"] .call-card {
-  flex: 0 0 300px;
+  flex: 0 0 292px;
   min-width: 0;
   padding: 16px;
   border: 1px solid #dfe6da;
@@ -1809,50 +1834,50 @@ summary:focus-visible {
 }
 [data-view="cards"] .card-emblem {
   display: flex;
-  gap: 8px;
+  gap: 9px;
   align-items: center;
-  margin-bottom: 13px;
+  margin-bottom: 12px;
 }
 .card-symbol {
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid #dce5d7;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #e1e7dd;
   border-radius: 8px;
   color: #416647;
-  background: linear-gradient(#f7faf3, #e9f0e2);
+  background: #f3f6f0;
   box-shadow:
     inset 0 1px #fff,
     0 2px 2px #24372a06;
   font-size: 18px;
 }
-.card-eyebrow {
-  font-size: 9px;
-  letter-spacing: 1.2px;
-  color: #697b61;
-}
-.card-open {
-  margin-left: auto;
-  font-size: 10px;
-  color: #466548;
-}
 [data-view="cards"] .call-card h3 {
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.35px;
+  line-height: 1.35;
 }
 #calls[data-view="cards"] .call-card p {
   margin: 5px 0;
 }
 [data-view="cards"] .call-card .call-id {
-  font-size: 10px;
+  display: none;
+}
+[data-view="cards"] .card-top {
   margin-bottom: 12px;
+}
+.call-card .duration {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  color: #617166;
 }
 [data-view="cards"] .card-files {
   display: flex;
   gap: 14px;
-  border-top: 1px solid #e2e9db;
-  margin-top: 13px;
-  padding-top: 11px;
+  border-top: 1px solid #e6ebe2;
+  margin-top: 15px;
+  padding-top: 12px;
   color: #63765b;
   font-size: 11px;
 }
@@ -1897,6 +1922,7 @@ summary:focus-visible {
       transform 160ms ease,
       box-shadow 160ms ease,
       background-color 160ms ease,
+      color 160ms ease,
       border-color 160ms ease;
   }
   [data-view="cards"] .call-card:hover {
@@ -1926,7 +1952,7 @@ summary:focus-visible {
     padding-right: 12px;
   }
   [data-view="cards"] .call-card {
-    flex-basis: min(300px, calc(100vw - 76px));
+    flex-basis: min(292px, calc(100vw - 76px));
   }
   [data-view="cards"] .call-list {
     padding-left: 12px;
@@ -1959,4 +1985,156 @@ summary:focus-visible {
 #governance .data-field dd {
   font-family: inherit;
   font-size: 13px;
+}
+
+/* Both views occupy the same library above the selected call. */
+[data-view="list"] .call-list {
+  display: block;
+  max-height: 300px;
+  overflow: auto;
+  padding: 4px 16px 16px;
+  scrollbar-width: thin;
+}
+[data-view="list"] .call-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) 130px minmax(160px, 0.8fr);
+  grid-template-areas: "title date status files";
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 14px 16px;
+  border: 1px solid #dfe5dc;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow:
+    0 2px 4px #263c2d05,
+    0 6px 12px -8px #263c2d28;
+}
+[data-view="list"] .call-card:last-child {
+  margin-bottom: 0;
+}
+[data-view="list"] .card-top {
+  grid-area: title;
+}
+[data-view="list"] .card-emblem {
+  grid-area: date;
+  margin: 0;
+}
+[data-view="list"] .card-symbol,
+[data-view="list"] .call-card .selected-mark,
+[data-view="list"] .call-card .call-id {
+  display: none;
+}
+[data-view="list"] .call-card > .badge {
+  grid-area: status;
+  justify-self: start;
+}
+[data-view="list"] .card-files {
+  grid-area: files;
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #63765b;
+}
+[data-view="list"] .call-card[aria-current="true"] {
+  border-color: #678a73;
+  background: linear-gradient(100deg, #fff 30%, #f0f6ef);
+  box-shadow:
+    inset 3px 0 #416a50,
+    0 3px 8px #263c2d0b;
+}
+[data-view="list"] .call-card:hover {
+  border-color: #7b9877;
+  box-shadow: 0 4px 12px #263c2d16;
+}
+@media (max-width: 1050px) {
+  [data-view="list"] .call-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "title status" "date files";
+    gap: 8px 16px;
+  }
+  [data-view="list"] .call-card > .badge {
+    justify-self: end;
+  }
+}
+@media (max-width: 780px) {
+  [data-view="list"] .call-list {
+    padding: 4px 12px 14px;
+  }
+  [data-view="list"] .call-card {
+    padding: 12px;
+    gap: 8px;
+  }
+  [data-view="list"] .card-files {
+    font-size: 10px;
+    gap: 8px;
+  }
+  [data-view="list"] .card-date {
+    font-size: 11px;
+  }
+  [data-view="list"] .call-card .selected-mark {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-view="list"] .call-card:hover {
+    transform: translateY(-2px);
+  }
+  [data-view="list"] .call-card:active {
+    transform: translateY(0);
+  }
+}
+
+/* Route details stay with the module heading, clear of scenario selection. */
+.call-route {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+.route-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 9px;
+  border: 1px solid #dce5d9;
+  border-radius: 999px;
+  background: #f5f8f2;
+  font-size: 11px;
+  color: #657262;
+  white-space: nowrap;
+}
+.route-chip strong {
+  font-size: 11px;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+  color: #385241;
+}
+@media (max-width: 900px) {
+  .console-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  #console-phase {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .call-route {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+}
+@media (min-width: 521px) and (max-width: 780px) {
+  .console-controls > div:first-child {
+    flex-basis: 0;
+  }
+}
+@media (max-width: 520px) {
+  #call-start {
+    justify-content: center;
+    flex: 1;
+  }
 }

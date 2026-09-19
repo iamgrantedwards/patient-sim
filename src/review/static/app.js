@@ -51,6 +51,8 @@ function outcome(call) {
     rejected: ["Call declined", "warning"],
   };
   if (call.status === "unavailable") return ["Artifacts unavailable", "error"];
+  if (call.status === "worker_started" && call.ended_by === "Not recorded")
+    return ["Not finalized", "warning"];
   return (
     values[call.ended_by] || [
       call.ended_by === "Not recorded"
@@ -193,18 +195,33 @@ function renderList() {
     const top = node("div", null, "card-top");
     top.append(
       node("h3", scenario(call.scenario)),
-      node("span", duration(call.duration_seconds), "duration mono"),
+      node("span", duration(call.duration_seconds), "duration"),
     );
     const emblem = node("div", null, "card-emblem");
-    const symbol = node("span", "↗", "card-symbol");
+    const symbol = node("span", null, "card-symbol");
     symbol.setAttribute("aria-hidden", "true");
-    emblem.append(symbol, node("span", "CALL RECORD", "card-eyebrow"));
-    const selected = node(
-      "span",
-      state.selected === call.call_id ? "Selected" : "Open call",
-      "card-open",
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    for (const [key, value] of Object.entries({
+      viewBox: "0 0 24 24",
+      width: "16",
+      height: "16",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "1.7",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+    }))
+      icon.setAttribute(key, value);
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      "M21 16v3a2 2 0 0 1-2.2 2A19 19 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-3 2a14 14 0 0 0 7 7l2-3 5 2Z",
     );
-    emblem.append(selected);
+    icon.append(path);
+    symbol.append(icon);
+    const selected = node("span", "✓", "selected-mark");
+    selected.setAttribute("aria-hidden", "true");
+    emblem.append(symbol, node("span", date(call.started_at, true), "card-date"), selected);
     const files = node("div", null, "card-files");
     files.append(
       node(
@@ -221,7 +238,6 @@ function renderList() {
     button.append(
       emblem,
       top,
-      node("p", date(call.started_at, true)),
       node("p", call.call_id, "call-id mono"),
       badge(...outcome(call)),
       files,

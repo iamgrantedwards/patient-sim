@@ -473,3 +473,17 @@ No findings have been confirmed. No calls have been placed.
   data. No real call, caller/prompt change, listening approval or fix for #46. Full local
   verification passed: 198 Python tests (95.6% combined coverage), 54 browser cases,
   quality/security checks and installed-package validation. Hosted CI is the next gate.
+
+- Follow-up user review rejected the first card typography and clarified that List
+  means full-width rows in the same Calls container, not the previous sidebar layout.
+  Held #52 as a draft. Fresh Chromium/WebKit probes showed the toggle already switched
+  at 390–1440px; Grant confirmed it worked. Do not claim a functional toggle repair.
+- Removed CALL RECORD lettering and visible IDs from the compact cards, strengthened
+  the active view icon, and changed List to raised full-width rows with details below.
+  New assertions check actual horizontal/vertical geometry, row width, toolbar alignment
+  and details position, in addition to state/persistence. All 54 browser cases passed;
+  inspected both actual-call views at desktop, 620px and 390px with no overflow.
+- Grant then requested destination/caller chips in the module heading. Moved the actual
+  configured numbers above the scenario row, with responsive wrapping and the original
+  call-confirmation path intact. Full verification passed after the row redesign;
+  reran UI checks and Python tests for this final layout-only refinement.
