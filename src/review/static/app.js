@@ -169,7 +169,7 @@ function renderConversation(call) {
     ? `${call.recording.format} · ${duration(call.duration_seconds)}`
     : "UNAVAILABLE";
   $("audio-caption").textContent = call.recording.available
-    ? "Original recording · no audio processing in this viewer"
+    ? "Original recording"
     : "No original audio file is available.";
   const notices = $("call-notices");
   notices.replaceChildren();
@@ -177,20 +177,26 @@ function renderConversation(call) {
     const notice = node("div", null, "notice");
     notice.append(
       node("strong", "Listening review pending. "),
-      node(
-        "span",
-        "Successful decoding confirms a readable file. Listen to judge voice quality, turn-taking, and the ending.",
-      ),
+      node("span", "Listen to the full call and check the transcript."),
     );
     notices.append(notice);
   }
-  for (const warning of call.warnings) notices.append(node("div", warning, "notice"));
+  for (const warning of call.warnings)
+    notices.append(
+      node(
+        "div",
+        warning === "Incomplete speech is present. Listen before drawing a conclusion."
+          ? "Incomplete speech. Check the recording."
+          : warning,
+        "notice",
+      ),
+    );
   const transcript = $("transcript");
   transcript.replaceChildren();
   const timingCount = call.turns.filter((turn) => Number.isFinite(turn.audio_start_ms)).length;
   $("timing-note").textContent = timingCount
-    ? `${timingCount} of ${call.turn_count} turns have recorded audio offsets. Select an offset to seek.`
-    : "Turn order is preserved. Audio timestamps are not measured.";
+    ? `${timingCount}/${call.turn_count} turns timed. Select a timestamp to seek.`
+    : "Audio timestamps not measured.";
   $("download-transcript").hidden = !call.transcript_available;
   $("download-transcript").href = `/api/calls/${encodeURIComponent(call.call_id)}/transcript`;
   $("download-transcript").download = `${call.call_id}-transcript.txt`;
@@ -249,10 +255,7 @@ function fields(entries) {
 function renderProvenance(call) {
   const { pipeline: p, provenance: v } = call;
   $("provenance").replaceChildren(
-    intro(
-      "Trace the experiment",
-      "The configuration recorded with this call. A later code change does not rewrite its provenance.",
-    ),
+    intro("Trace the experiment", "Models and settings saved with this call."),
     node("h3", "Voice pipeline"),
     fields([
       ["Speech to text", p.stt],
@@ -281,19 +284,20 @@ function renderProvenance(call) {
       ["Prompt SHA-256", v.prompt_sha256],
       ["Original recording SHA-256", call.recording.sha256],
     ]),
-    node(
-      "p",
-      "The recording fingerprint identifies the current bytes. It is not a signature, an independent integrity attestation, or proof of correctness.",
-      "context-note",
-    ),
+    node("p", "File fingerprint, not a signature or proof of correctness.", "context-note"),
   );
 }
-function control(title, status, text, variant = "neutral", source) {
+function control(title, status, summary, text, variant = "neutral", source) {
   const row = node("div", null, "control-row");
   const heading = node("div", null, "control-heading");
   heading.append(node("h4", title), badge(status, variant));
-  row.append(heading, node("p", text));
-  if (source) row.append(link(source[0], source[1]));
+  row.append(heading, node("p", summary));
+  const details = node("details", null, "explanation");
+  const trigger = node("summary", "Details");
+  trigger.setAttribute("aria-label", `Details: ${title}`);
+  details.append(trigger, node("p", text));
+  if (source) details.append(link(source[0], source[1]));
+  row.append(details);
   return row;
 }
 function claimText(value) {
@@ -317,17 +321,20 @@ function renderGovernance(call) {
     control(
       "Human oversight",
       call?.recording.listened_by_human === true ? "Review recorded" : "Review pending",
+      "Listen to the full call before accepting evidence or publishing findings.",
       "A person must listen to the recording and validate evidence before publishing findings. This read-only view cannot approve a call or mark it reviewed.",
       "warning",
     ),
     control(
       "Purpose & scope",
       "Defined",
+      "Synthetic assessment calls only. No patient care or clinical decisions.",
       "A synthetic patient tests an explicitly designated assessment line. This system does not deliver patient care or make clinical decisions. Unknown patient facts must not be invented.",
     ),
     control(
       "Privacy & publication",
       "Manual gate",
+      "Review recordings before publication. Synthetic inputs can still produce personal information.",
       "Synthetic inputs do not guarantee that returned audio is free of personal information. Inspect recordings and transcripts before public release. Redaction was disabled for evidence capture; the viewer does not redact or anonymize content.",
       "warning",
     ),
@@ -335,12 +342,16 @@ function renderGovernance(call) {
       "Local review boundary",
       state.controls ? "Calling enabled" : "Read-only",
       state.controls
+        ? "Calls require confirmation; evidence stays unchanged."
+        : "Local, read-only evidence review. No calls can be placed here.",
+      state.controls
         ? "Evidence routes are read-only. Calling was explicitly enabled for this process: confirmed start/stop requests use a local session token, exact Origin checks, one shared call slot, and the fixed assessment destination. Provider credentials stay on the server."
         : "Read-only routes, loopback binding, restricted file access, and browser security headers. The viewer loads no telephony credentials, sends no analytics, and makes no model calls.",
     ),
     control(
       "AI instructions & untrusted content",
       "Bounded",
+      "Transcripts are treated as data. Code enforces the fixed call destination.",
       "Transcript content is rendered as text, never executed as HTML or passed to an automated judge. The caller’s fixed destination is enforced in code; prompts alone are not a security boundary.",
       "neutral",
       ["OWASP: prompt injection ↗", "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"],
@@ -348,6 +359,7 @@ function renderGovernance(call) {
     control(
       "Data lifecycle & provider processing",
       "Open obligations",
+      "Calls use external providers. Retention and deletion obligations remain open.",
       "The original calls use LiveKit, Twilio, and inference providers. Local review is not a claim that all call data stays on-device. Provider retention, access, consent, and deletion obligations need separate review before use beyond this assessment.",
       "warning",
     ),
@@ -366,16 +378,12 @@ function renderGovernance(call) {
   panel.replaceChildren(
     intro(
       "Evidence, oversight, and limits",
-      "Practical AI governance for this evaluation. Controls are informed by NIST AI RMF; this is not a certification or a claim of HIPAA compliance.",
+      "NIST AI RMF informs these controls; not a certification or a claim of HIPAA compliance.",
     ),
     claims,
     controls,
     sources,
-    node(
-      "p",
-      "No compliance score is assigned. Legal applicability, institutional approvals, provider agreements, and any production clinical use require their own assessment.",
-      "context-note",
-    ),
+    node("p", "Production use requires a separate legal and institutional review.", "context-note"),
   );
 }
 async function selectCall(id) {

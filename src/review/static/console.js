@@ -46,8 +46,7 @@ function render(data) {
   if (!initialized) {
     for (const item of data.scenarios) byId("scenario").append(new Option(item.label, item.id));
     byId("scope-mark").textContent = "Call controls enabled";
-    byId("scope-details").textContent =
-      "Each call requires confirmation. The evidence viewer preserves original files.";
+    byId("scope-details").textContent = "Confirmation required for every call.";
     document.dispatchEvent(new CustomEvent("console-mode", { detail: { enabled: true } }));
     initialized = true;
     objective();
@@ -74,13 +73,11 @@ function render(data) {
   byId("open-evidence").hidden = !terminal.has(op.phase) || !op.call_id;
   if (op.call_id) byId("open-evidence").href = `?call=${encodeURIComponent(op.call_id)}`;
   const summary = [];
-  if (op.stop_requested) summary.push("An operator stop was requested.");
+  if (op.stop_requested) summary.push("Operator stop requested.");
   if (op.ended_by) summary.push(`Recorded ending: ${op.ended_by.replaceAll("_", " ")}.`);
-  if (op.cleanup_confirmed) summary.push("Call room confirmed absent.");
+  if (op.cleanup_confirmed) summary.push("Call room closed.");
   if (op.evidence_status === "partial_or_unavailable")
-    summary.push("Final recording/transcript may be incomplete; inspect available evidence.");
-  if (active)
-    summary.push("Status comes from the worker and saved artifacts. No audio timing is inferred.");
+    summary.push("Evidence may be incomplete. Review the saved files.");
   byId("operation-summary").textContent = summary.join(" ");
   const turns = JSON.stringify(op.live_turns);
   if (lastTurns !== turns) {

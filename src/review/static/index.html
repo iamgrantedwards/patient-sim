@@ -39,7 +39,7 @@
         <div class="scope-mark" id="scope-mark">
           <span class="status-dot" aria-hidden="true"></span>Local review
         </div>
-        <p id="scope-details">Read-only evidence workspace.<br>No calls can be placed here.</p>
+        <p id="scope-details">Read-only. Original files preserved.</p>
         <div class="sidebar-footer">
           <span class="avatar">GE</span>
           <div>Grant Edwards<small>Evaluation owner</small></div>
@@ -124,10 +124,7 @@
             </div>
             <span class="badge neutral" id="console-phase">Loading status</span>
           </div>
-          <p class="console-intro">
-            One call at a time, to the designated assessment line. Opening this workspace never
-            places a call.
-          </p>
+          <p class="console-intro">One call at a time. Confirmation required.</p>
           <div class="console-controls">
             <div>
               <label for="scenario" data-learn="scenario">Scenario</label
@@ -142,7 +139,10 @@
             </button>
             <button type="button" class="button danger" id="call-stop" hidden>Stop call</button>
           </div>
-          <p id="scenario-objective" class="context-note"></p>
+          <details id="scenario-details" class="explanation">
+            <summary>Scenario details</summary>
+            <p id="scenario-objective" class="context-note"></p>
+          </details>
           <p id="console-message" class="notice" role="status" hidden></p>
           <p id="console-error" class="notice error" role="alert" hidden></p>
           <div id="active-operation" hidden>
@@ -166,10 +166,7 @@
         >
           <h2 id="confirmation-title">Place one assessment call?</h2>
           <p id="confirmation-description"></p>
-          <p class="context-note">
-            The worker will register before dialing. Provider charges may apply. There is no
-            automatic redial.
-          </p>
+          <p class="context-note">Provider charges may apply. No automatic redial.</p>
           <label class="confirmation-check"
             ><input type="checkbox" id="confirm-ready">
             I confirm this one call to the designated test line.</label
@@ -184,16 +181,16 @@
         </dialog>
         <section class="metrics" aria-label="Evidence overview">
           <div class="metric">
-            <span data-learn="attempts">Captured calls</span><strong id="metric-calls">—</strong
-            ><small>Actual local call records</small>
+            <span data-learn="attempts">Call attempts</span><strong id="metric-calls">—</strong
+            ><small>Saved attempts</small>
           </div>
           <div class="metric">
             <span data-learn="pairs">Audio + transcript</span><strong id="metric-pairs">—</strong
-            ><small>Files available, quality not implied</small>
+            ><small>Available files · quality unchecked</small>
           </div>
           <div class="metric">
             <span data-learn="review">Listening review</span><strong id="metric-reviewed">—</strong
-            ><small>Recorded human-review status</small>
+            ><small>Human reviews recorded</small>
           </div>
         </section>
         <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>

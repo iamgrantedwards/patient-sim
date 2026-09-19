@@ -86,6 +86,10 @@ test("confirmed single call, committed dialogue, refresh, stop and saved evidenc
   page.on("pageerror", (error) => errors.push(error.message));
   const { requests } = await fixture(page);
   expect(requests).toEqual([]);
+  await expect(page.locator("#scenario-objective")).toBeHidden();
+  await page.getByText("Scenario details", { exact: true }).click();
+  await expect(page.locator("#scenario-objective")).toBeVisible();
+  expect(requests).toEqual([]);
   await accessible(page);
   await page.getByRole("button", { name: "Review & call" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
