@@ -29,6 +29,10 @@ Calls open in a horizontal card rail. Use the Cards/List icons to switch to full
 the same area; your choice stays in this browser. The magnifying glass beside the call count opens search
 and filters. Select a card or list entry to open its evidence.
 
+For each attempt, follow the [call-review workflow](docs/CALL-REVIEW.md) and use its
+[review sheet](docs/CALL-REVIEW-TEMPLATE.md) to record listening observations and next actions.
+The sheet is currently manual; the viewer does not save or ingest structured reviews yet.
+
 Use the light bulb for optional hover, focus or tap explanations. The book icon beside
 it opens a short guide with the call/review flow and recovery help. These controls
 work locally without changing calls or evidence.

@@ -508,3 +508,16 @@ No findings have been confirmed. No calls have been placed.
 - Updated the debugging journal and added DEBUGGING-SCRIPT.md with easy speaking cues,
   actual investigation prompts and a follow-up outline. Labels all prior inspection
   as preparation; does not claim a video, live retest or successful fix occurred.
+
+### 2026-09-19 — Per-call review and learning workflow
+
+- Grant asked to connect model/worker learning to practical testing, changes, videos
+  and handoff while keeping the app product-oriented. Added CALL-REVIEW.md and a blank
+  manual review sheet, linked from the README, recording runbook and script.
+- Confirmed the current viewer reads recording.listened_by_human from original metadata
+  and has no structured review-save action. #54 tracks a compact, separate review record
+  and selected-call control after #46; no new UI/API was implemented here. Manual notes
+  do not update UI counters. Full listening and submission suitability remain distinct.
+- No calls were reviewed, scored, accepted, modified or placed by this preparation.
+  Remote-agent defects can be useful complete conversations; incomplete attempts do
+  not count toward ten. Model choices remain hypotheses until compared with call evidence.
