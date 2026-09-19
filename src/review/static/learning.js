@@ -30,7 +30,7 @@ const topics = {
   ],
   provenance: [
     "Provenance",
-    "The models, settings, prompt fingerprint and code version saved with this call. Use these to understand what changed between experiments.",
+    "The models, settings, prompt fingerprint and code version saved with this call. Use these to understand what changed between experiments. Cloud evidence is a dated check for this call, separate from listening review.",
   ],
   governance: [
     "AI governance",

@@ -99,6 +99,14 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
         path = store.audio(call_id)
         return FileResponse(path, media_type="audio/ogg" if path.suffix == ".ogg" else "audio/mpeg")
 
+    @app.get("/api/calls/{call_id}/cloud-evidence/{kind}")
+    def cloud_evidence(call_id: str, kind: str):
+        path = store.cloud_artifact(call_id, kind)
+        return FileResponse(
+            path,
+            media_type="image/png" if kind == "screenshot" else "text/plain; charset=utf-8",
+        )
+
     @app.get("/api/calls/{call_id}/transcript")
     def transcript(call_id: str):
         data = store.detail(call_id)

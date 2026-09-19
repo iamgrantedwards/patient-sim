@@ -252,10 +252,42 @@ function fields(entries) {
   }
   return grid;
 }
+function cloudEvidence(call) {
+  const section = node("section", null, "cloud-evidence");
+  section.setAttribute("aria-label", "Cloud evidence");
+  section.append(node("h3", "Cloud evidence"));
+  const cloud = call.cloud;
+  if (!cloud) {
+    section.append(node("p", "No Cloud confirmation recorded for this call.", "context-note"));
+    return section;
+  }
+  section.append(
+    badge("Cloud session confirmed"),
+    fields([
+      ["Checked", date(cloud.checked_at)],
+      ["Session ID", cloud.session_id],
+      ["Cloud audio player", cloud.player_visible ? "Visible at check time" : "Not observed"],
+      ["Listening review", call.recording.listened_by_human === true ? "Recorded" : "Pending"],
+    ]),
+    node(
+      "p",
+      "Dated console check. Audio quality requires a separate listening review.",
+      "context-note",
+    ),
+  );
+  const links = node("div", null, "cloud-evidence-links");
+  links.append(
+    link("View verification screenshot", cloud.screenshot_url),
+    link("Read verification note", cloud.note_url),
+  );
+  section.append(links);
+  return section;
+}
 function renderProvenance(call) {
   const { pipeline: p, provenance: v } = call;
   $("provenance").replaceChildren(
     intro("Trace the experiment", "Models and settings saved with this call."),
+    cloudEvidence(call),
     node("h3", "Voice pipeline"),
     fields([
       ["Speech to text", p.stt],

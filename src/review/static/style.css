@@ -1504,3 +1504,18 @@ summary:focus-visible {
 #governance .explanation p {
   margin-top: 8px;
 }
+
+.cloud-evidence {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.cloud-evidence h3 {
+  margin-top: 0;
+}
+.cloud-evidence-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}

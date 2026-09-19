@@ -399,3 +399,30 @@ No findings have been confirmed. No calls have been placed.
 - Full local verification passed: 182 Python tests, 95.5% combined coverage, 42 browser
   tests, quality/workflow checks, secret/dependency scans and installed-package smoke.
   The merged workflow base has identical file contents to the verified base.
+
+## 2026-09-19 — Cloud evidence in Provenance (#44)
+
+- Grant requested public evidence of the LiveKit Cloud integration. Opened #44 and
+  posted the plan before implementation. Rechecked session RM_ffrkrFyiT7T3 in the
+  authenticated console: room name matches call-20260918-231955-765427d8, status CLOSED,
+  SIP and agent participants, and Agent insights has a player and waveform lanes.
+- macOS screen-capture permission was unavailable. Grant supplied the real screenshot;
+  visual review found no credentials/contact information/transcript content. It shows
+  the public handle and project name. Copied it unchanged, with its SHA-256 in the note.
+- Added packaged, call-specific verification evidence and a compact Provenance section.
+  Missing/invalid records remain unconfirmed; presence never changes listening review,
+  verified patient state or call counts. Original call files remain untouched.
+- The Cloud timeline (97.06 seconds) and local OGG duration (70.29 seconds) have not been
+  reconciled. The note explicitly does not claim identical audio, completed listening,
+  a hosted worker deployment, or permanent Cloud retention. No new call was placed.
+- Initial Python checks: 198 passed. Browser/full verification and hosted checks pending.
+- The first full run passed 198 Python cases, lint/types/security, and 44/45 browser
+  cases. The new native-link Tab assertion failed on macOS WebKit: a direct browser
+  probe showed Tab skipping links and Option-Tab focusing the next link. Adjusted
+  only the test shortcut for that platform; native anchor behavior stays unchanged.
+  Inspected the actual call's new panel at desktop and 390px widths.
+- Full local verification now passes: 198 Python tests (95.6% combined coverage),
+  45 browser tests across desktop/mobile Chromium and WebKit, axe checks, lint/types,
+  secret/dependency scans, and an installed-wheel check that includes the Cloud assets.
+  Keyboard activation opened the actual unchanged 4222x2452 screenshot without auth;
+  the listening-review counter stayed 0/1. Hosted checks remain the next gate.

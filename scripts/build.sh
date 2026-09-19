@@ -32,9 +32,16 @@ uv pip install --python "$smoke_dir/venv/bin/python" --no-deps "$build_dir"/*.wh
   ./venv/bin/python -I -m src.review --help
   ./venv/bin/python -I - <<'PYSMOKE'
 from src.review.server import ASSETS, create_app
+from src.review.store import CLOUD_EVIDENCE, CloudVerification
 assert all((ASSETS / name).is_file() for name in ("index.html", "app.js", "console.js", "learning.js", "style.css", "favicon.svg"))
 assert create_app().openapi_url is None
-print("Installed review server and packaged assets verified.")
+for record_path in CLOUD_EVIDENCE.glob("*/verification.json"):
+    record = CloudVerification.model_validate_json(record_path.read_text())
+    assert record.call_id == record.room_name == record_path.parent.name
+    assert (record_path.parent / "cloud.png").is_file()
+    assert (record_path.parent / "verification.md").is_file()
+assert any(CLOUD_EVIDENCE.glob("*/verification.json")), "Cloud evidence missing from wheel"
+print("Installed review server, assets and Cloud evidence verified.")
 PYSMOKE
 )
 printf '\nVerified packages: %s\n' "$build_dir"

@@ -298,3 +298,107 @@ def test_unrepresentable_json_numbers_are_unavailable_not_server_errors(
 
 def test_numeric_overflow_is_unknown():
     assert store.number(10**400) is None
+
+
+@pytest.fixture
+def cloud_record(evidence, monkeypatch, tmp_path):
+    curated = tmp_path / "curated"
+    monkeypatch.setattr(store, "CLOUD_EVIDENCE", curated)
+    folder = curated / evidence[1].name
+    folder.mkdir(parents=True)
+    record = {
+        "call_id": evidence[1].name,
+        "room_name": evidence[1].name,
+        "session_id": "RM_fixture",
+        "checked_at": "2026-09-19T19:30:00Z",
+        "method": "authenticated_console",
+        "player_visible": True,
+    }
+    (folder / "verification.json").write_text(json.dumps(record))
+    (folder / "verification.md").write_text("Fixture note: player visible, listening pending.")
+    (folder / "cloud.png").write_bytes(b"\x89PNG\r\n\x1a\nfixture-image")
+    return folder, record
+
+
+def test_cloud_confirmation_keeps_raw_evidence_and_review_separate(client, evidence, cloud_record):
+    call = evidence[1]
+    before = {p.name: p.read_bytes() for p in call.iterdir()}
+    detail = client.get(f"/api/calls/{call.name}").json()
+    cloud = detail["cloud"]
+    assert cloud["session_id"] == "RM_fixture"
+    assert cloud["player_visible"] is True
+    assert cloud["checked_at"] == 1789846200
+    assert detail["recording"]["listened_by_human"] is False
+    assert detail["claims"]["verified_state"] is None
+    screenshot = client.get(cloud["screenshot_url"])
+    assert screenshot.status_code == 200
+    assert screenshot.headers["content-type"] == "image/png"
+    assert screenshot.content.startswith(b"\x89PNG")
+    note = client.get(cloud["note_url"])
+    assert note.status_code == 200
+    assert note.headers["content-type"].startswith("text/plain")
+    assert "listening pending" in note.text
+    assert "no-store" in note.headers["cache-control"]
+    assert client.get(f"/api/calls/{call.name}/cloud-evidence/verification.json").status_code == 404
+    assert {p.name: p.read_bytes() for p in call.iterdir()} == before
+
+
+def test_unchecked_calls_cannot_inherit_cloud_confirmation(client, evidence, cloud_record):
+    call = evidence[1]
+    other = call.parent / "call-another"
+    other.mkdir()
+    (other / "meta.json").write_text(json.dumps({"call_id": other.name}))
+    assert client.get(f"/api/calls/{other.name}").json()["cloud"] is None
+    assert client.get(f"/api/calls/{other.name}/cloud-evidence/screenshot").status_code == 404
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"call_id": "call-other"},
+        {"room_name": "call-other"},
+        {"session_id": "<script>bad</script>"},
+        {"checked_at": "yesterday"},
+        {"checked_at": "2026-09-19T19:30:00"},
+        {"player_visible": "true"},
+        {"method": "guessed"},
+        {"api_key": "do-not-publish"},
+    ],
+)
+def test_invalid_cloud_records_fail_closed(client, evidence, cloud_record, change):
+    folder, record = cloud_record
+    (folder / "verification.json").write_text(json.dumps(record | change))
+    assert client.get(f"/api/calls/{evidence[1].name}").json()["cloud"] is None
+    assert client.get(f"/api/calls/{evidence[1].name}/cloud-evidence/note").status_code == 404
+
+
+@pytest.mark.parametrize("damage", ["missing", "symlink", "oversized", "not-png", "bad-json"])
+def test_cloud_evidence_requires_safe_supporting_files(client, evidence, cloud_record, damage):
+    folder, _ = cloud_record
+    screenshot = folder / "cloud.png"
+    if damage == "missing":
+        (folder / "verification.md").unlink()
+    elif damage == "symlink":
+        screenshot.unlink()
+        screenshot.symlink_to(evidence[1] / "recording.ogg")
+    elif damage == "oversized":
+        with screenshot.open("wb") as stream:
+            stream.truncate(store.MAX_SCREENSHOT + 1)
+    elif damage == "not-png":
+        screenshot.write_text("<html>Not a screenshot</html>")
+    else:
+        (folder / "verification.json").write_text("{bad")
+    assert client.get(f"/api/calls/{evidence[1].name}").json()["cloud"] is None
+    assert client.get(f"/api/calls/{evidence[1].name}/cloud-evidence/screenshot").status_code == 404
+
+
+def test_packaged_cloud_evidence_matches_the_documented_call(tmp_path):
+    call_id = "call-20260918-231955-765427d8"
+    (tmp_path / call_id).mkdir()
+    evidence = store.EvidenceStore(tmp_path)
+    cloud = evidence.cloud_verification(call_id)
+    assert cloud is not None and cloud["session_id"] == "RM_ffrkrFyiT7T3"
+    note = evidence.cloud_artifact(call_id, "note").read_text()
+    screenshot = evidence.cloud_artifact(call_id, "screenshot")
+    assert hashlib.sha256(screenshot.read_bytes()).hexdigest() in note
+    assert call_id in note and cloud["session_id"] in note
