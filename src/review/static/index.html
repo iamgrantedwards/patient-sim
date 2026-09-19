@@ -13,49 +13,22 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to call review</a>
-    <aside class="sidebar" aria-label="Workspace">
-      <a class="brand" href="/" aria-label="patient-sim home"
-        ><span class="brand-mark" aria-hidden="true">p.</span
-        ><span>patient<span class="brand-light">-sim</span></span></a
-      >
-      <div class="workspace-label">EVALUATION WORKSPACE</div>
-      <nav aria-label="Main navigation">
-        <a class="nav-item active" id="review-nav" href="#calls"
-          ><span aria-hidden="true">◫</span>Call review
-          <span class="nav-count" id="nav-count">—</span></a
-        >
-        <button class="nav-item" id="governance-nav" type="button">
-          <span aria-hidden="true">◇</span>AI governance
-        </button>
-        <a
-          class="nav-item"
-          href="https://github.com/iamgrantedwards/patient-sim/issues/23"
-          target="_blank"
-          rel="noreferrer"
-          ><span aria-hidden="true">↗</span>Build &amp; decisions</a
-        >
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="scope-mark" id="scope-mark">
-          <span class="status-dot" aria-hidden="true"></span>Local review
-        </div>
-        <p id="scope-details">Read-only. Original files preserved.</p>
-        <div class="sidebar-footer">
-          <span class="avatar">GE</span>
-          <div>Grant Edwards<small>Evaluation owner</small></div>
-        </div>
-      </div>
-    </aside>
     <div class="app-shell">
       <header class="topbar">
-        <div>Workspace <span aria-hidden="true">/</span> <strong>Call review</strong></div>
+        <div class="brand-row">
+          <a class="brand" id="review-nav" href="#calls" aria-label="patient-sim home"
+            ><span class="brand-mark" aria-hidden="true">p.</span
+            ><span>patient<span class="brand-light">-sim</span></span></a
+          >
+          <span class="header-context">Voice evaluation</span>
+        </div>
         <div class="topbar-actions">
-          <span class="scope-pill">Synthetic patient scenarios</span>
           <div class="learning-tools">
             <button
               type="button"
               id="learning-toggle"
-              class="learning-toggle"
+              class="icon-button learning-toggle"
+              data-tooltip="Learning mode"
               aria-label="Learning mode"
               aria-pressed="false"
               aria-controls="learning-note"
@@ -73,12 +46,12 @@
               >
                 <path d="M9 18h6M10 21h4M9 15c0-2-4-3-4-7a7 7 0 0 1 14 0c0 4-4 5-4 7H9Z" />
               </svg>
-              Learn
             </button>
             <button
               type="button"
               id="learning-guide-open"
-              class="guide-open"
+              class="icon-button guide-open"
+              data-tooltip="Quick guide"
               aria-label="Open quick guide"
               aria-haspopup="dialog"
               aria-controls="learning-guide"
@@ -96,9 +69,30 @@
               >
                 <path d="M12 5v15M3 4c4-1 6-1 9 1 3-2 5-2 9-1v15c-4-1-6-1-9 1-3-2-5-2-9-1V4Z" />
               </svg>
-              Guide
             </button>
           </div>
+          <button
+            type="button"
+            class="icon-button"
+            id="refresh"
+            aria-label="Refresh calls"
+            data-tooltip="Refresh calls"
+          >
+            <svg
+              aria-hidden="true"
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 7v5h-5M4 17v-5h5" />
+              <path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1" />
+            </svg>
+          </button>
         </div>
       </header>
       <main id="main" tabindex="-1">
@@ -107,34 +101,75 @@
         </div>
         <div class="page-heading">
           <div>
-            <div class="eyebrow">VOICE AGENT EVALUATION</div>
             <h1>Call review<span class="heading-dot">.</span></h1>
             <p>Listen to the conversation. Follow the evidence.</p>
           </div>
-          <button type="button" class="button" id="refresh">
-            <span aria-hidden="true">↻</span>
-            Refresh calls
-          </button>
+          <span class="scope-pill">Synthetic patients</span>
         </div>
         <section class="console-panel" id="console-panel" aria-labelledby="console-title" hidden>
           <div class="console-heading">
             <div>
-              <div class="eyebrow">EXPLICIT OUTBOUND CALL</div>
               <h2 id="console-title" data-learn="calling">Run a test call</h2>
             </div>
             <span class="badge neutral" id="console-phase">Loading status</span>
           </div>
-          <p class="console-intro">One call at a time. Confirmation required.</p>
           <div class="console-controls">
             <div>
-              <label for="scenario" data-learn="scenario">Scenario</label
-              ><select id="scenario"></select>
+              <label id="scenario-label" for="scenario-picker" data-learn="scenario"
+                >Scenario</label
+              >
+              <div class="scenario-field">
+                <select id="scenario" aria-label="Scenario value" hidden></select>
+                <button
+                  type="button"
+                  id="scenario-picker"
+                  role="combobox"
+                  aria-labelledby="scenario-label scenario-value"
+                  aria-controls="scenario-options"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                >
+                  <span id="scenario-value">Choose a scenario</span>
+                  <svg
+                    aria-hidden="true"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                <div
+                  id="scenario-options"
+                  role="listbox"
+                  aria-labelledby="scenario-label"
+                  hidden
+                ></div>
+              </div>
             </div>
             <div class="call-destination">
               <span>Fixed destination</span><strong id="call-destination"></strong
               ><small id="call-caller"></small>
             </div>
             <button type="button" class="button primary" id="call-start" disabled>
+              <svg
+                aria-hidden="true"
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-3 2a14 14 0 0 0 7 7l2-3 6 2.9Z"
+                />
+              </svg>
               Review &amp; call
             </button>
             <button type="button" class="button danger" id="call-stop" hidden>Stop call</button>
@@ -326,10 +361,12 @@
           </article>
         </section>
         <footer class="page-footer">
-          <span
-            >patient-sim <span class="footer-separator" aria-hidden="true">/</span> evidence before
-            conclusions</span
-          ><span>Local interface · No analytics or external assets</span>
+          <div>
+            <span id="scope-mark">Local review</span
+            ><span class="footer-separator" aria-hidden="true">·</span
+            ><span id="scope-details">Original files preserved.</span>
+          </div>
+          <button type="button" class="footer-link" id="governance-nav">AI governance</button>
         </footer>
         <noscript
           ><p class="notice">
@@ -413,9 +450,8 @@
           <li>The conversation ends cleanly. A polite refusal can be a valid outcome.</li>
         </ul>
         <p class="guide-copy">
-          When ready to debug, record the actual work with your voice and webcam. After the first
-          good call, compare configurations, expand scenarios and collect at least ten complete,
-          reviewed conversations for the assessment.
+          After a complete, reviewed call, try another scenario or compare configurations. Change
+          one thing at a time so you can trace what improved.
         </p>
       </details>
       <details class="guide-section">

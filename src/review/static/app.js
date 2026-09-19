@@ -271,22 +271,19 @@ function cloudEvidence(call) {
     ]),
     node(
       "p",
-      "Dated console check. Audio quality requires a separate listening review.",
+      "Cloud connection confirmed at the time shown. Listening review is separate.",
       "context-note",
     ),
   );
   const links = node("div", null, "cloud-evidence-links");
-  links.append(
-    link("View verification screenshot", cloud.screenshot_url),
-    link("Read verification note", cloud.note_url),
-  );
+  links.append(link("View Cloud snapshot", cloud.screenshot_url));
   section.append(links);
   return section;
 }
 function renderProvenance(call) {
   const { pipeline: p, provenance: v } = call;
   $("provenance").replaceChildren(
-    intro("Trace the experiment", "Models and settings saved with this call."),
+    intro("Call details", "Connection, models, and settings."),
     cloudEvidence(call),
     node("h3", "Voice pipeline"),
     fields([
@@ -300,7 +297,7 @@ function renderProvenance(call) {
         `${p.endpointing_mode} · ${p.min_delay ?? "?"}–${p.max_delay ?? "?"} seconds`,
       ],
     ]),
-    node("h3", "Reproducibility"),
+    node("h3", "Technical details"),
     fields([
       ["Git revision", v.git_revision],
       [
@@ -463,7 +460,6 @@ async function refresh() {
     const data = await json("/api/calls", AbortSignal.timeout(12000));
     state.calls = data.calls;
     $("metric-calls").textContent = data.calls.length;
-    $("nav-count").textContent = data.calls.length;
     $("metric-pairs").textContent = data.calls.filter(
       (call) => call.recording.available && call.transcript_available,
     ).length;
@@ -546,7 +542,7 @@ for (const [index, tab] of tabs.entries()) {
 }
 $("governance-nav").addEventListener("click", () => {
   if (!state.detail) {
-    emptyHeader("AI governance", "Project controls and open obligations.");
+    emptyHeader("AI governance", "Safeguards and data handling.");
     renderGovernance(null);
     $("call-content").hidden = false;
   }

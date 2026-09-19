@@ -149,10 +149,7 @@ test("service failure offers retry and an unreadable audio file exposes an error
   await expect(page.locator("#global-error")).toBeHidden();
 });
 
-test("Cloud evidence is dated, accessible and never accepts a call", async ({
-  page,
-  browserName,
-}) => {
+test("Cloud evidence is dated, accessible and never accepts a call", async ({ page }) => {
   // Fixture response only; this does not assert a real Cloud session or change raw artifacts.
   await page.route("**/api/calls/call-fixture-03", async (route) => {
     const response = await route.fetch();
@@ -174,17 +171,14 @@ test("Cloud evidence is dated, accessible and never accepts a call", async ({
   await expect(panel.getByText("RM_fixture")).toBeVisible();
   await expect(panel.getByText(/Sep 19, 2026/)).toBeVisible();
   await expect(panel.getByText("Pending", { exact: true })).toBeVisible();
-  const screenshot = panel.getByRole("link", { name: "View verification screenshot" });
+  const screenshot = panel.getByRole("link", { name: "View Cloud snapshot" });
   await expect(screenshot).toHaveAttribute(
     "href",
     "/api/calls/call-fixture-03/cloud-evidence/screenshot",
   );
   await screenshot.focus();
-  // macOS WebKit defaults to Option-Tab for native links; ordinary Tab skips them.
-  await screenshot.press(
-    browserName === "webkit" && process.platform === "darwin" ? "Alt+Tab" : "Tab",
-  );
-  await expect(panel.getByRole("link", { name: "Read verification note" })).toBeFocused();
+  await expect(screenshot).toBeFocused();
+  await expect(panel.getByRole("link", { name: "Read verification note" })).toHaveCount(0);
   await expect(page.locator("#metric-reviewed")).toHaveText(reviewed);
   await accessible(page);
   await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).click();
