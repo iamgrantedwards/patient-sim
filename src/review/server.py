@@ -80,6 +80,7 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
             "style.css": "text/css",
             "favicon.svg": "image/svg+xml",
             "console.js": "text/javascript",
+            "learning.js": "text/javascript",
         }
         if name not in allowed:
             raise ArtifactError("Asset not found.")

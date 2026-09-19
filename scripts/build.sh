@@ -32,7 +32,7 @@ uv pip install --python "$smoke_dir/venv/bin/python" --no-deps "$build_dir"/*.wh
   ./venv/bin/python -I -m src.review --help
   ./venv/bin/python -I - <<'PYSMOKE'
 from src.review.server import ASSETS, create_app
-assert all((ASSETS / name).is_file() for name in ("index.html", "app.js", "style.css", "favicon.svg"))
+assert all((ASSETS / name).is_file() for name in ("index.html", "app.js", "console.js", "learning.js", "style.css", "favicon.svg"))
 assert create_app().openapi_url is None
 print("Installed review server and packaged assets verified.")
 PYSMOKE
