@@ -14,10 +14,132 @@ const el = (tag, text, className) => {
   return item;
 };
 function field(label, input) {
-  const wrapper = el("label", null, "review-field");
+  const wrapper = el(input.tagName === "SELECT" ? "div" : "label", null, "review-field");
   input.setAttribute("aria-label", label);
-  wrapper.append(el("span", label.endsWith(" note") ? "Observation" : label), input);
+  wrapper.append(
+    el("span", label.endsWith(" note") ? "Observation" : label),
+    input.tagName === "SELECT" ? picker(input, label) : input,
+  );
   return wrapper;
+}
+let closeActivePicker = () => {};
+let pickerSequence = 0;
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest(".review-picker-field")) closeActivePicker();
+});
+function picker(input, label) {
+  const container = el("div", null, "review-picker-field");
+  input.hidden = true;
+  const trigger = el("button", null, "review-picker");
+  trigger.type = "button";
+  trigger.setAttribute("role", "combobox");
+  trigger.setAttribute("aria-label", label);
+  trigger.setAttribute("aria-haspopup", "listbox");
+  trigger.setAttribute("aria-expanded", "false");
+  const value = el("span");
+  const chevron = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  for (const [key, value] of Object.entries({
+    "aria-hidden": "true",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "2",
+  }))
+    chevron.setAttribute(key, value);
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "m6 9 6 6 6-6");
+  chevron.append(path);
+  trigger.append(value, chevron);
+  const menu = el("div", null, "review-options");
+  menu.id = `review-options-${++pickerSequence}`;
+  menu.setAttribute("role", "listbox");
+  menu.setAttribute("aria-label", label);
+  menu.hidden = true;
+  trigger.setAttribute("aria-controls", menu.id);
+  const items = [...input.options].map((option, index) => {
+    const button = el("button", option.textContent, "scenario-option");
+    button.type = "button";
+    button.tabIndex = -1;
+    button.id = `${menu.id}-${index}`;
+    button.setAttribute("role", "option");
+    button.addEventListener("pointerdown", (event) => event.preventDefault());
+    button.addEventListener("click", () => choose(index));
+    menu.append(button);
+    return button;
+  });
+  let active = input.selectedIndex;
+  let keys = "";
+  let keyTime = 0;
+  function sync() {
+    value.textContent = input.options[input.selectedIndex].textContent;
+    items.forEach((item, index) => {
+      item.setAttribute("aria-selected", String(index === input.selectedIndex));
+    });
+  }
+  function highlight(index) {
+    active = index;
+    items.forEach((item, i) => {
+      item.classList.toggle("active", i === active);
+    });
+    trigger.setAttribute("aria-activedescendant", items[active].id);
+    items[active].scrollIntoView({ block: "nearest" });
+  }
+  function close() {
+    menu.hidden = true;
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.removeAttribute("aria-activedescendant");
+  }
+  function open() {
+    closeActivePicker();
+    closeActivePicker = close;
+    menu.hidden = false;
+    trigger.setAttribute("aria-expanded", "true");
+    highlight(input.selectedIndex);
+  }
+  function choose(index) {
+    input.selectedIndex = index;
+    input.dispatchEvent(new Event("change"));
+    sync();
+    close();
+    trigger.focus();
+  }
+  trigger.addEventListener("click", () => (menu.hidden ? open() : close()));
+  trigger.addEventListener("blur", close);
+  trigger.addEventListener("keydown", (event) => {
+    if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+      event.preventDefault();
+      const closed = menu.hidden;
+      if (closed) open();
+      highlight(
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? items.length - 1
+            : closed
+              ? active
+              : (active + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length,
+      );
+    } else if (["Enter", " "].includes(event.key)) {
+      event.preventDefault();
+      if (menu.hidden) open();
+      else choose(active);
+    } else if (["Escape", "Tab"].includes(event.key)) {
+      if (event.key === "Escape") event.preventDefault();
+      close();
+    } else if (event.key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      if (Date.now() - keyTime > 700) keys = "";
+      keyTime = Date.now();
+      keys += event.key.toLowerCase();
+      if (menu.hidden) open();
+      const found = items.findIndex((item) => item.textContent.toLowerCase().startsWith(keys));
+      if (found >= 0) highlight(found);
+    }
+  });
+  sync();
+  container.append(input, trigger, menu);
+  return container;
 }
 function select(options, value) {
   const input = el("select");

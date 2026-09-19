@@ -1579,10 +1579,11 @@ summary:focus-visible {
 .footer-link:hover {
   text-decoration: underline;
 }
-.scenario-field {
+.scenario-field,
+.review-picker-field {
   position: relative;
 }
-#scenario-picker {
+:is(#scenario-picker, .review-picker) {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1601,14 +1602,14 @@ summary:focus-visible {
 .scenario-option {
   text-transform: capitalize;
 }
-#scenario-picker[aria-expanded="true"] {
+:is(#scenario-picker, .review-picker)[aria-expanded="true"] {
   border-color: var(--green);
   box-shadow: 0 0 0 2px #21554815;
 }
-#scenario-picker[aria-expanded="true"] svg {
+:is(#scenario-picker, .review-picker)[aria-expanded="true"] svg {
   transform: rotate(180deg);
 }
-#scenario-options {
+:is(#scenario-options, .review-options) {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
@@ -2012,7 +2013,7 @@ summary:focus-visible {
 }
 .button:hover:not(:disabled),
 .icon-button:hover:not(:disabled),
-#scenario-picker:hover:not(:disabled) {
+:is(#scenario-picker, .review-picker):hover:not(:disabled) {
   border-color: #9aac94;
   box-shadow: 0 3px 7px #24372a0c;
 }
@@ -2023,7 +2024,7 @@ summary:focus-visible {
   .button,
   .icon-button,
   .call-card,
-  #scenario-picker,
+  :is(#scenario-picker, .review-picker),
   .turn-seek {
     transition:
       transform 160ms ease,
@@ -2040,7 +2041,7 @@ summary:focus-visible {
   }
   .button:active:not(:disabled),
   .icon-button:active:not(:disabled),
-  #scenario-picker:active:not(:disabled),
+  :is(#scenario-picker, .review-picker):active:not(:disabled),
   .turn-seek:active {
     transform: translateY(1px) scale(0.97);
   }
@@ -2304,4 +2305,13 @@ summary:focus-visible {
   [data-view="list"] .card-files {
     justify-self: start;
   }
+}
+
+/* Review pickers share the scenario menu, at the checklist field height. */
+.review-field :is(#scenario-picker, .review-picker) {
+  min-height: 38px;
+  height: 38px;
+  padding: 8px 10px;
+  font-size: inherit;
+  gap: 8px;
 }

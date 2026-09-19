@@ -42,16 +42,26 @@ test("review can be completed with keyboard, saved, reopened and amended without
   await panel.locator(":scope > summary").focus();
   await page.keyboard.press("Enter");
   await page.getByLabel("Reviewer", { exact: true }).fill("Fixture reviewer");
-  await page.getByLabel("Complete evidence", { exact: true }).selectOption("ok");
-  await page.getByLabel("Ending", { exact: true }).selectOption("issue");
+  const completeness = page.getByRole("combobox", { name: "Complete evidence", exact: true });
+  await completeness.press("ArrowDown");
+  await completeness.press("End");
+  await completeness.press("Escape");
+  await expect(completeness).toContainText("Not assessed");
+  await completeness.press("ArrowDown");
+  await completeness.press("ArrowDown");
+  await completeness.press("Enter");
+  await expect(completeness).toContainText("OK");
+  await page.getByRole("combobox", { name: "Ending", exact: true }).click();
+  await page.getByRole("option", { name: "Issue", exact: true }).click();
   await page.getByLabel("Ending note", { exact: true }).fill("00:02 — clipped farewell");
   await page.getByLabel("I listened to the full recording and checked the transcript").check();
-  await page.getByLabel("Conversation result").selectOption("usable");
+  await page.getByRole("combobox", { name: "Conversation result", exact: true }).click();
+  await page.getByRole("option", { name: "Usable conversation", exact: true }).click();
   // Scope form geometry, not merely document overflow: a select's inherited margin
   // previously overlapped the neighboring input while the page width still passed.
   const rows = await page.locator(".review-check").evaluateAll((items) =>
     items.map((row) => {
-      const a = row.querySelector("select").getBoundingClientRect();
+      const a = row.querySelector('[role="combobox"]').getBoundingClientRect();
       const b = row.querySelector("input").getBoundingClientRect();
       const bounds = row.getBoundingClientRect();
       return {

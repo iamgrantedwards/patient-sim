@@ -545,3 +545,9 @@ row alignment/no overlap, keyboard operation, accessibility, saving and amendmen
 The expanded panel was inspected in the in-app browser after the correction. Local
 secret/dependency scans and package installation checks passed. No genuine listening
 completion or suitability judgment was saved on either real call.
+
+Grant requested the same picker styling as the call scenario. Review status and result
+menus now share the scenario menu's styling, selected checkmark and hover state, with
+arrow/Home/End/typeahead navigation, Enter selection and Escape dismissal. Review and
+scenario browser checks cover these interactions without dialing; the review controls
+remain compact and aligned.
