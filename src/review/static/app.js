@@ -1,5 +1,5 @@
 const $ = (id) => document.getElementById(id);
-const state = { calls: [], selected: null, detail: null, controller: null };
+const state = { calls: [], selected: null, detail: null, controller: null, controls: false };
 
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -333,8 +333,10 @@ function renderGovernance(call) {
     ),
     control(
       "Local review boundary",
-      "Enforced",
-      "Read-only routes, loopback binding, restricted file access, and browser security headers. The viewer loads no telephony credentials, sends no analytics, and makes no model calls.",
+      state.controls ? "Calling enabled" : "Read-only",
+      state.controls
+        ? "Evidence routes are read-only. Calling was explicitly enabled for this process: confirmed start/stop requests use a local session token, exact Origin checks, one shared call slot, and the fixed assessment destination. Provider credentials stay on the server."
+        : "Read-only routes, loopback binding, restricted file access, and browser security headers. The viewer loads no telephony credentials, sends no analytics, and makes no model calls.",
     ),
     control(
       "AI instructions & untrusted content",
@@ -462,6 +464,11 @@ async function refresh() {
     $("call-list").setAttribute("aria-busy", "false");
   }
 }
+document.addEventListener("console-mode", (event) => {
+  state.controls = event.detail.enabled;
+  renderGovernance(state.detail);
+});
+document.addEventListener("evidence-ready", () => refresh());
 $("review-nav").addEventListener("click", () => {
   if (state.detail) {
     selectTab("conversation", true);

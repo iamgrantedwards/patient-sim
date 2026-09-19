@@ -37,23 +37,33 @@ uv run python -m src.caller.dial --scenario smoke --dry-run
 ```
 
 Dry runs need no credentials, do not connect to providers, and place no call.
-After filling the ignored `.env`, run the worker in one terminal:
+After filling the ignored `.env`, enable the local call console:
 
 ```sh
-uv run python -m src.caller.agent download-files
-uv run python -m src.caller.agent dev
+uv run python -m src.review --enable-calls
 ```
 
-In a second terminal, explicitly place one call:
+Open **http://127.0.0.1:8765**. Choose a scenario, select **Review & call**, and confirm
+one call in the dialog. The console starts a dedicated worker, waits for LiveKit to
+acknowledge registration, and only then dispatches that call. Live status and committed
+dialogue appear in the console. **Stop call** requests termination and preserves the
+available evidence; it is recorded as an operator stop, not a natural ending.
+
+For an explicit call without the UI, the CLI manages the same dedicated worker:
 
 ```sh
 uv run python -m src.caller.dial --scenario smoke --call
 ```
 
-The local dispatcher and worker must use this same checkout. The worker prepares audio
-and recording, then dials the sole allowlisted destination. The scenario asks about
-office information without changing appointments. There is no initial caller greeting
-or automatic redial. Stop the worker with Ctrl-C after the session has finalized.
+UI and CLI share an OS call lock in ignored `.runtime/`. Refresh and reconnection never
+place calls. A saved unresolved operation blocks another call until **Stop / recover**
+confirms the worker has stopped and the room is absent. Do not delete recovery files to
+bypass the lock. Ctrl-C closes an active console/CLI call; recordings can be incomplete
+if interrupted. See [call operations and recovery](docs/OPERATIONS.md).
+
+The first supported scenario asks about office information without changing appointments.
+There is no initial caller greeting or automatic redial. Provider/model settings remain
+fixed; the managed worker requires this same checkout and Python environment.
 
 ## Automated checks and builds
 
@@ -69,7 +79,7 @@ and the first-good-call milestone remain separate acceptance gates.
 
 ## Evidence
 
-Each call uses `calls/<call-id>/` with dispatch status, `meta.json`, incremental
+Each call uses `calls/<call-id>/` with `meta.json`, incremental
 `events.jsonl`, readable `transcript.txt`, `transcript.json`, and `recording.ogg` when
 the SDK recording is available. Shutdown preserves the local SDK audio and checks its
 container and complete decoding. A successful decode does not mean anyone listened.
@@ -90,17 +100,18 @@ explicitly adding selected submission evidence to the public repository.
 ## Design and progress
 
 - [AI governance, control evidence, and open obligations](docs/AI-GOVERNANCE.md)
+- [Morning recording session and remaining gates](docs/MORNING.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The local call-review UI is implemented in #23. Explicit outbound controls and live
-status are next in #24, before the requested genuine debugging video. The first-good-call gate remains open;
+The local review UI (#23) and opt-in outbound controls (#24) are implemented on dependent
+draft PRs. The controls still need a real UI call with human review. The first-good-call gate remains open;
 calibration, broader call collection, findings, and the final walkthrough follow it.
-The first run exposed a simulator event-handler bug (#21) and an unresolved closing
-issue (#12). No bug in the assessment agent has been confirmed.
+The first run exposed a simulator event-handler bug (#21), now fixed with pinned-SDK
+regression tests but awaiting live confirmation, and an unresolved closing issue (#12). No bug in the assessment agent has been confirmed.
 
 ## Personal GitHub account
 

@@ -719,7 +719,7 @@ audio {
   margin-top: 22px;
   line-height: 1.7;
 }
-.page-footer span > span {
+.footer-separator {
   margin: 0 7px;
   color: #adb6a9;
 }
@@ -1085,5 +1085,175 @@ audio {
   }
   .review-panel[aria-busy="true"] {
     opacity: 0.65;
+  }
+}
+.console-panel {
+  background: #fcfdfb;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.console-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+}
+.console-heading h2 {
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  margin: 8px 0 0;
+  color: var(--ink);
+}
+.console-intro {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 12px 0 20px;
+}
+.console-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.console-controls > div:first-child {
+  flex: 1;
+  min-width: 200px;
+}
+.console-controls label,
+.call-destination > span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.console-controls select {
+  width: 100%;
+  margin: 0;
+  min-height: 42px;
+}
+.call-destination strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+}
+.call-destination small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.button.primary {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+  min-height: 42px;
+}
+.button.primary:hover {
+  background: #163c32;
+}
+.button.danger {
+  color: #843f33;
+  border-color: #d9aaa0;
+  background: #fff5f1;
+  min-height: 42px;
+}
+.operation-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  overflow-wrap: anywhere;
+}
+.operation-meta .mono {
+  font-size: 12px;
+}
+#live-dialogue summary {
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 0;
+}
+#live-turns {
+  margin-top: 14px;
+  max-height: 280px;
+  overflow: auto;
+}
+.live-turn {
+  border-left: 2px solid #c5d4c6;
+  padding: 0 12px;
+}
+.live-turn strong {
+  font-size: 12px;
+  color: var(--green);
+}
+.live-turn p {
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 5px 0;
+}
+dialog {
+  width: min(520px, calc(100vw - 32px));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  color: var(--ink);
+  box-shadow: 0 20px 80px #163c3229;
+}
+dialog::backdrop {
+  background: #15241d88;
+}
+#confirmation-title {
+  font-size: 24px;
+  margin: 0 0 14px;
+  letter-spacing: -0.5px;
+}
+#call-confirmation > p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.confirmation-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 22px 0;
+}
+.confirmation-check input {
+  margin-top: 5px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--green);
+}
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+@media (max-width: 780px) {
+  .console-panel {
+    padding: 20px 18px;
+  }
+  .console-controls {
+    gap: 16px;
+  }
+  .console-controls > div:first-child {
+    flex-basis: 100%;
+  }
+  .call-destination {
+    flex: 1;
+  }
+  .console-heading h2 {
+    font-size: 21px;
+  }
+  .console-heading .badge {
+    font-size: 11px;
   }
 }
