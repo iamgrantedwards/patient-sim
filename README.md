@@ -19,15 +19,19 @@ uv run python -m src.review
 
 Open **http://127.0.0.1:8765**. The read-only interface shows the actual local `calls/`
 folders, original audio, raw transcript, partial speech, recorded pipeline provenance,
-and AI governance controls. It needs no provider credentials and cannot place calls.
+and the current controls and data handling. It needs no provider credentials and cannot place calls.
 Use `--calls-dir /path/to/calls` for another evidence directory or `--port 8767` for a
 free local port. Node.js is only required for UI development checks, not to run the viewer.
 Missing recordings and unknown review/timing/state remain explicit. Opening or playing
 an artifact never marks it human-reviewed. Original call evidence stays unchanged.
 
-Use the **Learn** light bulb for optional hover, focus or tap explanations. **Guide**
-beside it opens a short manual with the call/review flow, testing steps and recovery
-help. Both work locally without changing calls or evidence.
+Calls open in a horizontal card rail. Use the Cards/List icons to change views; your
+choice stays in this browser. The magnifying glass beside the call count opens search
+and filters. Select a card or list entry to open its evidence.
+
+Use the light bulb for optional hover, focus or tap explanations. The book icon beside
+it opens a short guide with the call/review flow and recovery help. These controls
+work locally without changing calls or evidence.
 
 ## Run the caller locally
 
