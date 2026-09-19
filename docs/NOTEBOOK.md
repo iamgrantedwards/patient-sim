@@ -288,6 +288,22 @@ No findings have been confirmed. No calls have been placed.
   audit maintenance response. Hosted Dependabot execution requires landing this config
   and a new update run; static validation is not claimed as that end-to-end result.
 
+## 2026-09-19 — status polling during page exit (#40)
+
+- The final guide integration run 35459511934 passed npm audit but failed the WebKit
+  no-page-errors assertion during refresh. The synthetic trace locates the error in
+  the console status fetch, between reload starting and the new document navigating.
+  Prior same-origin reads and call mutations succeeded; this is not an Origin-policy
+  rejection or a finding against the assessment agent.
+- Opened #40 and posted the trace/plan before implementation. A deterministic regression
+  first failed because status polling continued after pagehide. The fix clears the
+  scheduled poll, aborts the in-flight read, ignores its stale result, and resumes one
+  polling chain on persisted pageshow. It does not issue a stop or redial.
+- The lifecycle regression passes in desktop/mobile Chromium and desktop WebKit; the
+  original refresh scenario passed 15 consecutive WebKit runs. These are synthetic
+  browser checks, not real-call evidence. Required hosted checks remain the merge gate;
+  no retries, exception filters, authentication changes, or audit bypasses were added.
+
 ## 2026-09-19 — contextual learning mode (#29)
 
 - Grant requested a top-of-screen light bulb, contextual explanations, a manual, less
