@@ -25,6 +25,10 @@ free local port. Node.js is only required for UI development checks, not to run 
 Missing recordings and unknown review/timing/state remain explicit. Opening or playing
 an artifact never marks it human-reviewed. Original call evidence stays unchanged.
 
+Use the **Learn** light bulb for optional hover, focus or tap explanations. **Guide**
+beside it opens a short manual with the call/review flow, testing steps and recovery
+help. Both work locally without changing calls or evidence.
+
 ## Run the caller locally
 
 Requires Python 3.12, [uv](https://docs.astral.sh/uv/), and `ffmpeg`/`ffprobe` on PATH.

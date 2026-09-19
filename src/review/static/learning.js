@@ -169,3 +169,32 @@ document.addEventListener("scroll", position, true);
 mount();
 new MutationObserver(mount).observe(byId("main"), { childList: true, subtree: true });
 render();
+
+// A local manual, available independently of whether contextual hints are enabled.
+const guide = byId("learning-guide");
+const guideOpen = byId("learning-guide-open");
+guideOpen.addEventListener("click", () => {
+  hide();
+  guide.showModal();
+  guide.scrollTop = 0;
+  byId("learning-guide-close").focus({ preventScroll: true });
+});
+byId("learning-guide-close").addEventListener("click", () => guide.close());
+guide.addEventListener("close", () => guideOpen.focus({ preventScroll: true }));
+
+// Keep keyboard navigation in the manual, including at its first and last controls.
+guide.addEventListener("keydown", (event) => {
+  if (event.key !== "Tab") return;
+  const stops = [...guide.querySelectorAll("button, summary, a[href]")].filter(
+    (element) => !element.disabled && element.getClientRects().length > 0,
+  );
+  const first = stops[0];
+  const last = stops.at(-1);
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});

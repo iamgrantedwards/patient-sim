@@ -28,8 +28,9 @@ system, simulated incoming-call screen, or analytics platform is needed.
 ## Pull requests
 
 - [PR #20](https://github.com/iamgrantedwards/patient-sim/pull/20) owns the caller/CI
-  foundation. Its latest foundation CI is green; M1 and live confirmation of defects #21/#12 still block readiness.
-  A later commit must pass its own checks. Do not append UI implementation to it.
+  foundation. It and the separate review UI #27 and call controls #28 were merged on
+  2026-09-19 at Grant's request, with required CI green. M1 and live confirmation of
+  defects #21/#12 remain open; merging code does not establish call quality.
 - Use `codex/call-review-ui` for #23 and `codex/call-controls` for #24. Open a draft PR
   on the first implementation commit; each PR links its issue and fills the repository
   template with actual verification and risks.
@@ -45,7 +46,9 @@ system, simulated incoming-call screen, or analytics platform is needed.
   needs browser verification as well as automated tests. Add checks for new UI code
   in the UI PR; keep Ruff/Pyright for Python and use Biome if standalone JS is added.
 - Keep `main` protected. Required CI passing is necessary but does not establish live
-  voice quality. Merge only when that PR's acceptance criteria and review are complete.
+  voice quality. Review the code acceptance before merging. When Grant authorizes a
+  code merge ahead of real-call acceptance, retain the unmet live checks in open issues
+  and state the distinction in the PR; never close M1 on offline evidence alone.
 - Use `Closes #...` for fully implemented issue scope when merging to `main`. Code
   remains open/in-review while only on a draft branch. Completed external setup tasks
   may close once their evidence is recorded.

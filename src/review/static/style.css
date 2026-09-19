@@ -1358,3 +1358,134 @@ dialog::backdrop {
     min-height: 32px;
   }
 }
+
+.learning-tools {
+  gap: 0;
+}
+.learning-tools .learning-toggle {
+  border-radius: 8px 0 0 8px;
+}
+.guide-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #cbd5c9;
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  background: #fff;
+  color: #34483b;
+  padding: 9px 12px;
+  min-height: 40px;
+  font-size: 13px;
+}
+.learning-guide {
+  position: fixed;
+  inset: 12px 12px 12px auto;
+  margin: 0;
+  width: min(520px, calc(100vw - 24px));
+  height: calc(100% - 24px);
+  max-height: none;
+  max-width: none;
+  border: 1px solid #d6ddd4;
+  border-radius: 16px;
+  padding: 26px;
+  background: #fcfdfa;
+  color: var(--ink);
+  box-shadow: 0 12px 50px #18332935;
+  overscroll-behavior: contain;
+  overflow-y: auto;
+}
+.learning-guide::backdrop {
+  background: #203b2e55;
+}
+.guide-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+#guide-title {
+  font-size: 26px;
+  letter-spacing: -0.6px;
+  margin: 7px 0;
+}
+.guide-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #d6ddd4;
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font-size: 24px;
+}
+#guide-intro {
+  color: #536458;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 12px 0 24px;
+}
+.guide-start {
+  border: 1px solid #dbe3d7;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 18px;
+  background: #f1f5ee;
+}
+.guide-steps {
+  display: grid;
+  gap: 12px;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 15px 0;
+}
+.guide-note,
+.guide-copy,
+.guide-checks,
+.guide-definitions {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #536458;
+}
+.guide-note {
+  margin-bottom: 0;
+}
+.guide-section {
+  border-bottom: 1px solid #dce3d8;
+  padding: 4px 0;
+}
+#learning-guide summary {
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 15px 0;
+  line-height: 1.6;
+}
+.guide-definitions dt {
+  color: var(--ink);
+  font-weight: 650;
+  margin-top: 12px;
+}
+.guide-definitions dd {
+  margin: 3px 0 12px;
+}
+.guide-checks {
+  padding-left: 20px;
+}
+summary:focus-visible {
+  outline: 3px solid #a66725;
+  outline-offset: 3px;
+}
+@media (max-width: 780px) {
+  .guide-open {
+    min-height: 34px;
+    padding: 5px 8px;
+  }
+  .learning-guide {
+    padding: 20px;
+  }
+}

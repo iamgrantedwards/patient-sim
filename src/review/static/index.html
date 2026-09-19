@@ -75,6 +75,29 @@
               </svg>
               Learn
             </button>
+            <button
+              type="button"
+              id="learning-guide-open"
+              class="guide-open"
+              aria-label="Open quick guide"
+              aria-haspopup="dialog"
+              aria-controls="learning-guide"
+            >
+              <svg
+                aria-hidden="true"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 5v15M3 4c4-1 6-1 9 1 3-2 5-2 9-1v15c-4-1-6-1-9 1-3-2-5-2-9-1V4Z" />
+              </svg>
+              Guide
+            </button>
           </div>
         </div>
       </header>
@@ -319,6 +342,132 @@
         >
       </main>
     </div>
+    <dialog
+      id="learning-guide"
+      class="learning-guide"
+      aria-labelledby="guide-title"
+      aria-describedby="guide-intro"
+    >
+      <div class="guide-heading">
+        <div>
+          <span class="eyebrow">PATIENT-SIM · LEARN</span>
+          <h2 id="guide-title">Quick guide</h2>
+        </div>
+        <button
+          type="button"
+          id="learning-guide-close"
+          class="guide-close"
+          aria-label="Close quick guide"
+        >
+          ×
+        </button>
+      </div>
+      <p id="guide-intro">Run a call at the top. Review what happened below.</p>
+      <section class="guide-start" aria-labelledby="guide-first-call">
+        <h3 id="guide-first-call">Your first test</h3>
+        <ol class="guide-steps">
+          <li>
+            <strong>Choose a scenario.</strong>
+            It gives our simulated patient a goal. You do not speak into the call.
+          </li>
+          <li>
+            <strong>Review &amp; call.</strong>
+            Check the fixed destination, then confirm one call. Opening the page or this guide never
+            dials.
+          </li>
+          <li>
+            <strong>Watch the status.</strong>
+            Follow connection and live text. Audio playback is available after the call.
+          </li>
+          <li>
+            <strong>Open saved evidence.</strong>
+            After finalization, the call appears in the list. Select it to listen and compare the
+            transcript.
+          </li>
+        </ol>
+        <p class="guide-note">If call controls are absent, this console is in read-only mode.</p>
+      </section>
+      <details class="guide-section">
+        <summary>What do the three tabs mean?</summary>
+        <dl class="guide-definitions">
+          <dt>Conversation</dt>
+          <dd>The selected call’s original audio and transcript. Partial speech stays visible.</dd>
+          <dt>Provenance</dt>
+          <dd>
+            The models, settings, code revision and prompt fingerprint recorded for that call. Later
+            changes do not rewrite them.
+          </dd>
+          <dt>AI governance</dt>
+          <dd>
+            Safeguards, human-review requirements and limits. Spoken claims, cross-call consistency
+            and independently verified outcomes are separate.
+          </dd>
+        </dl>
+      </details>
+      <details class="guide-section">
+        <summary>What should I test next?</summary>
+        <p class="guide-copy">
+          Aim for one complete conversation first. Listen all the way through and check:
+        </p>
+        <ul class="guide-checks">
+          <li>Both voices are audible.</li>
+          <li>Replies make sense and turns do not repeatedly cut each other off.</li>
+          <li>The transcript matches the audio; incomplete speech is identified.</li>
+          <li>The conversation ends cleanly. A polite refusal can be a valid outcome.</li>
+        </ul>
+        <p class="guide-copy">
+          When ready to debug, record the actual work with your voice and webcam. After the first
+          good call, compare configurations, expand scenarios and collect at least ten complete,
+          reviewed conversations for the assessment.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>How do I stop or recover a call?</summary>
+        <p class="guide-copy">
+          <strong>Stop call</strong>
+          ends the active call and preserves available evidence. An operator stop is recorded
+          separately from a natural ending, and unfinished audio may be incomplete.
+        </p>
+        <p class="guide-copy">
+          Refreshing or closing the browser does not stop a call. Reopen the console and use Stop.
+          If status is lost, do not assume the call ended.
+        </p>
+        <p class="guide-copy">
+          <strong>Stop / recover</strong>
+          is offered when cleanup is uncertain. Another call stays blocked until cleanup is
+          confirmed. Do not delete recovery files to bypass it; there is no automatic redial.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>What counts as usable evidence?</summary>
+        <p class="guide-copy">
+          An audio/transcript pair means both files exist. It does not establish voice quality or a
+          complete conversation. Playing audio does not update the recorded human-review status.
+        </p>
+        <p class="guide-copy">
+          Check quotes against the audio. Turn numbers are not timestamps. A recording fingerprint
+          identifies file contents; it is not independent proof of correctness. A spoken booking
+          confirmation is a claim until independently verified.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>What are the privacy and AI limits?</summary>
+        <p class="guide-copy">
+          Use synthetic patient facts and the designated assessment line. This tool evaluates an
+          agent; it does not deliver patient care or make clinical decisions.
+        </p>
+        <p class="guide-copy">
+          Remote responses may contain personal information. Review audio and text before
+          publishing. Calls involve LiveKit, Twilio and inference providers; a local viewer does not
+          mean all call data stays on-device.
+        </p>
+        <p class="guide-copy">
+          Governance controls are documented, not certified. Provider retention, access and other
+          obligations need separate review before use beyond this assessment. The app does not claim
+          HIPAA compliance.
+        </p>
+      </details>
+    </dialog>
     <div id="learning-tooltip" class="learning-tooltip" role="tooltip" popover="manual">
       <strong id="learning-tooltip-title"></strong>
       <p id="learning-tooltip-text"></p>
