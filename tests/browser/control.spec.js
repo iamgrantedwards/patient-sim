@@ -162,3 +162,46 @@ test("uncertain start response is never automatically retried", async ({ page })
   await expect(page.locator("#call-start")).toBeDisabled();
   expect(setup.requests).toHaveLength(1);
 });
+
+test("status polling pauses on page exit and resumes without a call on history restore", async ({
+  page,
+}) => {
+  const reads = [];
+  page.on("request", (request) => {
+    if (request.url().endsWith("/api/console")) reads.push(request);
+  });
+  await page.clock.install();
+  const setup = await fixture(page, "connected");
+  const beforeExit = reads.length;
+  await page.evaluate(() => dispatchEvent(new PageTransitionEvent("pagehide")));
+  await page.clock.runFor(4000);
+  expect(reads).toHaveLength(beforeExit);
+  expect(setup.requests).toEqual([]);
+
+  setup.state.operation.phase = "finalizing";
+  await page.evaluate(() =>
+    dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true })),
+  );
+  await expect(page.locator("#console-phase")).toHaveText("Finalizing evidence");
+  expect(reads).toHaveLength(beforeExit + 1);
+  expect(setup.requests).toEqual([]);
+
+  let held;
+  const hold = (route) => {
+    held = route;
+  };
+  await page.route("**/api/console", hold);
+  await page.clock.runFor(1000);
+  await expect.poll(() => !!held).toBe(true);
+  const canceledRead = page.waitForEvent("requestfailed", {
+    predicate: (request) => request.url().endsWith("/api/console"),
+  });
+  await page.evaluate(() => dispatchEvent(new PageTransitionEvent("pagehide")));
+  await canceledRead;
+  const afterCancel = reads.length;
+  await page.clock.runFor(9000);
+  expect(reads).toHaveLength(afterCancel);
+  await expect(page.locator("#console-error")).toBeHidden();
+  expect(setup.requests).toEqual([]);
+  await page.unroute("**/api/console", hold);
+});
