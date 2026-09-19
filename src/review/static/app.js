@@ -1,11 +1,41 @@
 const $ = (id) => document.getElementById(id);
-const state = { calls: [], selected: null, detail: null, controller: null, controls: false };
+const state = {
+  calls: [],
+  selected: null,
+  detail: null,
+  controller: null,
+  controls: false,
+  view: "cards",
+  operation: null,
+};
 
 function node(tag, text, className) {
   const element = document.createElement(tag);
   if (text !== undefined && text !== null) element.textContent = String(text);
   if (className) element.className = className;
   return element;
+}
+function icon(paths, size = 14) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  for (const [key, value] of Object.entries({
+    "aria-hidden": "true",
+    class: "status-icon",
+    viewBox: "0 0 24 24",
+    width: String(size),
+    height: String(size),
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "1.7",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+  }))
+    svg.setAttribute(key, value);
+  for (const data of paths) {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", data);
+    svg.append(path);
+  }
+  return svg;
 }
 function badge(text, variant = "neutral") {
   return node("span", text, `badge ${variant}`);
@@ -43,6 +73,8 @@ function outcome(call) {
     rejected: ["Call declined", "warning"],
   };
   if (call.status === "unavailable") return ["Artifacts unavailable", "error"];
+  if (call.status === "worker_started" && call.ended_by === "Not recorded")
+    return ["Not finalized", "warning"];
   return (
     values[call.ended_by] || [
       call.ended_by === "Not recorded"
@@ -72,7 +104,69 @@ async function json(url, signal) {
   }
   return response.json();
 }
+const viewPreference = "patient-sim.call-view.v1";
+try {
+  if (localStorage.getItem(viewPreference) === "list") state.view = "list";
+} catch {
+  // The view toggle also works without browser storage.
+}
+function railControls() {
+  const rail = $("call-list");
+  const overflow = state.view === "cards" && rail.scrollWidth > rail.clientWidth + 2;
+  $("rail-controls").hidden = !overflow;
+  $("rail-prev").disabled = rail.scrollLeft < 2;
+  $("rail-next").disabled = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
+}
+function setView(view) {
+  state.view = view;
+  $("calls").dataset.view = view;
+  for (const name of ["cards", "list"])
+    $(`view-${name}`).setAttribute("aria-pressed", String(name === view));
+  try {
+    localStorage.setItem(viewPreference, view);
+  } catch {
+    /* Page-local fallback. */
+  }
+  requestAnimationFrame(railControls);
+}
+let operationReceipt = "";
+function renderOperation() {
+  const op = state.operation;
+  const receipt = JSON.stringify([
+    op?.call_id,
+    op?.phase,
+    op?.ended_by,
+    op?.cleanup_confirmed,
+    op?.evidence_status,
+  ]);
+  if (operationReceipt === receipt) return;
+  operationReceipt = receipt;
+  const target = $("latest-operation");
+  target.replaceChildren();
+  target.hidden = !op?.call_id || !["ended", "failed"].includes(op.phase);
+  if (target.hidden) return;
+  const open = node("button", "Latest attempt", "footer-link");
+  open.type = "button";
+  open.addEventListener("click", () => selectCall(op.call_id));
+  const status =
+    op.ended_by === "operator_stop"
+      ? "Stopped by operator"
+      : op.phase === "failed"
+        ? "Failed"
+        : "Ended";
+  target.append(open, node("span", status));
+  if (op.cleanup_confirmed === true) target.append(node("span", "Room closed"));
+  if (op.evidence_status === "partial_or_unavailable")
+    target.append(node("span", "Evidence incomplete"));
+}
+function closeSearch(focus = false) {
+  $("search-panel").hidden = true;
+  $("search-toggle").setAttribute("aria-expanded", "false");
+  if (focus) $("search-toggle").focus();
+}
 function renderList() {
+  const focusedCall = document.activeElement?.closest(".call-card")?.dataset.callId;
+  const scrollLeft = $("call-list").scrollLeft;
   const query = $("search").value.trim().toLowerCase();
   const filter = $("filter").value;
   const calls = state.calls.filter((call) => {
@@ -87,7 +181,15 @@ function renderList() {
         (filter === "missing" && (!call.recording.available || !call.transcript_available)))
     );
   });
-  $("library-count").textContent = `${calls.length} ${calls.length === 1 ? "call" : "calls"}`;
+  const filtered = !!query || filter !== "all";
+  $("search-toggle").classList.toggle("has-filter", filtered);
+  $("search-toggle").setAttribute(
+    "aria-label",
+    filtered ? "Search and filter calls, filters active" : "Search and filter calls",
+  );
+  $("library-count").textContent = filtered
+    ? `${calls.length} of ${state.calls.length}`
+    : `${calls.length} ${calls.length === 1 ? "call" : "calls"}`;
   $("call-list").replaceChildren();
   if (!calls.length) {
     $("call-list").append(
@@ -99,30 +201,63 @@ function renderList() {
         "empty-small",
       ),
     );
+    requestAnimationFrame(railControls);
     return;
   }
   for (const call of calls) {
     const button = node("button", null, "call-card");
     button.type = "button";
+    button.dataset.callId = call.call_id;
+    button.setAttribute("aria-controls", "review-panel");
     button.setAttribute("aria-current", String(state.selected === call.call_id));
     button.setAttribute(
       "aria-label",
-      `${scenario(call.scenario)} · ${call.call_id} · ${outcome(call)[0]}`,
+      `${scenario(call.scenario)} · ${call.call_id} · ${outcome(call)[0]} · ${call.recording.available ? "Audio available" : "No audio"} · ${call.transcript_available ? "Transcript available" : "No transcript"} · ${Number.isFinite(call.duration_seconds) ? `Duration ${duration(call.duration_seconds)}` : "Duration unavailable"}`,
     );
     const top = node("div", null, "card-top");
-    top.append(
-      node("h3", scenario(call.scenario)),
-      node("span", duration(call.duration_seconds), "duration mono"),
+    const time = node("span", null, "duration");
+    time.title = Number.isFinite(call.duration_seconds)
+      ? "Recording duration"
+      : "Recording duration unavailable";
+    time.append(
+      icon(["M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0", "M12 7v5l3 2"]),
+      node("span", duration(call.duration_seconds)),
     );
-    button.append(
-      top,
-      node("p", date(call.started_at, true)),
-      node("p", call.call_id, "call-id mono"),
-      badge(...outcome(call)),
+    top.append(node("h3", scenario(call.scenario)));
+    const status = node("div", null, "card-status");
+    status.append(time, badge(...outcome(call)));
+    const emblem = node("div", null, "card-emblem");
+    const symbol = node("span", null, "card-symbol");
+    symbol.append(
+      icon(
+        [
+          "M21 16v3a2 2 0 0 1-2.2 2A19 19 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-3 2a14 14 0 0 0 7 7l2-3 5 2Z",
+        ],
+        16,
+      ),
     );
+    emblem.append(symbol, node("span", date(call.started_at, true), "card-date"));
+    const files = node("div", null, "card-files");
+    for (const [available, label, paths] of [
+      [
+        call.recording.available,
+        "Audio",
+        ["M4 13v-1a8 8 0 0 1 16 0v1", "M4 12H3v7h4v-7H4ZM20 12h1v7h-4v-7h3Z"],
+      ],
+      [call.transcript_available, "Transcript", ["M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 12h8M8 16h6"]],
+    ]) {
+      const file = node("span", null, `file-chip ${available ? "file-present" : "file-missing"}`);
+      file.title = `${label} file ${available ? "available" : "unavailable"}`;
+      file.append(icon(paths), node("span", available ? label : `No ${label.toLowerCase()}`));
+      files.append(file);
+    }
+    button.append(emblem, top, node("p", call.call_id, "call-id mono"), status, files);
     button.addEventListener("click", () => selectCall(call.call_id));
     $("call-list").append(button);
+    if (focusedCall === call.call_id) button.focus({ preventScroll: true });
   }
+  $("call-list").scrollLeft = scrollLeft;
+  requestAnimationFrame(railControls);
 }
 function selectTab(name, focus = false) {
   for (const tab of document.querySelectorAll('[role="tab"]')) {
@@ -142,10 +277,7 @@ function emptyHeader(title, text) {
 function renderHeader(call) {
   const top = node("div", null, "detail-top");
   const title = node("div");
-  title.append(
-    node("div", "RECORDED CONVERSATION", "detail-kicker"),
-    node("h2", scenario(call.scenario)),
-  );
+  title.append(node("div", "CALL DETAILS", "detail-kicker"), node("h2", scenario(call.scenario)));
   top.append(title, badge(...outcome(call)));
   const meta = node("div", null, "detail-meta");
   meta.append(
@@ -316,104 +448,43 @@ function renderProvenance(call) {
     node("p", "File fingerprint, not a signature or proof of correctness.", "context-note"),
   );
 }
-function control(title, status, summary, text, variant = "neutral", source) {
-  const row = node("div", null, "control-row");
-  const heading = node("div", null, "control-heading");
-  heading.append(node("h4", title), badge(status, variant));
-  row.append(heading, node("p", summary));
-  const details = node("details", null, "explanation");
-  const trigger = node("summary", "Details");
-  trigger.setAttribute("aria-label", `Details: ${title}`);
-  details.append(trigger, node("p", text));
-  if (source) details.append(link(source[0], source[1]));
-  row.append(details);
-  return row;
-}
-function claimText(value) {
-  if (value === null || value === undefined) return "Not established";
-  return typeof value === "string" ? value : JSON.stringify(value, null, 2);
-}
 function renderGovernance(call) {
   const panel = $("governance");
-  const claims = node("div", null, "claims");
-  for (const [label, key] of [
-    ["What was claimed", "claimed_state"],
-    ["Cross-call consistency", "consistency"],
-    ["Independently verified", "verified_state"],
-  ]) {
-    const item = node("div", null, "claim");
-    item.append(node("h4", label), node("p", claimText(call?.claims?.[key])));
-    claims.append(item);
-  }
-  const controls = node("div", null, "governance-list");
-  controls.append(
-    control(
-      "Human oversight",
-      call?.recording.listened_by_human === true ? "Review recorded" : "Review pending",
-      "Listen to the full call before accepting evidence or publishing findings.",
-      "A person must listen to the recording and validate evidence before publishing findings. This read-only view cannot approve a call or mark it reviewed.",
-      "warning",
-    ),
-    control(
-      "Purpose & scope",
-      "Defined",
-      "Synthetic assessment calls only. No patient care or clinical decisions.",
-      "A synthetic patient tests an explicitly designated assessment line. This system does not deliver patient care or make clinical decisions. Unknown patient facts must not be invented.",
-    ),
-    control(
-      "Privacy & publication",
-      "Manual gate",
-      "Review recordings before publication. Synthetic inputs can still produce personal information.",
-      "Synthetic inputs do not guarantee that returned audio is free of personal information. Inspect recordings and transcripts before public release. Redaction was disabled for evidence capture; the viewer does not redact or anonymize content.",
-      "warning",
-    ),
-    control(
-      "Local review boundary",
-      state.controls ? "Calling enabled" : "Read-only",
-      state.controls
-        ? "Calls require confirmation; evidence stays unchanged."
-        : "Local, read-only evidence review. No calls can be placed here.",
-      state.controls
-        ? "Evidence routes are read-only. Calling was explicitly enabled for this process: confirmed start/stop requests use a local session token, exact Origin checks, one shared call slot, and the fixed assessment destination. Provider credentials stay on the server."
-        : "Read-only routes, loopback binding, restricted file access, and browser security headers. The viewer loads no telephony credentials, sends no analytics, and makes no model calls.",
-    ),
-    control(
-      "AI instructions & untrusted content",
-      "Bounded",
-      "Transcripts are treated as data. Code enforces the fixed call destination.",
-      "Transcript content is rendered as text, never executed as HTML or passed to an automated judge. The caller’s fixed destination is enforced in code; prompts alone are not a security boundary.",
-      "neutral",
-      ["OWASP: prompt injection ↗", "https://genai.owasp.org/llmrisk/llm01-prompt-injection/"],
-    ),
-    control(
-      "Data lifecycle & provider processing",
-      "Open obligations",
-      "Calls use external providers. Retention and deletion obligations remain open.",
-      "The original calls use LiveKit, Twilio, and inference providers. Local review is not a claim that all call data stays on-device. Provider retention, access, consent, and deletion obligations need separate review before use beyond this assessment.",
-      "warning",
-    ),
-  );
-  const sources = node("div", null, "link-row");
-  sources.append(
-    link(
-      "NIST AI Risk Management Framework ↗",
-      "https://www.nist.gov/itl/ai-risk-management-framework",
-    ),
-    link(
-      "HHS de-identification guidance ↗",
-      "https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html",
-    ),
-  );
   panel.replaceChildren(
-    intro(
-      "Evidence, oversight, and limits",
-      "NIST AI RMF informs these controls; not a certification or a claim of HIPAA compliance.",
+    intro("Controls & data", "How this console handles calls and files."),
+    fields([
+      [
+        "Console mode",
+        state.controls ? "Calling enabled · confirmation required" : "Read-only · calling disabled",
+      ],
+      ["Call limits", "One at a time · fixed test destination · no automatic redial"],
+      ["Saved files", "Local calls directory · original audio, transcript and metadata"],
+      ["Provider processing", "LiveKit, Twilio and inference providers handle live calls."],
+    ]),
+    node(
+      "p",
+      "This viewer does not redact files or manage provider retention. Review content before sharing.",
+      "context-note",
     ),
-    claims,
-    controls,
-    sources,
-    node("p", "Production use requires a separate legal and institutional review.", "context-note"),
   );
+  const recorded = [
+    ["Claimed outcome", call?.claims?.claimed_state],
+    ["Cross-call consistency", call?.claims?.consistency],
+    ["Verified outcome", call?.claims?.verified_state],
+  ].filter(([, value]) => value !== null && value !== undefined);
+  if (recorded.length) {
+    const details = node("details", null, "explanation");
+    details.append(
+      node("summary", "Recorded outcomes"),
+      fields(
+        recorded.map(([label, value]) => [
+          label,
+          typeof value === "string" ? value : JSON.stringify(value),
+        ]),
+      ),
+    );
+    panel.append(details);
+  }
 }
 async function selectCall(id) {
   state.controller?.abort();
@@ -426,6 +497,16 @@ async function selectCall(id) {
   $("review-panel").setAttribute("aria-busy", "true");
   emptyHeader("Loading call…", "Reading the original local artifacts.");
   renderList();
+  if (state.view === "cards") {
+    const card = $("call-list").querySelector('[aria-current="true"]');
+    if (card) {
+      const rail = $("call-list");
+      const bounds = rail.getBoundingClientRect();
+      const box = card.getBoundingClientRect();
+      if (box.left < bounds.left) rail.scrollLeft -= bounds.left - box.left + 16;
+      else if (box.right > bounds.right) rail.scrollLeft += box.right - bounds.right + 16;
+    }
+  }
   const timeout = setTimeout(() => controller.abort("timeout"), 12000);
   try {
     const call = await json(`/api/calls/${encodeURIComponent(id)}`, controller.signal);
@@ -459,7 +540,6 @@ async function refresh() {
   try {
     const data = await json("/api/calls", AbortSignal.timeout(12000));
     state.calls = data.calls;
-    $("metric-calls").textContent = data.calls.length;
     $("metric-pairs").textContent = data.calls.filter(
       (call) => call.recording.available && call.transcript_available,
     ).length;
@@ -516,6 +596,60 @@ $("review-nav").addEventListener("click", () => {
     );
   }
 });
+for (const view of ["cards", "list"])
+  $(`view-${view}`).addEventListener("click", () => setView(view));
+setView(state.view);
+$("call-list").addEventListener("scroll", railControls, { passive: true });
+new ResizeObserver(railControls).observe($("call-list"));
+for (const [id, direction] of [
+  ["rail-prev", -1],
+  ["rail-next", 1],
+])
+  $(id).addEventListener("click", () =>
+    $("call-list").scrollBy({
+      left: direction * $("call-list").clientWidth * 0.8,
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    }),
+  );
+$("search-toggle").addEventListener("click", () => {
+  if (!$("search-panel").hidden) return closeSearch(true);
+  $("search-panel").hidden = false;
+  $("search-toggle").setAttribute("aria-expanded", "true");
+  const box = $("search-toggle").getBoundingClientRect();
+  const panel = $("search-panel");
+  panel.style.left = `${Math.max(12, Math.min(box.left, innerWidth - panel.offsetWidth - 12))}px`;
+  panel.style.top = `${Math.max(12, Math.min(box.bottom + 8, innerHeight - panel.offsetHeight - 12))}px`;
+  $("search").focus({ preventScroll: true });
+});
+$("search-close").addEventListener("click", () => closeSearch(true));
+$("search-clear").addEventListener("click", () => {
+  $("search").value = "";
+  $("filter").value = "all";
+  renderList();
+  $("search").focus();
+});
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest(".library-search")) closeSearch();
+});
+$("search-panel").addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeSearch(true);
+  }
+});
+window.addEventListener("resize", () => closeSearch());
+$("search-panel").addEventListener("keydown", (event) => {
+  // Safari may move focus to the document on a pointer press. Only keyboard
+  // departure dismisses here; outside pointer presses have their own handler.
+  if (event.key === "Tab")
+    setTimeout(() => {
+      if (!document.activeElement?.closest(".library-search")) closeSearch();
+    }, 0);
+});
+document.addEventListener("operation-updated", (event) => {
+  state.operation = event.detail;
+  renderOperation();
+});
 $("search").addEventListener("input", renderList);
 $("filter").addEventListener("change", renderList);
 $("refresh").addEventListener("click", refresh);
@@ -542,7 +676,7 @@ for (const [index, tab] of tabs.entries()) {
 }
 $("governance-nav").addEventListener("click", () => {
   if (!state.detail) {
-    emptyHeader("AI governance", "Safeguards and data handling.");
+    emptyHeader("Workspace settings", "Local configuration and file handling.");
     renderGovernance(null);
     $("call-content").hidden = false;
   }

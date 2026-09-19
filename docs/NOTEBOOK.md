@@ -449,3 +449,49 @@ No findings have been confirmed. No calls have been placed.
   tests across desktop/mobile Chromium and WebKit, accessibility, quality/security gates
   and installed-package checks. The two-call debugging journal is separately tracked by
   #48; the unresolved crash in #46 is reserved for genuine debugging work.
+
+
+## 2026-09-19 — call rail, compact search and concrete controls (#50)
+
+- Grant requested cards as the default, the existing list as an alternate, and a search
+  icon beside the call count. Opened #50 before implementation; expanded its acceptance
+  when he asked to relocate the metrics/finished-operation details and replace the
+  generic governance page.
+- Added a horizontal card rail with local view preference, honest file availability,
+  selected-state depth and reduced-motion-aware hover/press feedback. Search and filters
+  open on demand; active filters remain indicated when the menu is closed.
+- Moved evidence counts and the latest finished-operation receipt into Calls. The call
+  controls retain active progress, failures and recovery; raw saved metadata is unchanged.
+- Controls & data now shows the current mode, enforced call restrictions, local storage
+  and external processing. Broad governance recommendations remain in the repository.
+- Initial checks caught ambiguous test selectors after adding a search-menu label, and
+  Safari moving focus to the document during a pointer press, dismissing the menu before
+  Clear filters could run. Scoped the selectors and restricted focus-leave dismissal to
+  keyboard navigation. All 54 browser cases now pass, including view persistence,
+  keyboard selection, search/reset, reduced motion and accessibility.
+- Visually inspected actual calls at 1440px and 390px, including search and Controls &
+  data. No real call, caller/prompt change, listening approval or fix for #46. Full local
+  verification passed: 198 Python tests (95.6% combined coverage), 54 browser cases,
+  quality/security checks and installed-package validation. Hosted CI is the next gate.
+
+- Follow-up user review rejected the first card typography and clarified that List
+  means full-width rows in the same Calls container, not the previous sidebar layout.
+  Held #52 as a draft. Fresh Chromium/WebKit probes showed the toggle already switched
+  at 390–1440px; Grant confirmed it worked. Do not claim a functional toggle repair.
+- Removed CALL RECORD lettering and visible IDs from the compact cards, strengthened
+  the active view icon, and changed List to raised full-width rows with details below.
+  New assertions check actual horizontal/vertical geometry, row width, toolbar alignment
+  and details position, in addition to state/persistence. All 54 browser cases passed;
+  inspected both actual-call views at desktop, 620px and 390px with no overflow.
+- Grant then requested destination/caller chips in the module heading. Moved the actual
+  configured numbers above the scenario row, with responsive wrapping and the original
+  call-confirmation path intact. Full verification passed after the row redesign;
+  reran UI checks and Python tests for this final layout-only refinement.
+- A further visual pass replaced loose checkmarks/dashes with consistent headphone,
+  document and clock badges. Missing files stay amber and explicit; available files
+  use a separate treatment. Selection uses the card/row highlight, not a checkmark.
+  Accessible call names now include file availability and whether duration is known.
+- Grant confirmed the badge treatment, then identified a responsive list gap: duration
+  remained inside the flexible title cell and floated away from the outcome at wider
+  sizes. Duration and outcome now share a compact status group at wider sizes; the
+  existing narrow-phone arrangement is preserved.

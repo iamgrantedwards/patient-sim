@@ -33,8 +33,8 @@ const topics = {
     "The models, settings, prompt fingerprint and code version saved with this call. Use these to understand what changed between experiments. Cloud evidence is a dated check for this call, separate from listening review.",
   ],
   governance: [
-    "AI governance",
-    "The safeguards and limits of this evaluation. A spoken claim is separate from a verified outcome. This is not a compliance certificate or an automated grade.",
+    "Controls & data",
+    "See the current console mode, enforced call limits, local files and external providers. Broader governance recommendations live in the project documentation.",
   ],
   recording: [
     "Call recording",
