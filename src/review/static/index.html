@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/assets/style.css">
     <script type="module" src="/assets/app.js"></script>
     <script type="module" src="/assets/console.js"></script>
+    <script type="module" src="/assets/learning.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to call review</a>
@@ -48,9 +49,39 @@
     <div class="app-shell">
       <header class="topbar">
         <div>Workspace <span aria-hidden="true">/</span> <strong>Call review</strong></div>
-        <span class="scope-pill">Synthetic patient scenarios</span>
+        <div class="topbar-actions">
+          <span class="scope-pill">Synthetic patient scenarios</span>
+          <div class="learning-tools">
+            <button
+              type="button"
+              id="learning-toggle"
+              class="learning-toggle"
+              aria-label="Learning mode"
+              aria-pressed="false"
+              aria-controls="learning-note"
+            >
+              <svg
+                aria-hidden="true"
+                width="19"
+                height="19"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 18h6M10 21h4M9 15c0-2-4-3-4-7a7 7 0 0 1 14 0c0 4-4 5-4 7H9Z" />
+              </svg>
+              Learn
+            </button>
+          </div>
+        </div>
       </header>
       <main id="main" tabindex="-1">
+        <div class="learning-note" id="learning-note" hidden>
+          <p>Learning mode on. Hover, focus or tap a <strong>?</strong> for help.</p>
+        </div>
         <div class="page-heading">
           <div>
             <div class="eyebrow">VOICE AGENT EVALUATION</div>
@@ -66,7 +97,7 @@
           <div class="console-heading">
             <div>
               <div class="eyebrow">EXPLICIT OUTBOUND CALL</div>
-              <h2 id="console-title">Run a test call</h2>
+              <h2 id="console-title" data-learn="calling">Run a test call</h2>
             </div>
             <span class="badge neutral" id="console-phase">Loading status</span>
           </div>
@@ -75,7 +106,10 @@
             places a call.
           </p>
           <div class="console-controls">
-            <div><label for="scenario">Scenario</label><select id="scenario"></select></div>
+            <div>
+              <label for="scenario" data-learn="scenario">Scenario</label
+              ><select id="scenario"></select>
+            </div>
             <div class="call-destination">
               <span>Fixed destination</span><strong id="call-destination"></strong
               ><small id="call-caller"></small>
@@ -127,15 +161,15 @@
         </dialog>
         <section class="metrics" aria-label="Evidence overview">
           <div class="metric">
-            <span>Captured calls</span><strong id="metric-calls">—</strong
+            <span data-learn="attempts">Captured calls</span><strong id="metric-calls">—</strong
             ><small>Actual local call records</small>
           </div>
           <div class="metric">
-            <span>Audio + transcript</span><strong id="metric-pairs">—</strong
+            <span data-learn="pairs">Audio + transcript</span><strong id="metric-pairs">—</strong
             ><small>Files available, quality not implied</small>
           </div>
           <div class="metric">
-            <span>Listening review</span><strong id="metric-reviewed">—</strong
+            <span data-learn="review">Listening review</span><strong id="metric-reviewed">—</strong
             ><small>Recorded human-review status</small>
           </div>
         </section>
@@ -144,7 +178,7 @@
         <section class="review-grid" id="calls" aria-label="Call evidence">
           <div class="call-library">
             <div class="library-heading">
-              <h2>Calls</h2>
+              <h2 data-learn="library">Calls</h2>
               <span id="library-count" class="subtle">Loading</span>
             </div>
             <label class="search-label" for="search">Search calls</label>
@@ -188,6 +222,7 @@
                   role="tab"
                   type="button"
                   id="tab-conversation"
+                  data-learn="conversation"
                   aria-selected="true"
                   aria-controls="conversation"
                   tabindex="0"
@@ -197,6 +232,7 @@
                   role="tab"
                   type="button"
                   id="tab-provenance"
+                  data-learn="provenance"
                   aria-selected="false"
                   aria-controls="provenance"
                   tabindex="-1"
@@ -206,6 +242,7 @@
                   role="tab"
                   type="button"
                   id="tab-governance"
+                  data-learn="governance"
                   aria-selected="false"
                   aria-controls="governance"
                   tabindex="-1"
@@ -222,7 +259,7 @@
               >
                 <div class="recording-card">
                   <div class="section-heading">
-                    <h3>Call recording</h3>
+                    <h3 data-learn="recording">Call recording</h3>
                     <span id="recording-label" class="small-label"></span>
                   </div>
                   <!-- biome-ignore lint/a11y/useMediaCaption: Adjacent raw transcript is the audio alternative; measured timing is unavailable for truthful captions. -->
@@ -235,7 +272,7 @@
                 <div id="call-notices"></div>
                 <div class="transcript-heading">
                   <div>
-                    <h3>Conversation transcript</h3>
+                    <h3 data-learn="transcript">Conversation transcript</h3>
                     <p id="timing-note">
                       Turn order is preserved. Audio timestamps are not measured.
                     </p>
@@ -282,5 +319,10 @@
         >
       </main>
     </div>
+    <div id="learning-tooltip" class="learning-tooltip" role="tooltip" popover="manual">
+      <strong id="learning-tooltip-title"></strong>
+      <p id="learning-tooltip-text"></p>
+    </div>
+    <p id="learning-announcement" class="sr-only" role="status"></p>
   </body>
 </html>

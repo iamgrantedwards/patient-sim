@@ -1257,3 +1257,104 @@ dialog::backdrop {
     font-size: 11px;
   }
 }
+
+/* Contextual learning stays separate from call controls and evidence. */
+.topbar-actions,
+.learning-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.learning-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #cbd5c9;
+  background: #fff;
+  color: #34483b;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  min-height: 40px;
+}
+.learning-toggle[aria-pressed="true"] {
+  color: #70440e;
+  border-color: #c69651;
+  background: #fff3d9;
+}
+.learning-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e4cd9f;
+  border-radius: 9px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: #fff9ed;
+  color: #70440e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+#learning-note > p {
+  margin: 0;
+}
+.learn-anchor {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.learn-hint {
+  display: none;
+  border: 1px solid #ae8446;
+  border-radius: 50%;
+  background: #fff9ed;
+  color: #70440e;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  padding: 0;
+  margin-left: 5px;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 650;
+  vertical-align: middle;
+}
+.learning-enabled .learn-hint {
+  display: inline-flex;
+}
+.learning-enabled [role="tab"][data-learn] {
+  text-decoration: underline dotted #986b32;
+  text-underline-offset: 5px;
+}
+.learning-tooltip {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: min(340px, calc(100vw - 24px));
+  padding: 17px 19px;
+  border: 1px solid #dcc69f;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px #24312f25;
+  background: #fffdf7;
+  color: #24312f;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+}
+#learning-tooltip-text {
+  margin: 7px 0 0;
+}
+@media (max-width: 780px) {
+  .topbar-actions .scope-pill {
+    display: none;
+  }
+  .learning-toggle {
+    min-height: 34px;
+    padding: 5px 10px;
+  }
+  .metric > [data-learn] {
+    min-height: 32px;
+  }
+}

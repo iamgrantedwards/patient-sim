@@ -270,3 +270,20 @@ No findings have been confirmed. No calls have been placed.
   videos remain his next-session work. #12 is unresolved; #21 needs live confirmation;
   #24 needs a real UI call and listening. No new call, patient-state mutation, or public
   release of original recordings occurred in this implementation session.
+
+## 2026-09-19 — contextual learning mode (#29)
+
+- Grant requested a top-of-screen light bulb, contextual explanations, a manual, less
+  wordy interface copy, and more focused PRs. Split the work into #29 learning mode,
+  #30 quick guide, and #31 copy cleanup, each with its own dependent branch/PR.
+- Added an off-by-default browser-only learning toggle, visible help markers, and
+  explanations for calling, scenarios, saved attempts, evidence, provenance and
+  governance. Hover, focus and tap show the same help; Escape and outside interaction
+  dismiss it. Only the preference is stored locally; blocked storage is supported.
+- Browser checks caught mobile layout changes prematurely hiding a hint and WebKit
+  not focusing a clicked hint. Hints now reposition as the layout scrolls and explicitly
+  retain focus after click. Their native popover layer avoids clipping by call panels.
+- Full local verification passed: 168 Python tests, 95.5% combined statement/branch
+  coverage, 36 browser tests, axe, lint/type/security checks and installed-package smoke.
+  Inspected the actual idle console at 1440px and 390px. No call was placed, transcript
+  changed, or recording published. The caller and provider settings are unchanged.
