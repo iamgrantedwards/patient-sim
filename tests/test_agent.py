@@ -3,6 +3,9 @@ import json
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
+from livekit.agents.llm import ChatMessage
+from livekit.agents.voice.events import ConversationItemAddedEvent
+
 from src.caller import agent
 
 
@@ -84,9 +87,8 @@ def test_worker_prepares_audio_before_dialing_and_uses_server_limits(
         assert sessions[0].start_options["room_options"].audio_input.auto_gain_control is False
         # Hitting the turn cap ends locally instead of waiting for another model response.
         for index in range(configured.max_turns):
-            item = SimpleNamespace(role="user", id=str(index))
-            event = SimpleNamespace(
-                item=item, model_dump=lambda **kw: {"item": {"type": "message"}}
+            event = ConversationItemAddedEvent(
+                item=ChatMessage(role="user", id=str(index), content=["fixture"])
             )
             sessions[0].handlers["conversation_item_added"](event)
         assert shutdown_reasons[-1] == "failsafe"

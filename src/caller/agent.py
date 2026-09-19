@@ -3,6 +3,7 @@
 import asyncio
 import hashlib
 import json
+import os
 import re
 import subprocess
 import time
@@ -21,6 +22,7 @@ from livekit.agents import (
     room_io,
 )
 from livekit.agents.beta.tools import EndCallTool
+from livekit.agents.llm import ChatMessage
 
 from .config import PROJECT_ROOT, load
 from .lifecycle import disconnect_end, session_end, sip_failure
@@ -29,8 +31,8 @@ from .recording import preserve_recording
 from .scenarios import get_scenario
 from .transcript import CallArtifacts, finalize
 
-AGENT_NAME = "patient-sim"
-server = AgentServer()
+AGENT_NAME = os.getenv("PATIENT_SIM_AGENT_NAME", "patient-sim")
+server = AgentServer(host="127.0.0.1", port=0)
 _calls: dict[str, CallArtifacts] = {}
 
 
@@ -156,16 +158,35 @@ async def entrypoint(ctx: JobContext) -> None:
         def partial(event):
             artifacts.append("user_input_transcribed", event.model_dump(mode="json"))
 
+        @session.on("function_tools_executed")
+        def tools_executed(event):
+            artifacts.append("function_tools_executed", event.model_dump(mode="json"))
+
         @session.on("conversation_item_added")
         def committed(event):
             artifacts.append("conversation_item_added", event.model_dump(mode="json"))
-            if event.item.role in ("user", "assistant"):
+            if isinstance(event.item, ChatMessage) and event.item.role in ("user", "assistant"):
                 artifacts.seen_turns.add(event.item.id)
             if len(artifacts.seen_turns) >= cfg.max_turns:
                 artifacts.end("failsafe")
                 artifacts.meta["failsafe_reason"] = "max_turns"
                 artifacts.save()
                 session.shutdown(drain=False)
+
+        def operator_stop():
+            path = artifacts.directory / "operator-stop.json"
+            if path.exists():
+                try:
+                    reason = json.loads(path.read_text()).get("reason")
+                except (ValueError, OSError, AttributeError):
+                    reason = "operator_stop"
+                artifacts.end(
+                    reason
+                    if reason in ("operator_stop", "controller_shutdown")
+                    else "operator_stop"
+                )
+                return True
+            return False
 
         @ctx.room.on("participant_disconnected")
         def disconnected(participant):
@@ -179,6 +200,7 @@ async def entrypoint(ctx: JobContext) -> None:
                 artifacts.meta["sip"]["duration_limit_may_have_fired"] = (
                     time.time() - answered >= cfg.max_call_seconds - 2
                 )
+            operator_stop()
             artifacts.end(disconnect_end(reason))
             artifacts.save()
             session.shutdown(drain=False)
@@ -188,9 +210,13 @@ async def entrypoint(ctx: JobContext) -> None:
             if timeout_task is not None:
                 timeout_task.cancel()
             artifacts.append("close", {"reason": event.reason.value})
+            operator_stop()
             artifacts.end(session_end(event.reason.value, artifacts.meta.get("ended_by")))
             ctx.shutdown(reason=artifacts.meta["ended_by"])
 
+        if operator_stop():
+            ctx.shutdown(reason=artifacts.meta["ended_by"])
+            return
         await asyncio.wait_for(ctx.connect(), timeout=30)
         # No on_enter greeting. Input/recording is prepared before the callee can speak.
         await asyncio.wait_for(
@@ -209,6 +235,9 @@ async def entrypoint(ctx: JobContext) -> None:
             ),
             timeout=45,
         )
+        if operator_stop():
+            await shutdown_call(ctx, artifacts.meta["ended_by"])
+            return
         artifacts.meta["sip"]["status"] = "dialing"
         artifacts.save()
         request = api.CreateSIPParticipantRequest(

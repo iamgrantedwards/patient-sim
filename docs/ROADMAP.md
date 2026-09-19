@@ -28,7 +28,7 @@ system, simulated incoming-call screen, or analytics platform is needed.
 ## Pull requests
 
 - [PR #20](https://github.com/iamgrantedwards/patient-sim/pull/20) owns the caller/CI
-  foundation. Its CI is green at `338e7f8`; M1 and defects #21/#12 still block readiness.
+  foundation. Its latest foundation CI is green; M1 and live confirmation of defects #21/#12 still block readiness.
   A later commit must pass its own checks. Do not append UI implementation to it.
 - Use `codex/call-review-ui` for #23 and `codex/call-controls` for #24. Open a draft PR
   on the first implementation commit; each PR links its issue and fills the repository

@@ -13,8 +13,8 @@ The mandatory implementation choices are followed; the submission is not complet
 | At least 10 full conversations, each with both-sided audio and transcript | One 70-second stereo OGG/transcript pair exists locally; the last patient turn was cut off and listening is pending. Zero pairs accepted toward the ten-call gate so far |
 | Variety: scheduling, changes/cancellation, refills, information, edge cases | Only the read-only office-information smoke scenario exists; expand after the first good call |
 | Bug report with evidence | No findings confirmed; `BUGS.md` remains to be written from actual calls |
-| Public GitHub repository | Verified public: iamgrantedwards/patient-sim. Working implementation remains on draft PR #20; merge before submission |
-| Setup/run README and .env.example; no committed secrets | Present; two terminals currently required. Full-history/working-tree secret scans pass. A single-command caller is an optional usability improvement |
+| Public GitHub repository | Verified public: iamgrantedwards/patient-sim. Working implementation remains on a dependent draft PR stack (#20, #27, controls); merge before submission |
+| Setup/run README and .env.example; no committed secrets | Present; one-command console or explicit CLI now manages its worker. Secret scans are part of the required verification gate; no provider keys reach the UI |
 | Architecture explanation in 1–2 paragraphs | Condensed to two paragraphs. Provider and latency choices remain hypotheses pending call-based comparison |
 | Public walkthrough video, maximum 3 minutes | Pending; Grant's own voice and webcam required |
 | Second public video showing AI-assisted debugging | Pending until the requested call UI works (#22–#25); include Grant's prompts, own voice and webcam. Do not recreate past work as if live |

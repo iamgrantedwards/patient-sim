@@ -1,76 +1,44 @@
 import asyncio
-import json
-from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import pytest
-from livekit import api
 
 from src.caller import dial
 
 
-@pytest.fixture
-def dispatcher(monkeypatch, tmp_path, configured):
-    create = AsyncMock(return_value=SimpleNamespace(id="dispatch-fixture"))
-    delete = AsyncMock()
-    client = SimpleNamespace(
-        agent_dispatch=SimpleNamespace(create_dispatch=create),
-        room=SimpleNamespace(delete_room=delete),
-    )
+@pytest.mark.parametrize("phase", ["ended", "failed"])
+def test_cli_uses_shared_one_call_manager(monkeypatch, configured, phase, capsys):
+    state = {"phase": phase, "call_id": "call-cli-fixture", "message": "fixture failure"}
+    instances = []
 
-    class API:
-        def __init__(self, *args):
-            pass
+    class Manager:
+        start_token = "token"
+        task = None
 
-        async def __aenter__(self):
-            return client
+        def __init__(self, *args, **kwargs):
+            instances.append(self)
 
-        async def __aexit__(self, *args):
-            pass
+        async def start(self, scenario, token, request_id):
+            assert scenario == "smoke" and token == "token" and request_id
+            self.task = asyncio.create_task(asyncio.sleep(0))
+            return state
 
-    monkeypatch.setattr(api, "LiveKitAPI", API)
-    monkeypatch.setattr(dial, "PROJECT_ROOT", tmp_path)
-    monkeypatch.setattr(dial, "load", lambda: configured)
-    monkeypatch.setattr(dial.asyncio, "sleep", AsyncMock())
-    return client, tmp_path
+        def snapshot(self):
+            return state
 
-
-@pytest.mark.parametrize("failure", ["timeout", "provider", "cleanup"])
-def test_dispatch_failure_is_recorded_and_never_retried(dispatcher, failure):
-    client, root = dispatcher
-    if failure == "provider":
-        client.agent_dispatch.create_dispatch.side_effect = RuntimeError("private-provider-detail")
-    if failure == "cleanup":
-        client.room.delete_room.side_effect = OSError("private-cleanup-detail")
-    with pytest.raises(RuntimeError, match="No automatic retry") as error:
+    monkeypatch.setattr("src.caller.control.CallManager", Manager)
+    if phase == "failed":
+        with pytest.raises(RuntimeError, match="fixture failure"):
+            asyncio.run(dial.dispatch("smoke"))
+    else:
         asyncio.run(dial.dispatch("smoke"))
-    client.agent_dispatch.create_dispatch.assert_awaited_once()
-    client.room.delete_room.assert_awaited_once()
-    record_path = next(root.glob("calls/*/dispatch.json"))
-    record = json.loads(record_path.read_text())
-    assert record["status"] == "dispatch_error"
-    assert record["error_type"] == ("RuntimeError" if failure == "provider" else "TimeoutError")
-    assert record["cleanup"] == ("OSError" if failure == "cleanup" else "room_deleted")
-    assert client.room.delete_room.call_args.args[0].room == record["call_id"]
-    assert "private-" not in record_path.read_text() + str(error.value)
+        assert "Call ended" in capsys.readouterr().out
+    assert len(instances) == 1
 
 
-def test_worker_acceptance_returns_without_cleanup_or_retry(dispatcher, capsys):
-    client, root = dispatcher
-
-    async def accept(request):
-        metadata = json.loads(request.metadata)
-        assert request.agent_name == "patient-sim"
-        assert metadata["scenario"] == "smoke"
-        assert request.room == metadata["call_id"]
-        (root / "calls" / request.room / "meta.json").write_text("{}")
-        return SimpleNamespace(id="dispatch-fixture")
-
-    client.agent_dispatch.create_dispatch.side_effect = accept
-    asyncio.run(dial.dispatch("smoke"))
-    client.agent_dispatch.create_dispatch.assert_awaited_once()
-    client.room.delete_room.assert_not_awaited()
-    assert "Worker accepted" in capsys.readouterr().out
+def test_unknown_scenario_fails_before_provider_configuration():
+    with pytest.raises(ValueError, match="Unknown scenario"):
+        asyncio.run(dial.dispatch("unknown"))
 
 
 def test_default_cli_cannot_dispatch(monkeypatch, capsys):
@@ -88,3 +56,37 @@ def test_cli_requires_explicit_call_flag(monkeypatch):
     monkeypatch.setattr("sys.argv", ["patient-sim", "--scenario", "smoke", "--call"])
     dial.main()
     dispatch.assert_awaited_once_with("smoke")
+
+
+def test_cli_interrupt_waits_for_controller_cleanup(monkeypatch, configured):
+    instances = []
+
+    class Manager:
+        start_token = "token"
+        task = None
+
+        def __init__(self, *args, **kwargs):
+            self.shutdown = AsyncMock(side_effect=self.cleanup)
+            instances.append(self)
+
+        async def start(self, *args):
+            self.task = asyncio.create_task(asyncio.Event().wait())
+            return {"call_id": "call-interrupted"}
+
+        async def cleanup(self):
+            self.task.cancel()
+            await asyncio.gather(self.task, return_exceptions=True)
+
+    monkeypatch.setattr("src.caller.control.CallManager", Manager)
+
+    async def run():
+        task = asyncio.create_task(dial.dispatch("smoke"))
+        while not instances or instances[0].task is None:
+            await asyncio.sleep(0)
+        task.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await task
+        instances[0].shutdown.assert_awaited_once()
+        assert instances[0].task.done()
+
+    asyncio.run(run())

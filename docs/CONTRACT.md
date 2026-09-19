@@ -1,8 +1,9 @@
 # patient-sim — implementation contract
 
-Revision 5. Supersedes the planning notes. Earlier external-review decisions retain
+Revision 6. Supersedes the planning notes. Earlier external-review decisions retain
 their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
 build the local UI before recording the debugging video; call-quality gates are unchanged.
+**[R6]** specifies opt-in UI/CLI call ownership, explicit confirmation, and crash recovery.
 
 ## What this is
 
@@ -245,3 +246,22 @@ short, cut the automated judge and the HTML report — never the listening time.
 `NotPermittedError` rather than trusting an environment variable. Never the number shown
 on the athena confirmation screen. Do not contact anyone at the company about the
 assessment.
+
+
+## [R6] Local call controls and ownership
+
+The review UI defaults to read-only. `--enable-calls` enables confirmation for one call
+to the fixed assessment destination; there is no editable destination. UI and CLI use
+the same dedicated-worker controller and OS lock. Worker registration is observed before
+dispatch. Status polling/reconnection never calls or retries. A one-use confirmation and
+idempotent request ID prevent duplicate starts, including uncertain HTTP responses.
+
+The controller records intent before starting work. An unresolved durable operation
+blocks a new call after restart. Explicit Stop/recovery first ends the room, allows
+worker cleanup, then verifies room absence. Recovery must also establish that the former
+worker stopped; otherwise it remains blocked. Only an owned subprocess may be signaled.
+`operator_stop` and `controller_shutdown` are distinct from natural endings. Partial
+recordings remain partial; successful cleanup says nothing about conversation quality.
+Local request tokens, exact-Origin checks, strict bounded input, and loopback binding
+limit accidental/cross-site actions. Local processes with filesystem access remain in
+the trust boundary. Provider duration bounds remain active if local control is lost.

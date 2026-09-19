@@ -236,3 +236,37 @@ No findings have been confirmed. No calls have been placed.
   same-origin `download` filename to the link; the browser test still requires an actual
   download and now also checks that the review screen remains available. No test was
   skipped and the required gate correctly blocked package delivery on the failed run.
+
+## 2026-09-18 — explicit call console and worker ownership (#24)
+
+- Built opt-in call controls after the review UI: fixed assessment destination, one-call
+  confirmation, actual registration/dispatch/worker state, committed dialogue, explicit
+  stop/recovery and saved-evidence navigation. The default viewer stays read-only.
+- UI and CLI now share a dedicated worker and OS call lock. Reads, refresh and reconnect
+  cannot dispatch; one-use confirmation tokens and idempotent request IDs prevent a
+  repeated browser request from producing another call. No automatic retry exists.
+- Recovery review found that deleting a room alone did not prove the old worker could
+  no longer dial. Added nonce-bound worker intent/stopped receipts and parent-loss
+  shutdown. Recovery blocks if worker exit or room absence cannot be confirmed and
+  never signals an unowned PID. Cancellation during process creation retains ownership.
+- Tested disk failure during Stop: provider cleanup must still run even when writing
+  the local journal fails. The unresolved record continues blocking a new call.
+- Reproduced #21 with the pinned SDK's real AgentHandoff before correcting the message-only
+  property access. Handoffs and unknown items remain raw evidence; only unique patient/
+  remote ChatMessage IDs count toward the turn limit. SDK tool executions have their own
+  event type and are journaled separately, not fabricated as dialogue. Regression tests
+  cover actual SDK handoff, message, unknown and tool-execution events.
+- Full local verification passed: 168 network-isolated Python tests, 95.5% combined
+  statement/branch coverage, 27 browser tests across desktop/mobile Chromium and desktop
+  WebKit, axe, Biome, Ruff/Pyright, workflow/shell checks, secret/dependency scans and
+  isolated installed-package checks. The two existing test-client deprecation warnings
+  remain visible. Automated accessibility evidence is not complete conformance.
+- The configured dedicated worker registered with LiveKit and stopped cleanly in a
+  registration-only check. No job dispatch or SIP request was made. Browser-checked the
+  actual console and confirmation/cancel at desktop/mobile sizes: no mutation requests,
+  page exceptions or horizontal overflow; configuration ready and one prior call shown.
+- Added OPERATIONS.md, MORNING.md and updated AI governance/contract documentation with
+  implemented controls and their limits. Grant's own webcam/voice debugging and final
+  videos remain his next-session work. #12 is unresolved; #21 needs live confirmation;
+  #24 needs a real UI call and listening. No new call, patient-state mutation, or public
+  release of original recordings occurred in this implementation session.

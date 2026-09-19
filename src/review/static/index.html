@@ -8,6 +8,7 @@
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/style.css">
     <script type="module" src="/assets/app.js"></script>
+    <script type="module" src="/assets/console.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to call review</a>
@@ -34,10 +35,10 @@
         >
       </nav>
       <div class="sidebar-bottom">
-        <div class="scope-mark">
+        <div class="scope-mark" id="scope-mark">
           <span class="status-dot" aria-hidden="true"></span>Local review
         </div>
-        <p>Read-only evidence workspace.<br>No calls can be placed here.</p>
+        <p id="scope-details">Read-only evidence workspace.<br>No calls can be placed here.</p>
         <div class="sidebar-footer">
           <span class="avatar">GE</span>
           <div>Grant Edwards<small>Evaluation owner</small></div>
@@ -61,6 +62,69 @@
             Refresh calls
           </button>
         </div>
+        <section class="console-panel" id="console-panel" aria-labelledby="console-title" hidden>
+          <div class="console-heading">
+            <div>
+              <div class="eyebrow">EXPLICIT OUTBOUND CALL</div>
+              <h2 id="console-title">Run a test call</h2>
+            </div>
+            <span class="badge neutral" id="console-phase">Loading status</span>
+          </div>
+          <p class="console-intro">
+            One call at a time, to the designated assessment line. Opening this workspace never
+            places a call.
+          </p>
+          <div class="console-controls">
+            <div><label for="scenario">Scenario</label><select id="scenario"></select></div>
+            <div class="call-destination">
+              <span>Fixed destination</span><strong id="call-destination"></strong
+              ><small id="call-caller"></small>
+            </div>
+            <button type="button" class="button primary" id="call-start" disabled>
+              Review &amp; call
+            </button>
+            <button type="button" class="button danger" id="call-stop" hidden>Stop call</button>
+          </div>
+          <p id="scenario-objective" class="context-note"></p>
+          <p id="console-message" class="notice" role="status" hidden></p>
+          <p id="console-error" class="notice error" role="alert" hidden></p>
+          <div id="active-operation" hidden>
+            <div class="operation-meta">
+              <span id="operation-id" class="mono"></span
+              ><a id="open-evidence" class="text-link" href="#calls" hidden
+                >Open saved evidence ↗</a
+              >
+            </div>
+            <p id="operation-summary" class="context-note"></p>
+            <details id="live-dialogue">
+              <summary>Live transcript · committed turns</summary>
+              <div id="live-turns" class="transcript"></div>
+            </details>
+          </div>
+        </section>
+        <dialog
+          id="call-confirmation"
+          aria-labelledby="confirmation-title"
+          aria-describedby="confirmation-description"
+        >
+          <h2 id="confirmation-title">Place one assessment call?</h2>
+          <p id="confirmation-description"></p>
+          <p class="context-note">
+            The worker will register before dialing. Provider charges may apply. There is no
+            automatic redial.
+          </p>
+          <label class="confirmation-check"
+            ><input type="checkbox" id="confirm-ready">
+            I confirm this one call to the designated test line.</label
+          >
+          <p id="confirmation-error" class="notice error" role="alert" hidden></p>
+          <div class="dialog-actions">
+            <button type="button" class="button" id="call-cancel">Cancel</button
+            ><button type="button" class="button primary" id="call-confirm" disabled>
+              Place one call
+            </button>
+          </div>
+        </dialog>
         <section class="metrics" aria-label="Evidence overview">
           <div class="metric">
             <span>Captured calls</span><strong id="metric-calls">—</strong
@@ -205,7 +269,9 @@
           </article>
         </section>
         <footer class="page-footer">
-          <span>patient-sim <span aria-hidden="true">/</span> evidence before conclusions</span
+          <span
+            >patient-sim <span class="footer-separator" aria-hidden="true">/</span> evidence before
+            conclusions</span
           ><span>Local interface · No analytics or external assets</span>
         </footer>
         <noscript

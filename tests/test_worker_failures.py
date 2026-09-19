@@ -161,3 +161,77 @@ def test_invalid_dispatch_metadata_fails_before_providers(worker):
         asyncio.run(agent.entrypoint(ctx))
     state.connect.assert_not_awaited()
     ctx.api.sip.create_sip_participant.assert_not_awaited()
+
+
+def test_real_sdk_nonmessage_events_are_preserved_without_counting_as_dialogue(worker):
+    from livekit.agents.llm import AgentHandoff, ChatMessage, FunctionCall, FunctionCallOutput
+    from livekit.agents.voice.events import ConversationItemAddedEvent, FunctionToolsExecutedEvent
+
+    ctx, state = worker
+
+    async def run():
+        await agent.entrypoint(ctx)
+        callback = state.handlers["conversation_item_added"]
+        callback(
+            ConversationItemAddedEvent(item=AgentHandoff(old_agent_id="old", new_agent_id="new"))
+        )
+        callback(ConversationItemAddedEvent.model_validate({"item": {"type": "unknown"}}))
+        callback(
+            ConversationItemAddedEvent(item=ChatMessage(role="system", content=["Not dialogue"]))
+        )
+        for _ in range(3):
+            callback(
+                ConversationItemAddedEvent(
+                    item=ChatMessage(id="same-message", role="user", content=["Hello"])
+                )
+            )
+        callback(
+            ConversationItemAddedEvent(
+                item=ChatMessage(id="patient-reply", role="assistant", content=["Hi"])
+            )
+        )
+        state.handlers["function_tools_executed"](
+            FunctionToolsExecutedEvent(
+                function_calls=[
+                    FunctionCall(call_id="tool-fixture", name="end_call", arguments="{}")
+                ],
+                function_call_outputs=[
+                    FunctionCallOutput(call_id="tool-fixture", output="ended", is_error=False)
+                ],
+            )
+        )
+        assert agent._calls[ctx.job.id].seen_turns == {"same-message", "patient-reply"}
+        raw = (agent._calls[ctx.job.id].directory / "events.jsonl").read_text()
+        assert "agent_handoff" in raw and "unknown" in raw and "function_tools_executed" in raw
+        state.shutdown.assert_not_called()
+        for callback in state.callbacks:
+            await callback()
+
+    asyncio.run(run())
+
+
+def test_stop_marker_before_worker_acceptance_prevents_any_sip_call(worker, tmp_path):
+    ctx, state = worker
+    directory = tmp_path / "calls" / "call-fixture"
+    directory.mkdir(parents=True)
+    (directory / "operator-stop.json").write_text('{"reason":"operator_stop"}')
+    asyncio.run(agent.entrypoint(ctx))
+    state.connect.assert_not_awaited()
+    ctx.api.sip.create_sip_participant.assert_not_awaited()
+    assert agent._calls[ctx.job.id].meta["ended_by"] == "operator_stop"
+
+
+@pytest.mark.parametrize("marker", ['{"reason":"controller_shutdown"}', "[]", "{broken"])
+def test_stop_during_audio_preparation_prevents_sip_and_preserves_reason(worker, tmp_path, marker):
+    ctx, state = worker
+
+    async def stop_while_starting():
+        (tmp_path / "calls/call-fixture/operator-stop.json").write_text(marker)
+
+    state.start.side_effect = stop_while_starting
+    asyncio.run(agent.entrypoint(ctx))
+    ctx.api.sip.create_sip_participant.assert_not_awaited()
+    ctx.delete_room.assert_awaited_once()
+    assert agent._calls[ctx.job.id].meta["ended_by"] == (
+        "controller_shutdown" if "controller_shutdown" in marker else "operator_stop"
+    )

@@ -1,5 +1,6 @@
 """Loopback-only review server; no imports of providers, dispatch, or environment config."""
 
+from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -20,8 +21,16 @@ SECURITY_HEADERS = {
 }
 
 
-def create_app(calls_dir: Path | None = None) -> FastAPI:
-    app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
+def create_app(calls_dir: Path | None = None, *, controls=None, configuration=None) -> FastAPI:
+    @asynccontextmanager
+    async def lifespan(_app):
+        try:
+            yield
+        finally:
+            if controls is not None:
+                await controls.shutdown()
+
+    app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
     store = EvidenceStore(calls_dir if calls_dir is not None else Path.cwd() / "calls")
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost"])
 
@@ -39,7 +48,11 @@ def create_app(calls_dir: Path | None = None) -> FastAPI:
             response = PlainTextResponse(
                 "Cross-origin requests are not permitted.", status_code=403
             )
-        elif request.method not in ("GET", "HEAD"):
+        elif request.method not in ("GET", "HEAD") and not (
+            controls is not None
+            and request.method == "POST"
+            and request.url.path in ("/api/console/start", "/api/console/stop")
+        ):
             response = PlainTextResponse("This review interface is read-only.", status_code=405)
         else:
             response = await call_next(request)
@@ -66,6 +79,7 @@ def create_app(calls_dir: Path | None = None) -> FastAPI:
             "app.js": "text/javascript",
             "style.css": "text/css",
             "favicon.svg": "image/svg+xml",
+            "console.js": "text/javascript",
         }
         if name not in allowed:
             raise ArtifactError("Asset not found.")
@@ -95,5 +109,15 @@ def create_app(calls_dir: Path | None = None) -> FastAPI:
             "\n".join(lines) + "\n",
             headers={"Content-Disposition": f'attachment; filename="{call_id}-transcript.txt"'},
         )
+
+    if controls is not None:
+        from .control_routes import install
+
+        install(app, controls, configuration)
+    else:
+
+        @app.get("/api/console")
+        def disabled_console():
+            return {"enabled": False}
 
     return app
