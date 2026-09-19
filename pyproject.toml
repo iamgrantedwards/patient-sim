@@ -38,7 +38,7 @@ packages = ["src"]
 [tool.hatch.build.targets.sdist]
 include = [
     "/src", "/tests", "/scripts/verify.sh", "/scripts/check.sh", "/scripts/build.sh",
-    "/scripts/install-ci-tools.py", "/scripts/ci-tools.json", "/pyproject.toml", "/uv.lock",
+    "/scripts/check-pr-labels.py", "/scripts/install-ci-tools.py", "/scripts/ci-tools.json", "/pyproject.toml", "/uv.lock",
     "/README.md", "/ARCHITECTURE.md", "/AGENTS.md", "/docs", "/.env.example",
     "/package.json", "/package-lock.json", "/biome.json", "/playwright.config.js",
 ]
