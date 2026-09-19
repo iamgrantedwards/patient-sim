@@ -11,7 +11,11 @@ async function fixture(page, phase = "idle") {
       caller_id: "+12025550123",
       max_seconds: 240,
     },
-    scenarios: [{ id: "smoke", label: "office information", objective: "Ask about office hours." }],
+    scenarios: [
+      { id: "smoke", label: "office information", objective: "Ask about office hours." },
+      { id: "reschedule", label: "reschedule", objective: "Change an existing appointment." },
+      { id: "refill", label: "refill", objective: "Ask about a refill." },
+    ],
     operation: { phase, start_token: "one-confirmation-token-123", live_turns: [] },
   };
   const requests = [];
@@ -208,4 +212,38 @@ test("status polling pauses on page exit and resumes without a call on history r
   await expect(page.locator("#console-error")).toBeHidden();
   expect(setup.requests).toEqual([]);
   await page.unroute("**/api/console", hold);
+});
+
+test("scenario picker supports keyboard, dismissal and selection without calling", async ({
+  page,
+}) => {
+  const setup = await fixture(page);
+  const picker = page.getByRole("combobox", { name: /Scenario/ });
+  await picker.focus();
+  await picker.press("ArrowDown");
+  await expect(page.getByRole("listbox", { name: "Scenario", exact: true })).toBeVisible();
+  await accessible(page);
+  await picker.press("End");
+  await expect(picker).toHaveAttribute("aria-activedescendant", "scenario-option-2");
+  await picker.press("Escape");
+  await expect(picker).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator("#scenario")).toHaveValue("smoke");
+  await picker.click();
+  await picker.press("r");
+  await picker.press("Enter");
+  await expect(page.locator("#scenario")).toHaveValue("reschedule");
+  await expect(picker).toBeFocused();
+  await picker.click();
+  await page.getByRole("option", { name: "refill", exact: true }).click();
+  await expect(page.locator("#scenario")).toHaveValue("refill");
+  await picker.click();
+  await page.getByRole("heading", { name: "Run a test call" }).click();
+  await expect(picker).toHaveAttribute("aria-expanded", "false");
+  expect(setup.requests).toEqual([]);
+  await page.getByRole("button", { name: "Review & call" }).click();
+  await expect(page.locator("#confirmation-description")).toContainText("for refill.");
+  await page.getByRole("button", { name: "Cancel", exact: true }).click();
+  setup.state.operation.phase = "connected";
+  await expect(picker).toBeDisabled();
+  expect(setup.requests).toEqual([]);
 });

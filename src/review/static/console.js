@@ -35,18 +35,107 @@ function error(message) {
   byId("console-error").textContent = message;
   byId("console-error").hidden = !message;
 }
+// The hidden native select remains the single selected value. This picker only
+// changes that value; the existing confirmation flow is the sole call action.
+const picker = byId("scenario-picker");
+const options = byId("scenario-options");
+let activeOption = 0;
+let searchKeys = "";
+let searchAt = 0;
+function highlightOption(index) {
+  const items = [...options.children];
+  activeOption = Math.max(0, Math.min(index, items.length - 1));
+  for (const [i, item] of items.entries()) item.classList.toggle("active", i === activeOption);
+  if (items[activeOption]) {
+    picker.setAttribute("aria-activedescendant", items[activeOption].id);
+    items[activeOption].scrollIntoView({ block: "nearest" });
+  }
+}
+function closeOptions() {
+  options.hidden = true;
+  picker.setAttribute("aria-expanded", "false");
+  picker.removeAttribute("aria-activedescendant");
+}
+function openOptions() {
+  if (picker.disabled) return;
+  options.hidden = false;
+  picker.setAttribute("aria-expanded", "true");
+  highlightOption(byId("scenario").selectedIndex);
+}
+function selectOption(index) {
+  if (picker.disabled) return;
+  byId("scenario").selectedIndex = index;
+  byId("scenario").dispatchEvent(new Event("change"));
+  closeOptions();
+  picker.focus();
+}
+picker.addEventListener("click", () => (options.hidden ? openOptions() : closeOptions()));
+picker.addEventListener("keydown", (event) => {
+  const count = options.children.length;
+  if (!count || picker.disabled) return;
+  if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+    event.preventDefault();
+    const wasClosed = options.hidden;
+    if (wasClosed) openOptions();
+    highlightOption(
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? count - 1
+          : wasClosed
+            ? activeOption
+            : (activeOption + (event.key === "ArrowDown" ? 1 : -1) + count) % count,
+    );
+  } else if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    if (options.hidden) openOptions();
+    else selectOption(activeOption);
+  } else if (event.key === "Escape" || event.key === "Tab") {
+    if (event.key === "Escape") event.preventDefault();
+    closeOptions();
+  } else if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
+    if (Date.now() - searchAt > 700) searchKeys = "";
+    searchAt = Date.now();
+    searchKeys += event.key.toLowerCase();
+    if (options.hidden) openOptions();
+    const index = [...options.children].findIndex((item) =>
+      item.textContent.toLowerCase().startsWith(searchKeys),
+    );
+    if (index >= 0) highlightOption(index);
+  }
+});
+document.addEventListener("pointerdown", (event) => {
+  if (!event.target.closest(".scenario-field")) closeOptions();
+});
+picker.addEventListener("blur", () => {
+  if (!options.matches(":hover")) closeOptions();
+});
 function objective() {
   const selected = current?.scenarios.find((item) => item.id === byId("scenario").value);
   byId("scenario-objective").textContent = selected?.objective || "";
+  byId("scenario-value").textContent = selected?.label || "Choose a scenario";
+  for (const item of options.children)
+    item.setAttribute("aria-selected", String(item.dataset.value === selected?.id));
 }
 function render(data) {
   current = data;
   if (!data.enabled) return;
   byId("console-panel").hidden = false;
   if (!initialized) {
-    for (const item of data.scenarios) byId("scenario").append(new Option(item.label, item.id));
+    for (const [index, item] of data.scenarios.entries()) {
+      byId("scenario").append(new Option(item.label, item.id));
+      const option = text("button", item.label, "scenario-option");
+      option.type = "button";
+      option.id = `scenario-option-${index}`;
+      option.dataset.value = item.id;
+      option.setAttribute("role", "option");
+      option.tabIndex = -1;
+      option.addEventListener("pointerdown", (event) => event.preventDefault());
+      option.addEventListener("click", () => selectOption(index));
+      options.append(option);
+    }
     byId("scope-mark").textContent = "Call controls enabled";
-    byId("scope-details").textContent = "Confirmation required for every call.";
+    byId("scope-details").textContent = "One call at a time. Confirmation required.";
     document.dispatchEvent(new CustomEvent("console-mode", { detail: { enabled: true } }));
     initialized = true;
     objective();
@@ -62,6 +151,8 @@ function render(data) {
     : "Caller not configured";
   byId("call-start").disabled = busy || active || !data.configuration.ready;
   byId("scenario").disabled = busy || active;
+  picker.disabled = busy || active;
+  if (picker.disabled) closeOptions();
   byId("call-stop").hidden = !active || !op.call_id;
   byId("call-stop").disabled = busy || (op.stop_requested && op.phase !== "recovery_required");
   byId("call-stop").textContent = op.phase === "recovery_required" ? "Stop / recover" : "Stop call";

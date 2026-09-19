@@ -430,3 +430,22 @@ No findings have been confirmed. No calls have been placed.
   secret/dependency scans, and an installed-wheel check that includes the Cloud assets.
   Keyboard activation opened the actual unchanged 4222x2452 screenshot without auth;
   the listening-review counter stayed 0/1. Hosted checks remain the next gate.
+
+
+## 2026-09-19 — compact workspace and product-facing copy (#47)
+
+- Grant requested a tighter layout and icon-oriented controls after reviewing the actual
+  console. Opened #47 before implementation. Consolidated the sidebar and repeated
+  header rows; kept governance in its evidence tab with a quiet footer entry.
+- Learn, Guide and Refresh use named icon controls. The scenario picker supports
+  arrows, Home/End, type-ahead, Enter, Escape, pointer selection and disabled state;
+  selection still feeds the existing explicit call-confirmation flow.
+- Removed the in-app verification-note link and Build & decisions navigation. Public
+  technical evidence remains in the repository; the app offers View Cloud snapshot.
+- Browser inspection of the same actual call at 1440px: the evidence panel begins at
+  about 499px instead of 715px; metrics shrink from 79px to 53px. Checked 390px layout
+  without horizontal overflow. No real call or caller/prompt/evidence-model change.
+- Full local verification passed: 198 Python tests (95.6% combined coverage), 48 browser
+  tests across desktop/mobile Chromium and WebKit, accessibility, quality/security gates
+  and installed-package checks. The two-call debugging journal is separately tracked by
+  #48; the unresolved crash in #46 is reserved for genuine debugging work.
