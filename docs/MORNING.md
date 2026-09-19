@@ -18,7 +18,9 @@ status, confirmation, and recovery behavior. Keep the owned caller ID unchanged.
 
 ## Genuine debugging recording
 
-Start with the [two-call debugging journal](DEBUGGING.md), updated 2026-09-19. The
+Start with the [two-call debugging journal](DEBUGGING.md) and
+[copyable Loom speaking notes](DEBUGGING-SCRIPT.md), updated 2026-09-19. The journal
+labels the process hierarchy and parent-only exit check as pre-recording inspection. The
 second attempt exposed #46: a child-worker crash, repeated initialization failure and
 stale Dialing status. That unresolved problem is the first investigation; its native
 crash cause remains unknown. Preserve the original files and avoid automatic retries.

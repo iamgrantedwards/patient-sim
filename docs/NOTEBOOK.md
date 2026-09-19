@@ -495,3 +495,16 @@ No findings have been confirmed. No calls have been placed.
   remained inside the flexible title cell and floated away from the outcome at wider
   sizes. Duration and outcome now share a compact status group at wider sizes; the
   existing narrow-phone arrangement is preserved.
+
+### 2026-09-19 — Worker explanation and recording preparation
+
+- Before filming, traced the local application -> managed agent server -> child call
+  job hierarchy in our code and pinned LiveKit Agents 1.8.2. Confirmed the controller's
+  exit check observes the managed process, not the child job; these lifecycle files
+  are unchanged from the second attempt's revision. No failure regression or fix yet.
+- Development mode has zero idle job processes by default in the pinned SDK, so the
+  no-warmed-process message alone is not a crash diagnosis. Original -11 cause and
+  subsequent initialization mechanism remain unknown.
+- Updated the debugging journal and added DEBUGGING-SCRIPT.md with easy speaking cues,
+  actual investigation prompts and a follow-up outline. Labels all prior inspection
+  as preparation; does not claim a video, live retest or successful fix occurred.
