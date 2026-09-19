@@ -551,3 +551,15 @@ menus now share the scenario menu's styling, selected checkmark and hover state,
 arrow/Home/End/typeahead navigation, Enter selection and Escape dismissal. Review and
 scenario browser checks cover these interactions without dialing; the review controls
 remain compact and aligned.
+
+
+## 2026-09-19 — ten-call strategy before filming
+
+Grant asked how the simulator will test the office agent, document results and improve
+against the minimum ten-call requirement. Re-read the team's original brief and inspected
+the actual scenario registry: only office information exists. Prepared TEST-STRATEGY.md
+with ten coverage slots, state dependencies and honest fallbacks, review checkpoints,
+separate attribution, and matched retests. A prompt does not prove barge-in occurred;
+that behavior needs implementation and audio verification. Existing generic refill facts
+also need product-context review before treating a request as a supported happy path.
+No scenarios were executed, no calls were approved, and no findings were invented.

@@ -145,3 +145,7 @@ and the final walkthrough follow it. No bug in the assessment agent has been con
 The account helper isolates this project's CLI credentials. The bootstrap verifies the
 account and skips existing issue/milestone titles. Git uses a repository-local credential
 helper and noreply commit email.
+
+The [ten-call test strategy](docs/TEST-STRATEGY.md) defines planned scenario coverage,
+review checkpoints and how evidence leads to a fix or finding. It is a plan, not a claim
+that those scenarios are implemented or ten calls have been collected.
