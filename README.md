@@ -103,6 +103,7 @@ explicitly adding selected submission evidence to the public repository.
 
 ## Design and progress
 
+- [Cloud session verification and screenshot](src/review/evidence/call-20260918-231955-765427d8/verification.md)
 - [AI governance, control evidence, and open obligations](docs/AI-GOVERNANCE.md)
 - [Morning recording session and remaining gates](docs/MORNING.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)

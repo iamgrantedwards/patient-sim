@@ -7,16 +7,39 @@ import re
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, ValidationError
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictBool,
+    StrictInt,
+    StrictStr,
+    ValidationError,
+)
 
 CALL_ID = re.compile(r"[a-z0-9][a-z0-9-]{1,79}\Z")
 MAX_JSON = 2 * 1024 * 1024
 MAX_AUDIO = 64 * 1024 * 1024
 MAX_CALLS = 1000
+CLOUD_EVIDENCE = Path(__file__).parent / "evidence"
+MAX_SCREENSHOT = 8 * 1024 * 1024
 
 
 class ArtifactError(ValueError):
     """Safe message for a missing, malformed, or unsafe evidence file."""
+
+
+class CloudVerification(BaseModel):
+    """A dated console observation, never an audio-quality or live-health result."""
+
+    model_config = ConfigDict(extra="forbid")
+    call_id: StrictStr
+    room_name: StrictStr
+    session_id: str = Field(strict=True, pattern=r"^RM_[A-Za-z0-9]{1,64}$")
+    checked_at: AwareDatetime
+    method: Literal["authenticated_console"]
+    player_visible: StrictBool
 
 
 class Turn(BaseModel):
@@ -105,6 +128,36 @@ class EvidenceStore:
         except (OSError, UnicodeError, ValueError, RecursionError) as error:
             raise ArtifactError("Artifact cannot be read as valid JSON.") from error
 
+    def cloud_verification(self, call_id: str) -> dict | None:
+        # Curated public evidence lives in the package, never in mutable raw call metadata.
+        # Exact call/room matching prevents a project-wide badge leaking onto later calls.
+        try:
+            self.directory(call_id)
+            curated = EvidenceStore(CLOUD_EVIDENCE)
+            record = CloudVerification.model_validate(curated.read(call_id, "verification.json"))
+            if record.call_id != call_id or record.room_name != call_id:
+                return None
+            curated.file(call_id, "verification.md")
+            image = curated.file(call_id, "cloud.png", MAX_SCREENSHOT)
+            with image.open("rb") as stream:
+                if stream.read(8) != b"\x89PNG\r\n\x1a\n":
+                    return None
+            return {
+                "session_id": record.session_id,
+                "checked_at": record.checked_at.timestamp(),
+                "player_visible": record.player_visible,
+                "screenshot_url": f"/api/calls/{call_id}/cloud-evidence/screenshot",
+                "note_url": f"/api/calls/{call_id}/cloud-evidence/note",
+            }
+        except (ArtifactError, ValidationError, OSError):
+            return None
+
+    def cloud_artifact(self, call_id: str, kind: str) -> Path:
+        if kind not in ("screenshot", "note") or self.cloud_verification(call_id) is None:
+            raise ArtifactError("Cloud evidence is unavailable for this call.")
+        name = "cloud.png" if kind == "screenshot" else "verification.md"
+        return EvidenceStore(CLOUD_EVIDENCE).file(call_id, name, MAX_SCREENSHOT)
+
     def audio(self, call_id: str) -> Path:
         # Ignore file paths supplied by metadata. Prefer the preserved original recording.
         for name in ("recording.ogg", "recording.mp3"):
@@ -190,6 +243,7 @@ class EvidenceStore:
                 "sdk_version": string(meta.get("sdk_version")),
                 "prompt_sha256": string(meta.get("prompt_sha256")),
             },
+            "cloud": self.cloud_verification(call_id) if fingerprint else None,
             "claims": {
                 key: getattr(transcript, key) if transcript else None
                 for key in ("claimed_state", "consistency", "verified_state")
