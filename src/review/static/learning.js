@@ -10,7 +10,7 @@ const topics = {
   ],
   attempts: [
     "Call attempts",
-    "Saved attempts include failed and incomplete calls. This count is not the number of complete conversations accepted for submission.",
+    "Saved attempts include failed and incomplete calls. This count is not the number of complete, reviewed conversations.",
   ],
   pairs: [
     "Audio + transcript",
@@ -198,3 +198,12 @@ guide.addEventListener("keydown", (event) => {
     first.focus();
   }
 });
+
+// Icon labels are also exposed to screen readers; Escape dismisses visual labels.
+for (const button of document.querySelectorAll(".icon-button")) {
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") button.classList.add("tip-dismissed");
+  });
+  for (const event of ["pointerenter", "focus"])
+    button.addEventListener(event, () => button.classList.remove("tip-dismissed"));
+}
