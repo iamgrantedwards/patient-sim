@@ -308,3 +308,20 @@ No findings have been confirmed. No calls have been placed.
   history. Retargeted learning mode #32 to main and reran its failed CI jobs. #21 and
   #24 remain open for live acceptance; #12, human listening and M1 remain unresolved.
 - No new call was placed, raw evidence published, or provider/prompt setting changed.
+
+
+## 2026-09-19 — concise interface copy (#31)
+
+- Shortened console instructions, evidence notices, metric captions and provenance
+  text. Scenario details preserve the full objective behind a named disclosure.
+  Governance shows a short summary per control, with the complete explanation and
+  source still available under Details. Confirmation, unknown outcomes, pending human
+  review, partial speech, privacy/publication limits and provider obligations remain.
+- Updated existing browser tests to open scenario details without mutation and expand
+  privacy details by keyboard. All 39 browser cases pass, including axe. Inspected
+  the actual idle console and governance views at 1440px/390px: no horizontal overflow,
+  page errors or mutation requests. Caller prompts and original evidence are unchanged.
+- Full verification passed quality, 168 Python tests (95.5% combined coverage), secret
+  scans, Python dependency audit and Biome before stopping at npm registry maintenance.
+  Installed-package smoke passed separately. External blocker #34 also affects new
+  checks on main; affected PRs remain draft with the required audit intact.

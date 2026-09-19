@@ -1489,3 +1489,18 @@ summary:focus-visible {
     padding: 20px;
   }
 }
+
+.explanation {
+  margin-top: 12px;
+}
+#scenario-details summary,
+#governance .explanation summary {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 5px 0;
+}
+#governance .explanation p {
+  margin-top: 8px;
+}

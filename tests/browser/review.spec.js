@@ -59,6 +59,13 @@ test("keyboard tabs expose provenance and honest governance", async ({ page }) =
   await expect(page.getByRole("tab", { name: "AI governance" })).toBeFocused();
   await expect(page.getByText("Not established", { exact: true })).toHaveCount(3);
   await expect(page.getByText(/not a certification or a claim of HIPAA compliance/)).toBeVisible();
+  await expect(page.getByText(/Review recordings before publication/)).toBeVisible();
+  const privacy = page.getByLabel("Details: Privacy & publication", { exact: true });
+  const detail = page.getByText(/Redaction was disabled for evidence capture/);
+  await expect(detail).toBeHidden();
+  await privacy.focus();
+  await privacy.press("Enter");
+  await expect(detail).toBeVisible();
   await accessible(page);
   await page.getByRole("tab", { name: "AI governance" }).press("Home");
   await expect(conversation).toBeFocused();
