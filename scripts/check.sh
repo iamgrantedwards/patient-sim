@@ -42,10 +42,17 @@ case "${1:-all}" in
       --requirement="$reports/audit-requirements.txt" --format=json \
       --output="$reports/dependency-audit.json"
     ;;
+  ui)
+    command -v ffmpeg >/dev/null
+    npm run lint
+    npm audit --audit-level=low --json > "$reports/npm-audit.json"
+    npm run test:ui
+    ;;
   all)
     "$0" quality
     "$0" tests
     "$0" security
+    "$0" ui
     ;;
-  *) echo "Usage: $0 [quality|tests|security|all]" >&2; exit 2 ;;
+  *) echo "Usage: $0 [quality|tests|security|ui|all]" >&2; exit 2 ;;
 esac

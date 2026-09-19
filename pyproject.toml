@@ -8,6 +8,8 @@ dependencies = [
     "livekit-api",
     "python-dotenv",
     "openai",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.53.0",
 ]
 
 [dependency-groups]
@@ -38,6 +40,7 @@ include = [
     "/src", "/tests", "/scripts/verify.sh", "/scripts/check.sh", "/scripts/build.sh",
     "/scripts/install-ci-tools.py", "/scripts/ci-tools.json", "/pyproject.toml", "/uv.lock",
     "/README.md", "/ARCHITECTURE.md", "/AGENTS.md", "/docs", "/.env.example",
+    "/package.json", "/package-lock.json", "/biome.json", "/playwright.config.js",
 ]
 
 [tool.ruff]

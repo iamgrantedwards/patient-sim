@@ -1,0 +1,14 @@
+{
+  "name": "patient-sim-review",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "biome check --error-on-warnings src/review/static tests/browser playwright.config.js package.json biome.json",
+    "test:ui": "playwright test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@playwright/test": "1.63.0",
+    "@axe-core/playwright": "4.13.0"
+  }
+}
