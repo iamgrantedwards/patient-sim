@@ -368,6 +368,7 @@
             <section class="library-summary" aria-label="Evidence overview">
               <span data-learn="pairs"><strong id="metric-pairs">—</strong> audio + text</span>
               <span data-learn="review"><strong id="metric-reviewed">—</strong> reviewed</span>
+              <span><strong id="metric-usable">—</strong> usable</span>
             </section>
             <div id="latest-operation" class="latest-operation" hidden></div>
             <div id="call-list" class="call-list" aria-busy="true">
@@ -440,6 +441,7 @@
                     <span id="audio-caption"></span><span>No autoplay</span>
                   </div>
                 </div>
+                <div id="listening-review"></div>
                 <div id="call-notices"></div>
                 <div class="transcript-heading">
                   <div>
@@ -588,7 +590,9 @@
         <summary>What counts as usable evidence?</summary>
         <p class="guide-copy">
           An audio/transcript pair means both files exist. It does not establish voice quality or a
-          complete conversation. Playing audio does not update the recorded human-review status.
+          complete conversation. Open Review beside the recording to save your checklist. Confirm
+          listening explicitly; playback never approves a call. A usable conversation also needs
+          complete evidence.
         </p>
         <p class="guide-copy">
           Check quotes against the audio. Turn numbers are not timestamps. A recording fingerprint

@@ -88,7 +88,7 @@ don't establish that the voice conversation works.
 
 For the retest, use the [per-call checklist](CALL-REVIEW-TEMPLATE.md). Show the specific
 before/after observation and next decision; narrating every checklist row is unnecessary.
-The manual review sheet does not currently update the app badge.
+Use the app’s Review control to save the retest observations; the optional manual sheet does not update app badges.
 
 ## Follow-up recording
 

@@ -1010,6 +1010,112 @@ audio {
 .operation-meta .mono {
   font-size: 12px;
 }
+/* Listening reviews stay folded beside the recording until requested. */
+.listening-review {
+  border: 1px solid var(--border, #d6dfd6);
+  border-radius: 12px;
+  margin: 12px 0;
+  background: #f8faf7;
+  padding: 0 16px;
+}
+.listening-review > summary {
+  cursor: pointer;
+  padding: 14px 0;
+  color: #244e40;
+}
+.review-title {
+  font-weight: 700;
+  margin-right: 12px;
+}
+.review-status {
+  font-size: 0.8rem;
+  color: #536459;
+}
+.review-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.review-field {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  margin-bottom: 12px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: #46594e;
+}
+.review-field input,
+.review-field select,
+.review-field textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1px solid #bdcbbb;
+  border-radius: 8px;
+  margin: 0;
+  height: 38px;
+  padding: 8px 10px;
+  background: white;
+  color: #263b30;
+  font: inherit;
+}
+.review-field textarea {
+  height: auto;
+  min-height: 64px;
+  resize: vertical;
+}
+.review-check {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.34fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+.review-checks {
+  margin-top: 16px;
+}
+.review-listened {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.85rem;
+  margin: 10px 0 18px;
+}
+.review-listened input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+.review-feedback {
+  font-size: 0.85rem;
+  color: #244e40;
+}
+.review-history {
+  padding: 0 0 16px;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.review-history summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+.review-history p {
+  margin: 6px 0;
+}
+@media (max-width: 600px) {
+  .review-check {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border-bottom: 1px solid #d6dfd6;
+    margin-bottom: 12px;
+  }
+  .review-status {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
 #live-dialogue summary {
   font-size: 13px;
   font-weight: 600;
@@ -1473,10 +1579,11 @@ summary:focus-visible {
 .footer-link:hover {
   text-decoration: underline;
 }
-.scenario-field {
+.scenario-field,
+.review-picker-field {
   position: relative;
 }
-#scenario-picker {
+:is(#scenario-picker, .review-picker) {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1495,14 +1602,14 @@ summary:focus-visible {
 .scenario-option {
   text-transform: capitalize;
 }
-#scenario-picker[aria-expanded="true"] {
+:is(#scenario-picker, .review-picker)[aria-expanded="true"] {
   border-color: var(--green);
   box-shadow: 0 0 0 2px #21554815;
 }
-#scenario-picker[aria-expanded="true"] svg {
+:is(#scenario-picker, .review-picker)[aria-expanded="true"] svg {
   transform: rotate(180deg);
 }
-#scenario-options {
+:is(#scenario-options, .review-options) {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
@@ -1906,7 +2013,7 @@ summary:focus-visible {
 }
 .button:hover:not(:disabled),
 .icon-button:hover:not(:disabled),
-#scenario-picker:hover:not(:disabled) {
+:is(#scenario-picker, .review-picker):hover:not(:disabled) {
   border-color: #9aac94;
   box-shadow: 0 3px 7px #24372a0c;
 }
@@ -1917,7 +2024,7 @@ summary:focus-visible {
   .button,
   .icon-button,
   .call-card,
-  #scenario-picker,
+  :is(#scenario-picker, .review-picker),
   .turn-seek {
     transition:
       transform 160ms ease,
@@ -1934,7 +2041,7 @@ summary:focus-visible {
   }
   .button:active:not(:disabled),
   .icon-button:active:not(:disabled),
-  #scenario-picker:active:not(:disabled),
+  :is(#scenario-picker, .review-picker):active:not(:disabled),
   .turn-seek:active {
     transform: translateY(1px) scale(0.97);
   }
@@ -2198,4 +2305,13 @@ summary:focus-visible {
   [data-view="list"] .card-files {
     justify-self: start;
   }
+}
+
+/* Review pickers share the scenario menu, at the checklist field height. */
+.review-field :is(#scenario-picker, .review-picker) {
+  min-height: 38px;
+  height: 38px;
+  padding: 8px 10px;
+  font-size: inherit;
+  gap: 8px;
 }

@@ -8,6 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
+from . import reviews
 from .store import ArtifactError, EvidenceStore
 
 ASSETS = Path(__file__).parent / "static"
@@ -21,7 +22,9 @@ SECURITY_HEADERS = {
 }
 
 
-def create_app(calls_dir: Path | None = None, *, controls=None, configuration=None) -> FastAPI:
+def create_app(
+    calls_dir: Path | None = None, *, controls=None, configuration=None, enable_reviews=False
+) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_app):
         try:
@@ -49,9 +52,18 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
                 "Cross-origin requests are not permitted.", status_code=403
             )
         elif request.method not in ("GET", "HEAD") and not (
-            controls is not None
-            and request.method == "POST"
-            and request.url.path in ("/api/console/start", "/api/console/stop")
+            request.method == "POST"
+            and (
+                (
+                    controls is not None
+                    and request.url.path in ("/api/console/start", "/api/console/stop")
+                )
+                or (
+                    enable_reviews
+                    and request.url.path.startswith("/api/calls/")
+                    and request.url.path.endswith("/review")
+                )
+            )
         ):
             response = PlainTextResponse("This review interface is read-only.", status_code=405)
         else:
@@ -81,6 +93,7 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
             "favicon.svg": "image/svg+xml",
             "console.js": "text/javascript",
             "learning.js": "text/javascript",
+            "reviews.js": "text/javascript",
         }
         if name not in allowed:
             raise ArtifactError("Asset not found.")
@@ -88,11 +101,18 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
 
     @app.get("/api/calls")
     def calls():
-        return store.listing()
+        data = store.listing()
+        for call in data["calls"]:
+            if call["status"] != "unavailable":
+                reviews.project(store, call)
+                call["review"] = {
+                    key: call["review"][key] for key in ("status", "listened", "usable")
+                }
+        return data
 
     @app.get("/api/calls/{call_id}")
     def detail(call_id: str):
-        return store.detail(call_id, fingerprint=True)
+        return reviews.project(store, store.detail(call_id, fingerprint=True))
 
     @app.api_route("/api/calls/{call_id}/audio", methods=["GET", "HEAD"])
     def audio(call_id: str):
@@ -118,6 +138,8 @@ def create_app(calls_dir: Path | None = None, *, controls=None, configuration=No
             "\n".join(lines) + "\n",
             headers={"Content-Disposition": f'attachment; filename="{call_id}-transcript.txt"'},
         )
+
+    reviews.install(app, store, enable_reviews)
 
     if controls is not None:
         from .control_routes import install
