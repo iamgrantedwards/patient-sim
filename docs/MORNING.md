@@ -43,6 +43,10 @@ ending; then compare the saved recording and transcript. Stop is available if ne
 but an operator-stopped call does not pass the natural-ending gate. Capture the call ID,
 commit, settings and result. No automatic retry or background call schedule exists.
 
+Use the [per-call review workflow](CALL-REVIEW.md) and [blank sheet](CALL-REVIEW-TEMPLATE.md)
+after each attempt. Review completion and submission suitability are separate decisions.
+Manual sheets currently stay local and do not update the UI listening badge.
+
 ## After the first good call
 
 - Listen end to end and record the actual review result. Playback alone never marks a

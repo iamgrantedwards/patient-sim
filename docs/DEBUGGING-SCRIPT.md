@@ -86,6 +86,10 @@ If the live retest is still ahead: In the follow-up, we'll make one controlled c
 and compare the recording, transcript and interface behavior. Automated checks alone
 don't establish that the voice conversation works.
 
+For the retest, use the [per-call checklist](CALL-REVIEW-TEMPLATE.md). Show the specific
+before/after observation and next decision; narrating every checklist row is unnecessary.
+The manual review sheet does not currently update the app badge.
+
 ## Follow-up recording
 
 Last time, we established [finding] and made [change]. Since then, [state exactly what
