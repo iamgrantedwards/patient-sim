@@ -1,5 +1,9 @@
 # Build notebook
 
+The [debugging journal](DEBUGGING.md) records the first two actual attempts and
+separates observations, prior fixes and unresolved hypotheses. Its starting account
+was written retrospectively on 2026-09-19 for #48; the debugging video is still pending.
+
 ## 2026-09-18 — repository setup
 
 - Adopted the reviewed Revision 3 contract before starting the caller implementation.
