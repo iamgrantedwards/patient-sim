@@ -8,7 +8,7 @@ fix as if it were new work. Keep the existing raw call private until listening/r
 From the patient-sim checkout:
 
 ```sh
-uv run python -m src.review --enable-calls
+uv run python -m src.review --enable-calls --enable-reviews
 ```
 
 Open `http://127.0.0.1:8765`. If that port already has the prepared console running,
@@ -45,7 +45,7 @@ commit, settings and result. No automatic retry or background call schedule exis
 
 Use the [per-call review workflow](CALL-REVIEW.md) and [blank sheet](CALL-REVIEW-TEMPLATE.md)
 after each attempt. Review completion and submission suitability are separate decisions.
-Manual sheets currently stay local and do not update the UI listening badge.
+Use Review beside the recording to save checks and update the listening badge. Optional manual sheets stay local and are not imported.
 
 ## After the first good call
 

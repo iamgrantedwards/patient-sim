@@ -18,7 +18,7 @@ const topics = {
   ],
   review: [
     "Listening review",
-    "Reviews recorded in the call metadata. Playing audio does not mark a call reviewed. A person must check the full recording against the transcript.",
+    "Open Review beside the recording to save checks and timestamped notes. Confirm full listening explicitly. Usable conversations need complete evidence; changed files require a recheck. Reviews are saved separately from the originals.",
   ],
   library: [
     "Calls",

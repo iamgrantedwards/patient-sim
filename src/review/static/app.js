@@ -1,3 +1,5 @@
+import { renderReview } from "./reviews.js";
+
 const $ = (id) => document.getElementById(id);
 const state = {
   calls: [],
@@ -176,7 +178,7 @@ function renderList() {
     return (
       matches &&
       (filter === "all" ||
-        (filter === "pending" && call.recording.listened_by_human !== true) ||
+        (filter === "pending" && call.review?.listened !== true) ||
         (filter === "partial" && call.partial_turns > 0) ||
         (filter === "missing" && (!call.recording.available || !call.transcript_available)))
     );
@@ -305,7 +307,7 @@ function renderConversation(call) {
     : "No original audio file is available.";
   const notices = $("call-notices");
   notices.replaceChildren();
-  if (call.recording.listened_by_human !== true) {
+  if (call.review?.listened !== true) {
     const notice = node("div", null, "notice");
     notice.append(
       node("strong", "Listening review pending. "),
@@ -399,7 +401,7 @@ function cloudEvidence(call) {
       ["Checked", date(cloud.checked_at)],
       ["Session ID", cloud.session_id],
       ["Cloud audio player", cloud.player_visible ? "Visible at check time" : "Not observed"],
-      ["Listening review", call.recording.listened_by_human === true ? "Recorded" : "Pending"],
+      ["Listening review", call.review?.listened === true ? "Recorded" : "Pending"],
     ]),
     node(
       "p",
@@ -514,6 +516,16 @@ async function selectCall(id) {
     state.detail = call;
     renderHeader(call);
     renderConversation(call);
+    renderReview(call, async (id) => {
+      if (state.selected !== id) return;
+      await refresh();
+      const panel = $("listening-review").querySelector("details");
+      if (panel) {
+        panel.open = true;
+        panel.querySelector("summary").focus();
+      }
+      $("announcement").textContent = "Review saved.";
+    });
     renderProvenance(call);
     renderGovernance(call);
     $("call-content").hidden = false;
@@ -544,7 +556,8 @@ async function refresh() {
       (call) => call.recording.available && call.transcript_available,
     ).length;
     $("metric-reviewed").textContent =
-      `${data.calls.filter((call) => call.recording.listened_by_human === true).length}/${data.calls.length}`;
+      `${data.calls.filter((call) => call.review?.listened === true).length}/${data.calls.length}`;
+    $("metric-usable").textContent = data.calls.filter((call) => call.review?.usable).length;
     renderList();
     if (data.truncated) {
       $("global-error").textContent =

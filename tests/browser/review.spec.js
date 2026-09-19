@@ -29,7 +29,7 @@ test("original evidence, partial speech, literal unsafe content, and downloadabl
   await loaded(page);
   await expect(page.locator("#library-count")).toHaveText("4 calls");
   await expect(page.locator("#metric-pairs")).toHaveText("2");
-  await expect(page.locator("#metric-reviewed")).toHaveText("1/4");
+  await expect(page.locator("#metric-reviewed")).toHaveText("0/4");
   await expect(page.getByText("Listening review pending.", { exact: true })).toBeVisible();
   await expect(
     page

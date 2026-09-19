@@ -1010,6 +1010,106 @@ audio {
 .operation-meta .mono {
   font-size: 12px;
 }
+/* Listening reviews stay folded beside the recording until requested. */
+.listening-review {
+  border: 1px solid var(--border, #d6dfd6);
+  border-radius: 12px;
+  margin: 12px 0;
+  background: #f8faf7;
+  padding: 0 16px;
+}
+.listening-review > summary {
+  cursor: pointer;
+  padding: 14px 0;
+  color: #244e40;
+}
+.review-title {
+  font-weight: 700;
+  margin-right: 12px;
+}
+.review-status {
+  font-size: 0.8rem;
+  color: #536459;
+}
+.review-form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.review-field {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: #46594e;
+}
+.review-field input,
+.review-field select,
+.review-field textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1px solid #bdcbbb;
+  border-radius: 8px;
+  padding: 9px 10px;
+  background: white;
+  color: #263b30;
+  font: inherit;
+}
+.review-field textarea {
+  resize: vertical;
+}
+.review-check {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 12px;
+}
+.review-checks {
+  margin-top: 16px;
+}
+.review-listened {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 0.85rem;
+  margin: 10px 0 18px;
+}
+.review-listened input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+.review-feedback {
+  font-size: 0.85rem;
+  color: #244e40;
+}
+.review-history {
+  padding: 0 0 16px;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+.review-history summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+.review-history p {
+  margin: 6px 0;
+}
+@media (max-width: 600px) {
+  .review-check {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border-bottom: 1px solid #d6dfd6;
+    margin-bottom: 12px;
+  }
+  .review-status {
+    display: block;
+    margin-top: 4px;
+  }
+}
+
 #live-dialogue summary {
   font-size: 13px;
   font-weight: 600;

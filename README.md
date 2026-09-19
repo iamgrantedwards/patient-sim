@@ -31,7 +31,16 @@ and filters. Select a card or list entry to open its evidence.
 
 For each attempt, follow the [call-review workflow](docs/CALL-REVIEW.md) and use its
 [review sheet](docs/CALL-REVIEW-TEMPLATE.md) to record listening observations and next actions.
-The sheet is currently manual; the viewer does not save or ingest structured reviews yet.
+To save reviews, start with `uv run python -m src.review --enable-reviews`.
+Open **Review** beside a call's recording. Save the seven checks, timestamped notes,
+reviewer, explicit listening confirmation and conversation result. Add `--enable-calls`
+only when you also want call controls. Review saving needs no provider credentials.
+
+Reviews persist in `calls/<call-id>/review.json` with dated revisions and SHA-256
+fingerprints of the original evidence. Changed evidence requires a recheck. Legacy
+metadata listening flags remain provenance; they do not count as current reviewed or
+usable conversations. Manual `review.md` sheets are optional and are not imported.
+Review files stay local/ignored with the call until deliberately published.
 
 Use the light bulb for optional hover, focus or tap explanations. The book icon beside
 it opens a short guide with the call/review flow and recovery help. These controls
@@ -52,7 +61,7 @@ Dry runs need no credentials, do not connect to providers, and place no call.
 After filling the ignored `.env`, enable the local call console:
 
 ```sh
-uv run python -m src.review --enable-calls
+uv run python -m src.review --enable-calls --enable-reviews
 ```
 
 Open **http://127.0.0.1:8765**. Choose a scenario, select **Review & call**, and confirm

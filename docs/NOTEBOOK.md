@@ -521,3 +521,15 @@ No findings have been confirmed. No calls have been placed.
 - No calls were reviewed, scored, accepted, modified or placed by this preparation.
   Remote-agent defects can be useful complete conversations; incomplete attempts do
   not count toward ten. Model choices remain hypotheses until compared with call evidence.
+
+
+## 2026-09-19 — saved listening reviews (#54)
+
+Grant moved the compact review feature ahead of the caller investigation to finish the
+review workflow. Added a separately enabled, providerless write path and folded Review
+panel beside each recording. Reviews preserve revisions separately from raw artifacts;
+evidence fingerprints invalidate stale judgments. Legacy flags are shown as provenance,
+not silently promoted to acceptance. The seven checks distinguish listening completion
+from a usable conversation. No real call was placed or reviewed during this work.
+Initial offline verification: 223 Python tests passed, including reload, revisions, stale
+evidence, protected writes and unchanged original bytes. Browser verification is underway.

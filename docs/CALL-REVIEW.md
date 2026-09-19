@@ -9,18 +9,23 @@ It is not an additional employer-mandated scoring system.
 
 | Surface | What belongs there |
 | --- | --- |
-| App | Scenario choice, explicit start/stop, actual status, recording, transcript and call provenance. A future compact Review control belongs beside the selected call. |
+| App | Scenario choice, explicit start/stop, actual status, recording, transcript and call provenance. A compact Review control saves listening checks beside the selected call. |
 | Learn / Guide | Short explanations of controls and review criteria, available when requested. |
 | Per-call review | What a human heard, exact moments, outcome, uncertainties and next action. |
 | GitHub issue and PR | The problem, basis, proposed change, regression, verification and linked retest. |
 | Debugging journal | The actual progression of diagnosis, changed hypotheses and unresolved questions. |
 | Loom / submission docs | Your reasoning, selected evidence and required deliverables. Hiring instructions stay here. |
 
-**Current capability:** the viewer displays a legacy listening flag from metadata;
-it does not provide a structured review editor or read the manual sheet below.
-[Issue #54](https://github.com/iamgrantedwards/patient-sim/issues/54) tracks a compact
-review-save feature after the caller investigation. Do not edit original metadata
-just to make its badge green. We can start useful reviews now without that feature.
+**Saving in the app:** launch with `--enable-reviews` and expand **Review** beside the
+recording. Save checks, notes, your name, listening confirmation and conversation result.
+This opt-in mode requires no provider credentials and never enables dialing. Add
+`--enable-calls` separately if needed. Read-only mode displays saved reviews.
+
+Reviews live in each call's `review.json`, separate from the original files, with dated
+revisions and evidence fingerprints. Amending appends a revision; changing evidence
+marks the saved review stale and removes it from reviewed/usable counts until rechecked.
+Legacy metadata listening flags do not silently become approval. Existing manual sheets
+remain readable documents but are not automatically imported.
 
 ## Before each call: choose one purpose
 
@@ -67,11 +72,11 @@ submitted call must use one specific hangup mechanism.
 
 ## Record the result now
 
-Use [CALL-REVIEW-TEMPLATE.md](CALL-REVIEW-TEMPLATE.md). Copy a sheet into the actual
-call folder as `review.md` when doing a review. That folder is currently Git-ignored;
-notes remain local until deliberately reviewed and included with submission evidence.
-The viewer will not update from this file until a review integration is implemented.
-Do not confuse a completed sheet with a saved UI review.
+Use **Review** in the app. The [manual template](CALL-REVIEW-TEMPLATE.md) is an optional
+alternative for notes outside the app; `review.md` is not ingested and does not update
+badges. Both formats remain local in the ignored call folder until deliberately reviewed
+and included with submission evidence. A saved review is a human judgment, not automatic
+proof that the audio decoded or that an outcome occurred in the office's backend.
 
 Use playback offsets such as 00:42, not transcript row numbers. If precise timing is
 unavailable, say so. Separate a quote from your interpretation. A spoken booking
@@ -143,4 +148,4 @@ Keep credentials private; supply `.env.example`, not an encrypted credential bun
 
 Immediate order: record the #46 investigation (#25), verify the caller and complete
 listening acceptance (#24/#21/#12 as applicable), then expand scenarios and collect #18.
-The review-save enhancement #54 follows the caller fix and should stay small.
+The compact review feature #54 was brought forward at Grant's request; #46 remains the next caller task.
