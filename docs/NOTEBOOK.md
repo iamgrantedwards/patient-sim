@@ -287,3 +287,24 @@ No findings have been confirmed. No calls have been placed.
   coverage, 36 browser tests, axe, lint/type/security checks and installed-package smoke.
   Inspected the actual idle console at 1440px and 390px. No call was placed, transcript
   changed, or recording published. The caller and provider settings are unchanged.
+
+
+## 2026-09-19 — quick guide and merge follow-through (#30)
+
+- Added a Guide beside the learning light bulb. It opens a keyboard-accessible manual
+  with first-test steps, tab meanings, testing sequence, stop/recovery behavior,
+  evidence acceptance and privacy/AI limits. It works with learning hints off.
+- Browser checks caught focus leaving the last modal control on Tab. Added explicit
+  first/last keyboard wrapping, with tests for both directions, Escape, close-button
+  dismissal and focus return. All 39 browser cases pass across Chromium desktop/mobile
+  and WebKit; actual desktop/mobile layouts were inspected without placing a call.
+- Local quality, 168 Python tests (95.5% combined coverage), secret/Python dependency
+  scans, Biome and installed-wheel checks passed. Full verification is blocked at npm
+  audit: its bulk endpoint returns HTTP 503 and an explicit maintenance response; the
+  retired fallback returns HTTP 400. A minimal one-package request reproduces the same
+  503. This is not a clean dependency-audit result; the required gate stays enabled.
+- Grant requested merging the three green PRs. Merged #20, #27 and #28 into protected
+  main in dependency order using merge commits, without bypassing checks or rewriting
+  history. Retargeted learning mode #32 to main and reran its failed CI jobs. #21 and
+  #24 remain open for live acceptance; #12, human listening and M1 remain unresolved.
+- No new call was placed, raw evidence published, or provider/prompt setting changed.

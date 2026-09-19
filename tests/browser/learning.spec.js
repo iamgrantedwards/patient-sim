@@ -94,3 +94,46 @@ test("blocked browser storage does not prevent learning or review", async ({ pag
   await expect(page.getByRole("tooltip")).toContainText("complete, usable conversation");
   expect(mutations).toEqual([]);
 });
+
+test("quick guide works with hints off, traps focus, scrolls and returns to its opener", async ({
+  page,
+}) => {
+  const mutations = await load(page);
+  const opener = page.getByRole("button", { name: "Open quick guide", exact: true });
+  await opener.click();
+  const guide = page.getByRole("dialog", { name: "Quick guide", exact: true });
+  await expect(guide).toBeVisible();
+  await expect(guide.getByRole("button", { name: "Close quick guide", exact: true })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Learning mode", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
+  await accessible(page);
+  await guide.getByText("What do the three tabs mean?", { exact: true }).click();
+  await expect(
+    guide.getByText("Later changes do not rewrite them.", { exact: false }),
+  ).toBeVisible();
+  await guide.getByText("How do I stop or recover a call?", { exact: true }).click();
+  await expect(
+    guide.getByText("Refreshing or closing the browser does not stop a call.", { exact: false }),
+  ).toBeVisible();
+  await guide.getByText("What are the privacy and AI limits?", { exact: true }).click();
+  await expect(
+    guide.getByText("The app does not claim HIPAA compliance.", { exact: false }),
+  ).toBeVisible();
+  await accessible(page);
+  const lastTopic = guide.getByText("What are the privacy and AI limits?", { exact: true });
+  await lastTopic.focus();
+  await page.keyboard.press("Tab");
+  await expect(guide.getByRole("button", { name: "Close quick guide", exact: true })).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(lastTopic).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(guide).toBeHidden();
+  await expect(opener).toBeFocused();
+  await opener.click();
+  await guide.getByRole("button", { name: "Close quick guide", exact: true }).click();
+  await expect(guide).toBeHidden();
+  await expect(opener).toBeFocused();
+  expect(mutations).toEqual([]);
+});
