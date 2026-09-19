@@ -3,7 +3,7 @@
 Planned 2026-09-19 at Grant's request, before the debugging video. This is a coverage
 plan, not a record of executed calls or implemented scenarios. Only office information
 is currently implemented. Collection is tracked in #18; caller recovery in #46;
-required product exploration in #8; findings in #19.
+product-context observations in #8; findings in #19.
 
 ## What we are testing
 
@@ -25,9 +25,11 @@ is guidance, not a reason to stretch or cut a natural conversation.
 
 ## Before collecting
 
-1. Verify the required Athena product exploration (#8): supported flows, demo patient
-   setup and any stated policies. Never dial its confirmation number. Record observed
-   facts and unknowns instead of assuming office hours, refill eligibility or insurance.
+1. Athena exploration is complete by Grant's firsthand report (#8): he created an
+   account, received the demo callback and experienced appointment booking. Calendar
+   and SMS follow-up are his recollection, not independently checked outcomes. Use
+   that context while keeping assessment-line state sharing, other services and policies
+   unknown. Never dial the confirmation number or reuse Grant's personal appointment.
 2. Record the genuine #46 investigation and verify the caller can complete and preserve
    a conversation. The existing first call awaits listening; the second has no final
    audio/transcript. Neither is currently accepted toward the ten.
@@ -141,7 +143,7 @@ remains unresolved; do not promise that one monitoring fix explains it.
 
 ## Immediate order
 
-Agree the strategy → verify product context → film #46 diagnosis/fix → review a controlled
+Agree the strategy → use the documented product context → film #46 diagnosis/fix → review a controlled
 retest → implement/verify the missing scenarios → collect in small batches → reproduce
 useful findings → publish at least ten reviewed pairs and the two required videos.
 Planning and scenario implementation can be done before filming if helpful; disclose
