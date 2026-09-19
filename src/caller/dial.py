@@ -2,56 +2,39 @@
 
 import argparse
 import asyncio
-import json
 import uuid
-from datetime import UTC, datetime
 
 from .config import PERMITTED_TARGET, PROJECT_ROOT, load
 from .patient import DEFAULT_PATIENT, build_instructions
 from .scenarios import SCENARIOS, get_scenario
-from .transcript import write_json
 
 
 async def dispatch(scenario: str) -> None:
-    from livekit import api
+    from .control import CallManager
+    from .control_backend import LiveBackend
 
-    cfg = load()  # Fail before creating a dispatch if local settings are incomplete.
-    call_id = datetime.now(UTC).strftime("call-%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:8]
-    directory = PROJECT_ROOT / "calls" / call_id
-    directory.mkdir(parents=True, exist_ok=False)
-    record = {"call_id": call_id, "scenario": scenario, "status": "dispatching"}
-    write_json(directory / "dispatch.json", record)
-    async with api.LiveKitAPI(
-        cfg.livekit_url, cfg.livekit_api_key, cfg.livekit_api_secret
-    ) as client:
-        try:
-            created = await client.agent_dispatch.create_dispatch(
-                api.CreateAgentDispatchRequest(
-                    agent_name="patient-sim",
-                    room=call_id,
-                    metadata=json.dumps({"scenario": scenario, "call_id": call_id}),
-                )
-            )
-            record.update(status="dispatched", dispatch_id=created.id)
-            write_json(directory / "dispatch.json", record)
-            # Local worker and dispatcher share calls/. Never automatically redial.
-            for _ in range(60):
-                if (directory / "meta.json").exists():
-                    print(f"Worker accepted {call_id}. Artifacts: {directory}")
-                    return
-                await asyncio.sleep(0.5)
-            raise TimeoutError("Worker did not accept the dispatch within 30 seconds")
-        except Exception as error:
-            record.update(status="dispatch_error", error_type=type(error).__name__)
-            try:
-                await client.room.delete_room(api.DeleteRoomRequest(room=call_id))
-                record["cleanup"] = "room_deleted"
-            except Exception as cleanup_error:
-                record["cleanup"] = type(cleanup_error).__name__
-            write_json(directory / "dispatch.json", record)
-            raise RuntimeError(
-                f"Dispatch failed ({type(error).__name__}); inspect {directory}/dispatch.json. No automatic retry."
-            ) from None
+    get_scenario(scenario)
+    cfg = load()
+    manager = CallManager(
+        PROJECT_ROOT, lambda: LiveBackend(PROJECT_ROOT, cfg), max_seconds=cfg.max_call_seconds
+    )
+    result = await manager.start(scenario, manager.start_token, uuid.uuid4().hex)
+    print(f"Call requested: {result['call_id']}. No automatic retry.")
+    try:
+        if manager.task is not None:
+            await asyncio.shield(manager.task)
+    except asyncio.CancelledError:
+        await asyncio.shield(manager.shutdown())
+        raise
+    result = manager.snapshot()
+    if result["phase"] != "ended":
+        raise RuntimeError(
+            result["message"]
+            or "Call did not complete. Review the saved operation before retrying."
+        )
+    print(
+        f"Call ended: {result['call_id']}. Artifacts: {PROJECT_ROOT / 'calls' / result['call_id']}"
+    )
 
 
 def main() -> None:
@@ -59,7 +42,9 @@ def main() -> None:
     parser.add_argument("--scenario", choices=sorted(SCENARIOS), default="smoke")
     action = parser.add_mutually_exclusive_group()
     action.add_argument(
-        "--call", action="store_true", help="Place one real call; requires a running worker"
+        "--call",
+        action="store_true",
+        help="Start a dedicated worker and place one real assessment call",
     )
     action.add_argument(
         "--dry-run",
