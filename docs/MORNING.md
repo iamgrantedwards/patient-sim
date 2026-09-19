@@ -52,8 +52,13 @@ commit, settings and result. No automatic retry or background call schedule exis
 
 ## GitHub review and landing
 
-The stack is foundation #20 → review UI #27 → call controls. Each dependent PR targets
-its predecessor so the diff stays focused. Required CI and actual acceptance are
-separate: green CI does not pass M1. Review and land in order, retargeting/rebasing the
-next PR onto main and rerunning its checks. Main stays protected; unreviewed recordings
-and secrets stay out of commits. See ROADMAP.md and ASSESSMENT.md for the full gates.
+Foundation #20, review UI #27 and controls #28 are merged. The added learning work
+is issue-led: #29 / PR #32, #30 / PR #33 and #31 / PR #35. Each dependent PR targets
+its predecessor until that predecessor lands. #34 tracks npm audit availability;
+#36 / PR #37 fixes an incompatible Dependabot update proposal.
+
+Choose the issue before the next change, post the plan, then link the draft PR and
+actual verification back to that issue. For the next recorded session, use #12/#25;
+record the call ID and results on #24/#21 as well. See ROADMAP.md for current ordering.
+Required CI and actual voice acceptance are separate: green CI does not pass M1.
+Main stays protected; unreviewed recordings and secrets stay out of commits.

@@ -4,7 +4,9 @@
 
 ## Why
 
-<!-- The problem this solves. If it came out of a call, link the call id. -->
+<!-- Link the task issue and explain the problem. If it came out of a call, link its ID.
+Use "Closes #N" only when every acceptance item is met; repeat "Closes" for each issue.
+Otherwise use "Related: #N" and state the remaining acceptance. Name any parent PR. -->
 
 ## How it was verified
 
@@ -18,7 +20,8 @@
 
 ## Evidence
 
-<!-- Call ids, transcript paths, or a quote. Leave empty if this is plumbing. -->
+<!-- Link the issue progress comment, checks, and relevant call IDs/quotes when applicable.
+Before requesting review, post the PR link, actual results, and next action on the issue. -->
 
 ## Risk / what could break
 

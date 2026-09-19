@@ -325,3 +325,27 @@ No findings have been confirmed. No calls have been placed.
   scans, Python dependency audit and Biome before stopping at npm registry maintenance.
   Installed-package smoke passed separately. External blocker #34 also affects new
   checks on main; affected PRs remain draft with the required audit intact.
+
+
+## 2026-09-19 — issue reconciliation requested by Grant (#38)
+
+- Audited the issue acceptance against source/tests, existing commits and PRs. Earlier
+  issue bodies had been edited, but no progress comments had been posted; merged code
+  tasks still said to wait for merging. This was a tracking gap, not evidence that the
+  required live calls or submission were complete.
+- Added explicitly dated acceptance-review comments and bidirectional PR links. Closed
+  #10/#11/#16 after verifying their code criteria and merged implementation; removed
+  stale statuses from already-closed issues. Kept #12/#14/#15/#17/#21/#24 and required
+  account/evidence/video/submission work open. Refreshed parent checklists and next steps.
+- Documented issue-first planning, first-commit draft PRs, discovery/verification comments
+  and closure on actual acceptance. The existing larger PRs and their timestamps remain
+  intact. Real iteration includes CI fixes, the first call and its defects, plus browser
+  navigation/download fixes; this review links that evidence without backdating work.
+- npm's bulk advisory service subsequently recovered. The unchanged dependency lock
+  passed the full audit with zero reported vulnerabilities; reran the blocked hosted
+  jobs without modifying or bypassing the required audit gate. Hosted outcomes remain
+  tracked in #34 until confirmed. The separate Dependabot incompatibility is #36/#37.
+- After registry recovery, full local verification passed: 168 Python tests, 95.5%
+  combined coverage, 39 browser tests, all audits/lints/types and installed-package
+  smoke checks. The issue audit confirmed every one of the 31 task/epic issues had an
+  owner and a dated progress comment, with no duplicate status labels.
