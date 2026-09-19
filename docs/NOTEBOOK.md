@@ -230,3 +230,9 @@ No findings have been confirmed. No calls have been placed.
 - Final navigation review caught that the sidebar's Call review link only scrolled
   while leaving AI governance selected. It now restores Conversation, or the empty
   review state when no call is selected; browser regression checks cover both paths.
+- Hosted CI run 35408568707 found Linux WebKit displaying the transcript inline even
+  though the response supplied `Content-Disposition: attachment`. Its trace showed a
+  successful 200 response followed by navigation away from review. Added an explicit
+  same-origin `download` filename to the link; the browser test still requires an actual
+  download and now also checks that the review screen remains available. No test was
+  skipped and the required gate correctly blocked package delivery on the failed run.

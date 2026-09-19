@@ -42,6 +42,7 @@ test("original evidence, partial speech, literal unsafe content, and downloadabl
   const download = page.waitForEvent("download");
   await page.getByRole("link", { name: "Download .txt" }).click();
   expect((await download).suggestedFilename()).toBe("call-fixture-03-transcript.txt");
+  await expect(page.getByRole("heading", { name: "Call recording", exact: true })).toBeVisible();
   expect(errors).toEqual([]);
   await accessible(page);
 });

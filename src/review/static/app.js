@@ -193,6 +193,7 @@ function renderConversation(call) {
     : "Turn order is preserved. Audio timestamps are not measured.";
   $("download-transcript").hidden = !call.transcript_available;
   $("download-transcript").href = `/api/calls/${encodeURIComponent(call.call_id)}/transcript`;
+  $("download-transcript").download = `${call.call_id}-transcript.txt`;
   if (!call.turns.length)
     transcript.append(
       node("p", "No committed dialogue is available for this call.", "empty-small"),
