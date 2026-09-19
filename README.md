@@ -4,11 +4,11 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** the first live assessment call connected and saved a 70-second stereo OGG
-recording with a transcript. Audio decoding passes; listening review is still pending.
-The run exposed a non-dialogue event-handler error, and the remote agent hung up while
-the patient began another question. M1 remains open until the caller ends naturally and
-its recording has been listened to alongside its transcript.
+**Status:** two real attempts are recorded locally. The first saved a 70-second stereo
+OGG and transcript; listening review and a clean ending remain pending. The second
+exposed a child-worker crash and saved only partial evidence before an operator stop.
+The [debugging journal](docs/DEBUGGING.md) separates the known callback fix from this
+unresolved failure and sets up the next genuine debugging session.
 
 ## Review recordings locally
 
@@ -109,14 +109,14 @@ explicitly adding selected submission evidence to the public repository.
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
+- [Two-call debugging journal](docs/DEBUGGING.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The local review UI (#23) and opt-in outbound controls (#24) are implemented on dependent
-draft PRs. The controls still need a real UI call with human review. The first-good-call gate remains open;
-calibration, broader call collection, findings, and the final walkthrough follow it.
-The first run exposed a simulator event-handler bug (#21), now fixed with pinned-SDK
-regression tests but awaiting live confirmation, and an unresolved closing issue (#12). No bug in the assessment agent has been confirmed.
+The local review UI and opt-in outbound controls are merged. The second attempt was
+started and stopped through the UI; #46 now blocks #24's full live acceptance. The
+first-good-call gate remains open. Calibration, broader call collection, findings,
+and the final walkthrough follow it. No bug in the assessment agent has been confirmed.
 
 ## Personal GitHub account
 
