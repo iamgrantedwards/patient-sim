@@ -1040,6 +1040,7 @@ audio {
 .review-field {
   display: grid;
   gap: 5px;
+  align-content: start;
   margin-bottom: 12px;
   min-width: 0;
   font-size: 0.8rem;
@@ -1053,17 +1054,22 @@ audio {
   box-sizing: border-box;
   border: 1px solid #bdcbbb;
   border-radius: 8px;
-  padding: 9px 10px;
+  margin: 0;
+  height: 38px;
+  padding: 8px 10px;
   background: white;
   color: #263b30;
   font: inherit;
 }
 .review-field textarea {
+  height: auto;
+  min-height: 64px;
   resize: vertical;
 }
 .review-check {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
+  grid-template-columns: minmax(150px, 0.34fr) minmax(0, 1fr);
+  align-items: start;
   gap: 12px;
 }
 .review-checks {

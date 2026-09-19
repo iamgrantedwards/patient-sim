@@ -16,7 +16,7 @@ const el = (tag, text, className) => {
 function field(label, input) {
   const wrapper = el("label", null, "review-field");
   input.setAttribute("aria-label", label);
-  wrapper.append(el("span", label), input);
+  wrapper.append(el("span", label.endsWith(" note") ? "Observation" : label), input);
   return wrapper;
 }
 function select(options, value) {
@@ -95,7 +95,7 @@ export async function renderReview(call, onSaved) {
     const note = el("input");
     note.type = "text";
     note.maxLength = 1200;
-    note.placeholder = "00:42 — observation (or timing unknown)";
+    note.placeholder = "00:42 — what happened?";
     note.value = saved?.checks[key]?.note || "";
     const update = () => {
       note.required = result.value === "issue";

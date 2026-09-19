@@ -533,3 +533,15 @@ not silently promoted to acceptance. The seven checks distinguish listening comp
 from a usable conversation. No real call was placed or reviewed during this work.
 Initial offline verification: 223 Python tests passed, including reload, revisions, stale
 evidence, protected writes and unchanged original bytes. Browser verification is underway.
+
+Grant's screenshot caught a layout regression that the first accessibility checks did
+not catch: a global select margin shifted checklist dropdowns into note fields. Reset
+field margins/heights and added row-geometry assertions on desktop/mobile/WebKit.
+The local server's older asset allowlist also caused a temporary module 404 during
+development; restarting it restored both original call records.
+
+Final focused browser checks pass in Chromium desktop/mobile and WebKit, including
+row alignment/no overlap, keyboard operation, accessibility, saving and amendments.
+The expanded panel was inspected in the in-app browser after the correction. Local
+secret/dependency scans and package installation checks passed. No genuine listening
+completion or suitability judgment was saved on either real call.

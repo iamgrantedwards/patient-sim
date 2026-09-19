@@ -47,6 +47,31 @@ test("review can be completed with keyboard, saved, reopened and amended without
   await page.getByLabel("Ending note", { exact: true }).fill("00:02 — clipped farewell");
   await page.getByLabel("I listened to the full recording and checked the transcript").check();
   await page.getByLabel("Conversation result").selectOption("usable");
+  // Scope form geometry, not merely document overflow: a select's inherited margin
+  // previously overlapped the neighboring input while the page width still passed.
+  const rows = await page.locator(".review-check").evaluateAll((items) =>
+    items.map((row) => {
+      const a = row.querySelector("select").getBoundingClientRect();
+      const b = row.querySelector("input").getBoundingClientRect();
+      const bounds = row.getBoundingClientRect();
+      return {
+        select: { x: a.x, y: a.y, right: a.right, bottom: a.bottom, height: a.height },
+        note: { x: b.x, y: b.y, right: b.right, height: b.height },
+        right: bounds.right,
+      };
+    }),
+  );
+  for (const row of rows) {
+    expect(row.select.right).toBeLessThanOrEqual(row.right + 1);
+    expect(row.note.right).toBeLessThanOrEqual(row.right + 1);
+    expect(Math.abs(row.select.height - row.note.height)).toBeLessThan(1);
+    if (page.viewportSize().width > 600) {
+      expect(row.note.x - row.select.right).toBeGreaterThanOrEqual(10);
+      expect(Math.abs(row.select.y - row.note.y)).toBeLessThan(1);
+    } else {
+      expect(row.note.y).toBeGreaterThan(row.select.bottom);
+    }
+  }
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
