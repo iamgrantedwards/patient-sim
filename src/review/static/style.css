@@ -1782,14 +1782,6 @@ summary:focus-visible {
   font-weight: 450;
   color: #626f67;
 }
-.selected-mark {
-  margin-left: auto;
-  color: #215548;
-  font-size: 15px;
-}
-.call-card[aria-current="false"] .selected-mark {
-  visibility: hidden;
-}
 .review-grid[data-view] {
   display: block;
 }
@@ -1812,6 +1804,10 @@ summary:focus-visible {
   scrollbar-color: #afbeaa transparent;
 }
 [data-view="cards"] .call-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "date date" "title duration" "status status" "files files";
+  align-items: start;
   flex: 0 0 292px;
   min-width: 0;
   padding: 16px;
@@ -1833,6 +1829,7 @@ summary:focus-visible {
     inset 0 3px #3d684c;
 }
 [data-view="cards"] .card-emblem {
+  grid-area: date;
   display: flex;
   gap: 9px;
   align-items: center;
@@ -1865,7 +1862,18 @@ summary:focus-visible {
   display: none;
 }
 [data-view="cards"] .card-top {
-  margin-bottom: 12px;
+  grid-area: title;
+  margin: 0 8px 12px 0;
+}
+[data-view="cards"] .card-status {
+  display: contents;
+}
+[data-view="cards"] .duration {
+  grid-area: duration;
+}
+.card-status > .badge {
+  grid-area: status;
+  justify-self: start;
 }
 .call-card .duration {
   font-variant-numeric: tabular-nums;
@@ -1873,6 +1881,7 @@ summary:focus-visible {
   color: #617166;
 }
 [data-view="cards"] .card-files {
+  grid-area: files;
   display: flex;
   gap: 14px;
   border-top: 1px solid #e6ebe2;
@@ -1989,7 +1998,7 @@ summary:focus-visible {
 }
 [data-view="list"] .call-card {
   display: grid;
-  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) 130px minmax(160px, 0.8fr);
+  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) auto auto;
   grid-template-areas: "title date status files";
   align-items: center;
   gap: 16px;
@@ -2014,13 +2023,15 @@ summary:focus-visible {
   margin: 0;
 }
 [data-view="list"] .card-symbol,
-[data-view="list"] .call-card .selected-mark,
 [data-view="list"] .call-card .call-id {
   display: none;
 }
-[data-view="list"] .call-card > .badge {
+[data-view="list"] .card-status {
   grid-area: status;
-  justify-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
 }
 [data-view="list"] .card-files {
   grid-area: files;
@@ -2046,7 +2057,7 @@ summary:focus-visible {
     grid-template-areas: "title status" "date files";
     gap: 8px 16px;
   }
-  [data-view="list"] .call-card > .badge {
+  [data-view="list"] .card-files {
     justify-self: end;
   }
 }
@@ -2064,9 +2075,6 @@ summary:focus-visible {
   }
   [data-view="list"] .card-date {
     font-size: 11px;
-  }
-  [data-view="list"] .call-card .selected-mark {
-    font-size: 12px;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -2173,16 +2181,21 @@ summary:focus-visible {
 [data-view] .card-files {
   gap: 6px;
 }
-[data-view="list"] .call-card {
-  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) 130px minmax(200px, 0.8fr);
-}
-@media (max-width: 1050px) {
-  [data-view="list"] .call-card {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-}
 @media (max-width: 440px) {
   [data-view="list"] .call-card {
-    grid-template-areas: "title title" "date status" "files files";
+    grid-template-areas: "title duration" "date status" "files files";
+  }
+  [data-view="list"] .card-status {
+    display: contents;
+  }
+  [data-view="list"] .duration {
+    grid-area: duration;
+    justify-self: end;
+  }
+  [data-view="list"] .card-status > .badge {
+    justify-self: end;
+  }
+  [data-view="list"] .card-files {
+    justify-self: start;
   }
 }

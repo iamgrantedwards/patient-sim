@@ -223,7 +223,9 @@ function renderList() {
       icon(["M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0", "M12 7v5l3 2"]),
       node("span", duration(call.duration_seconds)),
     );
-    top.append(node("h3", scenario(call.scenario)), time);
+    top.append(node("h3", scenario(call.scenario)));
+    const status = node("div", null, "card-status");
+    status.append(time, badge(...outcome(call)));
     const emblem = node("div", null, "card-emblem");
     const symbol = node("span", null, "card-symbol");
     symbol.append(
@@ -249,13 +251,7 @@ function renderList() {
       file.append(icon(paths), node("span", available ? label : `No ${label.toLowerCase()}`));
       files.append(file);
     }
-    button.append(
-      emblem,
-      top,
-      node("p", call.call_id, "call-id mono"),
-      badge(...outcome(call)),
-      files,
-    );
+    button.append(emblem, top, node("p", call.call_id, "call-id mono"), status, files);
     button.addEventListener("click", () => selectCall(call.call_id));
     $("call-list").append(button);
     if (focusedCall === call.call_id) button.focus({ preventScroll: true });

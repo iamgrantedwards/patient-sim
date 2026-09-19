@@ -491,3 +491,7 @@ No findings have been confirmed. No calls have been placed.
   document and clock badges. Missing files stay amber and explicit; available files
   use a separate treatment. Selection uses the card/row highlight, not a checkmark.
   Accessible call names now include file availability and whether duration is known.
+- Grant confirmed the badge treatment, then identified a responsive list gap: duration
+  remained inside the flexible title cell and floated away from the outcome at wider
+  sizes. Duration and outcome now share a compact status group at wider sizes; the
+  existing narrow-phone arrangement is preserved.
