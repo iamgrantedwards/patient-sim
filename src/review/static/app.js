@@ -15,6 +15,28 @@ function node(tag, text, className) {
   if (className) element.className = className;
   return element;
 }
+function icon(paths, size = 14) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  for (const [key, value] of Object.entries({
+    "aria-hidden": "true",
+    class: "status-icon",
+    viewBox: "0 0 24 24",
+    width: String(size),
+    height: String(size),
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "1.7",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+  }))
+    svg.setAttribute(key, value);
+  for (const data of paths) {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", data);
+    svg.append(path);
+  }
+  return svg;
+}
 function badge(text, variant = "neutral") {
   return node("span", text, `badge ${variant}`);
 }
@@ -190,51 +212,43 @@ function renderList() {
     button.setAttribute("aria-current", String(state.selected === call.call_id));
     button.setAttribute(
       "aria-label",
-      `${scenario(call.scenario)} · ${call.call_id} · ${outcome(call)[0]}`,
+      `${scenario(call.scenario)} · ${call.call_id} · ${outcome(call)[0]} · ${call.recording.available ? "Audio available" : "No audio"} · ${call.transcript_available ? "Transcript available" : "No transcript"} · ${Number.isFinite(call.duration_seconds) ? `Duration ${duration(call.duration_seconds)}` : "Duration unavailable"}`,
     );
     const top = node("div", null, "card-top");
-    top.append(
-      node("h3", scenario(call.scenario)),
-      node("span", duration(call.duration_seconds), "duration"),
+    const time = node("span", null, "duration");
+    time.title = Number.isFinite(call.duration_seconds)
+      ? "Recording duration"
+      : "Recording duration unavailable";
+    time.append(
+      icon(["M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0", "M12 7v5l3 2"]),
+      node("span", duration(call.duration_seconds)),
     );
+    top.append(node("h3", scenario(call.scenario)), time);
     const emblem = node("div", null, "card-emblem");
     const symbol = node("span", null, "card-symbol");
-    symbol.setAttribute("aria-hidden", "true");
-    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    for (const [key, value] of Object.entries({
-      viewBox: "0 0 24 24",
-      width: "16",
-      height: "16",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": "1.7",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-    }))
-      icon.setAttribute(key, value);
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute(
-      "d",
-      "M21 16v3a2 2 0 0 1-2.2 2A19 19 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-3 2a14 14 0 0 0 7 7l2-3 5 2Z",
+    symbol.append(
+      icon(
+        [
+          "M21 16v3a2 2 0 0 1-2.2 2A19 19 0 0 1 3 5.2 2 2 0 0 1 5 3h3l2 5-3 2a14 14 0 0 0 7 7l2-3 5 2Z",
+        ],
+        16,
+      ),
     );
-    icon.append(path);
-    symbol.append(icon);
-    const selected = node("span", "✓", "selected-mark");
-    selected.setAttribute("aria-hidden", "true");
-    emblem.append(symbol, node("span", date(call.started_at, true), "card-date"), selected);
+    emblem.append(symbol, node("span", date(call.started_at, true), "card-date"));
     const files = node("div", null, "card-files");
-    files.append(
-      node(
-        "span",
-        call.recording.available ? "Audio" : "No audio",
-        call.recording.available ? "file-present" : "file-missing",
-      ),
-      node(
-        "span",
-        call.transcript_available ? "Transcript" : "No transcript",
-        call.transcript_available ? "file-present" : "file-missing",
-      ),
-    );
+    for (const [available, label, paths] of [
+      [
+        call.recording.available,
+        "Audio",
+        ["M4 13v-1a8 8 0 0 1 16 0v1", "M4 12H3v7h4v-7H4ZM20 12h1v7h-4v-7h3Z"],
+      ],
+      [call.transcript_available, "Transcript", ["M14 3H5v18h14V8l-5-5ZM14 3v5h5M8 12h8M8 16h6"]],
+    ]) {
+      const file = node("span", null, `file-chip ${available ? "file-present" : "file-missing"}`);
+      file.title = `${label} file ${available ? "available" : "unavailable"}`;
+      file.append(icon(paths), node("span", available ? label : `No ${label.toLowerCase()}`));
+      files.append(file);
+    }
     button.append(
       emblem,
       top,

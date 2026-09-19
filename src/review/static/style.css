@@ -1804,7 +1804,7 @@ summary:focus-visible {
   gap: 14px;
   overflow-x: auto;
   max-height: none;
-  padding: 4px 16px 18px;
+  padding: 10px 16px 18px;
   scroll-snap-type: x proximity;
   scroll-padding-inline: 16px;
   overscroll-behavior-x: contain;
@@ -1881,16 +1881,8 @@ summary:focus-visible {
   color: #63765b;
   font-size: 11px;
 }
-.file-present::before {
-  content: "✓";
-  margin-right: 5px;
-}
 .file-missing {
   color: #815016;
-}
-.file-missing::before {
-  content: "−";
-  margin-right: 5px;
 }
 [data-view="cards"] .call-card:hover {
   border-color: #7b9877;
@@ -1992,7 +1984,7 @@ summary:focus-visible {
   display: block;
   max-height: 300px;
   overflow: auto;
-  padding: 4px 16px 16px;
+  padding: 10px 16px 16px;
   scrollbar-width: thin;
 }
 [data-view="list"] .call-card {
@@ -2060,7 +2052,7 @@ summary:focus-visible {
 }
 @media (max-width: 780px) {
   [data-view="list"] .call-list {
-    padding: 4px 12px 14px;
+    padding: 10px 12px 14px;
   }
   [data-view="list"] .call-card {
     padding: 12px;
@@ -2136,5 +2128,61 @@ summary:focus-visible {
   #call-start {
     justify-content: center;
     flex: 1;
+  }
+}
+
+/* File availability and duration are distinct, consistently sized status badges. */
+.call-card .duration {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+  min-width: 50px;
+  padding: 4px 7px;
+  border: 1px solid #dfe5dc;
+  border-radius: 6px;
+  background: #f3f6f0;
+  color: #4c6253;
+  font-size: 11px;
+  font-weight: 550;
+  line-height: 16px;
+}
+.file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px solid #d7e3d5;
+  border-radius: 6px;
+  background: #eef5eb;
+  color: #365b40;
+  font-size: 11px;
+  font-weight: 550;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.file-chip.file-missing {
+  border-color: #e8dbc5;
+  background: #fff8ec;
+  color: #805322;
+}
+.status-icon {
+  flex-shrink: 0;
+}
+[data-view] .card-files {
+  gap: 6px;
+}
+[data-view="list"] .call-card {
+  grid-template-columns: minmax(180px, 1.2fr) minmax(160px, 1fr) 130px minmax(200px, 0.8fr);
+}
+@media (max-width: 1050px) {
+  [data-view="list"] .call-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+@media (max-width: 440px) {
+  [data-view="list"] .call-card {
+    grid-template-areas: "title title" "date status" "files files";
   }
 }

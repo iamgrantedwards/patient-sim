@@ -487,3 +487,7 @@ No findings have been confirmed. No calls have been placed.
   configured numbers above the scenario row, with responsive wrapping and the original
   call-confirmation path intact. Full verification passed after the row redesign;
   reran UI checks and Python tests for this final layout-only refinement.
+- A further visual pass replaced loose checkmarks/dashes with consistent headphone,
+  document and clock badges. Missing files stay amber and explicit; available files
+  use a separate treatment. Selection uses the card/row highlight, not a checkmark.
+  Accessible call names now include file availability and whether duration is known.
