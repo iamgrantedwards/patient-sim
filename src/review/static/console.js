@@ -21,6 +21,9 @@ let lastPhase;
 let lastTurns;
 let initialized = false;
 let statusUnavailable = false;
+let pageActive = true;
+let pollTimer;
+let pollController;
 
 function text(tag, content, className) {
   const element = document.createElement(tag);
@@ -100,27 +103,55 @@ function render(data) {
   lastPhase = op.phase;
 }
 async function poll() {
+  if (!pageActive || pollController) return;
+  const controller = new AbortController();
+  pollController = controller;
+  const timeout = setTimeout(() => controller.abort(), 8000);
   try {
     const response = await fetch("/api/console", {
       cache: "no-store",
-      signal: AbortSignal.timeout(8000),
+      signal: controller.signal,
     });
     if (!response.ok) throw new Error("status");
-    render(await response.json());
+    const data = await response.json();
+    if (!pageActive || pollController !== controller) return;
+    render(data);
     if (statusUnavailable) error("");
     statusUnavailable = false;
-    if (!current.enabled) return;
   } catch {
-    if (initialized) {
+    if (pageActive && pollController === controller && initialized) {
       statusUnavailable = true;
       error(
         "Live status is unavailable. Do not assume the call ended. Restore the console connection; provider duration limits still apply.",
       );
       byId("call-start").disabled = true;
     }
+  } finally {
+    clearTimeout(timeout);
+    if (pollController === controller) {
+      pollController = undefined;
+      if (pageActive && current?.enabled !== false)
+        pollTimer = setTimeout(
+          poll,
+          current && !terminal.has(current.operation.phase) ? 1000 : 3000,
+        );
+    }
   }
-  setTimeout(poll, current && !terminal.has(current.operation.phase) ? 1000 : 3000);
 }
+// Navigation ends this page's status reads, not the provider call.
+window.addEventListener("pagehide", () => {
+  pageActive = false;
+  clearTimeout(pollTimer);
+  const controller = pollController;
+  pollController = undefined;
+  controller?.abort();
+});
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted && !pageActive) {
+    pageActive = true;
+    poll();
+  }
+});
 async function mutation(route, body) {
   const response = await fetch(`/api/console/${route}`, {
     method: "POST",
