@@ -1,8 +1,8 @@
 # Build order and GitHub workflow
 
-Updated 2026-09-18 after Grant requested a usable UI before recording the debugging
-video. GitHub issues are the task status source; this document defines the sequence
-and review rules. No additional call is needed to start the UI.
+Updated 2026-09-19 after the code merges and issue audit requested by Grant. GitHub
+issues are the task status source; this document defines the sequence and review
+rules. The usable local UI precedes the genuine debugging video.
 
 ## Next work
 
@@ -31,13 +31,12 @@ system, simulated incoming-call screen, or analytics platform is needed.
   foundation. It and the separate review UI #27 and call controls #28 were merged on
   2026-09-19 at Grant's request, with required CI green. M1 and live confirmation of
   defects #21/#12 remain open; merging code does not establish call quality.
-- Use `codex/call-review-ui` for #23 and `codex/call-controls` for #24. Open a draft PR
-  on the first implementation commit; each PR links its issue and fills the repository
-  template with actual verification and risks.
-- While the foundation is unmerged, the first UI PR targets `codex/first-call` so its
-  diff contains only UI changes. Clearly state that dependency. The controls PR can
-  depend on the review UI. Retarget/rebase in order after the foundation lands; never
-  merge a dependent PR into the foundation branch merely to combine the work.
+- The learning work is split into #29 / PR #32 (hints), #30 / PR #33 (guide), and
+  #31 / PR #35 (concise copy). The dependent PRs target their predecessor to keep each
+  diff focused. Retarget to main in order after landing, and verify the current head.
+  Independent fixes, such as #36 / PR #37, target main directly.
+- Open a focused draft PR on the first implementation commit; use the repository
+  template with actual verification and risks. Each issue links back to its PR.
 - Fixes discovered while building get issues with observed evidence. Reuse existing
   issues when they already describe the failure; use `bug` for our code and
   `type:finding` only for justified findings about the assessment agent.
@@ -51,7 +50,8 @@ system, simulated incoming-call screen, or analytics platform is needed.
   and state the distinction in the PR; never close M1 on offline evidence alone.
 - Use `Closes #...` for fully implemented issue scope when merging to `main`. Code
   remains open/in-review while only on a draft branch. Completed external setup tasks
-  may close once their evidence is recorded.
+  may close once their evidence is recorded. Repeat the closing keyword for each issue
+  (`Closes #9. Closes #10.`); a comma-separated list may leave tasks open.
 - Review raw recordings before explicitly adding selected submission evidence. Never
   include `.env`, credentials, or the unreviewed calls directory in a broad `git add`.
 
@@ -66,3 +66,39 @@ second status label. Epics use linked task lists; milestones group deliverables.
 The UI-ready recording preference must not block building the UI. If a bug is fixed
 before filming, use another real issue for the debugging video rather than reenacting
 the fix as live work.
+
+
+## Issue-led delivery
+
+1. **Start from acceptance.** Choose one ready task issue, confirm its scope/dependencies,
+   assign an owner, set `status:in-progress`, and post a short plan before implementation.
+   A PR is a delivery unit, not a substitute for the issue's acceptance criteria.
+2. **Keep the trail live.** Open the draft PR on the first implementation commit. Link
+   both directions. Post material discoveries, failed checks, changed hypotheses and
+   relevant evidence as they happen. Create a new issue when a distinct defect appears.
+3. **Report the boundary.** Before review, comment with the implementation/PR, actual
+   local and hosted verification, remaining uncertainty, and the next action. Mark
+   `in-review` while awaiting landing; use `blocked` with the specific dependency when
+   meaningful progress cannot proceed. A service outage is not a clean audit.
+4. **Close acceptance, then refresh parents.** After merge, close completed code tasks
+   with evidence. Keep live-call/listening tasks open when unverified. Update epic
+   checkboxes and remove obsolete status labels from closed issues. No fabricated
+   results, staged debugging, rewritten timestamps, or retroactive claims of planning.
+
+On 2026-09-19, #38 reconciled earlier issue descriptions against the actual commit/PR
+history and added explicitly dated review comments. Earlier work was grouped in larger
+foundation, UI and controls PRs; the comments do not claim those batches were smaller
+or that missing progress updates happened at the time.
+
+## Current execution order
+
+- **Verification:** #34 tracks npm audit maintenance/recovery; #36 / PR #37 corrects
+  an incompatible Dependabot proposal. Preserve required checks on every current head.
+- **Next working session:** #25 records genuine diagnosis of #12; the confirmed console
+  call also supplies the pending acceptance for #24 and live confirmation for #21.
+  Required product exploration #8 remains unverified and needs its own evidence.
+- **Measurement:** finish killed-process acceptance #14 and audio-offset timing #15,
+  then run the read-only configuration screen #13 after the first-good-call gate.
+- **Evaluation:** collect the complete reviewed pairs #18 and write findings #19 from
+  the first useful calls; verify the claims distinction #17 while writing. Final video,
+  logged-out access checks and submission remain #26.
