@@ -178,20 +178,51 @@ No findings have been confirmed. No calls have been placed.
 ## 2026-09-18 — UI priority and GitHub reconciliation
 
 - Grant explicitly requested a usable UI before filming. This supersedes the earlier
-+  request to pause immediately for Loom. Next is real-call review UI #23, then explicit
-+  outbound call controls/live status #24, then genuine recorded debugging #25.
-+- Audited the repository: completed external setup tasks were still open and PR #20
-+  still claimed no call had occurred. Closed setup #6/#7 with evidence, marked code
-+  work #9/#10/#11/#16 as in review pending merge, and kept unverified Athena context
-+  #8 and first-good-call acceptance open. No completed history was invented.
-+- Opened actual simulator bug #21 from the captured AgentHandoff error; updated #12
-+  with the partial ending and attribution uncertainty rather than duplicating it.
-+- Created UI epic #22 and its milestone; added owners, workflow labels, linked epic
-+  task lists, and separate video/submission issues #25/#26. PR #20 now states the real
-+  call evidence and remaining blockers. Main protection was verified unchanged.
-+- Added ROADMAP.md with focused branches/PRs and dependency handling. UI code will
-+  have its own PR rather than expanding the foundation PR. Existing 59-test hosted
-+  CI passed at checkpoint 338e7f8 (run 35405543960); code and acceptance remain distinct.
-+- No caller/provider settings changed and no additional call was made in this
-+  planning/management update. Original recordings remain local and unreviewed.
-+
+  request to pause immediately for Loom. Next is real-call review UI #23, then explicit
+  outbound call controls/live status #24, then genuine recorded debugging #25.
+- Audited the repository: completed external setup tasks were still open and PR #20
+  still claimed no call had occurred. Closed setup #6/#7 with evidence, marked code
+  work #9/#10/#11/#16 as in review pending merge, and kept unverified Athena context
+  #8 and first-good-call acceptance open. No completed history was invented.
+- Opened actual simulator bug #21 from the captured AgentHandoff error; updated #12
+  with the partial ending and attribution uncertainty rather than duplicating it.
+- Created UI epic #22 and its milestone; added owners, workflow labels, linked epic
+  task lists, and separate video/submission issues #25/#26. PR #20 now states the real
+  call evidence and remaining blockers. Main protection was verified unchanged.
+- Added ROADMAP.md with focused branches/PRs and dependency handling. UI code will
+  have its own PR rather than expanding the foundation PR. Existing 59-test hosted
+  CI passed at checkpoint 338e7f8 (run 35405543960); code and acceptance remain distinct.
+- No caller/provider settings changed and no additional call was made in this
+  planning/management update. Original recordings remain local and unreviewed.
+
+## 2026-09-18 — real-evidence review UI and AI governance (#23)
+
+- Built a separate Python-served, read-only review interface. The actual local first
+  call displays seven committed turns, its original 70.289583-second OGG, remote
+  hangup, and the incomplete final patient sentence. The browser loaded original
+  media metadata without autoplay. Human listening remains pending.
+- Added model/code/prompt provenance and SHA-256 of served audio, preserving the
+  distinction between a fingerprint, a claim, consistency, and independent evidence.
+  Unknown audio offsets remain unknown; only recorded offsets enable turn seeking.
+- Added visible AI governance controls and `AI-GOVERNANCE.md`: intended use, owner,
+  NIST AI RMF mapping, prompt-injection boundaries, publication review, provider/data
+  lifecycle questions, and residual risks. No compliance certification is claimed.
+- The first browser pass caught low-contrast secondary text and an empty-state tab
+  issue. Increased text sizes, corrected contrast, and disabled call-only tabs when
+  no call is loaded. Host/origin checks, bounded JSON reads, non-finite and overflowing JSON number handling,
+  safe text rendering, missing artifacts, and range requests have regression coverage.
+- Full local verification passed: 116 Python tests, 95.1% combined statement/branch
+  coverage, 18 Playwright tests across desktop/mobile Chromium and desktop WebKit,
+  axe checks, Biome, Ruff, types, workflow/shell checks, secret/dependency scans, and
+  isolated wheel installation with packaged UI assets. Two upstream test-client
+  deprecation warnings remain visible. Automated accessibility checks are partial
+  evidence, not a complete conformance assessment.
+- Browser-checked actual local evidence at 1440px and 390px; audio duration and no
+  horizontal overflow were verified. PR screenshots under `docs/images/review-synthetic-*`
+  intentionally use generated fixtures; no actual recording/transcript is published.
+- Added a fourth required CI job for UI/a11y/browser checks and npm audit, preserving
+  the existing gate before package delivery. Node is a development dependency only;
+  running the review UI needs Python. Draft PR targets the foundation branch for a
+  focused diff; main retargeting follows foundation acceptance.
+- No caller/provider settings changed, patient state mutated, or new call placed.
+  #21/#12 and M1 are still open. Live calling controls remain the separate #24 task.

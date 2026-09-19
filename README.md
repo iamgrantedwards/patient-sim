@@ -10,7 +10,22 @@ The run exposed a non-dialogue event-handler error, and the remote agent hung up
 the patient began another question. M1 remains open until the caller ends naturally and
 its recording has been listened to alongside its transcript.
 
-## Run locally
+## Review recordings locally
+
+```sh
+uv sync --locked
+uv run python -m src.review
+```
+
+Open **http://127.0.0.1:8765**. The read-only interface shows the actual local `calls/`
+folders, original audio, raw transcript, partial speech, recorded pipeline provenance,
+and AI governance controls. It needs no provider credentials and cannot place calls.
+Use `--calls-dir /path/to/calls` for another evidence directory or `--port 8767` for a
+free local port. Node.js is only required for UI development checks, not to run the viewer.
+Missing recordings and unknown review/timing/state remain explicit. Opening or playing
+an artifact never marks it human-reviewed. Original call evidence stays unchanged.
+
+## Run the caller locally
 
 Requires Python 3.12, [uv](https://docs.astral.sh/uv/), and `ffmpeg`/`ffprobe` on PATH.
 Start with the [personal account setup](docs/SETUP.md).
@@ -43,12 +58,14 @@ or automatic redial. Stop the worker with Ctrl-C after the session has finalized
 ## Automated checks and builds
 
 GitHub Actions checks formatting/lint, types, workflows, shell scripts, secrets, and
-locked dependencies. Network-isolated tests enforce a 90% coverage floor with branch
+locked dependencies. Biome checks the UI; Playwright and axe test responsive layouts,
+keyboard access, audio seeking, and failure states in Chromium and WebKit. Network-isolated Python tests enforce a 90% coverage floor with branch
 measurement enabled. Passing every check permits package builds and CLI smoke tests. Successful runs
 provide downloadable packages with commit provenance and checksums. Run the same checks
 locally with `./scripts/verify.sh`; see [CI and artifact delivery](docs/CI.md).
 
-Cloud deployment is not required for this assessment; the next milestone is the first real call.
+Cloud deployment is not required. Delivery currently means a verified package; call controls
+and the first-good-call milestone remain separate acceptance gates.
 
 ## Evidence
 
@@ -72,14 +89,15 @@ explicitly adding selected submission evidence to the public repository.
 
 ## Design and progress
 
+- [AI governance, control evidence, and open obligations](docs/AI-GOVERNANCE.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The next build is the local call-review UI and explicit outbound controls, as Grant
-requested before recording the debugging video. The first-good-call gate remains open;
+The local call-review UI is implemented in #23. Explicit outbound controls and live
+status are next in #24, before the requested genuine debugging video. The first-good-call gate remains open;
 calibration, broader call collection, findings, and the final walkthrough follow it.
 The first run exposed a simulator event-handler bug (#21) and an unresolved closing
 issue (#12). No bug in the assessment agent has been confirmed.

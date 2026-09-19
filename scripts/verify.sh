@@ -3,5 +3,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 uv sync --locked --dev
+npm ci --ignore-scripts
 ./scripts/check.sh all
 ./scripts/build.sh "$@"
