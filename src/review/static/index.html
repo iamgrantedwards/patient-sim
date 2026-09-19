@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Call review · patient-sim</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/style.css">
+    <script type="module" src="/assets/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to call review</a>
+    <aside class="sidebar" aria-label="Workspace">
+      <a class="brand" href="/" aria-label="patient-sim home"
+        ><span class="brand-mark" aria-hidden="true">p.</span
+        ><span>patient<span class="brand-light">-sim</span></span></a
+      >
+      <div class="workspace-label">EVALUATION WORKSPACE</div>
+      <nav aria-label="Main navigation">
+        <a class="nav-item active" id="review-nav" href="#calls"
+          ><span aria-hidden="true">◫</span>Call review
+          <span class="nav-count" id="nav-count">—</span></a
+        >
+        <button class="nav-item" id="governance-nav" type="button">
+          <span aria-hidden="true">◇</span>AI governance
+        </button>
+        <a
+          class="nav-item"
+          href="https://github.com/iamgrantedwards/patient-sim/issues/23"
+          target="_blank"
+          rel="noreferrer"
+          ><span aria-hidden="true">↗</span>Build &amp; decisions</a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="scope-mark">
+          <span class="status-dot" aria-hidden="true"></span>Local review
+        </div>
+        <p>Read-only evidence workspace.<br>No calls can be placed here.</p>
+        <div class="sidebar-footer">
+          <span class="avatar">GE</span>
+          <div>Grant Edwards<small>Evaluation owner</small></div>
+        </div>
+      </div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>Workspace <span aria-hidden="true">/</span> <strong>Call review</strong></div>
+        <span class="scope-pill">Synthetic patient scenarios</span>
+      </header>
+      <main id="main" tabindex="-1">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">VOICE AGENT EVALUATION</div>
+            <h1>Call review<span class="heading-dot">.</span></h1>
+            <p>Listen to the conversation. Follow the evidence.</p>
+          </div>
+          <button type="button" class="button" id="refresh">
+            <span aria-hidden="true">↻</span>
+            Refresh calls
+          </button>
+        </div>
+        <section class="metrics" aria-label="Evidence overview">
+          <div class="metric">
+            <span>Captured calls</span><strong id="metric-calls">—</strong
+            ><small>Actual local call records</small>
+          </div>
+          <div class="metric">
+            <span>Audio + transcript</span><strong id="metric-pairs">—</strong
+            ><small>Files available, quality not implied</small>
+          </div>
+          <div class="metric">
+            <span>Listening review</span><strong id="metric-reviewed">—</strong
+            ><small>Recorded human-review status</small>
+          </div>
+        </section>
+        <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+        <div id="global-error" class="notice error" role="alert" hidden></div>
+        <section class="review-grid" id="calls" aria-label="Call evidence">
+          <div class="call-library">
+            <div class="library-heading">
+              <h2>Calls</h2>
+              <span id="library-count" class="subtle">Loading</span>
+            </div>
+            <label class="search-label" for="search">Search calls</label>
+            <input
+              type="search"
+              id="search"
+              placeholder="Search scenario or call ID…"
+              autocomplete="off"
+            >
+            <label class="sr-only" for="filter">Filter calls</label
+            ><select id="filter">
+              <option value="all">All calls</option>
+              <option value="pending">Needs listening review</option>
+              <option value="partial">Incomplete speech</option>
+              <option value="missing">Missing evidence</option>
+            </select>
+            <div id="call-list" class="call-list" aria-busy="true">
+              <p class="empty-small">Loading call records…</p>
+            </div>
+            <div class="library-note">
+              <span aria-hidden="true">↳</span>
+              Original artifacts stay unchanged.
+            </div>
+          </div>
+          <article
+            class="review-panel"
+            id="review-panel"
+            aria-label="Selected call"
+            aria-busy="false"
+          >
+            <div id="call-header" class="call-header">
+              <div class="empty-state">
+                <span class="empty-symbol" aria-hidden="true">◫</span>
+                <h2>Your evidence starts here</h2>
+                <p>Select a call to review its recording, transcript, and provenance.</p>
+              </div>
+            </div>
+            <div id="call-content" hidden>
+              <div class="tab-bar" role="tablist" aria-label="Call details">
+                <button
+                  role="tab"
+                  type="button"
+                  id="tab-conversation"
+                  aria-selected="true"
+                  aria-controls="conversation"
+                  tabindex="0"
+                >
+                  Conversation
+                </button><button
+                  role="tab"
+                  type="button"
+                  id="tab-provenance"
+                  aria-selected="false"
+                  aria-controls="provenance"
+                  tabindex="-1"
+                >
+                  Provenance
+                </button><button
+                  role="tab"
+                  type="button"
+                  id="tab-governance"
+                  aria-selected="false"
+                  aria-controls="governance"
+                  tabindex="-1"
+                >
+                  AI governance
+                </button>
+              </div>
+              <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: WAI-ARIA tab panels are keyboard-focusable. -->
+              <section
+                id="conversation"
+                role="tabpanel"
+                aria-labelledby="tab-conversation"
+                tabindex="0"
+              >
+                <div class="recording-card">
+                  <div class="section-heading">
+                    <h3>Call recording</h3>
+                    <span id="recording-label" class="small-label"></span>
+                  </div>
+                  <!-- biome-ignore lint/a11y/useMediaCaption: Adjacent raw transcript is the audio alternative; measured timing is unavailable for truthful captions. -->
+                  <audio id="audio" controls preload="metadata" aria-label="Call recording"></audio>
+                  <p id="audio-error" class="audio-error" role="alert" hidden></p>
+                  <div class="audio-caption">
+                    <span id="audio-caption"></span><span>No autoplay</span>
+                  </div>
+                </div>
+                <div id="call-notices"></div>
+                <div class="transcript-heading">
+                  <div>
+                    <h3>Conversation transcript</h3>
+                    <p id="timing-note">
+                      Turn order is preserved. Audio timestamps are not measured.
+                    </p>
+                  </div>
+                  <a id="download-transcript" class="text-link" href="#calls"
+                    >Download .txt <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+                <div id="transcript" class="transcript"></div>
+              </section>
+              <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End focusable tab panel. -->
+              <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: WAI-ARIA tab panels are keyboard-focusable. -->
+              <section
+                id="provenance"
+                role="tabpanel"
+                aria-labelledby="tab-provenance"
+                tabindex="0"
+                hidden
+              ></section>
+              <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End focusable tab panel. -->
+              <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: WAI-ARIA tab panels are keyboard-focusable. -->
+              <section
+                id="governance"
+                role="tabpanel"
+                aria-labelledby="tab-governance"
+                tabindex="0"
+                hidden
+              ></section>
+              <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End focusable tab panel. -->
+            </div>
+          </article>
+        </section>
+        <footer class="page-footer">
+          <span>patient-sim <span aria-hidden="true">/</span> evidence before conclusions</span
+          ><span>Local interface · No analytics or external assets</span>
+        </footer>
+        <noscript
+          ><p class="notice">
+            Enable JavaScript to browse local call evidence. The original call files remain
+            available on disk.
+          </p></noscript
+        >
+      </main>
+    </div>
+  </body>
+</html>
