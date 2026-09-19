@@ -12,3 +12,8 @@ __pycache__/
 # Raw call artifacts are reviewed before explicit publication.
 /calls/*
 !/calls/.gitkeep
+
+.coverage*
+/htmlcov/
+/reports/
+/.ci-tools/
