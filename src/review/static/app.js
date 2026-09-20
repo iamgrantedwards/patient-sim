@@ -520,6 +520,7 @@ function renderGovernance(call) {
   }
 }
 async function selectCall(id) {
+  if (state.selected !== id) $("conversation-transcript").open = false;
   state.controller?.abort();
   const controller = new AbortController();
   state.controller = controller;

@@ -1,0 +1,389 @@
+/* Shared surfaces make theme depth deliberate instead of darkening the page with a filter. */
+:root {
+  color-scheme: light;
+  --muted: #58665e;
+  --canvas: #eef1ed;
+  --surface: #ffffff;
+  --surface-soft: #e8eee7;
+  --surface-raised: #f7f9f5;
+  --detail-surface: #dce6df;
+  --surface-border: #bccabd;
+  --shadow: #263c2d20;
+  background: var(--canvas);
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #2c2e2e;
+  --surface: #373b3a;
+  --surface-soft: #3e4241;
+  --surface-raised: #454a48;
+  --detail-surface: #272b2a;
+  --surface-border: #58665c;
+  --shadow: #10171255;
+  --ink: #edf1ed;
+  --muted: #b8c4bc;
+  --line: #505d54;
+  --green: #afd7bd;
+  --soft: #3b5143;
+  --amber: #f0ce9e;
+  --amber-bg: #473e30;
+  --red: #f0b9af;
+  --red-bg: #493631;
+  color: var(--ink);
+}
+.theme-sun,
+[data-theme="dark"] .theme-moon {
+  display: none;
+}
+[data-theme="dark"] .theme-sun {
+  display: block;
+}
+.topbar {
+  background: var(--surface-raised);
+  border-color: var(--surface-border);
+}
+.library-summary {
+  color: #536458;
+}
+.console-panel {
+  background: var(--surface);
+  border-color: var(--surface-border);
+  border-top-color: #3d6854;
+  box-shadow: 0 4px 14px var(--shadow);
+}
+.review-grid[data-view] .call-library {
+  background: var(--surface-soft);
+  border-color: var(--surface-border);
+  box-shadow: 0 4px 14px var(--shadow);
+}
+.review-grid[data-view] .review-panel {
+  margin-top: 30px;
+  background: var(--detail-surface);
+  border: 1px solid #9bac9f;
+  box-shadow: 0 12px 30px #263c2d28;
+}
+.review-panel .tab-bar {
+  background: #ceddd2;
+  border-color: #aebfb2;
+}
+[data-view] .call-card {
+  border-color: #c0cebd;
+  box-shadow:
+    0 3px 5px #24372a10,
+    0 8px 16px #24372a10,
+    inset 0 1px #ffffff;
+}
+[data-view] .call-card[aria-current="true"] {
+  background: linear-gradient(145deg, #ffffff, #e0ecd9);
+  border-color: #628169;
+}
+.review-panel .recording-card {
+  border-color: var(--surface-border);
+  box-shadow: 0 3px 8px var(--shadow);
+}
+.transcript-disclosure {
+  margin-top: 14px;
+  padding: 0 16px 16px;
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  background: var(--surface-raised);
+}
+.transcript-disclosure:not([open]) {
+  padding-bottom: 0;
+}
+.transcript-disclosure > summary {
+  padding: 14px 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--green);
+}
+.transcript-disclosure .transcript-heading {
+  margin: 0 0 18px;
+  flex-wrap: wrap;
+}
+.transcript-disclosure .transcript-heading p {
+  margin: 0;
+}
+.transcript-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+}
+/* Charcoal mode keeps surfaces warm, with distinct inset details and raised controls. */
+:root[data-theme="dark"] .brand-mark {
+  background: #89b89d;
+  color: #203128;
+}
+:root[data-theme="dark"]
+  :is(
+    .brand-tagline,
+    .card-date,
+    .card-description,
+    .library-summary,
+    .library-summary strong,
+    .small-label,
+    .audio-caption,
+    .review-status,
+    .review-field,
+    .turn-order,
+    .speaker-name,
+    .turn.patient .speaker-name,
+    .turn p,
+    .guide-note,
+    .guide-copy,
+    .guide-checks,
+    .guide-definitions,
+    #guide-intro,
+    .data-field dd,
+    .route-chip,
+    .console-controls label
+  ) {
+  color: var(--muted);
+}
+:root[data-theme="dark"]
+  :is(
+    .button,
+    .guide-close,
+    .review-field input,
+    .review-field select,
+    .review-field textarea,
+    input[type="search"],
+    select
+  ) {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] :is(#scenario-picker, .review-picker) {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] :is(input, textarea)::placeholder {
+  color: #b0bdb4;
+}
+:root[data-theme="dark"] .button.primary {
+  background: #a4cdb3;
+  color: #21372a;
+  border-color: #b8dcc5;
+}
+:root[data-theme="dark"] .button.primary:hover {
+  background: #bdddc8;
+}
+:root[data-theme="dark"] :is(.button.danger, .badge.error, .notice.error) {
+  color: var(--red);
+  background: var(--red-bg);
+  border-color: #826053;
+}
+:root[data-theme="dark"]
+  :is(
+    .badge.warning,
+    .notice,
+    .file-chip.file-missing,
+    .learning-note,
+    .learn-hint,
+    .learning-toggle[aria-pressed="true"]
+  ) {
+  color: var(--amber);
+  background: var(--amber-bg);
+  border-color: #8a7353;
+}
+:root[data-theme="dark"]
+  :is(
+    .badge,
+    .badge.neutral,
+    .file-chip,
+    .reviewed-chip,
+    .call-card .duration,
+    .card-symbol,
+    .speaker-icon,
+    .patient .speaker-icon,
+    .route-chip,
+    .turn-seek
+  ) {
+  color: #d2e4d7;
+  background: #3d5143;
+  border-color: #5c7564;
+  box-shadow: none;
+}
+:root[data-theme="dark"] :is(.badge.warning, .file-chip.file-missing) {
+  color: var(--amber);
+  background: var(--amber-bg);
+  border-color: #8a7353;
+}
+:root[data-theme="dark"] .badge.error {
+  color: var(--red);
+  background: var(--red-bg);
+  border-color: #826053;
+}
+:root[data-theme="dark"] :is(.route-chip strong, .review-feedback) {
+  color: var(--ink);
+}
+:root[data-theme="dark"] :is([data-view="cards"], [data-view="list"]) .call-card {
+  background: linear-gradient(145deg, #414644, #363c39);
+  border-color: var(--surface-border);
+  box-shadow:
+    0 3px 5px #121a1430,
+    0 8px 18px #121a1420,
+    inset 0 1px #65736930;
+}
+:root[data-theme="dark"] [data-view] .call-card[aria-current="true"] {
+  background: linear-gradient(145deg, #45594b, #354b3e);
+  border-color: #a0c3ab;
+  box-shadow:
+    inset 0 3px #a0c3ab,
+    0 5px 14px #111a1433;
+}
+:root[data-theme="dark"] [data-view] .call-card:hover {
+  border-color: #b1caba;
+  box-shadow: 0 6px 18px #111a1450;
+}
+:root[data-theme="dark"] [data-view] .card-files {
+  border-color: var(--line);
+}
+:root[data-theme="dark"]
+  :is(
+    .view-switch,
+    .listening-review,
+    .recording-card,
+    .guide-start,
+    .control-row,
+    .claims,
+    .metadata-grid
+  ) {
+  background: var(--surface);
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] .review-grid[data-view] .review-panel {
+  border-color: #788e7e;
+  box-shadow: 0 16px 32px #111a1466;
+}
+:root[data-theme="dark"] .review-panel .call-header {
+  background: linear-gradient(120deg, #3d5446, #304638);
+  border-bottom: 1px solid #738a7b;
+}
+:root[data-theme="dark"] .review-panel .tab-bar {
+  background: #303e34;
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] .review-panel .tab-bar button {
+  color: #c9d9ce;
+}
+:root[data-theme="dark"] .review-panel .tab-bar button[aria-selected="true"] {
+  color: #d9f0e0;
+}
+:root[data-theme="dark"]
+  :is(
+    .icon-button:hover,
+    .library-heading .icon-button:hover,
+    .tab-bar button:hover:not(:disabled),
+    .button:hover:not(:disabled)
+  ) {
+  background: #47594b;
+  color: var(--ink);
+}
+:root[data-theme="dark"] .view-switch .icon-button[aria-pressed="true"] {
+  background: #a4cdb3;
+  color: #21372a;
+}
+:root[data-theme="dark"]
+  :is(
+    .search-panel,
+    #scenario-options,
+    .review-options,
+    dialog,
+    .learning-guide,
+    .learning-tooltip
+  ) {
+  color: var(--ink);
+  background: var(--surface-raised);
+  border-color: var(--surface-border);
+  box-shadow: 0 14px 40px #10171166;
+}
+:root[data-theme="dark"] .scenario-option {
+  color: var(--ink);
+}
+:root[data-theme="dark"]
+  :is(.scenario-option:hover, .scenario-option.active, .scenario-option[aria-selected="true"]) {
+  color: #e4f4e9;
+  background: #506954;
+}
+:root[data-theme="dark"]
+  :is(
+    .listening-review > summary,
+    #scenario-details summary,
+    #governance .explanation summary,
+    #live-dialogue summary,
+    .review-history summary
+  ) {
+  color: var(--green);
+}
+:root[data-theme="dark"] :is(.data-field, .guide-section, .claim + .claim, .latest-operation) {
+  border-color: var(--line);
+}
+:root[data-theme="dark"] #live-turns {
+  background: #252e28;
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] .live-turn {
+  background: #34414a;
+  border-color: #64879f;
+}
+:root[data-theme="dark"] .live-turn.patient {
+  background: #3a5041;
+  border-color: #8bb89b;
+}
+:root[data-theme="dark"] .live-turn strong {
+  color: #d4e9f7;
+}
+:root[data-theme="dark"] .live-turn.patient strong {
+  color: #d1ebda;
+}
+:root[data-theme="dark"] .icon-button::after,
+:root[data-theme="dark"] .skip-link {
+  background: #d7e7dc;
+  color: #21372a;
+}
+:root[data-theme="dark"] :is(button, a, input, select, summary, [tabindex]):focus-visible {
+  outline-color: #e5be84;
+}
+@media (max-width: 440px) {
+  .topbar {
+    padding-inline: 12px;
+  }
+  .topbar-actions,
+  .learning-tools {
+    gap: 2px;
+  }
+  .brand-tagline {
+    max-width: 170px;
+    font-size: 10px;
+  }
+}
+
+:root[data-theme="dark"]
+  :is(
+    .page-footer,
+    .live-turn p,
+    .search-panel .search-label,
+    .eyebrow,
+    .latest-operation,
+    .library-note,
+    .metric > span
+  ) {
+  color: var(--muted);
+}
+
+:root[data-theme="dark"] #search-toggle.has-filter {
+  color: var(--green);
+}
+
+:root[data-theme="dark"] .console-panel .button.primary:hover:not(:disabled) {
+  background: #bdddc8;
+  color: #21372a;
+}

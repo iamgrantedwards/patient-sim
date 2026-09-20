@@ -704,3 +704,18 @@ Verification: 252 Python tests and 63 browser cases passed across desktop Chromi
 mobile Chromium and desktop WebKit. Browser checks include accessibility, live follow /
 manual scrollback, review-driven usable filtering, and no unintended call requests.
 Inspected desktop and 390px mobile screenshots; kept card descriptions short to fit.
+
+## 2026-09-19 — charcoal theme and recording-first review (#67)
+
+Grant requested an icon-based charcoal theme, stronger light-mode surfaces, a more
+separate selected record and a closed-by-default transcript. Added persisted explicit
+theme choice (light default, storage-failure fallback), a stronger inset details surface
+and a native transcript disclosure with a styled download link. Changing the selected
+call closes its transcript; refreshing the same record preserves an open disclosure.
+
+The first contrast run caught small library labels on the stronger light fill and
+footer/help/search labels in charcoal. Adjusted those rather than weakening the gate.
+All 69 browser cases passed; the final neutral-charcoal adjustment and live-dialogue
+checks passed another six focused cases across the three browser projects. Python:
+254 tests passed. Inspected light, charcoal and mobile fixture screenshots. No real
+calls or review judgments were changed by this UI work.

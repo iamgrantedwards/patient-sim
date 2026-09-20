@@ -31,6 +31,7 @@ test("original evidence, partial speech, literal unsafe content, and downloadabl
   await expect(page.locator("#metric-pairs")).toHaveText("2");
   await expect(page.locator("#metric-reviewed")).toHaveText("0/4");
   await expect(page.getByText("Listening review pending.", { exact: true })).toBeVisible();
+  await page.locator("#conversation-transcript > summary").click();
   await expect(
     page
       .getByRole("tabpanel", { name: "Conversation" })
@@ -80,12 +81,14 @@ test("search, filters, audio loading and genuine offset seeking", async ({ page 
   await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Search calls").fill("reschedule");
   await expect(page.locator(".call-card")).toHaveCount(1);
+  await page.getByRole("button", { name: "Done", exact: true }).click();
   await page.getByRole("button", { name: /Rescheduling · call-fixture-02/ }).click();
   await expect(page.getByText("Date not recorded", { exact: true })).toHaveCount(2);
   await expect
     .poll(() => page.locator("audio").evaluate((audio) => audio.readyState))
     .toBeGreaterThan(0);
   expect(await page.locator("audio").evaluate((audio) => audio.paused)).toBe(true);
+  await page.locator("#conversation-transcript > summary").click();
   await page.getByRole("button", { name: /Seek to turn/ }).click();
   await expect
     .poll(() => page.locator("audio").evaluate((audio) => audio.currentTime))
@@ -105,6 +108,7 @@ test("missing and malformed evidence remains reviewable without fabricated succe
   await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Filter calls", { exact: true }).selectOption("missing");
   await expect(page.locator(".call-card")).toHaveCount(2);
+  await page.getByRole("button", { name: "Done", exact: true }).click();
   await page.getByRole("button", { name: /Missing Recording · call-fixture-01/ }).click();
   await expect(page.locator("audio")).toBeHidden();
   await expect(page.getByText(/Recording unavailable. This call is not an audio/)).toBeVisible();
