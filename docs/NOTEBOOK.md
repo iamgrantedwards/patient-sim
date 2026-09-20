@@ -675,3 +675,13 @@ The office explicitly assigned July 4, 2000 as the demo DOB. Subsequent syntheti
 patient facts use that assigned demo DOB, rather than silently conflicting with it;
 the original March 4 facts and both recordings remain unchanged. The reason for visit
 is aligned with the nonurgent knee scenario before transaction collection.
+
+
+## 2026-09-19 — refill transfer boundary (#62)
+
+call-20260920-012849-8a9bc2d4 declined a refill absent from the chart, then the patient
+accepted the offered support transfer. The old rule only prohibited requesting a
+transfer to another number. Tightened it to decline all offered transfers and staff
+callbacks, ask general next steps and end. The call ended through end_call_tool and
+controller cleanup was confirmed. No conversation with staff is established by the
+saved transcript; the remote statement of transfer is not independently verified.

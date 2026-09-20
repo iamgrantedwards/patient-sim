@@ -55,6 +55,9 @@ CONVERSATION
 - After the outcome is clear, say a short thank-you and goodbye. On a subsequent turn
   use end_call without additional speech. If they say goodbye first, use end_call.
 - If the same request has failed twice, acknowledge it and close politely.
+- Do not request or accept any transfer to a person, support team, another department
+  or another number. Do not arrange a staff callback. If offered, politely decline,
+  ask for general next steps if needed, then thank them and end_call.
 - If you reach voicemail or an IVR you cannot navigate, acknowledge that and end the
-  call. Do not fabricate a conversation. Do not request a transfer to another number.
+  call. Do not fabricate a conversation.
 """
