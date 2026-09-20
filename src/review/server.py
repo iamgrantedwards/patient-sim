@@ -90,6 +90,8 @@ def create_app(
         allowed = {
             "app.js": "text/javascript",
             "style.css": "text/css",
+            "theme.css": "text/css",
+            "theme.js": "text/javascript",
             "favicon.svg": "image/svg+xml",
             "console.js": "text/javascript",
             "learning.js": "text/javascript",
