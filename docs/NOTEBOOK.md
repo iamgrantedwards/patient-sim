@@ -641,6 +641,14 @@ allowlisted assessment line; this personal demo is not one of our ten submitted 
 Earlier entries correctly describe what was unverified at that time; they are not
 rewritten to imply we had this report earlier.
 
+## 2026-09-19 — actual killed-process journal recovery (#14)
+
+An isolated Python subprocess wrote two committed turns with CallArtifacts and
+acknowledged the durable writes. The test sent SIGKILL (exit -9), then recovered the
+journal: both turns survived once, unmatched STT was empty, and original journal bytes
+were unchanged. Recovery is labeled recovered_partial; no audio or successful call is
+claimed. This tests abrupt process death, not a reproduced native SIGSEGV.
+
 
 ## 2026-09-19 — scenario implementation after the debug recording
 
@@ -667,3 +675,13 @@ The office explicitly assigned July 4, 2000 as the demo DOB. Subsequent syntheti
 patient facts use that assigned demo DOB, rather than silently conflicting with it;
 the original March 4 facts and both recordings remain unchanged. The reason for visit
 is aligned with the nonurgent knee scenario before transaction collection.
+
+
+## 2026-09-19 — refill transfer boundary (#62)
+
+call-20260920-012849-8a9bc2d4 declined a refill absent from the chart, then the patient
+accepted the offered support transfer. The old rule only prohibited requesting a
+transfer to another number. Tightened it to decline all offered transfers and staff
+callbacks, ask general next steps and end. The call ended through end_call_tool and
+controller cleanup was confirmed. No conversation with staff is established by the
+saved transcript; the remote statement of transfer is not independently verified.

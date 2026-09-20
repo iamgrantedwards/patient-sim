@@ -38,3 +38,13 @@ def test_workflows_do_not_assume_a_prior_booking():
     for scenario in (CANCEL, RESCHEDULE):
         assert "Only if" in scenario.objective
         assert "If none is found" in scenario.objective
+
+
+def test_transfer_boundary_applies_to_every_scenario():
+    from src.caller.scenarios import SCENARIOS
+
+    for scenario in SCENARIOS.values():
+        prompt = build_instructions(DEFAULT_PATIENT, scenario)
+        assert "Do not request or accept any transfer" in prompt
+        assert "Do not arrange a staff callback" in prompt
+        assert "If offered, politely decline" in prompt
