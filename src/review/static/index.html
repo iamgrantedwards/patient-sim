@@ -574,107 +574,225 @@
           ×
         </button>
       </div>
-      <p id="guide-intro">Run a call at the top. Review what happened below.</p>
+      <p id="guide-intro">
+        Run a simulated conversation, listen back, and keep your observations with the call.
+      </p>
       <section class="guide-start" aria-labelledby="guide-first-call">
-        <h3 id="guide-first-call">Your first test</h3>
+        <h3 id="guide-first-call">Start here</h3>
         <ol class="guide-steps">
           <li>
-            <strong>Choose a scenario.</strong>
-            It gives our simulated patient a goal. You do not speak into the call.
+            <strong>Choose a call.</strong>
+            Select a card or list row in Calls. Its recording, transcript and reviews appear below.
           </li>
           <li>
-            <strong>Review &amp; call.</strong>
-            Check the fixed destination, then confirm one call. Opening the page or this guide never
-            dials.
+            <strong>Listen back.</strong>
+            Play the recording. Open Conversation transcript when you need the text.
           </li>
           <li>
-            <strong>Watch the status.</strong>
-            Follow connection and live text. Audio playback is available after the call.
-          </li>
-          <li>
-            <strong>Open saved evidence.</strong>
-            After finalization, the call appears in the list. Select it to listen and compare the
-            transcript.
+            <strong>Keep what you learn.</strong>
+            Use AI assessment for a transcript analysis, or Review to save your own observations.
           </li>
         </ol>
-        <p class="guide-note">If call controls are absent, this console is in read-only mode.</p>
+        <p class="guide-note">
+          To start a new conversation, use Run a test call. Your simulated patient does the
+          speaking.
+        </p>
       </section>
       <details class="guide-section">
-        <summary>What do the three tabs mean?</summary>
+        <summary>Find a call and arrange your workspace</summary>
+        <ul class="guide-checks">
+          <li>
+            Use the card and list icons to change the Calls layout. Selecting either view keeps the
+            same call selected.
+          </li>
+          <li>
+            Open the magnifying glass beside the call count to search by scenario or call ID, or
+            filter by review and file status. Clear filters restores the full list.
+          </li>
+          <li>
+            Use the refresh icon in the top bar to reload saved calls. Each attempt has its own
+            record, including failed or incomplete attempts.
+          </li>
+          <li>
+            The sun or moon icon changes the theme. The light bulb enables short hints: hover, focus
+            or tap a question mark. The book opens this guide.
+          </li>
+        </ul>
+        <p class="guide-copy">
+          Audio and Transcript badges show which files are available. They do not mean the
+          conversation has been reviewed.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Run a new call and follow it live</summary>
+        <ol class="guide-steps">
+          <li>Choose a Scenario and expand Scenario details to read the patient’s goal.</li>
+          <li>
+            Select <strong>Review &amp; call</strong>. Check the destination, caller number and time
+            limit, then acknowledge the confirmation and choose <strong>Place one call</strong>.
+          </li>
+          <li>
+            Watch the connection status and Live transcript. Text appears as turns are committed, so
+            a pause in text does not necessarily mean the call has stopped.
+          </li>
+          <li>After the call finishes saving, select its record in Calls to listen back.</li>
+        </ol>
+        <p class="guide-copy">
+          Live text follows new turns automatically. Scroll up to read earlier turns; select
+          <strong>Latest turns ↓</strong>
+          to resume following. The two speakers have different backgrounds.
+        </p>
+        <p class="guide-copy">
+          Only one call runs at a time, to the configured destination. If Run a test call is absent,
+          calling is not enabled in this workspace.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Listen and use the transcript</summary>
+        <p class="guide-copy">
+          Under Conversation, use the recording’s play, pause and seek controls. Audio never plays
+          automatically, and selecting another call stops the previous recording.
+        </p>
+        <p class="guide-copy">
+          Open <strong>Conversation transcript</strong> to follow the speakers. It starts closed for
+          each selected call. <strong>Download .txt</strong> saves the text to your device.
+        </p>
+        <p class="guide-copy">
+          Speech recognition can mishear names or words. Compare important quotes with the audio.
+          Partial speech remains visible; it may indicate an interrupted turn.
+        </p>
+        <p class="guide-copy">
+          Turn numbers identify the order of speech, not elapsed time. Audio seek links are
+          available only when timing was measured. If audio is missing, the transcript alone cannot
+          establish how the conversation sounded or ended.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Save a listening review</summary>
+        <ol class="guide-steps">
+          <li>
+            Open <strong>Review</strong> below the recording. Enter your name and choose a
+            Conversation result: Needs recheck, Usable conversation or Incomplete attempt.
+          </li>
+          <li>
+            Add a short note if useful. In <strong>Detailed checklist (optional)</strong>, mark only
+            what you checked: OK or Issue. Leave the rest Not assessed; each Issue needs an
+            observation.
+          </li>
+          <li>
+            For <strong>Usable conversation</strong>, listen to the full recording, check the
+            transcript, select the listening confirmation and mark Complete evidence as OK in the
+            checklist.
+          </li>
+          <li>
+            Select <strong>Save review</strong>, or <strong>Save revision</strong> when updating a
+            saved review. Wait for the saved revision message before leaving the call.
+          </li>
+        </ol>
+        <p class="guide-copy">
+          You can save a draft as Needs recheck without confirming listening. Playback does not mark
+          a call reviewed. Saved revisions remain available in Review; changed source files trigger
+          a recheck.
+        </p>
+        <p class="guide-copy">
+          <strong>Add AI summary</strong>
+          copies a current saved assessment into your notes as an AI draft. Edit it as needed, then
+          save. It does not run an assessment or fill in your checklist or listening confirmation.
+        </p>
+        <p class="guide-copy">
+          If Review is read-only, review saving has not been enabled for this workspace.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Use an AI assessment</summary>
+        <p class="guide-copy">
+          Open <strong>AI assessment</strong> below the recording and select
+          <strong>Assess transcript</strong>. This sends the selected call’s transcript and scenario
+          identifier to LiveKit Inference and uses account credits. It does not place a phone call.
+        </p>
+        <p class="guide-copy">
+          The analysis covers request handling, consistency, clarification, supported claims and
+          next steps. Expand each dimension for its reasoning and supporting quotes. Select a quoted
+          turn to open it in the transcript; audio seeks there only when timing is available.
+        </p>
+        <p class="guide-copy">
+          Scores are provisional: 2 means no material issue observed, 1 a minor gap, 0 a substantial
+          issue, and N/A not assessable. A score out of 100 appears only when at least three of the
+          five dimensions can be assessed.
+        </p>
+        <p class="guide-copy">
+          Observations include uncertainty, suggested improvements and a next test. Check them
+          against the recording. The AI reads text only: it cannot judge pronunciation, audio
+          quality or whether an appointment was actually saved. Its suggestions do not change the
+          agent or run another test.
+        </p>
+        <p class="guide-copy">
+          A finished conversation with both speakers and a recording is required. Read-only mode
+          lets you view saved results. When evidence or assessment settings change, the old score is
+          withheld; <strong>Reassess transcript</strong> requests a new analysis. Reopening a
+          current result does not generate another assessment.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Stop a call or handle a problem</summary>
+        <p class="guide-copy">
+          <strong>Stop call</strong>
+          ends the active call and keeps whatever was captured. The record distinguishes an operator
+          stop from a natural ending; unfinished files may be incomplete.
+        </p>
+        <p class="guide-copy">
+          Refreshing or closing the browser does not stop a call. Reopen the workspace and check its
+          status before trying again.
+        </p>
+        <p class="guide-copy">
+          If <strong>Stop / recover</strong> appears, use it to finish cleanup. Another call stays
+          blocked until cleanup is confirmed. There is no automatic redial.
+        </p>
+        <p class="guide-copy">
+          If calls or reviews fail to load, check that the local app is still running, then refresh.
+          A missing recording or transcript may mean the call is still saving or ended early; check
+          the call’s status and notice before retrying.
+        </p>
+        <p class="guide-copy">
+          If saving a review fails, keep your notes and check the saved revision before trying
+          again. If an AI assessment fails, reopen the call to check for a saved result before
+          choosing Retry assessment.
+        </p>
+      </details>
+      <details class="guide-section">
+        <summary>Understand the call details tabs</summary>
         <dl class="guide-definitions">
           <dt>Conversation</dt>
-          <dd>The selected call’s original audio and transcript. Partial speech stays visible.</dd>
+          <dd>The selected call’s recording, transcript, AI assessment and listening review.</dd>
           <dt>Provenance</dt>
           <dd>
-            The models, settings, code revision and prompt fingerprint recorded for that call. Later
-            changes do not rewrite them.
+            The models, settings, code version and prompt fingerprint saved with this call. Later
+            changes do not rewrite them. Cloud evidence, when present, provides a dated view of that
+            session.
           </dd>
           <dt>Controls &amp; data</dt>
-          <dd>The current console mode, call limits and where files are stored.</dd>
+          <dd>The current workspace mode, call limits, storage locations and external services.</dd>
         </dl>
       </details>
       <details class="guide-section">
-        <summary>What should I test next?</summary>
+        <summary>Know where your data goes</summary>
         <p class="guide-copy">
-          Aim for one complete conversation first. Listen all the way through and check:
-        </p>
-        <ul class="guide-checks">
-          <li>Both voices are audible.</li>
-          <li>Replies make sense and turns do not repeatedly cut each other off.</li>
-          <li>The transcript matches the audio; incomplete speech is identified.</li>
-          <li>The conversation ends cleanly. A polite refusal can be a valid outcome.</li>
-        </ul>
-        <p class="guide-copy">
-          After a complete, reviewed call, try another scenario or compare configurations. Change
-          one thing at a time so you can trace what improved.
-        </p>
-      </details>
-      <details class="guide-section">
-        <summary>How do I stop or recover a call?</summary>
-        <p class="guide-copy">
-          <strong>Stop call</strong>
-          ends the active call and preserves available evidence. An operator stop is recorded
-          separately from a natural ending, and unfinished audio may be incomplete.
+          Call files, saved reviews and AI assessments are stored on the computer running the app.
+          Refreshing the page does not erase them. Reviews and assessments are separate from the
+          original recording and transcript.
         </p>
         <p class="guide-copy">
-          Refreshing or closing the browser does not stop a call. Reopen the console and use Stop.
-          If status is lost, do not assume the call ended.
+          Theme, layout and learning preferences belong to your browser. A downloaded transcript is
+          a separate copy; it does not include your saved review or AI assessment.
         </p>
         <p class="guide-copy">
-          <strong>Stop / recover</strong>
-          is offered when cleanup is uncertain. Another call stays blocked until cleanup is
-          confirmed. Do not delete recovery files to bypass it; there is no automatic redial.
-        </p>
-      </details>
-      <details class="guide-section">
-        <summary>What counts as usable evidence?</summary>
-        <p class="guide-copy">
-          An audio/transcript pair means both files exist. It does not establish voice quality or a
-          complete conversation. Open Review beside the recording to save your checklist. Confirm
-          listening explicitly; playback never approves a call. A usable conversation also needs
-          complete evidence.
+          Calls use LiveKit, Twilio and speech and language services. AI assessment sends transcript
+          text through LiveKit Inference, without the recording or your review notes. A local page
+          does not mean all processing happens on your computer.
         </p>
         <p class="guide-copy">
-          Check quotes against the audio. Turn numbers are not timestamps. A recording fingerprint
-          identifies file contents; it is not independent proof of correctness. A spoken booking
-          confirmation is a claim until independently verified.
-        </p>
-      </details>
-      <details class="guide-section">
-        <summary>What are the privacy and AI limits?</summary>
-        <p class="guide-copy">
-          Use synthetic patient facts and the designated assessment line. This tool evaluates an
-          agent; it does not deliver patient care or make clinical decisions.
-        </p>
-        <p class="guide-copy">
-          Remote responses may contain personal information. Review audio and text before
-          publishing. Calls involve LiveKit, Twilio and inference providers; a local viewer does not
-          mean all call data stays on-device.
-        </p>
-        <p class="guide-copy">
-          Governance controls are documented, not certified. Provider retention, access and other
-          obligations need separate review before use beyond this assessment. The app does not claim
-          HIPAA compliance.
+          Use synthetic patient details. Check audio and text for personal information before
+          sharing; the app does not automatically redact them.
         </p>
       </details>
     </dialog>

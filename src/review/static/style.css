@@ -1458,11 +1458,15 @@ dialog::backdrop {
   padding: 4px 0;
 }
 #learning-guide summary {
+  color: var(--ink);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   padding: 15px 0;
   line-height: 1.6;
+}
+#learning-guide summary:hover {
+  color: var(--green);
 }
 .guide-definitions dt {
   color: var(--ink);

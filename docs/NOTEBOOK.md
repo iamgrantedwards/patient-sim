@@ -809,3 +809,23 @@ It does not load TEST-STRATEGY.md, scenario success criteria, objective, other c
 manual reviews or audio. Added EVALUATION.md mapping the five rubric dimensions to
 the broader review checklist and separating code-enforced validation from model
 instructions. No prompt, model, rubric, saved assessment or original evidence changed.
+
+
+## 2026-09-20 UTC — product guide audit (#79)
+
+Audited the in-app guide against the current calling, browsing, review and assessment
+controls. Found the removed “Open saved evidence” action, no AI-assessment instructions,
+and outdated review guidance. Replaced it with task-based product help, including saved
+revisions, AI draft notes, score limits, live transcript following, recovery and storage.
+Removed assessment-submission framing and governance certification language from the
+guide; retained concrete data-flow and sharing information relevant to users.
+
+Contextual hints now describe the optional checklist and actual controls. Guide changes
+do not alter caller prompts, model settings, raw files or saved decisions. Expanded
+browser coverage opens every section in both themes and checks accessibility, overflow
+and absence of requests that could start calls, assessments or save reviews.
+
+The expanded dark-theme audit exposed low-contrast guide headings on hover: a global
+light-theme hover color overrode the inherited text color. Scoped guide headings and
+hover states to theme tokens; the regression check keeps the last opened heading
+hovered while checking every expanded section.
