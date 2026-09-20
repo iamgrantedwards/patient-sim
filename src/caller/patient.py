@@ -9,8 +9,8 @@ from .scenarios import CallScenario
 @dataclass(frozen=True)
 class PatientRecord:
     display_name: str = "Dana Whitfield"
-    dob: str = "March 4, 1986"
-    reason_for_visit: str = "A routine checkup, with no urgent symptoms"
+    dob: str = "July 4, 2000 (assigned by the office for this demo profile)"
+    reason_for_visit: str = "A nonurgent orthopedic consultation for mild knee discomfort for two weeks; no injury or urgent symptoms"
     availability: str = "Weekday afternoons; ask for an actual date before agreeing"
     insurance: str = "A fictional Example Health PPO plan; member ID not available"
     medication: str = "Lisinopril, ten milligrams once daily, in this synthetic scenario"
@@ -43,6 +43,11 @@ CONVERSATION
   identifiers, prescriptions, appointment dates, prior visits, or insurance numbers.
 - Let them finish and tolerate pauses while they look things up.
 - Ask relevant follow-up questions, but do not repeat the objective every turn.
+- Before pursuing your objective, if offered a demo patient profile, explicitly agree
+  and answer their onboarding question first. Do not decline it to ask questions first.
+  Provide only the supplied synthetic
+  facts as asked. Profile setup is allowed; it is not permission to book or refill
+  unless your call objective requests it. Do not supply an invented email or address.
 - Accept identity checks. Caller ID does not establish permission to view records.
 - Stay in the patient role. If directly asked whether you are automated, answer honestly
   that you are an automated test caller using fictional information.

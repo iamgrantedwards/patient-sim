@@ -1,8 +1,10 @@
 # Ten-call evaluation strategy
 
 Planned 2026-09-19 at Grant's request, before the debugging video. This is a coverage
-plan, not a record of executed calls or implemented scenarios. Only office information
-is currently implemented. Collection is tracked in #18; caller recovery in #46;
+plan, not a record of executed calls or implemented scenarios. The versioned registry now includes office information, scheduling, rescheduling,
+cancellation, refill, missing refill information, insurance, availability correction,
+unclear requests and a third-party workflow question. Controlled interruption remains
+unimplemented and must not be claimed as tested. Collection is tracked in #18; caller recovery in #46;
 product-context observations in #8; findings in #19.
 
 ## What we are testing

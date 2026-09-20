@@ -640,3 +640,30 @@ legitimate demo onboarding when needed. All automated test calls still use only 
 allowlisted assessment line; this personal demo is not one of our ten submitted calls.
 Earlier entries correctly describe what was unverified at that time; they are not
 rewritten to imply we had this report earlier.
+
+
+## 2026-09-19 — scenario implementation after the debug recording
+
+Grant reports the debugging recording is finished and authorizes sequential remaining
+assessment calls. #59 implements the #18 catalog. The first transcript identifies
+Pivot Point Orthopedics and offers demo onboarding; the patient now accepts that offer
+using synthetic facts. New appointment objectives use a nonurgent knee consultation.
+Reschedule/cancel ask for lookup and do not assert an unverified prior booking.
+The third-party request is an additional edge case; controlled barge-in remains untested.
+The optional three-configuration screen is deferred to prioritize required coverage;
+provider choices remain engineering rationale, not measured comparative superiority.
+
+The first fresh attempt (call-20260920-011336-9e2e5e9b) was stopped by the operator
+after connecting; Grant confirmed this was accidental and authorized continuing. The
+next attempt (call-20260920-011456-fe6d34a0) held a multi-turn conversation without a
+worker crash, but still declined onboarding. The generic rule lost to the office-info
+opening posture. Smoke v3 makes onboarding the first action explicitly. This is our
+prompt defect, not evidence against the office; the original transcript is preserved.
+
+Smoke v3 call-20260920-011714-108d161e accepted onboarding, obtained weekday hours,
+address and insurance-card guidance, and ended through end_call_tool. Ten dialogue
+turns and 90.92 seconds of decoded stereo OGG were saved. Listening remains pending.
+The office explicitly assigned July 4, 2000 as the demo DOB. Subsequent synthetic
+patient facts use that assigned demo DOB, rather than silently conflicting with it;
+the original March 4 facts and both recordings remain unchanged. The reason for visit
+is aligned with the nonurgent knee scenario before transaction collection.
