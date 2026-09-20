@@ -641,6 +641,14 @@ allowlisted assessment line; this personal demo is not one of our ten submitted 
 Earlier entries correctly describe what was unverified at that time; they are not
 rewritten to imply we had this report earlier.
 
+## 2026-09-19 — actual killed-process journal recovery (#14)
+
+An isolated Python subprocess wrote two committed turns with CallArtifacts and
+acknowledged the durable writes. The test sent SIGKILL (exit -9), then recovered the
+journal: both turns survived once, unmatched STT was empty, and original journal bytes
+were unchanged. Recovery is labeled recovered_partial; no audio or successful call is
+claimed. This tests abrupt process death, not a reproduced native SIGSEGV.
+
 
 ## 2026-09-19 — scenario implementation after the debug recording
 
