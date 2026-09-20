@@ -6,7 +6,7 @@ with the existing sole assessment destination and the same owned caller number.
 ## Start and review
 
 1. From this checkout, run `uv sync --locked`, then
-   `uv run python -m src.review --enable-calls`.
+   `uv run python -m src.review --enable-calls --enable-reviews`.
 2. Open `http://127.0.0.1:8765`. A readiness message validates local configuration, not
    provider availability. Keys stay server-side; no `.env` values should be filmed.
 3. Choose the supported scenario and **Review & call**. Check the fixed number, caller
@@ -15,9 +15,13 @@ with the existing sole assessment destination and the same owned caller number.
 4. The console shows registration, dispatch, worker preparation, dialing, connection,
    and finalization from actual worker/provider acknowledgements and saved metadata.
    A phase can be brief or skipped between polls. The live transcript contains committed
-   text only; it has no invented word/audio timing and is not a live audio monitor.
-5. Once ended, **Open saved evidence** loads the available original recording and
-   transcript. Listen to them together. Cleanup and file existence do not establish
+   dialogue only, with partial speech labeled. The bounded transcript follows new turns
+   unless you scroll back; return to the latest turn to resume following. It is not a
+   live audio monitor, and callback times are not audio boundaries.
+5. Once ended, select the resulting call in **Calls** to open its saved details. The
+   recording is primary; expand Conversation to read the transcript. Review saves an
+   outcome and useful notes; detailed checks are optional. Usable requires listening
+   confirmation and Complete evidence: OK. Cleanup/file existence alone do not establish
    a complete conversation or a successful patient request.
 
 Use the default read-only viewer to inspect a different `--calls-dir`. Calling requires
@@ -51,10 +55,19 @@ manually dispatching work through the LiveKit dashboard or running an older chec
 Run only this checkout during evidence collection. Do not expose the console through a
 public tunnel. No recurring/batch calling or automatic retries are implemented.
 
+## Optional transcript assessment
+
+Add `--enable-assessments` to enable **Assess transcript** on eligible saved calls.
+This is a paid, explicit LiveKit Inference request using the scenario ID and transcript,
+not a phone call or an audio review. Saved results remain viewable without that flag.
+**Add AI summary** in Review copies a fresh saved summary into draft notes without
+changing grades or listening approval. See [EVALUATION.md](EVALUATION.md).
+
 ## Acceptance still required
 
 Offline tests cover lifecycle, confirmation, request boundaries, duplicate starts, stop
 while preparing/dispatching, failed cleanup, and crash recovery. Browser tests use
-explicitly synthetic responses. A real call initiated through this console, matching
-original audio/transcript, human listening, and a natural ending remain required. The
+explicitly synthetic responses. Real connected calls and artifact finalization have
+also been exercised; [COLLECTION.md](COLLECTION.md) records ten candidates. Human
+listening, coherent conversation quality and natural endings remain unverified. The
 existing closing issue (#12) must not be called fixed solely because control tests pass.

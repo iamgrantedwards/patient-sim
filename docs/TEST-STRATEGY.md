@@ -1,11 +1,12 @@
 # Ten-call evaluation strategy
 
-Planned 2026-09-19 at Grant's request, before the debugging video. This is a coverage
-plan, not a record of executed calls or implemented scenarios. The versioned registry now includes office information, scheduling, rescheduling,
-cancellation, refill, missing refill information, insurance, availability correction,
-unclear requests and a third-party workflow question. Controlled interruption remains
-unimplemented and must not be claimed as tested. Collection is tracked in #18; caller recovery in #46;
-product-context observations in #8; findings in #19.
+Originally planned 2026-09-19; reconciled against the implementation on 2026-09-20
+UTC (September 19 Pacific), #77. Ten candidate conversations have been captured;
+[COLLECTION.md](COLLECTION.md) records actual IDs, coverage and acceptance.
+This document explains evaluation intent and the implemented coverage. It is **not
+loaded by the application or sent to the AI judge**. Use [SUBMISSION.md](SUBMISSION.md)
+for remaining delivery work and [EVALUATION.md](EVALUATION.md) for the exact rubric,
+request payload, score calculation and test boundaries.
 
 ## What we are testing
 
@@ -25,31 +26,53 @@ OGG/MP3 audio and a transcript. Ten attempts is insufficient. No fixed bug quota
 small set of supported findings beats speculative complaints. Typical 1–3-minute length
 is guidance, not a reason to stretch or cut a natural conversation.
 
-## Before collecting
+## Current execution status
 
-1. Athena exploration is complete by Grant's firsthand report (#8): he created an
-   account, received the demo callback and experienced appointment booking. Calendar
-   and SMS follow-up are his recollection, not independently checked outcomes. Use
-   that context while keeping assessment-line state sharing, other services and policies
-   unknown. Never dial the confirmation number or reuse Grant's personal appointment.
-2. Record the genuine #46 investigation and verify the caller can complete and preserve
-   a conversation. The existing first call awaits listening; the second has no final
-   audio/transcript. Neither is currently accepted toward the ten.
-3. Implement the scenario matrix with versioned synthetic facts. Patient objectives go
-   into the caller; evaluation expectations stay outside its prompt. A routine visit
-   should fit the observed practice. Current generic facts, unknown pharmacy/prescriber
-   and possibly out-of-scope medication are not proof of a supported refill workflow.
-4. Freeze a baseline configuration: STT, LLM, TTS/voice, turn handling and caller number.
-   Record the revision/configuration for every call. A model swap is an experiment, not
-   an automatic response to any bad outcome.
+- Athena exploration #8 is complete by Grant's firsthand report. Calendar/SMS details
+  are recollected, not independently checked; shared state with the assessment line
+  remains unknown. Never dial the confirmation number.
+- Debugging was recorded; #46's lifecycle/duplicate-assignment fix landed in #58 and
+  passed later connected retests. The native SIGSEGV cause remains unknown.
+- All ten current scenarios are implemented. Original audio, transcript and per-call
+  revision/configuration are retained. Capture does not establish human acceptance.
+- Configuration comparison #13 and audio-aligned timing #15 are deferred. Controlled
+  barge-in was not implemented. Neither a partial turn nor a prompt proves interruption.
+- The optional AI assessment is implemented. It evaluates a single transcript with a
+  generic rubric, not scenario-specific success criteria or the full listening checklist.
 
-Use the existing Review panel for checks/notes, GitHub for actual bugs and changes, and
-this document for coverage. No extra dashboard or automatic judge is required.
+## Implemented coverage and the AI assessment
 
-## Ten coverage slots
+The live call uses [scenarios.py](../src/caller/scenarios.py). The patient receives
+its objective, opening posture and synthetic facts. Evaluator fields stay outside
+the patient prompt. The judge receives only the saved scenario ID and projected
+transcript turns; it does **not** receive the scenario objective, `success_criteria`,
+`known_traps`, this plan, prior calls or a policy reference. A scenario's name is
+context, not an executable assertion that its complete objective was achieved.
 
-These are coverage slots, **not historical call IDs**. Assign actual call IDs only after
-running them. Do not label existing attempts retrospectively as planned experiments.
+| Captured scenario ID | Text assessment can help inspect | Additional review needed |
+| --- | --- | --- |
+| `smoke` | Request handling and clear next steps | Audio/closing; externally correct hours/location are unknown without independent facts. |
+| `schedule` | Options versus final confirmation within the call | Audible dates/names and actual booking remain separate questions. |
+| `reschedule` | Lookup explanation and replacement summary | Compare prior-call claims manually; the judge does not load the scheduling call. |
+| `cancel` | Cancellation explanation and next steps | Prior-slot consistency and actual backend deletion are not automatically verified. |
+| `refill` | Response to the request, legitimate boundaries, next steps | Chart content and authority are unknown; a refusal alone is not a defect. |
+| `refill-details` | Clarification when information is missing | Do not assume this isolates one variable against the refill call. |
+| `insurance` | Qualification/uncertainty and suggested next steps | No independent policy source is supplied to the model. |
+| `correction` | Whether the corrected afternoon preference is retained | Not a controlled barge-in test; confirm consequential wording in audio. |
+| `ambiguity` | Whether the office clarifies a vague request | Coherence, pacing and the audible ending still need listening. |
+| `proxy` | Handling of a general third-party request | No blanket legal/privacy-compliance grade or actual record-access verification. |
+
+These are opportunities for the five generic rubric dimensions, not ten dedicated
+AI test cases. The model can return not assessable when a dimension was not exercised.
+See [the evaluation mapping](EVALUATION.md) for deterministic checks versus model judgment.
+
+## Original planned coverage slots (historical)
+
+The table below preserves the original plan, **not an execution ledger**. Actual
+coverage changed: separate correction and ambiguity calls plus a third-party request
+were implemented; controlled interruption and a dedicated office-defect reproduction
+were not. The implemented table above and COLLECTION.md describe what was actually
+captured. Do not relabel these calls as experiments that were never performed.
 
 | Slot | Patient goal | Main observation for us | Preparation / fallback |
 | --- | --- | --- | --- |
@@ -69,7 +92,7 @@ independent backend evidence, `verified_state` stays unknown. Re-verifying ident
 not itself a failure. If state is not supported, retain that explicit limitation and
 use standalone workflow conversations instead; do not claim they tested actual mutation.
 
-## Run in small batches and adjust deliberately
+## Collection method for any further calls
 
 - **Baseline:** complete and listen to 01. Fix caller defects that would invalidate the
   evaluation before accumulating more calls. A qualifying debugging retest may fill this
@@ -79,10 +102,11 @@ use standalone workflow conversations instead; do not claim they tested actual m
   appointment details claimed, corrections, and independent verification or “unknown.”
 - **Breadth:** run 05–08 individually. Review after each. Choose the final edge/reproduction
   focus from actual evidence, rather than forcing ten unrelated tricks.
-- **Depth:** run 09–10. Add a call when a recording is incomplete, an edge was not actually
-  exercised, or a meaningful finding needs reproduction. Ten is a minimum, not an attempt cap.
+- **Depth:** add a call only for an unusable pair or a justified reproduction. The
+  planned interruption/reproduction slots were not completed; they do not require
+  automatic additional calls now that ten varied candidate pairs exist.
 
-The planned #13 read-only configuration screen belongs before transaction calls because
+The deferred #13 read-only configuration screen would belong before transaction calls because
 calibration must not modify patient state. Its three options vary configurations, not
 just one isolated model. Full reviewed calibration conversations may count toward the
 minimum, but do not replace scenario diversity. Running all three plus this coverage
@@ -93,8 +117,10 @@ engineering rationale. Never claim model comparison or “best latency” withou
 ## What gets saved after each call
 
 The existing recording/transcript/provenance is the original evidence. Use **Review**
-to save the seven checks, your name, timestamped observations, explicit full listening,
-and a separate result: usable conversation, incomplete attempt or needs recheck.
+to save an outcome and useful notes. The detailed seven-row checklist is optional;
+the UI's Usable outcome requires listening confirmation and Complete evidence: OK.
+Other rows can remain not assessed. Add AI summary inserts an existing model assessment
+as labeled draft notes; it does not approve the call or set checklist grades.
 No playback action approves a call. Review revisions remain separate from raw evidence;
 changed files require a recheck. See [CALL-REVIEW.md](CALL-REVIEW.md).
 
@@ -129,24 +155,14 @@ verification → retest call → improvement/regression/uncertainty. A code fix 
 is not a live-call result. Freeze the new baseline after a justified change and record
 the boundary; earlier recordings remain valid evidence of the earlier configuration.
 
-## What to say in the debugging video
+## Current closeout order
 
-“I need ten complete patient conversations across normal workflows and edge cases.
-Before collecting them, I'm fixing a reliability problem in my own caller: the second
-attempt lost its child worker while the UI kept waiting. I'll show the evidence, ask AI
-to help test the hypothesis, make the justified change, and verify it. Then I'll review
-a comparable call before using this system to evaluate the office agent.”
+The debugging recording is complete per Grant's report. Listen to the captured pairs,
+validate meaningful observations, publish the reviewed evidence, finish the final
+walkthrough and verify public links. No new model comparison, UI or infrastructure
+is needed just to finish. See [SUBMISSION.md](SUBMISSION.md).
 
-That is the bridge between debugging and the assessment. The debugging video need not
-contain all ten calls. Later, the short final walkthrough can show the coverage, one
-strong supported finding if found, and an actual before/after improvement. Do not stage
-previously completed work as new discovery. Current cause of the native worker crash
-remains unresolved; do not promise that one monitoring fix explains it.
-
-## Immediate order
-
-Agree the strategy → use the documented product context → film #46 diagnosis/fix → review a controlled
-retest → implement/verify the missing scenarios → collect in small batches → reproduce
-useful findings → publish at least ten reviewed pairs and the two required videos.
-Planning and scenario implementation can be done before filming if helpful; disclose
-that preparation. Do not spend another pass polishing the UI before caller reliability.
+For the final walkthrough, distinguish the intended strategy, actual call coverage,
+automated transcript suggestions and human-verified findings. The debug journal
+preserves the actual failure → regression → fix → retest progression. Never stage
+completed work as new discovery or claim the containment fix resolved native memory access.

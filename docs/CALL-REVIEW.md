@@ -4,6 +4,8 @@ Prepared 2026-09-19. Use one repeatable loop: **choose a purpose -> call -> list
 record evidence -> decide -> change if justified -> retest**. The employer asks for
 coherent conversations and useful findings; this checklist supports those goals.
 It is not an additional employer-mandated scoring system.
+See [EVALUATION.md](EVALUATION.md) for which parts AI can assist with and which
+remain audio/human checks; the judge does not implement this entire checklist.
 
 ## Where each part belongs
 

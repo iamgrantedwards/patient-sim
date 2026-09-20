@@ -1,17 +1,32 @@
 # Debugging journal
 
-Starting record written **2026-09-19**, after the first two attempts. This is a
-retrospective based on preserved artifacts and issue history. The debugging video
-has not been recorded. Future entries should record the work when it happens.
+Starting record written **2026-09-19**, after the first two attempts. Earlier sections
+below describe that historical state, not the current checkout. Reconciled 2026-09-20
+UTC in #77; original observations and failing results remain intact.
 
-## The starting point
+## Current resolution and remaining limits
+
+- Callback defect #21: fixed in #28 and verified on a later completed live call.
+- Child-failure reporting/repeated initialization #46: fixed in #58, regression/CI
+  verified, then retested on connected calls; issue closed during #75 reconciliation.
+- The initiating native SIGSEGV and historical reassignment mechanism remain unknown.
+  Containment/diagnostics are implemented; no native-library cure is claimed.
+- The debugging recording is complete per Grant and [linked here](https://www.loom.com/share/648e67f4f08d4d75af16477e1995304e).
+  Logged-out playback/content verification remains #25; do not repeat the staged outline.
+- Ten later candidate pairs are captured; [COLLECTION.md](COLLECTION.md) gives actual
+  IDs. Natural-ending listening #12 and suitability/publication #18 remain open.
+
+See the dated post-fix outcomes at the end, [EVALUATION.md](EVALUATION.md) for AI review
+limits, and [SUBMISSION.md](SUBMISSION.md) for the current finishing order.
+
+## Historical starting point — first two attempts
 
 | Attempt | Code revision at the call | Observed result | Evidence and review |
 | --- | --- | --- | --- |
 | [First call](https://github.com/iamgrantedwards/patient-sim/issues/21): `call-20260918-231955-765427d8` | `b1a6cda329665c4f595509a82ca9fa8e0d011e24a` (clean) | Conversation captured; callback error; remote hangup during the patient's follow-up. | 70.29-second stereo OGG, seven committed turns including partial final speech. Decoding passed; human listening review pending. |
 | [Second attempt](https://github.com/iamgrantedwards/patient-sim/issues/46): `call-20260919-194206-bc3ae8e3` | `d0ecd5b477ff31bc8dcad8275b12433381ccf48e` (clean) | Child worker exited `-11`; a subsequent initialization hit `FileExistsError`; UI remained Dialing until Stop call. | Metadata and one non-dialogue journal event; no finalized recording/transcript. Controller confirmed cleanup; a separate Cloud query found zero active rooms. |
 
-Both used Office information (`smoke`). Two attempts are visible in the console;
+Both used Office information (`smoke`). At this checkpoint, two attempts were visible;
 only one has an audio/transcript pair, and neither has a recorded human listening
 review. **Neither establishes the first-good-call acceptance gate.** No defect in
 the remote assessment agent has been confirmed.
@@ -28,9 +43,9 @@ added pinned-SDK regressions, kept non-message events in the journal, and counte
 only unique dialogue items toward the turn limit. Offline and hosted checks passed.
 Do not present this completed fix as a new discovery on video.
 
-**Remaining:** call two saved an `agent_handoff` without the original callback
-exception, but did not finish a conversation. #21 therefore remains open for full
-live confirmation. The first call's interrupted closing remains
+**Remaining at this checkpoint:** call two saved an `agent_handoff` without the original callback
+exception, but did not finish a conversation. #21 was therefore still open for full
+live confirmation; it subsequently closed after the retest documented below. The first call's interrupted closing remains
 [#12](https://github.com/iamgrantedwards/patient-sim/issues/12); listen before assigning
 cause or claiming a fix.
 
@@ -72,8 +87,8 @@ An answered call has not been established; this does not prove no SIP request wa
 | How can evidence stay safe? | The exclusive-create failure preserved the existing journal. | Test repeated identities without overwriting evidence or dialing twice; do not merely switch to append mode. |
 
 [#46](https://github.com/iamgrantedwards/patient-sim/issues/46) owns this investigation,
-regression, smallest justified fix and separately authorized live retest. **No fix
-has been made yet.** [#24](https://github.com/iamgrantedwards/patient-sim/issues/24)
+regression, smallest justified fix and separately authorized live retest. **At this checkpoint, no fix
+had been made.** [#24](https://github.com/iamgrantedwards/patient-sim/issues/24)
 remains blocked on this failure and a complete, listened-to UI call.
 
 ## Pre-recording clarification — 2026-09-19
@@ -147,7 +162,7 @@ Raw calls, runtime logs and credentials remain ignored. Review content before
 publishing any selected artifact; never paste credentials or unreviewed transcript
 content into an issue or video. Keep original files unchanged and label derived notes.
 
-## First debugging recording
+## Historical plan for the first debugging recording
 
 Use the [copyable Loom speaking notes](DEBUGGING-SCRIPT.md). This is an outline for
 real work, not a script with a predetermined successful ending.
@@ -252,7 +267,8 @@ to the Dialing label. This is a missing failure signal in orchestration, not evi
 of a browser rendering failure. Existing controller checks notice parent exit or
 finalized metadata, but the native child crash supplies neither.
 
-Reproduce the before-fix result:
+Reproduce the before-fix result only in an isolated checkout of the preserved
+regression checkpoint `5a5ecb4`, not current main:
 
 ```sh
 uv run pytest tests/test_child_failure_regression.py tests/test_worker_failures.py \
@@ -353,3 +369,29 @@ protocol also passed 60 browser/accessibility tests, secret/dependency checks, a
 package build/install verification before that final Python-only guard; affected
 Python coverage and type checks were rerun afterward. Hosted CI validates the final
 pushed revision independently. No live conversation was used as verification.
+
+
+## 2026-09-20 UTC — post-fix calls and closeout reconciliation
+
+- PR #58 merged after all required checks passed. It removed the strict xfail and
+  delivered child-failure receipts, cleanup propagation and single-job admission.
+- `call-20260920-011336-9e2e5e9b` connected, then received an operator stop. The
+  12.26-second recording decoded and cleanup was confirmed. It is not a full
+  regression conversation and is excluded from the ten candidates.
+- `call-20260920-011456-fe6d34a0` completed eight turns, finalized decoded audio and
+  ended via `end_call_tool`, without the original callback/duplicate-init errors.
+  The patient declined offered demo onboarding; this led to #59 / PR #60, not an
+  office-agent finding. The next smoke call `call-20260920-011714-108d161e` accepted
+  onboarding and captured hours/location/insurance guidance.
+- PR #61 added an actual killed-process journal-recovery check. PR #63 corrected
+  acceptance of offered transfers after `call-20260920-012849-8a9bc2d4`; the later
+  refill retest declined the transfer. See BUGS.md and COLLECTION.md for evidence.
+- During #75 closeout, #46 was closed on its scoped fix/retest evidence. The native
+  failure remains an unresolved limitation. The original ending in #12, Cloud/local
+  duration discrepancy, and end-to-end human acceptance have not been resolved by CI.
+
+If the child crashes again, preserve `.runtime/<call-id>-failure.json`,
+`.runtime/<call-id>-jobs.jsonl`, the worker log/fault-handler stack and the matching
+macOS native report. Correlate call/job/PID/nonce and event order; verify cleanup before
+starting another explicit call. Reproduce narrowly before changing dependencies.
+Do not remove the existing journal, silently append a new attempt or automatically redial.

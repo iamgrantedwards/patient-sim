@@ -1,7 +1,7 @@
 # CI and artifact delivery
 
 GitHub Actions runs on pull requests (including drafts), pushes to `main`, and manual
-runs. Main/manual triggers and Dependabot configuration activate after merge. PRs test
+runs. Main/manual triggers and Dependabot are active on the default branch. PRs test
 GitHub's proposed merge commit, which can differ from the branch head.
 
 Four independent jobs run in parallel. The required **Verify and package** job checks
@@ -17,10 +17,14 @@ to satisfy branch protection.
 | UI, accessibility, and browser tests | Biome recommended lint/format with warnings fatal; npm audit on locked development tools; Playwright flows and axe checks in desktop/mobile Chromium and desktop WebKit using generated evidence |
 | Verify and package | All preceding jobs must succeed; build wheel/sdist with the locked backend; install wheel with locked production dependencies and check both CLIs and packaged static assets outside the checkout |
 
-The measured baseline was 70% coverage with 41 tests. Targeted dispatch, finalization,
-and worker-failure tests raised this to 93.3% with 59 tests. Coverage measures exercised
+The early baseline was 70% coverage with 41 tests; the suite has since expanded.
+The #75 closeout passed 276 Python tests and 96 browser cases. Use each run's report
+for its exact counts and coverage, rather than treating this snapshot as a live metric.
+Coverage measures exercised
 code, not voice quality or live telephony correctness. Tests do not dial the assessment
-line. Unix sockets remain allowed for the local asyncio event loop.
+line or invoke the real AI judge. The assessment tests mock provider output and check
+our validation/persistence; they are not a benchmark of model judgment. See
+[EVALUATION.md](EVALUATION.md). Unix sockets remain allowed for the local asyncio event loop.
 
 ## Local equivalent
 
@@ -82,8 +86,9 @@ tools are grouped; the contract-pinned LiveKit Agents version requires an explic
 decision. Review runtime/provider changes before collecting more experimental evidence.
 Native tool versions/checksums are reviewed manually.
 
-`main` requires an up-to-date **Verify and package** check from GitHub Actions and a pull
-request, including for administrators. Force-pushes and branch deletion are blocked.
+`main` requires up-to-date **Verify and package** and **PR labels** checks and a pull
+request, including for administrators. PR metadata has its own read-only workflow;
+every PR needs one delivery type and at least one recognized area label. Force-pushes and branch deletion are blocked.
 No additional reviewer is required for this personal repository.
 
 Artifact delivery is the current delivery boundary. This assessment does not require

@@ -34,6 +34,24 @@ Neither status polling nor refresh dispatches work. Stop and controller shutdown
 recorded separately from natural endings. Recovery blocks new calls until a worker-stop
 receipt and room absence establish cleanup; it never kills an unowned PID.
 
+## Optional assessment and review writes
+
+`--enable-reviews` enables local atomic, revisioned `review.json` saves with request
+tokens, exact Origin checks, per-call locking and evidence fingerprints. A saved
+review or model result never changes original call files. Detailed checklist rows
+are optional; Usable requires explicit listening and complete-evidence approval.
+
+`--enable-assessments` separately enables an explicit paid request sending a saved
+scenario ID and transcript-turn projection through LiveKit Inference. The default
+viewer does not invoke models, but it can display previously saved assessments.
+The judge receives no raw audio, other calls or manual reviews. It has no tools and
+cannot change prompts, call numbers or code. Its instructions treat transcript text
+as untrusted, but prompt adherence is not a proven injection defense. Exact quotes,
+output schema and bounded request/response sizes are validated; semantic judgments
+remain fallible. Assessment writes are token/Origin protected, locked and atomic;
+results have model/rubric/prompt fingerprints and at most ten revisions. See
+[EVALUATION.md](EVALUATION.md) for the full boundary and known grounding limitation.
+
 ## Framework mapping
 
 [NIST AI RMF 1.0](https://www.nist.gov/itl/ai-risk-management-framework) is a voluntary
@@ -43,20 +61,20 @@ Govern, Map, Measure, and Manage functions, not an assertion of full framework c
 | Function | Implemented control and evidence | Remaining work / decision |
 | --- | --- | --- |
 | Govern | Named owner; contract and notebook; issue-linked branches/PRs; required CI; separate human-listening and publication gates. See `ROADMAP.md`, `CONTRACT.md`, and `.github/workflows/ci.yml`. | Owner reviews and approves evidence for public release. No independent audit or certification has been performed. |
-| Map | Defined synthetic evaluation use, fixed destination, provider pipeline, known limitations, and a risk register below. The UI distinguishes caller and assessment agent. | Confirm Athena context (#8); assess privacy/consent/provider obligations before expanding scope. |
-| Measure | Preserved audio, committed turns, explicit partial speech, code/model/prompt provenance, SHA-256 of currently served audio, separate claimed/consistent/verified state, automated failure-path tests and axe checks. | Listen end to end; validate quote/timestamp pairs; measure actual audio timing; obtain independent evidence before labeling outcomes verified. |
-| Manage | Read-only default viewer and opt-in confirmed controls; shared call lock/recovery; coded destination limit; call duration/turn limits; manual evidence-release gate; dependency/secret scans; fixes tracked separately from assessment findings. | Address caller defects #21/#12; complete first-good-call gate; collect representative scenarios and handle residual risks before submission. |
+| Map | Defined synthetic evaluation use, fixed destination, provider pipeline, known limitations, and a risk register below. The UI distinguishes caller and assessment agent. | Athena context is recorded from Grant’s firsthand report (#8); shared backend state remains unknown. Assess provider/data obligations before expanding scope. |
+| Measure | Preserved audio, committed turns, explicit partial speech, code/model/prompt provenance, SHA-256 of currently served audio, separate claimed/consistent/verified state, automated failure-path tests and axe checks. | Listen end to end; validate quote/timestamp pairs; audio timing is deferred (#15); obtain independent evidence before labeling outcomes verified. |
+| Manage | Read-only default viewer and opt-in confirmed controls; shared call lock/recovery; coded destination limit; call duration/turn limits; manual evidence-release gate; dependency/secret scans; fixes tracked separately from assessment findings. | Callback #21 and lifecycle #46 are closed on scoped evidence; original ending #12 and human acceptance remain. Native crash cause is unknown; ten varied candidates are captured. |
 
 ## Risk register
 
 | Risk | Current mitigation | Residual risk and release condition |
 | --- | --- | --- |
 | False finding or invented outcome | `claimed_state`, cross-call `consistency`, and `verified_state` are separate. Unknown remains unknown. Findings require expected behavior, its basis, timestamps, quotes, attribution, and uncertainty. | Consistency is not proof. Human review must corroborate findings; appropriate identity re-verification is not automatically a bug. |
-| Untrusted content or prompt injection | Viewer treats transcript content as inert text and never sends it to a model judge. Caller destination is enforced in code; evaluator traps are excluded from its prompt. | Prompt-only restrictions are insufficient. The caller still uses a model; broader tool access or automated judging needs a separate threat review. See [OWASP prompt injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/). |
+| Untrusted content or prompt injection | Viewer renders transcript content as inert text. Opt-in judging sends it as untrusted evidence under a fixed rubric; the judge has no tools. Caller destination is enforced in code and evaluator traps excluded from the patient prompt. | Prompt-only restrictions are insufficient; structured output and exact quotes do not establish resistance to semantic manipulation. No comprehensive adversarial judge evaluation has been performed. See [OWASP prompt injection](https://genai.owasp.org/llmrisk/llm01-prompt-injection/). |
 | Personal information in recordings | Synthetic inputs; local ignored artifacts; API returns an allowlisted metadata projection; no raw config or environment endpoint. Review and publication are separate. | The remote response may contain personal information. Synthetic inputs do not guarantee de-identification. Review audio AND text before release; retain originals separately if a labeled redacted derivative is needed. |
 | Misleading evidence quality | No autoplay; partial turns and missing artifacts remain visible; decoded audio is not called human-reviewed. Fingerprints identify current bytes without claiming a trusted timestamp or signed chain of custody. | Raw STT can be wrong. Readable files and file pairs do not count as complete assessment conversations. A human must compare the audio with the transcript. |
 | Inappropriate generalization or bias | Scenario provenance and explicit limits keep findings tied to observed calls. | The small synthetic set cannot establish fairness across accents, languages, disability, or patient populations. Do not claim representative performance. |
-| Accidental calling, state changes, or spending | Read-only default; opt-in confirmation, fixed destination, single-call lock, one-use tokens/idempotent requests, stop/recovery, and duration/turn bounds. | Offline lifecycle and browser tests pass; real UI call/stop behavior and voice quality still need human-supervised acceptance. An uncertain provider outcome blocks another call. |
+| Accidental calling, state changes, or spending | Read-only default; opt-in confirmation, fixed destination, single-call lock, one-use tokens/idempotent requests, stop/recovery, and duration/turn bounds. | Offline tests and connected call/cleanup paths have been exercised. Voice quality and publication review remain. An uncertain provider outcome blocks another call; new judge requests incur separate inference usage. |
 | Loss or unintended retention of evidence | Originals remain local; packaging excludes calls; CI uses generated fixtures only. | Abrupt worker termination can lose unfinished audio. There is no automated retention/deletion policy or backup guarantee. Owner must decide retention after submission and review provider-side storage separately. |
 
 ## Human review and public release
@@ -74,8 +92,10 @@ Govern, Map, Measure, and Manage functions, not an assertion of full framework c
 5. Add only reviewed submission artifacts explicitly. Public Git history is difficult
    to retract; `calls/` is ignored and never uploaded by CI. Review the final diff.
 
-This workflow is specified, not asserted complete. The first captured call's listening
-review is still pending. No finding against the assessment agent has been confirmed.
+This workflow is specified, not asserted complete. Ten candidate pairs are captured;
+listening/publication decisions remain in #18. No finding against the assessment
+agent has been confirmed. Detailed evidence and current obligations are in
+[COLLECTION.md](COLLECTION.md) and [SUBMISSION.md](SUBMISSION.md).
 
 ## Privacy, providers, and accessibility
 

@@ -1,6 +1,7 @@
 # Assessment compliance review
 
-Reviewed against Grant's original AI Engineering Challenge brief on 2026-09-18.
+Reviewed against Grant's original AI Engineering Challenge brief on 2026-09-18;
+documentation reconciled with source on 2026-09-20 UTC (#77).
 The mandatory implementation choices are followed; the submission is not complete.
 
 | Brief requirement | Current evidence/status |

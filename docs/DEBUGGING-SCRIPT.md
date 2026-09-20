@@ -1,4 +1,9 @@
-# Debugging video — speaking notes
+# Historical debugging-video speaking notes
+
+**Historical preparation, not a current script or record of what was said.** The
+recording is now complete per Grant. Results are in [DEBUGGING.md](DEBUGGING.md);
+current delivery work is [SUBMISSION.md](SUBMISSION.md). Placeholders below are
+original speaking cues, not unfilled submission findings.
 
 Prepared 2026-09-19 for issues #25 and #46. Use these as cues, pause to do the work,
 and describe the actual results. The log and process structure were reviewed before
