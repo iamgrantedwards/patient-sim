@@ -731,3 +731,13 @@ content on an error. The transcript closes only when a different record is commi
 Validation: 254 Python tests and 78 browser cases passed. New cases verify no blank/fade
 on quick switching, stable pending geometry, blocked stale controls, rejection of an
 older delayed response, and recovery after a failed selection. No real call was made.
+
+## 2026-09-19 — collection report reconciliation (#17, #18, #19)
+
+Ten candidate pairs are captured and validated for file integrity; the collection
+ledger lists their IDs, durations and remaining listening decisions. Human acceptance
+remains pending. Kept office claims separate from backend verification, and recorded
+the reported provider-name variation as an unattributed candidate needing audio review.
+Three quoted caller/office turns match raw transcripts byte-for-byte; that validates
+quotation, not STT accuracy. Raw recordings, journals and the private candidate bundle
+are not part of this documentation PR. Updated stale assessment and README status.
