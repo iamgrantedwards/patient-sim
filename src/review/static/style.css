@@ -2492,3 +2492,33 @@ summary:focus-visible {
 .review-checklist .review-checks {
   margin-top: 12px;
 }
+
+/* Saved AI evaluation and human listening are independent call-library signals. */
+.card-evaluation {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.evaluation-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px solid var(--surface-border);
+  border-radius: 6px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.evaluation-chip.evaluated {
+  color: var(--green);
+}
+[data-view="list"] .card-evaluation {
+  margin-top: 0;
+}

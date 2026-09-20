@@ -117,6 +117,11 @@ def create_app(
     def calls():
         data = store.listing()
         for call in data["calls"]:
+            call["assessment"] = (
+                assessments.summary(store, call["call_id"], judge.model if judge else None)
+                if call["status"] != "unavailable"
+                else {"status": "unavailable", "score": None, "previous_score": None}
+            )
             if call["status"] != "unavailable":
                 reviews.project(store, call)
                 call["review"] = {

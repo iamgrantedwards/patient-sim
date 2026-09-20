@@ -869,3 +869,22 @@ Added legacy-result preservation, strict quality/citation validation, ending-con
 browser coverage. Full local verification passed: 286 Python tests, 95.8% branch-inclusive coverage,
 111 browser/accessibility checks, lint/types, security audits and package/install checks.
 All provider responses were mocked; no paid assessment or real call was run.
+
+
+## 2026-09-20 UTC — call-card assessment and human-review status (#86)
+
+Added independent icon chips for saved AI assessments and human listening review in
+both library layouts. Current scores use the existing provisional aggregate; N/A,
+stale, unreadable and unassessed states remain distinct. Saved notes without listening
+confirmation are not labeled Human reviewed. The call index exposes only assessment
+status/score; it does not start inference or include full model output. Assessment
+saves update their card in place without reloading the recording or manual draft.
+
+Read-only inspection of the running app found seven saved v1 assessments. The prior
+server process lacked the new index fields until its idle restart. Stale scores now
+remain visible on cards explicitly marked prior; they are never passed off as current
+and the detailed panel still withholds its current aggregate until reassessment.
+
+Full local verification passed: 293 Python tests, 114 browser/accessibility cases,
+lint/types, security checks and package/install verification. Card checks cover current
+and historical scores, zero scores, insufficient coverage and independent human status.

@@ -52,7 +52,7 @@ function citations(items, call) {
   }
   return list;
 }
-export async function renderAssessment(call) {
+export async function renderAssessment(call, onSaved = () => {}) {
   const target = document.getElementById("ai-assessment");
   const panel = el("details", null, "assessment-panel");
   const heading = el("summary");
@@ -236,6 +236,7 @@ export async function renderAssessment(call) {
           const result = await response.json();
           if (!response.ok) throw new Error(result.error || "Assessment failed.");
           if (target.contains(panel)) draw(result);
+          onSaved(call.call_id, result);
         } catch (error) {
           feedback.textContent =
             error.message || "Could not assess. Reopen the call to check its status.";

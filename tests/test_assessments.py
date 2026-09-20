@@ -379,3 +379,46 @@ def test_local_capture_and_ending_context_do_not_claim_audio_verification(setup,
     assert "does not verify" in checks["ending"]["context"]
     assert "pending private text" not in json.dumps(state)
     judge.assert_not_called()
+
+
+@pytest.mark.parametrize(
+    "kind", ["pending", "saved", "coverage", "stale", "model", "unreadable", "legacy"]
+)
+def test_call_index_assessment_summary_matches_detail_without_provider_requests(setup, kind):
+    client, call, judge = setup
+    if kind != "pending":
+        if kind == "coverage":
+            result = report()
+            for dimension in result.dimensions[2:]:
+                dimension.score = None
+            judge.return_value = result
+        assert post(client, call).status_code == 200
+        if kind == "stale":
+            path = call / "meta.json"
+            path.write_text(path.read_text() + "\n")
+        elif kind == "model":
+            judge.model = "different-model"
+        elif kind == "unreadable":
+            (call / "assessment.json").write_text("{bad")
+        elif kind == "legacy":
+            path = call / "assessment.json"
+            history = json.loads(path.read_text())
+            history["revisions"][0]["rubric"] = "transcript-v1"
+            path.write_text(json.dumps(history))
+    requests = judge.await_count
+    indexed = next(c for c in client.get("/api/calls").json()["calls"] if c["call_id"] == call.name)
+    detail = client.get(f"/api/calls/{call.name}/assessment").json()
+    assert indexed["assessment"]["status"] == detail["status"]
+    assert indexed["assessment"]["score"] == detail.get("score")
+    assert set(indexed["assessment"]) == {"status", "score", "previous_score"}
+    if kind in ("stale", "model", "legacy"):
+        assert indexed["assessment"]["previous_score"]["percent"] == 100
+    else:
+        assert indexed["assessment"]["previous_score"] is None
+    if kind == "saved":
+        assert indexed["assessment"]["score"]["percent"] == 100
+    elif kind == "coverage":
+        assert indexed["assessment"]["score"] == {"percent": None, "assessed": 2, "total": 5}
+    else:
+        assert indexed["assessment"]["score"] is None
+    assert judge.await_count == requests

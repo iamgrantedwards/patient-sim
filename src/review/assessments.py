@@ -53,6 +53,34 @@ def load(store, call_id):
     return records
 
 
+def current_result(store, call_id, model=None):
+    records = load(store, call_id)
+    latest = records[-1] if records else None
+    stale = bool(
+        latest
+        and (
+            latest.fingerprints != fingerprints(store, call_id)
+            or latest.rubric != RUBRIC_VERSION
+            or latest.prompt_sha256 != PROMPT_SHA
+            or (model is not None and latest.model != model)
+        )
+    )
+    return latest, stale
+
+
+def summary(store, call_id, model=None):
+    """Small read-only index projection; no quotes, credentials or provider request."""
+    try:
+        latest, stale = current_result(store, call_id, model)
+    except ValueError:
+        return {"status": "unavailable", "score": None, "previous_score": None}
+    return {
+        "status": "stale" if stale else "saved" if latest else "pending",
+        "score": score(latest.result) if latest and not stale else None,
+        "previous_score": score(latest.result) if latest and stale else None,
+    }
+
+
 def eligible(detail):
     return (
         detail["status"] == "ended"
@@ -70,20 +98,9 @@ def install(app, store, judge=None):
     def state(call_id):
         detail = store.detail(call_id)
         try:
-            records = load(store, call_id)
+            latest, stale = current_result(store, call_id, judge.model if judge else None)
         except ValueError:
             return {"status": "unavailable", "enabled": False, "eligible": False}
-        latest = records[-1] if records else None
-        current = fingerprints(store, call_id)
-        stale = bool(
-            latest
-            and (
-                latest.fingerprints != current
-                or latest.rubric != RUBRIC_VERSION
-                or latest.prompt_sha256 != PROMPT_SHA
-                or (judge is not None and latest.model != judge.model)
-            )
-        )
         return {
             "status": "stale" if stale else "saved" if latest else "pending",
             "enabled": judge is not None,
