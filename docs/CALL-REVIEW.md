@@ -17,7 +17,10 @@ It is not an additional employer-mandated scoring system.
 | Loom / submission docs | Your reasoning, selected evidence and required deliverables. Hiring instructions stay here. |
 
 **Saving in the app:** launch with `--enable-reviews` and expand **Review** beside the
-recording. Save checks, notes, your name, listening confirmation and conversation result.
+recording. Save the conversation result and useful notes. Detailed checks are optional. To mark
+Usable, confirm listening and set Complete evidence to OK; other rows may remain
+not assessed. Add AI summary can reuse an existing assessment as draft notes without
+changing these judgments.
 This opt-in mode requires no provider credentials and never enables dialing. Add
 `--enable-calls` separately if needed. Read-only mode displays saved reviews.
 
@@ -42,15 +45,15 @@ scenario, synthetic facts, caller number and unrelated settings where practical.
 Recorded provenance supplies the exact revision and pipeline; reference it rather
 than copying every configuration field into handwritten notes.
 
-Currently only the read-only office-information scenario is implemented. Scheduling,
-rescheduling/cancellation, refills and realistic edge cases are the upcoming coverage
-plan in #18, not scenarios we have already run. Fix #46 and establish a usable caller
-before expanding. Product exploration in #8 is still unverified.
+All ten scenario definitions are implemented and ten candidate conversations are captured.
+See [the collection ledger](COLLECTION.md) for exact IDs and coverage. Product exploration
+#8 is complete based on Grant's report; shared backend state remains unknown.
 
 ## After each call: listen once, then revisit specific moments
 
 Open the call's audio and transcript together. Listen end to end. Use **OK**, **issue**
-or **not assessed** for each row; an issue needs a timestamp and a short description.
+or **not assessed** for any detailed row you choose to evaluate; an issue needs a
+timestamp and a short description. Completing all seven rows is not required.
 
 | Check | What to listen or look for |
 | --- | --- |
@@ -149,6 +152,7 @@ ignored local artifacts do not become a submission automatically. Check public r
 and video links while logged out, the exact caller number, and a fresh-clone setup.
 Keep credentials private; supply `.env.example`, not an encrypted credential bundle.
 
-Immediate order: record the #46 investigation (#25), verify the caller and complete
-listening acceptance (#24/#21/#12 as applicable), then expand scenarios and collect #18.
-The compact review feature #54 was brought forward at Grant's request; #46 remains the next caller task.
+Current order: listen and select the ten candidate pairs, finalize findings, publish
+the reviewed evidence, then verify both videos and submit. The debugging recording
+is already captured. Use [the submission checklist](SUBMISSION.md) as the current
+closeout plan; earlier recording runbooks are historical preparation.

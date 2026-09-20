@@ -772,3 +772,23 @@ a useful bug report, not seven manual judgments per call. Simplified the review 
 around outcome and optional notes, with detailed checks behind a disclosure. A saved
 AI summary can be explicitly added as draft notes without changing listening, checks
 or acceptance. Existing evidence/acceptance rules remain unchanged.
+
+
+## 2026-09-20 UTC / September 19 Pacific — submission closeout (#75)
+
+Audited main af3d57b, open issues, all PR labels and branch protection. Main CI is
+green; no PRs were open; all existing PRs met type/area label rules. Older issue
+bodies and runbooks still described two attempts or required all seven review rows.
+Reconciled those with the ten captured candidates and shipped optional review UI.
+No saved human review exists at this audit; one saved refill AI assessment is present.
+Its supported-claims rationale relies on consistency/lack of contradiction, which
+does not verify chart state. No model result is promoted to a confirmed finding.
+
+Created one ordered submission checklist. Anonymous HTTP 200 checks establish repo
+and debug-video share-page access only, not video playback/content verification.
+Final walkthrough link, listening decisions, verified findings and public call-pair
+publication remain open. No calls, raw-evidence edits or automatic approvals made.
+
+Closeout validation: 276 Python tests, 96 browser cases, quality/security checks and
+packaging passed. A fresh public clone of af3d57b installed locked dependencies and
+ran the smoke dry-run and review CLI help without credentials or a phone call.

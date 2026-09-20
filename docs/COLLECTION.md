@@ -49,7 +49,7 @@ STT spellings; do not assert the office changed providers without listening to t
 
 ## Deferred work
 
-- Human listening and seven-check review for each candidate pair.
+- Human listening and suitability/publication review for each candidate pair; detailed checklist rows are optional.
 - Audio-aligned turn timing (#15); SDK speech metrics are available, but callback event
   arrival timestamps are not speech boundaries and are not substituted for measurements.
 - Controlled interruption has not been implemented or demonstrated.
@@ -67,16 +67,17 @@ completed afternoon correction. Its interrupted flag alone does not establish au
 overlap or a controlled barge-in experiment. Check provider-name spellings against the
 audio before proposing any correction to the separate review notes.
 
-Use the existing Review panel to save your own seven checks and explicit listening
-confirmation. None of these inspection notes automatically mark a recording usable.
+Use the existing Review panel to save your outcome, useful notes and explicit listening
+confirmation. The Usable outcome also requires Complete evidence: OK; other detailed
+checks can remain not assessed. None of these inspection notes automatically mark a recording usable.
 
 ## Remaining submission work
 
-- #18: listen to every selected pair, save the seven-check review, replace any unusable conversation, then publish the reviewed set.
+- #18: listen to every selected pair, record suitability and listening, replace any unusable conversation, then publish the reviewed set.
 - #12: verify natural endings by listening, especially the last 15 seconds.
 - #24: confirm the call/review workflow in use; automated checks alone do not finish human acceptance.
 - #46: retain the unresolved native-crash limitation separately from the repaired lifecycle behavior.
-- #25: add the recorded debugging video link and verify public playback.
+- #25: verify logged-out playback and required content of the linked debugging video.
 - #26: record the final walkthrough (maximum three minutes) and verify all submission links.
 
 The review UI's Usable indicator follows an explicit saved judgment. Capture selection

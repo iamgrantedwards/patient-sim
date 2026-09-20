@@ -7,7 +7,8 @@ and transcripts for manually verified findings.
 **Status:** ten candidate audio/transcript pairs are captured across office information,
 appointments, refills and edge cases (20.59 minutes). Original recordings decode; human
 listening acceptance is still pending. Caller recovery and scenario fixes are merged.
-See [collection results](docs/COLLECTION.md) and [findings and iteration](BUGS.md).
+Start with the [submission checklist](docs/SUBMISSION.md), [collection results](docs/COLLECTION.md),
+and [findings and iteration](BUGS.md).
 The native crash's root cause remains unresolved. Candidate files remain local until
 reviewed for publication.
 
@@ -33,8 +34,11 @@ and filters. Select a card or list entry to open its evidence.
 For each attempt, follow the [call-review workflow](docs/CALL-REVIEW.md) and use its
 [review sheet](docs/CALL-REVIEW-TEMPLATE.md) to record listening observations and next actions.
 To save reviews, start with `uv run python -m src.review --enable-reviews`.
-Open **Review** beside a call's recording. Save the seven checks, timestamped notes,
-reviewer, explicit listening confirmation and conversation result. Add `--enable-calls`
+Open **Review** beside a call's recording. Save an outcome and any useful notes.
+The detailed checklist is optional; the UI's **Usable** outcome requires listening
+confirmation and **Complete evidence: OK**. Other checks can remain not assessed.
+**Add AI summary** inserts an existing assessment as labeled draft notes, without
+marking anything listened to or approved. Add `--enable-calls`
 only when you also want call controls. Review saving needs no provider credentials.
 
 Reviews persist in `calls/<call-id>/review.json` with dated revisions and SHA-256
@@ -125,7 +129,8 @@ explicitly adding selected submission evidence to the public repository.
 
 - [Cloud session verification and screenshot](src/review/evidence/call-20260918-231955-765427d8/verification.md)
 - [AI governance, control evidence, and open obligations](docs/AI-GOVERNANCE.md)
-- [Morning recording session and remaining gates](docs/MORNING.md)
+- [Current submission checklist](docs/SUBMISSION.md)
+- [Earlier recording preparation](docs/MORNING.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [Implementation contract](docs/CONTRACT.md)
@@ -136,7 +141,9 @@ explicitly adding selected submission evidence to the public repository.
 The local review UI and opt-in controls are merged, and the callback defect has passed
 live verification (#21). Child-failure handling is merged (#58); subsequent calls reached the end-call tool,
 while natural endings still await listening review. The debugging video is recorded per Grant's report;
-its public link, final walkthrough and human listening reviews remain submission work.
+the [debug recording](https://www.loom.com/share/648e67f4f08d4d75af16477e1995304e)
+is linked here, with logged-out playback/content verification still pending. The final
+walkthrough and listening/publication review remain submission work.
 The optional model-configuration comparison is deferred; no best-model claim is made.
 
 ## Personal GitHub account
