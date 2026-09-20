@@ -1,3 +1,19 @@
+let reviewerName = "";
+function rememberedReviewer() {
+  try {
+    return sessionStorage.getItem("patient-sim-reviewer") || reviewerName;
+  } catch {
+    return reviewerName;
+  }
+}
+function rememberReviewer(name) {
+  reviewerName = name;
+  try {
+    sessionStorage.setItem("patient-sim-reviewer", name);
+  } catch {
+    // A blocked browser store should not prevent a review from being saved.
+  }
+}
 const criteria = [
   ["completeness", "Complete evidence"],
   ["transcript", "Transcript accuracy"],
@@ -189,7 +205,7 @@ export async function renderReview(call, onSaved) {
     state.status === "stale"
       ? "The saved review belongs to earlier evidence. Listen again before confirming."
       : configuration.enabled
-        ? "Save your observations with this call. Original files stay unchanged."
+        ? "Save an outcome or a short note. The detailed checklist is optional."
         : "Read-only. Start with --enable-reviews to save a review.";
   const form = el("form", null, "review-form");
   const fields = el("fieldset");
@@ -200,7 +216,7 @@ export async function renderReview(call, onSaved) {
   reviewer.required = true;
   reviewer.maxLength = 100;
   reviewer.autocomplete = "name";
-  reviewer.value = saved?.reviewer || "";
+  reviewer.value = saved?.reviewer || rememberedReviewer();
   fields.append(field("Reviewer", reviewer));
   const checks = {};
   const rows = el("div", null, "review-checks");
@@ -217,7 +233,6 @@ export async function renderReview(call, onSaved) {
     const note = el("input");
     note.type = "text";
     note.maxLength = 1200;
-    note.placeholder = "00:42 — what happened?";
     note.value = saved?.checks[key]?.note || "";
     const update = () => {
       note.required = result.value === "issue";
@@ -228,7 +243,15 @@ export async function renderReview(call, onSaved) {
     rows.append(row);
     checks[key] = { result, note };
   }
-  fields.append(rows);
+  const checklist = el("details", null, "review-checklist");
+  checklist.open = Object.values(saved?.checks || {}).some(
+    (check) => check.result !== "not_assessed" || check.note,
+  );
+  checklist.append(
+    el("summary", "Detailed checklist (optional)"),
+    el("p", "Assess only what you checked. Leave the rest as Not assessed.", "context-note"),
+    rows,
+  );
   const listened = el("input");
   listened.type = "checkbox";
   listened.checked = state.listened === true;
@@ -238,7 +261,7 @@ export async function renderReview(call, onSaved) {
     listened,
     el("span", "I listened to the full recording and checked the transcript"),
   );
-  fields.append(listening);
+
   if (listened.disabled)
     fields.append(
       el("p", "Audio and transcript are required to confirm listening.", "context-note"),
@@ -255,9 +278,59 @@ export async function renderReview(call, onSaved) {
   const notes = el("textarea");
   notes.rows = 2;
   notes.maxLength = 2000;
-  notes.placeholder = "Outcome, next action, or linked issue";
   notes.value = saved?.summary || "";
-  fields.append(field("Notes and next step", notes));
+  const notesField = field("Notes and next step", notes);
+  notesField.firstChild.textContent = "Notes (optional)";
+  fields.append(notesField);
+  const aiDraft = el("button", "Add AI summary", "button");
+  aiDraft.type = "button";
+  const draftFeedback = el("p", null, "context-note");
+  draftFeedback.setAttribute("role", "status");
+  fields.append(aiDraft, draftFeedback, checklist, listening);
+  aiDraft.addEventListener("click", async () => {
+    aiDraft.disabled = true;
+    draftFeedback.textContent = "Reading saved assessment…";
+    try {
+      const response = await fetch(`/api/calls/${encodeURIComponent(call.call_id)}/assessment`, {
+        cache: "no-store",
+      });
+      if (!response.ok) throw new Error("Saved assessment could not load. Try again.");
+      const assessment = await response.json();
+      if (!target.contains(panel)) return;
+      if (assessment.status !== "saved" || !assessment.latest) {
+        draftFeedback.textContent =
+          assessment.status === "stale"
+            ? "Reassess this call first; the saved AI assessment is out of date."
+            : "Run AI assessment for this call first, then add its summary here.";
+        return;
+      }
+      const draft = `AI draft — ${assessment.latest.model} · ${assessment.latest.rubric}\n${assessment.latest.result.summary}`;
+      if (notes.value.includes(draft)) {
+        draftFeedback.textContent = "This AI summary is already in your notes.";
+        return;
+      }
+      const combined = notes.value ? `${notes.value}\n\n${draft}` : draft;
+      if (combined.length > notes.maxLength) {
+        draftFeedback.textContent =
+          "Not enough space for the full summary. Shorten the notes or keep the assessment separate.";
+        return;
+      }
+      notes.value = combined;
+      draftFeedback.textContent = "Added as draft notes. Check or edit them before saving.";
+    } catch (error) {
+      if (target.contains(panel))
+        draftFeedback.textContent = error.message || "Could not load the AI summary.";
+    } finally {
+      aiDraft.disabled = false;
+    }
+  });
+  form.addEventListener(
+    "invalid",
+    (event) => {
+      if (checklist.contains(event.target)) checklist.open = true;
+    },
+    true,
+  );
   const save = el("button", saved ? "Save revision" : "Save review", "button primary");
   save.type = "submit";
   fields.append(save);
@@ -319,7 +392,11 @@ export async function renderReview(call, onSaved) {
         body: JSON.stringify(payload),
       });
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Review could not be saved.");
+      if (!response.ok) {
+        if (response.status === 422) checklist.open = true;
+        throw new Error(result.error || "Review could not be saved.");
+      }
+      rememberReviewer(payload.reviewer);
       feedback.textContent = `Saved revision ${result.revision}.`;
       fields.disabled = true;
       await onSaved(call.call_id);

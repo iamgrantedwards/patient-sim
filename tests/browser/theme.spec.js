@@ -53,6 +53,7 @@ test("charcoal preference persists and covers controls, reviews, menus and help 
   await page.locator("#conversation-transcript > summary").click();
   await page.locator(".listening-review > summary").click();
   await accessible(page);
+  await page.locator(".review-checklist > summary").click();
   await page.getByRole("combobox", { name: "Complete evidence", exact: true }).click();
   await accessible(page);
   await page.keyboard.press("Escape");

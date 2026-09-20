@@ -52,6 +52,7 @@ test("review can be completed with keyboard, saved, reopened and amended without
   await panel.locator(":scope > summary").focus();
   await page.keyboard.press("Enter");
   await page.getByLabel("Reviewer", { exact: true }).fill("Fixture reviewer");
+  await page.locator(".review-checklist > summary").click();
   const completeness = page.getByRole("combobox", { name: "Complete evidence", exact: true });
   await completeness.press("ArrowDown");
   await completeness.press("End");

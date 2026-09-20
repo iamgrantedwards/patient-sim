@@ -2437,3 +2437,18 @@ summary:focus-visible {
   font-weight: 600;
   pointer-events: none;
 }
+
+.review-checklist {
+  padding: 12px 0;
+  border-top: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
+}
+/* biome-ignore lint/style/noDescendingSpecificity: This disclosure does not overlap scenario or governance summaries. */
+.review-checklist > summary {
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.review-checklist .review-checks {
+  margin-top: 12px;
+}
