@@ -4,9 +4,15 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** ten candidate audio/transcript pairs are captured across office information,
-appointments, refills and edge cases (20.59 minutes). Original recordings decode; human
-listening acceptance is still pending. Caller recovery and scenario fixes are merged.
+**Status:** application development is frozen for handoff. The original ten-candidate
+set covers office information, appointments, refills and edge cases (20.59 minutes).
+The local inventory now contains 20 attempts and 19 recording/transcript pairs, including
+diagnostics and later retests; those are not automatically 18 accepted conversations.
+No human-listening decisions are saved at this audit. Selection and public release remain
+handoff steps, not additional application development. Grant plans one final call during
+the presentation, then publication of all call records. If that call records successfully,
+the expected total is 21 records and 20 audio files; complete conversations will be
+identified separately from diagnostic/incomplete attempts.
 Start with the [submission checklist](docs/SUBMISSION.md), [collection results](docs/COLLECTION.md),
 and [findings and iteration](BUGS.md).
 The native crash's root cause remains unresolved. Candidate files remain local until
@@ -29,7 +35,10 @@ an artifact never marks it human-reviewed. Original call evidence stays unchange
 
 Calls open in a horizontal card rail. Use the Cards/List icons to switch to full-width rows in
 the same area; your choice stays in this browser. The magnifying glass beside the call count opens search
-and filters. Select a card or list entry to open its evidence.
+and filters. Select a card or list entry to open its evidence. Cards show the current
+AI score or assessment status and a separate human-review indicator. Scores marked
+**prior** are historical; **Notes saved** does not mean listening was confirmed.
+**Human reviewed** and **Usable** are separate judgments.
 
 For each attempt, follow the [call-review workflow](docs/CALL-REVIEW.md) and use its
 [review sheet](docs/CALL-REVIEW-TEMPLATE.md) to record listening observations and next actions.
@@ -72,7 +81,9 @@ uv run python -m src.review --enable-calls --enable-reviews
 Open **http://127.0.0.1:8765**. Choose a scenario, select **Review & call**, and confirm
 one call in the dialog. The console starts a dedicated worker, waits for LiveKit to
 acknowledge registration, and only then dispatches that call. Live status and committed
-dialogue appear in the console. **Stop call** requests termination and preserves the
+dialogue appear in the console. Live transcript opens for a new call, shows connection/
+waiting progress, follows new turns unless you scroll back, and closes when the call
+ends. You can collapse it manually. **Stop call** requests termination and preserves the
 available evidence; it is recorded as an operator stop, not a natural ending.
 
 For an explicit call without the UI, the CLI manages the same dedicated worker:
@@ -103,8 +114,9 @@ measurement enabled. Passing every check permits package builds and CLI smoke te
 provide downloadable packages with commit provenance and checksums. Run the same checks
 locally with `./scripts/verify.sh`; see [CI and artifact delivery](docs/CI.md).
 
-Cloud deployment is not required. Delivery currently means a verified package; call controls
-and the first-good-call milestone remain separate acceptance gates.
+Cloud deployment is not required. CI delivers verified code packages; it does not
+publish local call files or approve their voice quality. Evidence and final public links
+are tracked separately in the submission checklist.
 
 ## Evidence
 
@@ -130,7 +142,7 @@ explicitly adding selected submission evidence to the public repository.
 - [Cloud session verification and screenshot](src/review/evidence/call-20260918-231955-765427d8/verification.md)
 - [AI governance, control evidence, and open obligations](docs/AI-GOVERNANCE.md)
 - [Current submission checklist](docs/SUBMISSION.md)
-- [Earlier recording preparation](docs/MORNING.md)
+- [Historical recording preparation](docs/MORNING.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
 - [How strategy, AI assessment and listening fit together](docs/EVALUATION.md)
@@ -144,7 +156,10 @@ live verification (#21). Child-failure handling is merged (#58); subsequent call
 while natural endings still await listening review. The debugging video is recorded per Grant's report;
 the [debug recording](https://www.loom.com/share/648e67f4f08d4d75af16477e1995304e)
 is linked here, with logged-out playback/content verification still pending. The final
-walkthrough and listening/publication review remain submission work.
+walkthrough link and evidence publication remain handoff work. Both videos must be public,
+in Grant’s own voice and with webcam; the walkthrough is limited to three minutes.
+Delivery uses the team’s submission form, not a direct assessment email.
+The caller number to submit is **+19062567632**.
 The optional model-configuration comparison is deferred; no best-model claim is made.
 
 ## Personal GitHub account
@@ -187,6 +202,7 @@ a clean farewell. These checks do not alter the office-agent score or human revi
 
 `calls/<call-id>/assessment.json` holds up to ten revisions with the input fingerprints,
 model, prompt hash, rubric version and generation time. Changed evidence/settings make
-old results stale. Raw artifacts and `review.json` remain unchanged. These local files
+old results stale. The card may show their score labeled **prior**; the detail panel
+withholds a current aggregate until explicit reassessment. Raw artifacts and `review.json` remain unchanged. These local files
 stay ignored until explicitly reviewed for publication. Compare judge observations with
 your listening review; this small, uncalibrated grader does not replace that acceptance.

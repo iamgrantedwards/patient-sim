@@ -912,3 +912,38 @@ the local app during this card-status rollout.
 
 Final combined local gates passed: 305 Python tests, 95.8% branch-inclusive coverage,
 114 browser/accessibility cases and all quality/security/package checks.
+
+
+## 2026-09-20 UTC — documentation audit at application freeze (#90)
+
+Grant explicitly ended application development and further calling. Audited the product
+guide against current controls, transcript disclosure, v2 assessment, card indicators,
+review revisions, local storage and recovery. Kept hiring/video/submission language out
+of the guide; moved detailed chip explanations out of its short starting sequence.
+
+Re-read the supplied team brief. Delivery is through its submission form, not direct
+email. The original ten-candidate bundle remains distinct from the latest local index:
+19 attempts, 18 audio/transcript file pairs, zero saved listening/Usable decisions. Only
+calls/.gitkeep is tracked. This audit does not claim Grant has never listened, approve
+recordings, publish raw evidence or fabricate findings. Four later retests were added
+to the collection inventory without silently changing the candidate bundle.
+
+Updated usage, evaluation, operations, architecture, CI and handoff docs. Historical
+logs/scripts retain their dated context. Final video links and deliberate evidence
+publication remain a separate final handoff pass after Grant supplies the recordings.
+
+Verification: full local gate passed with 305 Python tests, 114 browser/accessibility
+cases and 95.8% branch-inclusive coverage; lint/types, security and installed-package
+checks passed. Checked 88 relative file links across 20 Markdown documents with no
+missing targets. The guide passes the product-only copy audit. No new call or inference
+request was made for this documentation audit.
+
+### Final presentation/publication plan clarification
+
+Grant specified one last call during the presentation, then upload all calls. The
+read-only inventory now shows 20 records and 19 recordings/transcripts, including the
+later proxy call `call-20260920-052701-e11d5907`. If the final call captures audio,
+expect 21 records and 20 audio files; verify the resulting inventory. Publish the
+full history with diagnostic/incomplete records labeled and identify the minimum ten
+complete conversations separately. This supersedes the earlier no-more-calls plan,
+not the application-code freeze. No call was initiated by this documentation audit.

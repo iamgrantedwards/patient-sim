@@ -1,18 +1,20 @@
 # Submission checklist
 
-Closeout audit: 2026-09-20 UTC (2026-09-19 Pacific), tracked in #75.
-The implementation is on main; the submission is not yet complete. This checklist
-tracks the employer's deliverables, not additional production infrastructure.
+Application-freeze audit: 2026-09-20 UTC (2026-09-19 Pacific), #90, following #75.
+Grant has closed application scope. Finish the already-open fix PRs and documentation,
+then add the final video links and deliverable evidence. This checklist tracks handoff
+acceptance; it does not authorize more features or experiments. Grant plans one final
+presentation call, followed by publication of all call records.
 
 ## Finish in this order
 
 | Step | Owner | Remaining acceptance | Issue |
 | --- | --- | --- | --- |
-| 1. Select the evidence | Grant | Listen to the ten candidates in COLLECTION.md; confirm full, coherent, two-sided audio and matching transcripts. Note consequential errors and endings. Replace a pair only if it is unusable. | #18, #12, #24 |
+| 1. Select the evidence | Grant | After the final presentation call, identify at least ten full conversations in COLLECTION.md; confirm two-sided audio, matching transcripts and endings. Keep diagnostic/incomplete attempts labeled separately. Detailed checklist rows are optional. | #18, #12, #24 |
 | 2. Finalize findings | Grant + Codex | Check candidate observations against the audio; add exact offsets, quotes, expected behavior, impact and attribution to BUGS.md. Do not turn STT spelling differences or unverified backend claims into confirmed office defects. | #4 |
-| 3. Publish the call pairs | Codex, after review | Review the selected files for public release, explicitly add OGG/MP3 plus transcripts and an index in a focused labeled PR, verify hashes and public downloads. A local ZIP alone is not submission. | #18, #26 |
+| 3. Publish all call records | Codex, after the presentation | Check files for credentials/personal data, explicitly add all call records and available OGG/MP3 plus transcripts in a focused labeled PR, and verify hashes/public downloads. Identify the qualifying conversations; label the failed record with no audio. A local ZIP alone is not submission. | #18, #26 |
 | 4. Finish the videos | Grant | Final walkthrough at most three minutes; own voice/webcam. Debugging video already recorded. Verify both videos play without login and include the required content. | #25, #26 |
-| 5. Final delivery check | Codex + Grant | Green protected main, fresh-clone setup, ten public playable pairs, final findings, both video links in GitHub, exact caller number and applicable receipts. Grant submits the employer form. | #26 |
+| 5. Final delivery check | Codex + Grant | Green protected main, fresh-clone setup, ten public playable pairs, final findings, both video links in GitHub, exact caller number and applicable receipts. Grant submits the employer form; no direct assessment email. | #26 |
 
 The detailed seven-row review is optional. To use the UI's Usable outcome, save
 listening confirmation and Complete evidence: OK; other checks may stay not assessed.
@@ -26,7 +28,7 @@ No new calls are needed merely to make the attempt count larger.
 - Final walkthrough: pending Grant's recording/link.
 - Single assessment caller number: **+19062567632**. Destination is a different number;
   the submission asks for the caller number.
-- [Exact ten candidate IDs and coverage](COLLECTION.md)
+- [Original candidate IDs, later retests and coverage](COLLECTION.md)
 - [Findings and caller improvements](../BUGS.md)
 - [Two-paragraph architecture](../ARCHITECTURE.md)
 - [Strategy, AI assessment and listening boundaries](EVALUATION.md)
@@ -41,7 +43,15 @@ Publish only reviewed files, retain provenance, and never broadly force-add call
 
 ## Verified engineering status
 
-At the start of this audit, main was `af3d57b`; its full
+The final local application checks passed 305 Python tests, 114 browser/accessibility
+cases, lint/types, security and package/install checks. #87 delivers the call-quality
+assessment; #88 contains call-card status and navigation/contrast fixes. #90 is the
+documentation audit. Inspect the linked PR checks for their final merge status rather
+than treating this dated snapshot as a live CI badge.
+
+### Earlier closeout evidence (#75)
+
+At the start of the earlier audit, main was `af3d57b`; its full
 [CI run passed](https://github.com/iamgrantedwards/patient-sim/actions/runs/35486646029).
 No PRs were open. All existing PRs had one delivery type and at least one area label.
 Main requires an up-to-date Verify and package check plus PR labels, enforces the
@@ -60,17 +70,31 @@ form submission was performed by this audit.
 
 ## Remaining evidence limits
 
-- Ten captured pairs total 20.59 minutes; none has a saved human review at audit time.
+- The original ten-candidate set totals 20.59 minutes. The current inventory is 20
+  attempts / 19 file pairs, including diagnostics and five later retests. No listening
+  or Usable decision is saved at audit time; that does not claim Grant has never listened.
+  Only `calls/.gitkeep` is tracked: the raw audio/transcripts are not yet in GitHub.
   Capture integrity and a green test suite do not establish coherent audio.
 - BUGS.md documents our fixes and office observations. No office-agent defect is yet
   confirmed. Useful audio-backed findings remain a submission priority.
 - The native SIGSEGV cause remains unknown. #58 fixed propagation/duplicate admission;
   later connected calls verify recovery-path use, not a native-library cure.
-- The saved refill AI assessment grades supported claims positively from repetition
+- An earlier saved refill AI assessment grades supported claims positively from repetition
   and lack of contradiction. This does not verify its chart claim. Treat that score
   as an uncalibrated model judgment and check the cited evidence before using it.
 - #13 configuration comparison and #15 audio-aligned timing are deferred optional
   experiments. Do not claim measured latency, model superiority or controlled barge-in.
+
+## Final link and submission pass
+
+After Grant supplies the final walkthrough and debugging links, update README, this
+checklist and the matching issues; verify public playback and required content. Confirm
+all call records and available audio/transcripts are actually available in GitHub,
+with at least ten complete conversations identified. Expected after the final call:
+21 records / 20 audio files if capture succeeds; verify actual counts, not a promise. Include applicable receipts and the caller DID.
+The team explicitly requires its submission form and asks applicants not to contact
+them by email, LinkedIn or other direct channels about the assessment. A concise
+cover-note draft can be used in the form where appropriate; no HTML letter is needed.
 
 ## GitHub closeout policy
 

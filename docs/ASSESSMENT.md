@@ -1,7 +1,9 @@
 # Assessment compliance review
 
 Reviewed against Grant's original AI Engineering Challenge brief on 2026-09-18;
-documentation reconciled with source on 2026-09-20 UTC (#77).
+documentation reconciled with source at the 2026-09-20 UTC application freeze (#90,
+after #77). Application development is frozen. One final presentation call is planned before
+publishing all call records, with complete conversations identified separately.
 The mandatory implementation choices are followed; the submission is not complete.
 
 | Brief requirement | Current evidence/status |
@@ -11,7 +13,7 @@ The mandatory implementation choices are followed; the submission is not complet
 | One caller number throughout, submitted in E.164 | Owned DID configured and used for the first call; keep the same number for all calls and final submission |
 | Athena test account; never call its confirmation-screen number | Completed per Grant’s firsthand report on 2026-09-19; demo callback/booking experienced, calendar/SMS recollected but not independently checked; assessment-line state sharing unknown |
 | Natural, coherent conversations | Unverified until real calls are listened to; mocks and coverage do not establish this |
-| At least 10 full conversations, each with both-sided audio and transcript | Ten candidate pairs (20.59 minutes) are captured with decoded recordings and both-sided transcripts; see COLLECTION.md. Human listening acceptance remains pending; captured files are not accepted pairs |
+| At least 10 full conversations, each with both-sided audio and transcript | Original ten-candidate set (20.59 minutes) plus later retests; freeze inventory is 20 attempts / 19 file pairs. See COLLECTION.md. No saved human acceptance or public raw-call files at audit; captured files are not automatically accepted pairs |
 | Variety: scheduling, changes/cancellation, refills, information, edge cases | Ten scenario definitions implemented in PR #60; appointment state sequence and broader workflows now exercised; controlled interruption remains untested |
 | Bug report with evidence | BUGS.md separates observed caller defects from office behavior; no office-agent bug is confirmed, and listening remains pending |
 | Public GitHub repository | Verified public: iamgrantedwards/patient-sim. Worker recovery, scenario catalog, journal recovery and transfer boundary are merged; selected call artifacts await publication review |

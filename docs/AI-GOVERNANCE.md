@@ -19,7 +19,8 @@ fixed to `127.0.0.1`; it is intended for one trusted local operator. Do not expo
 through a public tunnel or treat it as a multi-user patient-record service.
 
 The CLI binds to loopback; the default HTTP surface permits only GET/HEAD, checks Host and Origin, rejects
-cross-site browser requests, and sets restrictive CSP, framing, referrer, and cache
+cross-site API/subresource requests (allowing top-level GET / document navigation
+without an Origin header), and sets restrictive CSP, framing, referrer, and cache
 headers. Artifact paths are fixed and symlinks rejected. Reads have size limits.
 Transcripts enter the DOM as text, not HTML. These controls limit browser and file
 exposure; they do not protect against a malicious local process that already has access
