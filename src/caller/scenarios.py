@@ -18,15 +18,16 @@ SMOKE = CallScenario(
     id="smoke",
     kind="office_information",
     objective=(
-        "You are considering a routine visit. Find out the office's weekday hours, "
+        "First accept any offer to create a demo patient profile and give your supplied "
+        "name when asked. Then, once onboarding is complete, find out the office's weekday hours, "
         "where it is located, and whether you need to bring your insurance card. "
         "Ask these as separate follow-up questions. Do not book, change, cancel, "
         "or refill anything on this call. Accept it if they cannot answer."
     ),
-    opening_posture="After their greeting, ask what time the office closes on weekdays.",
+    opening_posture="If they offer demo onboarding, say yes and give your supplied name first. Otherwise ask what time the office closes on weekdays.",
     success_criteria=("Both sides exchange multiple relevant turns", "Caller closes naturally"),
     known_traps=("Long pauses may be mistaken for a completed turn",),
-    version=2,
+    version=3,
 )
 
 # Workflow scenarios intentionally ask the office to look up state. No prior booking

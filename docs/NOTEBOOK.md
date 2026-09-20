@@ -652,3 +652,10 @@ Reschedule/cancel ask for lookup and do not assert an unverified prior booking.
 The third-party request is an additional edge case; controlled barge-in remains untested.
 The optional three-configuration screen is deferred to prioritize required coverage;
 provider choices remain engineering rationale, not measured comparative superiority.
+
+The first fresh attempt (call-20260920-011336-9e2e5e9b) was stopped by the operator
+after connecting; Grant confirmed this was accidental and authorized continuing. The
+next attempt (call-20260920-011456-fe6d34a0) held a multi-turn conversation without a
+worker crash, but still declined onboarding. The generic rule lost to the office-info
+opening posture. Smoke v3 makes onboarding the first action explicitly. This is our
+prompt defect, not evidence against the office; the original transcript is preserved.
