@@ -1,0 +1,17 @@
+Call call-20260920-145917-931fe919 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGood AI. How may I help you today?
+001 patient [completed]: Hi, I wanted to find out if you accept Example Health PPO insurance? And if so, what information should I bring since I don't have my member ID handy?
+002 remote [completed]: Tibet Point Orthopedics accepts most insurance plans, including many PPO options. To confirm your specific coverage and what you'll need to bring, I'll need to get a bit more information. May I ask if you're calling for yourself or for someone else?
+003 patient [completed]: I'm calling for myself. What details do you need to check?
+004 remote [completed]: Could you please provide your full name and date of birth
+005 remote [completed]: This will help me look up your information.
+006 patient [completed]: Sure, my name is Dana Whitfield, and my date of birth is July 4, 2000.
+007 remote [completed]: Thanks, Dan. I'll check on your insurance question and what you'll need to bring. or no?
+008 patient [partial]: Thanks for checking.
+009 remote [completed]: Thanks, Dan. Yes. We can check if, example, health PPO is accepted.
+010 remote [completed]: If it is, you'll need to bring your insurance card, including the member ID, group number if available, and the claims address or phone number from the back of the card. If you don't have your card, any paperwork from your insurer with those details will help. Would you like me to check if Example Health PPO is accepted at our clinic?
+011 patient [completed]: Yes, please check if Example Health PPO is accepted. If you can't confirm, could you tell me how I might check before coming in?
+012 remote [completed]: I need your member ID number to check if an example health PPO is accepted.
+013 remote [completed]: If you don't have it handy, you can usually find out by calling the number on the

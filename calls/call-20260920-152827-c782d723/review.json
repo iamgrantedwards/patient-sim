@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-152827-c782d723",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:39:26.409905+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "issue",
+            "note": "It seems that the assessment agent was not fully listening"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "pass, happy"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "not the clearest assessment agent voice but it is ok"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "no issue"
+          }
+        },
+        "summary": "We hear issue with the assessment agents voice dropping in the intro.",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "65543c90929b2f9a9f4a8239840047bcd16e1fe191b678c5e714e470fce9b9e5",
+          "transcript.json": "e56b297bb01af6c64cfb67c36404008932216ba2202508a61ca2107c51ba5ce5",
+          "recording.ogg": "35f0e76db2f21c763571b439388a041705f4d427d186c66aa4a33b45383cfa06",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

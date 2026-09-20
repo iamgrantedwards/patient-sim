@@ -1,0 +1,10 @@
+Call call-20260918-231955-765427d8 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thank you for calling Pivot Point Orthopedics. Would you like to create a demo patient profile? I just need your first and last name to get started.
+001 patient [completed]: Hi, could you tell me what time your office closes on weekdays?
+002 remote [completed]: I do not have the exact closing time for the office. you like, I can help you create a demo patient profile so you can access more information and services. Would you like to do that now?
+003 patient [completed]: No thanks, I just wanted to know the office hours. Can you tell me where your office is located?
+004 remote [completed]: I do not have the office address available right now.
+005 remote [completed]: If you decide to create a demo patient profile, I can help you access more details about the clinic. You can also scan the QR code of the booth later to create a profile. Have a great day.
+006 patient [partial]: Okay, thanks. Do I need to bring my insurance card to

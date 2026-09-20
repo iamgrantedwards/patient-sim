@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-155843-a34fb22c",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T16:15:46.796213+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "good"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "Poor assessment agent intro, choppy"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "fail, assessment agent is cut off"
+          }
+        },
+        "summary": "This assessment agent has a choppy voice.",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "a91b2b5c31161f01fba535f5f03b48b43fbaae127218ebd9f8cb61335f0b2740",
+          "transcript.json": "e81d67e1ca15865b320be9e5a9d38971ea636de5b032b1f4c00ea358c030c97f",
+          "recording.ogg": "b608629854534a206fe3344043d9f710b3d46e4b8ad9bd54c607c72133b8165c",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-151940-adf2c427",
+      "created_at": "2026-09-20T15:28:40.063372+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "a6cfb6bf56d5f8be462dfa94ba52b2e9ab50050e93f8d6768d5f2523ebd3b4de",
+        "transcript.json": "2734ceb3c15b1e5157f37b00ac6075e1d89c79ac57d8ce3d8c181313cf64f699",
+        "recording.ogg": "16808609714ba67367b8fe734c9cf0ff586c716bc091231285850602b26fa32d",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent addressed all patient requests directly, explained legitimate limits, and provided clear, actionable next steps. No ambiguity or repeated facts were present, so clarification and consistency were not exercised. Claims made by the agent were directly supported by the conversation. The patient provided coherent responses and closure. No concerns were observed in the text for patient behavior or ending, and turn-taking cannot be assessed without audio.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses each request directly or explains a legitimate limit (demo profile not offered), and offers further assistance after each answer.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "That's not something we offer. Is there anything else I can help you with today?"
+              },
+              {
+                "turn": 4,
+                "quote": "Our clinic hours are nine to four on Monday, Tuesday, and Thursday, noon to seven on Wednesday, and nine to noon on Friday. Let me know if you need help with anything else."
+              },
+              {
+                "turn": 6,
+                "quote": "We are at one two three four Recovery Way, suite two hundred, Austin. Would you like directions or help with anything else?"
+              },
+              {
+                "turn": 8,
+                "quote": "Yes. Please bring your insurance card to your appointment. It helps us verify your coverage. Anything else I can answer for you?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": null,
+            "rationale": "No repeated or related facts across turns (e.g., office hours, address, insurance card) that would allow consistency to be assessed.",
+            "evidence": []
+          },
+          {
+            "dimension": "clarification",
+            "score": null,
+            "rationale": "The patient does not present ambiguity or corrections; all requests are clear and directly answered.",
+            "evidence": []
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Claims about office hours, address, and insurance card are directly supported by the agent’s responses and the patient’s questions. No contradiction or unsupported claim in the supplied conversation.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "Our clinic hours are nine to four on Monday, Tuesday, and Thursday, noon to seven on Wednesday, and nine to noon on Friday."
+              },
+              {
+                "turn": 6,
+                "quote": "We are at one two three four Recovery Way, suite two hundred, Austin."
+              },
+              {
+                "turn": 8,
+                "quote": "Yes. Please bring your insurance card to your appointment. It helps us verify your coverage."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent consistently offers actionable next steps or further assistance after each answer, and the patient closes the conversation with a clear farewell.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "Is there anything else I can help you with today?"
+              },
+              {
+                "turn": 4,
+                "quote": "Let me know if you need help with anything else."
+              },
+              {
+                "turn": 6,
+                "quote": "Would you like directions or help with anything else?"
+              },
+              {
+                "turn": 8,
+                "quote": "Anything else I can answer for you?"
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provides a clear, coherent farewell and closure, indicating no issue with patient behavior in the text.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the final 10–15 seconds to confirm the patient’s farewell was fully played and not cut off."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or partial turns, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call to check for interruptions or overlapping speech."
+          },
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient initiates the ending and provides a clear farewell. The agent’s prior turn invites further questions, but the patient closes the conversation. No trailing fragments or unfinished instructions in text.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              },
+              {
+                "turn": 8,
+                "quote": "Anything else I can answer for you?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to verify the patient’s farewell was fully played and not cut off."
+          }
+        ]
+      }
+    }
+  ]
+}

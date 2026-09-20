@@ -1,0 +1,99 @@
+{
+  "call_id": "call-20260920-154701-ccbbddbd",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:56:07.102233+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "needs_recheck",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "using details more"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "i do not prefer the male assessment agents tone "
+          },
+          "ending": {
+            "result": "ok",
+            "note": "patient ended call fine"
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "8780c00447bbe941d6d032a1a14c04f76f9ed4b952048366534b7f10e9cd51fe",
+          "transcript.json": "bbd26a72445188f36d778a80990614f43e42d38dd3f57705c3712280927e1267",
+          "recording.ogg": "76f72a31e47b35a0147bc1a6f4147d82c5a1a8108ee39c27d1acedd60fc3d711",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 2,
+      "saved_at": "2026-09-20T15:56:15.025833+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "using details more"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "i do not prefer the male assessment agents tone "
+          },
+          "ending": {
+            "result": "ok",
+            "note": "patient ended call fine"
+          }
+        },
+        "summary": "",
+        "base_revision": 1,
+        "fingerprints": {
+          "meta.json": "8780c00447bbe941d6d032a1a14c04f76f9ed4b952048366534b7f10e9cd51fe",
+          "transcript.json": "bbd26a72445188f36d778a80990614f43e42d38dd3f57705c3712280927e1267",
+          "recording.ogg": "76f72a31e47b35a0147bc1a6f4147d82c5a1a8108ee39c27d1acedd60fc3d711",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

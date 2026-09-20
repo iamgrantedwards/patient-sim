@@ -4,19 +4,21 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** application development is frozen for handoff. The original ten-candidate
-set covers office information, appointments, refills and edge cases (20.59 minutes).
-The local inventory now contains 20 attempts and 19 recording/transcript pairs, including
-diagnostics and later retests; those are not automatically 18 accepted conversations.
-No human-listening decisions are saved at this audit. Selection and public release remain
-handoff steps, not additional application development. Grant plans one final call during
-the presentation, then publication of all call records. If that call records successfully,
-the expected total is 21 records and 20 audio files; complete conversations will be
-identified separately from diagnostic/incomplete attempts.
-Start with the [submission checklist](docs/SUBMISSION.md), [collection results](docs/COLLECTION.md),
-and [findings and iteration](BUGS.md).
-The native crash's root cause remains unresolved. Candidate files remain local until
-reviewed for publication.
+**Submission package:** [ten human-reviewed conversations and the full call archive](calls/README.md),
+[findings and iteration](BUGS.md), and [architecture](ARCHITECTURE.md).
+The archive contains **47 records and 46 original recordings/transcripts**. The primary
+ten cover all ten scenarios; other attempts are retained as clearly labeled development
+evidence. Human review notes include remaining quality concerns.
+
+- [Application demo](https://www.loom.com/share/0db55c95dd894cd388593a33c5d9a2b1)
+- [AI-assisted debugging](https://www.loom.com/share/12245c3a689549f69ff08590087fc83e)
+- Caller number: **+19062567632**
+
+Both final Loom links are publicly reachable. The walkthrough is **2:59** and the
+debugging recording is **3:46**. [Submission checklist](docs/SUBMISSION.md) contains
+the handoff fields and remaining human playback/form confirmation.
+Application development is frozen after the verified ending guard in PR #93.
+The initiating cause of the earlier native worker crash remains unresolved.
 
 ## Review recordings locally
 
@@ -120,13 +122,14 @@ are tracked separately in the submission checklist.
 
 ## Evidence
 
-Each call uses `calls/<call-id>/` with `meta.json`, incremental
+During collection, each call uses `calls/<call-id>/` with `meta.json`, incremental
 `events.jsonl`, readable `transcript.txt`, `transcript.json`, and `recording.ogg` when
 the SDK recording is available. Shutdown preserves the local SDK audio and checks its
 container and complete decoding. A successful decode does not mean anyone listened.
 
-Raw STT events are retained. Only committed conversation items become dialogue turns;
-unfinished STT remains explicitly separate. To recover after a crash:
+Incremental journals remain on the collection machine and are not in the public archive.
+Only committed conversation items become dialogue turns;
+unfinished STT remains explicitly separate. For a local collection that retains its event journal, recover after a crash:
 
 ```sh
 uv run python -m src.caller.transcript calls/<call-id>
@@ -134,8 +137,8 @@ uv run python -m src.caller.transcript calls/<call-id>
 
 Audio-derived timing is pending: delay and overlap fields are `null`, never filled from
 callback arrival times. Claimed state, consistency, and verified state remain separate.
-Controlled interruption and audio-aligned latency measurement remain untested. Credentials and raw call artifacts are ignored; review recordings before
-explicitly adding selected submission evidence to the public repository.
+Controlled interruption and audio-aligned latency measurement remain untested. Credentials and newly collected call artifacts remain ignored by default. This delivery
+explicitly includes the reviewed publication files listed in calls/manifest.json.
 
 ## Design and progress
 
@@ -151,16 +154,11 @@ explicitly adding selected submission evidence to the public repository.
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The local review UI and opt-in controls are merged, and the callback defect has passed
-live verification (#21). Child-failure handling is merged (#58); subsequent calls reached the end-call tool,
-while natural endings still await listening review. The debugging video is recorded per Grant's report;
-the [debug recording](https://www.loom.com/share/648e67f4f08d4d75af16477e1995304e)
-is linked here, with logged-out playback/content verification still pending. The final
-walkthrough link and evidence publication remain handoff work. Both videos must be public,
-in Grant’s own voice and with webcam; the walkthrough is limited to three minutes.
-Delivery uses the team’s submission form, not a direct assessment email.
-The caller number to submit is **+19062567632**.
-The optional model-configuration comparison is deferred; no best-model claim is made.
+The local console, assessments, human reviews and failure-handling fixes are merged.
+Grant completed the recordings and saved the final reviews. Both video links appear
+above; [the findings report](BUGS.md) preserves concrete observations and uncertainty.
+Configuration comparison and audio-aligned latency measurement were not performed.
+Submit through the team's required form, not a direct assessment email.
 
 ## Personal GitHub account
 
@@ -203,6 +201,6 @@ a clean farewell. These checks do not alter the office-agent score or human revi
 `calls/<call-id>/assessment.json` holds up to ten revisions with the input fingerprints,
 model, prompt hash, rubric version and generation time. Changed evidence/settings make
 old results stale. The card may show their score labeled **prior**; the detail panel
-withholds a current aggregate until explicit reassessment. Raw artifacts and `review.json` remain unchanged. These local files
-stay ignored until explicitly reviewed for publication. Compare judge observations with
+withholds a current aggregate until explicit reassessment. Raw artifacts and `review.json` remain unchanged. Saved results included in this delivery were explicitly reviewed for publication;
+newly generated local files remain ignored by default. Compare judge observations with
 your listening review; this small, uncalibrated grader does not replace that acceptance.

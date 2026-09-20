@@ -1,0 +1,17 @@
+Call call-20260920-174843-9aa6cd95 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGood AI. How may I help you today?
+001 patient [completed]: Hi, I'm Dana Whitfield. I wanted to see if you have any morning appointments available for a nonurgent orthopedic consultation. I've had some mild knee discomfort for the past two weeks.
+002 remote [completed]: Damian, can you please provide your date of birth?
+003 patient [completed]: Sure, my date of birth is July 4, 2000.
+004 remote [completed]: Just to confirm, you'd like to book a general office visit for your knee discomfort. Alright.
+005 patient [completed]: Actually, I meant to say I prefer a weekday afternoon appointment, not morning. Could you check for availability then?
+006 remote [completed]: Let me check for weekday afternoon appointments for your consultation. One moment.
+007 remote [completed]: We have weekday afternoon appointments available with Seb Bigniew Locowski, MD and Telly Noble, MD. Would you like an afternoon slot on Monday, or do you prefer a different weekday?
+008 patient [completed]: Monday afternoon sounds good. Could you please tell me the full date and time available for Monday?
+009 remote [completed]: On Monday, September twenty first, we have afternoon appointments at two thirty PM, three PM, and three thirty PM. Would you like to book the two thirty PM slot with z Bignew Locosky MD?
+010 patient [completed]: Yes, I would like to book the 2:30 PM slot on Monday, September 21 with Dr. Seb Bigniew Locowski. Thank you.
+011 remote [completed]: Your appointment is set for Monday, September twenty first at two thirty PM with z Bignew Likowski, MD at Pivot Point Orthopedics. Please bring your photo ID, insurance card, and a list of your current medications. Would you like me to text you these details?
+012 patient [completed]: Yes, please text me the appointment details. Thank you very much.
+013 remote [completed]: I've sent the appointment details to your phone. If you have any other questions or need to make changes, just let me know.

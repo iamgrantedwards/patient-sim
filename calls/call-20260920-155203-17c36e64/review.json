@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-155203-17c36e64",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T16:07:50.199532+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "strong evidence handling"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "complicated, inquisitive "
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "good"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "assessment agent ended well, patient ended well too"
+          }
+        },
+        "summary": "Overall a good example of detail handling and natural conversation. ",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "d4cad713cd7cad28a86635ac0487e7ce5888c2d729f0e8d52558b4690082a37e",
+          "transcript.json": "028a251c5643e5e33f2652bfb8cf2dc162c5eb1b2245084a02b1af1dc55d79fb",
+          "recording.ogg": "24a4967600cc9c01d65a757fb93f50ed68b97e5a59bb0362a03063c7e39019ba",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

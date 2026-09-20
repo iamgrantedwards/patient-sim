@@ -1,0 +1,205 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-153210-b4de979e",
+      "created_at": "2026-09-20T15:40:32.967911+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "3cb598836fe15a790c435836dcf9ac122671c0bb367be2d9f413b3cc19043d05",
+        "transcript.json": "51ba4e8f4cb705de38e1bd293a30dc42979efd3d5a195cbcafe5db75f85877e1",
+        "recording.ogg": "009169579653dcf3ef33423f91245a7c71916c7a227c7bb69ad556d4c2e2bb2f",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent effectively handled the patient's request to reschedule an appointment, confirmed details, and provided clear next steps. However, there was inconsistency in the provider's name across turns, which could cause confusion. Additionally, the call appears to end with an agent question, raising concern that the patient may not have had a chance to respond before the call was terminated. No issues were observed with request handling, clarification, or supported claims. The patient was coherent and responsive throughout the call.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addressed the patient's request to check and reschedule an appointment, provided options, and confirmed the new appointment.",
+            "evidence": [
+              {
+                "turn": 0,
+                "quote": "How may I help you today?"
+              },
+              {
+                "turn": 6,
+                "quote": "You have two upcoming appointments."
+              },
+              {
+                "turn": 7,
+                "quote": "Which appointment would you like to reschedule?"
+              },
+              {
+                "turn": 13,
+                "quote": "Would you like to move your appointment to that time or would you like to hear other Thursday afternoon options?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent inconsistently refers to Dr. Hauser as 'Dudi', 'Dubey', and 'Dugie' across turns, which could cause confusion about the provider's identity.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "doctor Zigniew Lukowski"
+              },
+              {
+                "turn": 7,
+                "quote": "doctor Dudi Hauser"
+              },
+              {
+                "turn": 9,
+                "quote": "doctor Dubey Hauser"
+              },
+              {
+                "turn": 13,
+                "quote": "doctor Dugie Hauser"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent clarified the patient's request for a different weekday afternoon and confirmed the specific appointment to be rescheduled, incorporating the patient's correction about not wanting Tuesday.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "You'd like to move your appointment on Tuesday, September twenty second at two fifteen PM with doctor Dubey Hauser to a different weekday afternoon. Before I look for new times, can you tell me the reason you need to reschedule?"
+              },
+              {
+                "turn": 12,
+                "quote": "Could you please check for openings on a different weekday afternoon, not Tuesday?"
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening on a different weekday afternoon is Thursday, September twenty fourth at twelve PM with doctor Dugie Hauser at Pivot Point Orthopedic."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about appointment times and availability are consistent with the information provided within the call.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "You have two upcoming appointments."
+              },
+              {
+                "turn": 7,
+                "quote": "One is tomorrow, Monday, September twenty first at two thirty PM with doctor Zigniew Lukowski. The other is Tuesday, September twenty second at two fifteen PM with doctor Dudi Hauser."
+              },
+              {
+                "turn": 11,
+                "quote": "The next opening I see is Tuesday, September twenty second at twelve PM with doctor Dudi Hauser at Pivot Point Orthopedics."
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening on a different weekday afternoon is Thursday, September twenty fourth at twelve PM with doctor Dugie Hauser at Pivot Point Orthopedic."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provided clear next steps, confirmed the rescheduling, and offered to send a text message with the details.",
+            "evidence": [
+              {
+                "turn": 17,
+                "quote": "Your appointment is being rescheduled now. Once it's confirmed, you'll be all set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser."
+              },
+              {
+                "turn": 19,
+                "quote": "Your appointment is now set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser. Would you like me to send you a text message with these details?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider name references",
+            "expected_behavior": "Use a consistent provider name throughout the call.",
+            "basis_for_expectation": "Agent should refer to the provider by a consistent name to avoid confusion for the patient.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "doctor Dudi Hauser"
+              },
+              {
+                "turn": 9,
+                "quote": "doctor Dubey Hauser"
+              },
+              {
+                "turn": 13,
+                "quote": "doctor Dugie Hauser"
+              },
+              {
+                "turn": 19,
+                "quote": "doctor Dudi Hauser"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "It is unclear if the name variations are due to STT errors or agent inconsistency, but the text shows multiple forms.",
+            "recommended_improvement": "Ensure the agent uses the same spelling and pronunciation of the provider's name in all references during the call.",
+            "next_test": "Test with a scenario involving a provider with a potentially ambiguous or difficult-to-pronounce name to see if the agent maintains consistency."
+          },
+          {
+            "title": "Potential premature call ending before patient response",
+            "expected_behavior": "Allow the patient to respond to the final question or offer before the call ends.",
+            "basis_for_expectation": "A call should end with clear closure, allowing the patient to respond to final offers or questions.",
+            "evidence": [
+              {
+                "turn": 19,
+                "quote": "Your appointment is now set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser. Would you like me to send you a text message with these details?"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The transcript ends with an agent question, so it is unclear if the patient was able to respond or if the call was cut off.",
+            "recommended_improvement": "Pause after the final offer to ensure the patient can respond, and confirm the call is not cut off prematurely.",
+            "next_test": "Retest with a scenario where the patient is given a chance to respond to the final offer or question, and listen to the last 10–15 seconds to confirm closure."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provided clear, relevant information and responded to all agent questions without derailing the conversation.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, can you check if there is an appointment on file under the name Dana Whitfield? I might need to change the time."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to ensure the patient provides clear responses and allows the agent to complete instructions or questions."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruptions or overlapping speech in the transcript.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Audio review required to assess interruptions or overlap."
+          },
+          {
+            "topic": "ending",
+            "result": "concern",
+            "rationale": "The agent provided a clear closing and offered a next step, but the transcript ends before the patient responds, so it is unclear if the call ended naturally or was cut off.",
+            "evidence": [
+              {
+                "turn": 19,
+                "quote": "Your appointment is now set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser. Would you like me to send you a text message with these details?"
+              }
+            ],
+            "attribution": "theirs",
+            "next_step": "Listen to the last 10–15 seconds to confirm the agent was able to finish and the patient had a chance to respond."
+          }
+        ]
+      }
+    }
+  ]
+}

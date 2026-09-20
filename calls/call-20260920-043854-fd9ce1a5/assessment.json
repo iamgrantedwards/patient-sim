@@ -1,0 +1,304 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-043854-fd9ce1a5",
+      "created_at": "2026-09-20T04:42:51.625945+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "88fc70574aa0573bdb84a6e91be065e4a0d707721ddc4922ffacb801ec89c9c6",
+        "transcript.json": "87432234afaf1ad069d03ed7178c605f3a165c13744c7e77be0131941298294e",
+        "recording.ogg": "d308fb3b5b30bcabf20913249b0ad76ebe435f6696659bf0be01616897a5a90a",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the request and correction efficiently, provided clear next steps, and supported claims with conversation evidence. However, there was a minor inconsistency in the provider's name between confirmation and booking, which could cause confusion. No substantial failures observed.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent responds to the initial request for a morning appointment, then adapts to the correction for a weekday afternoon appointment without issue.",
+            "evidence": [
+              {
+                "turn": 0,
+                "quote": "How may I help you today?"
+              },
+              {
+                "turn": 8,
+                "quote": "Let me check for the next available morning appointments for a general office visit. One moment,"
+              },
+              {
+                "turn": 9,
+                "quote": "Actually, I meant to say I prefer a weekday afternoon appointment instead of morning. Could you check for weekday afternoons?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are openings this coming week, Monday through Friday, with both doctors a big new Lacoste and doctor Kelly Noble. Would you like to look at Monday afternoon first, or do you have a different weekday in mind"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent provides inconsistent spelling/pronunciation of the provider's name between turns 13 and 15, which could cause confusion for the patient.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "doctor Zbignew Lukowski"
+              },
+              {
+                "turn": 15,
+                "quote": "doctor z Biggy Locosti"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent acknowledges and adapts to the patient's correction from morning to afternoon appointments, resolving the ambiguity and proceeding accordingly.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Actually, I meant to say I prefer a weekday afternoon appointment instead of morning. Could you check for weekday afternoons?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are openings this coming week, Monday through Friday, with both doctors a big new Lacoste and doctor Kelly Noble. Would you like to look at Monday afternoon first, or do you have a different weekday in mind"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about appointment date, time, and provider are consistent with the conversation flow and patient requests, though the provider's name is inconsistently rendered. The claims are supported by prior turns.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "Monday is September twenty first."
+              },
+              {
+                "turn": 13,
+                "quote": "The first afternoon slot available is at two thirty PM with doctor Zbignew Lukowski."
+              },
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides a clear outcome (appointment booked) and actionable next steps (bring ID and insurance card).",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              },
+              {
+                "turn": 16,
+                "quote": "Please bring your photo ID, insurance car..."
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent Provider Name Rendering",
+            "expected_behavior": "Agent should use consistent spelling and pronunciation for provider names throughout the call.",
+            "basis_for_expectation": "Provider names should be consistent to avoid confusion and ensure accurate appointment details.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "doctor Zbignew Lukowski"
+              },
+              {
+                "turn": 15,
+                "quote": "doctor z Biggy Locosti"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "STT errors may contribute, but agent's spoken output is inconsistent.",
+            "recommended_improvement": "Agent should double-check and repeat provider names consistently, especially when confirming appointments.",
+            "next_test": "Have the patient repeat the provider's name to confirm understanding and check for confusion."
+          }
+        ],
+        "call_quality": []
+      }
+    },
+    {
+      "call_id": "call-20260920-043854-fd9ce1a5",
+      "created_at": "2026-09-20T05:14:44.710121+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "88fc70574aa0573bdb84a6e91be065e4a0d707721ddc4922ffacb801ec89c9c6",
+        "transcript.json": "87432234afaf1ad069d03ed7178c605f3a165c13744c7e77be0131941298294e",
+        "recording.ogg": "d308fb3b5b30bcabf20913249b0ad76ebe435f6696659bf0be01616897a5a90a",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's request and correction effectively, shifting from a morning to an afternoon appointment as requested. However, there was a notable inconsistency in the provider's name between the appointment offer and confirmation, which could cause confusion. The agent began to provide next-step instructions, but the call ended before these were completed, likely due to the simulator ending the call prematurely. The patient provided clear and coherent information throughout. Audio review is recommended to confirm the nature of the call ending and to clarify if the provider name inconsistency was due to transcription or agent error.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent responds to the patient's initial and corrected requests, shifting from morning to afternoon appointments as requested.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "Let me check for the next available morning appointments for a general office visit. One moment,"
+              },
+              {
+                "turn": 9,
+                "quote": "Actually, I meant to say I prefer a weekday afternoon appointment instead of morning. Could you check for weekday afternoons?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are openings this coming week, Monday through Friday, with both doctors a big new Lacoste and doctor Kelly Noble. Would you like to look at Monday afternoon first, or do you have a different weekday in mind"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "There is a discrepancy in the provider's name between turns 13 and 15 (\"doctor Zbignew Lukowski\" vs. \"doctor z Biggy Locosti\"), which could cause confusion.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "The first afternoon slot available is at two thirty PM with doctor Zbignew Lukowski. Would you like to book that time?"
+              },
+              {
+                "turn": 14,
+                "quote": "Yes, please book me for 2:30 PM on Monday, September 21, with Dr. Zbignew Lukowski."
+              },
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent acknowledges and adapts to the patient's correction from morning to afternoon, demonstrating effective clarification.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Actually, I meant to say I prefer a weekday afternoon appointment instead of morning. Could you check for weekday afternoons?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are openings this coming week, Monday through Friday, with both doctors a big new Lacoste and doctor Kelly Noble. Would you like to look at Monday afternoon first, or do you have a different weekday in mind"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 1,
+            "rationale": "The claim about the appointment time and date is consistent with the patient's request and the agent's prior statements, but the provider's name is inconsistent, which undermines support for the claim.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "The first afternoon slot available is at two thirty PM with doctor Zbignew Lukowski. Would you like to book that time?"
+              },
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 1,
+            "rationale": "The agent provides a clear appointment confirmation and begins to give instructions, but the final instruction is cut off, leaving the next steps incomplete.",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              },
+              {
+                "turn": 16,
+                "quote": "Please bring your photo ID, insurance car..."
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider name in appointment confirmation",
+            "expected_behavior": "The agent should use the same, correct provider name throughout the call.",
+            "basis_for_expectation": "Provider names should be stated consistently to avoid confusion and ensure the patient knows whom they are seeing.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "The first afternoon slot available is at two thirty PM with doctor Zbignew Lukowski. Would you like to book that time?"
+              },
+              {
+                "turn": 15,
+                "quote": "You're all set for Monday, September twenty first at two thirty PM with doctor z Biggy Locosti at Pivot Point Orthopedics."
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "It is unclear if the name difference is a transcription error or agent error, but the inconsistency is present in the text.",
+            "recommended_improvement": "Ensure the provider's name is repeated accurately and consistently, especially in the final confirmation.",
+            "next_test": "Test a booking scenario with a focus on provider name consistency in confirmation."
+          },
+          {
+            "title": "Call ended before agent finished instructions",
+            "expected_behavior": "The patient (simulator) should wait for the agent to finish instructions before ending the call.",
+            "basis_for_expectation": "The agent should be allowed to finish providing instructions to the patient at the end of the call.",
+            "evidence": [
+              {
+                "turn": 16,
+                "quote": "Please bring your photo ID, insurance car..."
+              }
+            ],
+            "attribution": "ours",
+            "uncertainty": "The transcript ends mid-instruction, suggesting the call was cut off, but audio review is needed to confirm timing.",
+            "recommended_improvement": "Do not terminate the call until the agent has completed all instructions and farewells.",
+            "next_test": "Allow the agent to finish all instructions and farewells before ending the call in a retest."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "ending",
+            "result": "concern",
+            "rationale": "The agent's final instruction is incomplete, ending mid-word, suggesting the call was terminated before the agent finished speaking.",
+            "evidence": [
+              {
+                "turn": 16,
+                "quote": "Please bring your photo ID, insurance car..."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to determine if the agent was cut off before completing instructions."
+          },
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provides coherent information and answers all questions clearly.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, I'm Dana Whitfield. I'm looking to see if I can get a morning appointment for a mild knee discomfort that's been going on for about two weeks. It's not urgent, just want to get it checked out."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to ensure the patient provides clear, relevant information and responds to agent questions."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruption or overlap in the transcript; text alone cannot assess turn-taking.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Audio review required to assess interruptions or overlap."
+          }
+        ]
+      }
+    }
+  ]
+}

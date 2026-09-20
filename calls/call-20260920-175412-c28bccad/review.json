@@ -1,0 +1,99 @@
+{
+  "call_id": "call-20260920-175412-c28bccad",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T18:05:08.391156+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": ""
+          },
+          "transcript": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "patient": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "turn_taking": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "ending": {
+            "result": "not_assessed",
+            "note": ""
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "20bdbf80bd6d61a93a88df0f94f6a19b6e70e27caa149c4c221d2b66476e2972",
+          "transcript.json": "0358e2a629d19070187c768c209dbd02d7ef44cc7cb738ef321585366c50ea87",
+          "recording.ogg": "a05b13b48df6f68760596ffcb2b6957de137b334684c4bfb016293fdd27f4175",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 2,
+      "saved_at": "2026-09-20T18:05:21.126296+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": ""
+          },
+          "transcript": {
+            "result": "ok",
+            "note": ""
+          },
+          "patient": {
+            "result": "ok",
+            "note": ""
+          },
+          "turn_taking": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "ending": {
+            "result": "not_assessed",
+            "note": ""
+          }
+        },
+        "summary": "",
+        "base_revision": 1,
+        "fingerprints": {
+          "meta.json": "20bdbf80bd6d61a93a88df0f94f6a19b6e70e27caa149c4c221d2b66476e2972",
+          "transcript.json": "0358e2a629d19070187c768c209dbd02d7ef44cc7cb738ef321585366c50ea87",
+          "recording.ogg": "a05b13b48df6f68760596ffcb2b6957de137b334684c4bfb016293fdd27f4175",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

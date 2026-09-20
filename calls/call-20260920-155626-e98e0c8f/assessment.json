@@ -1,0 +1,137 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-155626-e98e0c8f",
+      "created_at": "2026-09-20T16:08:07.483186+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "3072e639069891542dab73a000231825e1e562c889b90be5eb715666d4c2221c",
+        "transcript.json": "2d1ba712e9ba3e8e3821b199dc84bbb4ef9042c37905fb3de292ef8c2014f4c4",
+        "recording.ogg": "76ecf20921741519f23808c5a4193a1bb36012ecd78679dc85f7a68d25b4e771",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent handled all requests appropriately, provided consistent information, and offered clear next steps. No clarification was needed as the patient did not present ambiguity. Claims made by the agent were supported by conversation context. No concerns were observed in patient coherence, but turn-taking and ending require audio review for full assessment. No candidate observations for improvement are supported by the transcript.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses each patient request, explains limits, and provides actionable information about insurance acceptance, what to bring, and how to check coverage.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "I can still help answer general questions about insurance."
+              },
+              {
+                "turn": 3,
+                "quote": "Pivot Point Orthopaedics accepts most major insurance plans. For details about example health PPO, I recommend calling your insurance provider or checking your plan's coverage for orthopedic care."
+              },
+              {
+                "turn": 5,
+                "quote": "You should bring your insurance card to your appointment. The front desk will need your full name as it appears on the card. Your date of birth, the insurance company name, the plan type, and the group number if available."
+              },
+              {
+                "turn": 8,
+                "quote": "You can call your insurance company directly to check your coverage for orthopedic visits at Pivot Point Orthopedics. Our office can also help verify your benefits when you provide your insurance details."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently refers to accepting most major plans and the process for coverage verification, without contradiction or confusion across turns.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "Pivot Point Orthopaedics accepts most major insurance plans."
+              },
+              {
+                "turn": 8,
+                "quote": "You can call your insurance company directly to check your coverage for orthopedic visits at Pivot Point Orthopedics. Our office can also help verify your benefits when you provide your insurance details."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": null,
+            "rationale": "No ambiguity or correction was presented by the patient; the agent did not need to clarify or resolve confusion.",
+            "evidence": []
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Claims about accepting most major insurance plans and the office's ability to verify benefits are consistent with information provided elsewhere in the conversation.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "Pivot Point Orthopaedics accepts most major insurance plans."
+              },
+              {
+                "turn": 8,
+                "quote": "Our office can also help verify your benefits when you provide your insurance details."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides clear next steps for the patient, including contacting their insurance provider, bringing their card, and options for office verification.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "For details about example health PPO, I recommend calling your insurance provider or checking your plan's coverage for orthopedic care."
+              },
+              {
+                "turn": 5,
+                "quote": "You should bring your insurance card to your appointment."
+              },
+              {
+                "turn": 8,
+                "quote": "Do you want us to check for you? Just bring your insurance card or send us your information before your appointment."
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient responds coherently to questions and provides relevant information about their insurance situation.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "I don't have my member ID handy right now."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to provide clear responses and allow the office to finish instructions."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or overlapping turns, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call audio to verify turn-taking and check for interruptions or overlap."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "The final patient turn appears to close the conversation, but audio is needed to confirm a smooth ending.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Thanks for the info. That helps."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the last 10–15 seconds of the call to confirm a complete ending and ensure no instructions were cut off."
+          }
+        ]
+      }
+    }
+  ]
+}

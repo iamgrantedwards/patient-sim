@@ -1,0 +1,146 @@
+{
+  "call_id": "call-20260920-153210-b4de979e",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:46:12.885110+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass, the rescheduling was handled well"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "we see doctor pronunciation issues"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "more changes needed for this conversation, more of a challenge for the assessment agent"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass, fairly quick"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "we see a drop from the patient and no finish of the call"
+          }
+        },
+        "summary": "Call is going well and the agents are handling the complexity but then the ending is dropped. Further investigation required. ",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "3cb598836fe15a790c435836dcf9ac122671c0bb367be2d9f413b3cc19043d05",
+          "transcript.json": "51ba4e8f4cb705de38e1bd293a30dc42979efd3d5a195cbcafe5db75f85877e1",
+          "recording.ogg": "009169579653dcf3ef33423f91245a7c71916c7a227c7bb69ad556d4c2e2bb2f",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 2,
+      "saved_at": "2026-09-20T15:46:16.317343+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass, the rescheduling was handled well"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "we see doctor pronunciation issues"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "more changes needed for this conversation, more of a challenge for the assessment agent"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass, fairly quick"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "we see a drop from the patient and no finish of the call"
+          }
+        },
+        "summary": "Call is going well and the agents are handling the complexity but then the ending is dropped. Further investigation required. ",
+        "base_revision": 1,
+        "fingerprints": {
+          "meta.json": "3cb598836fe15a790c435836dcf9ac122671c0bb367be2d9f413b3cc19043d05",
+          "transcript.json": "51ba4e8f4cb705de38e1bd293a30dc42979efd3d5a195cbcafe5db75f85877e1",
+          "recording.ogg": "009169579653dcf3ef33423f91245a7c71916c7a227c7bb69ad556d4c2e2bb2f",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 3,
+      "saved_at": "2026-09-20T15:46:25.350385+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass, the rescheduling was handled well"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "we see doctor pronunciation issues"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "more changes needed for this conversation, more of a challenge for the assessment agent"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass, fairly quick"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "we see a drop from the patient and no finish of the call"
+          }
+        },
+        "summary": "Call is going well and the agents are handling the complexity but then the ending is dropped. Further investigation required. ",
+        "base_revision": 2,
+        "fingerprints": {
+          "meta.json": "3cb598836fe15a790c435836dcf9ac122671c0bb367be2d9f413b3cc19043d05",
+          "transcript.json": "51ba4e8f4cb705de38e1bd293a30dc42979efd3d5a195cbcafe5db75f85877e1",
+          "recording.ogg": "009169579653dcf3ef33423f91245a7c71916c7a227c7bb69ad556d4c2e2bb2f",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

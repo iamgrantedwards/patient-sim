@@ -1,0 +1,148 @@
+{
+  "call_id": "call-20260920-034355-fa5b226a",
+  "scenario_id": "smoke",
+  "scenario_version": 3,
+  "scenario_requested": "smoke",
+  "git_revision": "af3d57bb02b0c30d4c03185ee1164a34ade43492",
+  "git_dirty": true,
+  "started_at": 1789875838.5725539,
+  "pipeline": {
+    "stt": "deepgram/flux-general-en",
+    "stt_language": "en",
+    "llm": "openai/gpt-4.1-mini",
+    "llm_temperature": 0.4,
+    "tts": "cartesia/sonic-3.6",
+    "tts_voice": "9626c31c-bec5-4cca-baa8-f8ba9e84c8bc",
+    "turn_detection": "stt",
+    "turn_detector_version": null,
+    "endpointing": {
+      "mode": "dynamic",
+      "min_delay": 0.4,
+      "max_delay": 6.0
+    },
+    "interruption": {
+      "mode": "vad"
+    },
+    "preemptive_generation": false,
+    "ivr_detection": false,
+    "noise_cancellation": false,
+    "auto_gain_control": false
+  },
+  "patient_record": {
+    "display_name": "Dana Whitfield",
+    "dob": "July 4, 2000 (assigned by the office for this demo profile)",
+    "reason_for_visit": "A nonurgent orthopedic consultation for mild knee discomfort for two weeks; no injury or urgent symptoms",
+    "availability": "Weekday afternoons; ask for an actual date before agreeing",
+    "insurance": "A fictional Example Health PPO plan; member ID not available",
+    "medication": "Lisinopril, ten milligrams once daily, in this synthetic scenario",
+    "pharmacy": "Fictional Example Pharmacy; address and phone number not available",
+    "prescriber": "Name not available",
+    "last_fill_date": "Not known"
+  },
+  "prompt_sha256": "0b5240321167492c21911e48e1d888d799349119ca9cc56e37a30c29e897734b",
+  "status": "ended",
+  "ended_by": "end_call_tool",
+  "sip": {
+    "to": "+18054398008",
+    "from": "+19062567632",
+    "status": "answered",
+    "answered_at": 1789875844.521285,
+    "call_id": "SCL_gurS3gWTsQb2"
+  },
+  "answer_type": "unknown",
+  "recording": {
+    "status": "decoded",
+    "file": "recording.ogg",
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "opus",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ],
+      "format": {
+        "format_name": "ogg",
+        "duration": "93.389188"
+      }
+    },
+    "listened_by_human": false
+  },
+  "ended_at": 1789875930.8585632,
+  "recording_started_at": 1789875839.489109,
+  "sdk_version": "1.8.2",
+  "resolved_turn_settings": {
+    "endpointing": {
+      "mode": "dynamic",
+      "min_delay": 0.4,
+      "max_delay": 6.0,
+      "alpha": 0.9
+    },
+    "interruption": {
+      "enabled": true,
+      "discard_audio_if_uninterruptible": true,
+      "min_duration": 0.5,
+      "min_words": 0,
+      "resume_false_interruption": true,
+      "false_interruption_timeout": 2.0,
+      "backchannel_boundary": [
+        1.0,
+        1.0
+      ],
+      "mode": "vad"
+    },
+    "preemptive_generation": {
+      "enabled": false,
+      "preemptive_tts": false,
+      "max_speech_duration": 10.0,
+      "max_retries": 3
+    },
+    "recording": {
+      "audio": true,
+      "traces": true,
+      "logs": true,
+      "transcript": true,
+      "redaction": false
+    }
+  },
+  "reported_model_usage": [
+    {
+      "type": "llm_usage",
+      "provider": "livekit",
+      "model": "openai/gpt-4.1-mini",
+      "input_tokens": 5963,
+      "input_cached_tokens": 1024,
+      "input_cache_creation_tokens": 0,
+      "input_audio_tokens": 0,
+      "input_cached_audio_tokens": 0,
+      "input_text_tokens": 0,
+      "input_cached_text_tokens": 0,
+      "input_image_tokens": 0,
+      "input_cached_image_tokens": 0,
+      "output_tokens": 95,
+      "output_audio_tokens": 0,
+      "output_text_tokens": 0,
+      "output_reasoning_tokens": 0,
+      "session_duration": 0.0
+    },
+    {
+      "type": "tts_usage",
+      "provider": "livekit",
+      "model": "cartesia/sonic-3.6",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "characters_count": 344,
+      "audio_duration": 19.520000000000003
+    },
+    {
+      "type": "stt_usage",
+      "provider": "livekit",
+      "model": "deepgram/flux-general-en",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "audio_duration": 89.25000000000033
+    }
+  ]
+}

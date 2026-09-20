@@ -1,0 +1,9 @@
+Call call-20260920-052701-e11d5907 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopaedics, part of PrettyGoodAI. How may I help you today?
+001 patient [completed]: Hi, I wanted to ask if an adult family member needs to call themselves to arrange a visit, or can I do that for them?
+002 remote [completed]: You can arrange a visit for an adult family member. I just need to verify your authorization to speak on their behalf before scheduling. you like to get started with that now?
+003 patient [completed]: Thanks for explaining. I don't have their authorization handy right now. So, is it best if they call themselves to set up the appointment?
+004 remote [completed]: Yes. If your family member calls directly, the process will be quicker since they can verify their own information right away. If you get their authorization later, you're welcome to call back, and I can help you schedule for them.
+005 patient [completed]: Got it, thanks. I'll have them call directly then. Appreciate your help! Goodbye.

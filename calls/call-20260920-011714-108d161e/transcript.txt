@@ -1,0 +1,13 @@
+Call call-20260920-011714-108d161e — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thank you for calling Pivot Point Orthopedics. Would you like to create a demo patient profile? I just need your first and last name to get started.
+001 patient [completed]: Yes, please. My name is Dana Whitfield.
+002 remote [completed]: Your demo patient profile is set up, and your date of birth is July fourth two thousand for this demo. How may I help you today?
+003 patient [completed]: Thanks for setting that up. Can you tell me what time the office closes on weekdays?
+004 remote [completed]: The clinic closes at four PM on Monday, Tuesday, and Thursday at seven PM on Wednesday and at twelve PM on Friday.
+005 patient [completed]: Got it, thanks. Where is the office located?
+006 remote [completed]: The clinic is at one two three four Recovery Way, suite two hundred. Austin.
+007 patient [completed]: Thanks for the info. Do I need to bring my insurance card to the appointment?
+008 remote [completed]: Yes. Please bring your insurance card to your appointment. It helps us verify your coverage and speed up your check-in.
+009 patient [completed]: Okay, I will bring it. Thanks for your help. Goodbye.

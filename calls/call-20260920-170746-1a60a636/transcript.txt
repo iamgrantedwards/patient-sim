@@ -1,0 +1,17 @@
+Call call-20260920-170746-1a60a636 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pittet Point Orthopaedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, could you please check if there is an appointment on file under the name Dana Whitfield? I might need to change the time.
+002 remote [completed]: I see you're calling from the number we have on file. I speaking with
+003 patient [completed]: Yes, this is Dana Whitfield. Can you please check if there is an appointment under my name?
+004 remote [completed]: data. Could you please provide your date of birth
+005 remote [completed]: I needed to look up your appointment details.
+006 patient [completed]: My date of birth is July 4, 2000. Did you find any appointment under my name?
+007 remote [completed]: Can we check your upcoming appointments now? One moment.
+008 remote [completed]: Yes, Dana. Found two upcoming appointments for you.
+009 remote [completed]: One is tomorrow, Monday, September twenty first at two thirty PM with doctor Zinping Newlakowski. The other is Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser. Would you like to reschedule one of these?
+010 patient [completed]: Yes, I would like to reschedule the appointment on Monday, September twenty first at two thirty PM. Can you move it to a different weekday afternoon? Please confirm the new date and time.
+011 remote [completed]: You have an appointment on Monday, September twenty first at two thirty PM with doctor Zibbignew Lukowski. Before I look for new weekday afternoon times, can you tell me the reason you need to reschedule?
+012 patient [completed]: I just have a scheduling conflict that afternoon. Could you please check for another weekday afternoon available?
+013 remote [completed]: The next opening for a weekday afternoon is Tuesday, September twenty second at two PM. Doctor Zig Bignelyukosti at Pitt Point Orthopedics. Would you like to move your appointment to that time?

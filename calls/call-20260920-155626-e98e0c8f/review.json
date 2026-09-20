@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-155626-e98e0c8f",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T16:11:36.788165+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "issue",
+            "note": "Assessment agent voice drops on intro, good information for patient"
+          },
+          "patient": {
+            "result": "ok",
+            "note": ""
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "issue",
+            "note": "patient is a little slower"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "not hearing an official sign off from the assessment agent, needs further investigation"
+          }
+        },
+        "summary": "The ending was not official and needs investigation.",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "3072e639069891542dab73a000231825e1e562c889b90be5eb715666d4c2221c",
+          "transcript.json": "2d1ba712e9ba3e8e3821b199dc84bbb4ef9042c37905fb3de292ef8c2014f4c4",
+          "recording.ogg": "76ecf20921741519f23808c5a4193a1bb36012ecd78679dc85f7a68d25b4e771",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

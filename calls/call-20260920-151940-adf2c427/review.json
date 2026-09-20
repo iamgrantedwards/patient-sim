@@ -1,0 +1,99 @@
+{
+  "call_id": "call-20260920-151940-adf2c427",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:30:58.060092+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "needs_recheck",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "address provided correctly"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "good question asking"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good"
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": "good pausing and pacing "
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": "good"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "pass"
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "a6cfb6bf56d5f8be462dfa94ba52b2e9ab50050e93f8d6768d5f2523ebd3b4de",
+          "transcript.json": "2734ceb3c15b1e5157f37b00ac6075e1d89c79ac57d8ce3d8c181313cf64f699",
+          "recording.ogg": "16808609714ba67367b8fe734c9cf0ff586c716bc091231285850602b26fa32d",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 2,
+      "saved_at": "2026-09-20T15:31:51.599731+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "address provided correctly"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "good question asking"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good"
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": "good pausing and pacing "
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": "good"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "pass"
+          }
+        },
+        "summary": "We see strong steering.",
+        "base_revision": 1,
+        "fingerprints": {
+          "meta.json": "a6cfb6bf56d5f8be462dfa94ba52b2e9ab50050e93f8d6768d5f2523ebd3b4de",
+          "transcript.json": "2734ceb3c15b1e5157f37b00ac6075e1d89c79ac57d8ce3d8c181313cf64f699",
+          "recording.ogg": "16808609714ba67367b8fe734c9cf0ff586c716bc091231285850602b26fa32d",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,21 @@
-# Collection results and freeze inventory
+# Collection results and final publication
 
-These are capture and transcript inspections, not completed human listening reviews.
+## Final delivery — September 20, 2026
+
+See [the published index](../calls/README.md) for the selected ten human-reviewed usable
+calls and every additional attempt. Final inventory: 47 records / 46 original audio and
+transcript pairs; fifteen saved listening reviews, fourteen usable and one needs recheck.
+The primary ten cover every scenario once. Human concerns remain in review.json and
+BUGS.md, including several endings. Fingerprints match, all original audio fully decodes,
+and the manifest records every published file. These are Grant's listening decisions;
+the automated publication audit checked files and text, not independent listening.
+
+## Historical collection notes
+
+The dated candidate/freeze inventories below predate the final reviewed set and public
+delivery. Statements about pending listening or private files apply to those snapshots.
+
+These earlier results were capture and transcript inspections, not completed human listening reviews.
 Raw recordings, journals and transcripts are unchanged. Provider/model configuration
 and source revision are recorded separately for every call. No backend access exists;
 spoken transaction confirmations and cross-call consistency are not verified writes.

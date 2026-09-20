@@ -1,0 +1,18 @@
+Call call-20260920-012849-8a9bc2d4 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGoodAI. How may I help you today?
+001 patient [completed]: Hi, I wanted to ask if your office handles medication refill requests?
+002 remote [completed]: Yes. We can help with medication refill request for our patients. Are you calling for yourself or on behalf of someone else?
+003 patient [completed]: I'm calling for myself. Can you tell me what information you need from me to get started?
+004 remote [completed]: I'll need your full name and date of birth to get started. Could you please provide those
+005 patient [completed]: Sure, my name is Dana Whitfield, and my date of birth is July 4, 2000.
+006 remote [completed]: I don't see any medications on your chart that we can refill right now.
+007 remote [completed]: you think this is a mistake or need more help, just let me know.
+008 patient [completed]: I do have a medication I take called Lisinopril, ten milligrams once daily. I don't see it listed on the chart. Could you check if you can refill that? I don't have the prescriber's name or last fill date handy.
+009 remote [completed]: I'm not able to process a refill for lisinopril since it's not listed under chart.
+010 remote [completed]: If you'd like, I can connect you to our patient support to you for further help. Would you like me to do that?
+011 patient [completed]: Before that, could you tell me what the next step would be if you can't refill it here?
+012 remote [completed]: If I can't refill it here, our patient support team will review your request in your chart. They may contact you for more details or let you know if a provider needs to see you before refilling the medication. Would you like me to connect you to them now?
+013 patient [completed]: Yes, please connect me to the patient support team for further help.
+014 remote [completed]: Transferring you now. Thank you.

@@ -1,0 +1,99 @@
+{
+  "call_id": "call-20260920-153942-05539b73",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:51:38.473410+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "needs_recheck",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "in context, pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "good intro, no glitch"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "slightly impatient, bummed out"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good, natural speed"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "good"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "no issue"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "no issue"
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "32989c8218c856afed108a0448921470b7b82bb0252205cca379778f0b2e655f",
+          "transcript.json": "a263df1a929b61a620a61b1a2d3b0ef6267deb12680922e7fc85ae3f6f3b2a82",
+          "recording.ogg": "ee90708df83a244c39225c9b222e14bbb067ca297b7895b717c071fe1f071291",
+          "recording.mp3": null
+        }
+      }
+    },
+    {
+      "revision": 2,
+      "saved_at": "2026-09-20T15:51:47.229559+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "in context, pass"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "good intro, no glitch"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "slightly impatient, bummed out"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "good, natural speed"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "good"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "no issue"
+          },
+          "ending": {
+            "result": "ok",
+            "note": "no issue"
+          }
+        },
+        "summary": "",
+        "base_revision": 1,
+        "fingerprints": {
+          "meta.json": "32989c8218c856afed108a0448921470b7b82bb0252205cca379778f0b2e655f",
+          "transcript.json": "a263df1a929b61a620a61b1a2d3b0ef6267deb12680922e7fc85ae3f6f3b2a82",
+          "recording.ogg": "ee90708df83a244c39225c9b222e14bbb067ca297b7895b717c071fe1f071291",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

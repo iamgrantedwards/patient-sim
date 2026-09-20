@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-180319-05f09527",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T18:07:43.054577+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": ""
+          },
+          "transcript": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "patient": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "turn_taking": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": ""
+          },
+          "ending": {
+            "result": "not_assessed",
+            "note": ""
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "f588526dc46e951c2894bd02441be218347a75d42a3acb89547d28dac4198e45",
+          "transcript.json": "361514087bbb2d44f3f706e3d39438ab4b831a3a7220de30e6b1ce5b44e04133",
+          "recording.ogg": "66bbd04406a3553653db589c1fa10ed868deb5ec5b740a6272a82d6dbcaa1881",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-165207-74c029f6",
+      "created_at": "2026-09-20T16:54:17.919533+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "84ba954440b98a8d02a9ade769e00ee4fb4864a5caaad5c0537056d589383c32",
+        "transcript.json": "a4b962fca7ad550ce8ca1788a11e66dcd973bec526bba8d191e462e776fdffb3",
+        "recording.ogg": "f3214c4ea2b6c9b9a909a1962e514839e6b10a1abb78124d9d6391a330027452",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent addressed all patient requests directly, explained legitimate limits, and provided clear answers and next steps. No issues with request handling or next steps were observed. Consistency, clarification, and supported_claims were not exercised due to the nature of the questions and conversation flow. The patient provided a clear farewell, and no textual evidence of turn-taking or ending issues was found, but audio confirmation is needed for those aspects. No concerns or improvement recommendations are supported by the transcript.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses each request or question, including explaining a legitimate limit for demo profile setup, providing office hours, location, and insurance card policy.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "That's not something we offer. Is there anything else I can help you with today?"
+              },
+              {
+                "turn": 4,
+                "quote": "Can Appointe Orthopaedics closes at four PM on Monday, Tuesday, and Thursday, at seven PM on Wednesday, and at twelve PM on Friday? Let me know if you need more details or want to schedule an appointment."
+              },
+              {
+                "turn": 6,
+                "quote": "Our office is at one two three four Recovery Way, suite two hundred, Austin. Would you like directions or help with anything else?"
+              },
+              {
+                "turn": 8,
+                "quote": "Yes. Please bring your insurance card to your appointment. It helps us verify your coverage and speed up check-in. Anything else I can help with?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": null,
+            "rationale": "No repeated or related facts across turns that can be compared for consistency. Each question is unique.",
+            "evidence": []
+          },
+          {
+            "dimension": "clarification",
+            "score": null,
+            "rationale": "No ambiguity or corrections presented by the patient; all questions were clear and directly answered.",
+            "evidence": []
+          },
+          {
+            "dimension": "supported_claims",
+            "score": null,
+            "rationale": "Claims such as office hours, location, and insurance card policy are not repeated or cross-checked within the conversation, so cannot be assessed for internal support.",
+            "evidence": []
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent consistently offers actionable next steps or closure after each answer, inviting further questions or actions.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "Is there anything else I can help you with today?"
+              },
+              {
+                "turn": 4,
+                "quote": "Let me know if you need more details or want to schedule an appointment."
+              },
+              {
+                "turn": 6,
+                "quote": "Would you like directions or help with anything else?"
+              },
+              {
+                "turn": 8,
+                "quote": "Anything else I can help with?"
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provided a clear farewell and closure, allowing the office to finish. No evidence of incoherence or abrupt ending.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Thanks for your help. That's all for now. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient’s farewell was fully played and not cut off."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or partial turns, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to audio for interruptions or overlapping speech to assess turn-taking."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "Textually, the conversation ends with a clear farewell and no trailing fragments, but audio confirmation is needed.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Thanks for your help. That's all for now. Goodbye."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the final turns to verify the ending was not cut off and all instructions were completed."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-171034-46507490",
+      "created_at": "2026-09-20T17:13:04.548620+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "9e6842763afb861d89d6bb715d2092df929e8e4c80a381e2f4378251e4342b58",
+        "transcript.json": "855054e10ab0c0a1c710a737306ef53d95c72edb10c259ae98954cb15a49f822",
+        "recording.ogg": "1f72972282c76d44c2173a1c11061cd0283973c534c0d22386a4b29a83aac75e",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's request to cancel an appointment efficiently, verified identity, and confirmed the outcome. There was a minor inconsistency in the spelling of the provider's name, but all other aspects of the call were handled appropriately. No major issues were observed in request handling, clarification, supported claims, or next steps. The ending and turn-taking quality cannot be fully assessed from the text alone.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent verified the caller's identity, checked for appointments, clarified which appointment to cancel, and confirmed the cancellation. All steps were addressed appropriately.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, could you please help me check if there's an appointment on file under the name Dana Whitfield? If there is one, I'd like to cancel it."
+              },
+              {
+                "turn": 7,
+                "quote": "Now you have two upcoming appointments on file. Would you like to cancel the one tomorrow, Monday, September twenty first at two thirty PM, or the one on Thursday, September twenty fourth at twelve PM?"
+              },
+              {
+                "turn": 11,
+                "quote": "Your appointment with doctor Zygnu Lakowski on Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM is still on the schedule. Is there anything else I can help you with today?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent consistently refers to the same appointment dates and times throughout the call. However, there is a minor inconsistency in the spelling of the doctor's name between 'Zegminu Lacowski' and 'Zygnu Lakowski'.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "Now you have two upcoming appointments on file. Would you like to cancel the one tomorrow, Monday, September twenty first at two thirty PM, or the one on Thursday, September twenty fourth at twelve PM?"
+              },
+              {
+                "turn": 11,
+                "quote": "Your appointment with doctor Zygnu Lakowski on Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM is still on the schedule."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent sought clarification to confirm the caller's identity and responded appropriately to the patient's confirmation. No ambiguity or correction was left unresolved.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "Am I speaking with Dana?"
+              },
+              {
+                "turn": 4,
+                "quote": "Yes, this is Dana Whitfield speaking."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about the appointments and their status are consistent with the information provided in the call. The cancellation is confirmed as requested.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "Now you have two upcoming appointments on file. Would you like to cancel the one tomorrow, Monday, September twenty first at two thirty PM, or the one on Thursday, September twenty fourth at twelve PM?"
+              },
+              {
+                "turn": 11,
+                "quote": "Your appointment with doctor Zygnu Lakowski on Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM is still on the schedule."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent clearly communicates the outcome (cancellation) and offers further assistance, providing a clear next step for the patient if needed.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "Your appointment with doctor Zygnu Lakowski on Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM is still on the schedule. Is there anything else I can help you with today?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent spelling of provider's name",
+            "expected_behavior": "Agent should use the same spelling and pronunciation of the doctor's name when referring to the same appointment.",
+            "basis_for_expectation": "Agent should provide consistent information, including names, throughout the call.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Before I cancel your appointment with doctor Zegminu Lacowski on Monday, September twenty first, may I ask the reason for your cancellation"
+              },
+              {
+                "turn": 11,
+                "quote": "Your appointment with doctor Zygnu Lakowski on Monday, September twenty first at two thirty PM has been canceled."
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The difference may be due to STT errors, but the inconsistency is present in the transcript.",
+            "recommended_improvement": "Ensure the agent refers to the provider with a consistent name throughout the call to avoid confusion.",
+            "next_test": "Check if the agent consistently uses provider names in future calls."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provided a clear farewell and did not interrupt the agent. No evidence of incoherence or failure to allow the office to finish.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "No, that's all for now. Thank you for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient farewell was fully played and not cut off."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruptions or overlapping turns in the transcript. Text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen for interruptions or overlapping speech to confirm turn-taking quality."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "The transcript ends with a patient farewell, but text alone cannot confirm the call was not cut off or that the farewell was fully delivered.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "No, that's all for now. Thank you for your help. Goodbye."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the final exchange to ensure the call was not cut off before the farewell was completed."
+          }
+        ]
+      }
+    }
+  ]
+}

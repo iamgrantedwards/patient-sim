@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-160135-0dc99449",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T16:19:13.243715+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "issue",
+            "note": "assessment agent voice drops during intro"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "issue",
+            "note": "assessment agent is too slow"
+          },
+          "audio": {
+            "result": "issue",
+            "note": "dropped assessment agent intro "
+          },
+          "ending": {
+            "result": "not_assessed",
+            "note": "call ended early, needs further investigation"
+          }
+        },
+        "summary": "The assessment agent fails to truly listen to the patient when she asks a question. ",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "91770f85d8db5e7e7db5317d0aa5a1ccc3e4903fd2ba1027490045ed58262a04",
+          "transcript.json": "09eb8b753f88870277fe75068e51fc3262cc4d92250c2861c6c5f0d2fbc0b2ba",
+          "recording.ogg": "d9be01a5b8f8bf30595c9a6fae5a9b4226abe0ea5305c9b50c00a32c3469186f",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

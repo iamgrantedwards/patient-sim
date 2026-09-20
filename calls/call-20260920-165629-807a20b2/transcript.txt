@@ -1,0 +1,9 @@
+Call call-20260920-165629-807a20b2 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, do you offer a demo patient profile setup? I'd like to create one.
+002 remote [completed]: That's not something we offer.
+003 remote [completed]: Is there anything else I can help you with
+004 patient [completed]: Okay, thanks. What time does the office close on weekdays?
+005 remote [completed]: The clinic is

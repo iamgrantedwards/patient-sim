@@ -1,0 +1,19 @@
+Call call-20260920-155843-a34fb22c — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGoodAI. How may I help you today?
+001 patient [completed]: Hi, I'm Dana Whitfield. I wanted to see if I could get a morning appointment for a mild knee discomfort I've had for a couple of weeks.
+002 remote [completed]: Please provide your date of birth.
+003 patient [completed]: Sure, my date of birth is July 4, 2000.
+004 remote [completed]: Thanks, Dana. Just to make sure I book the right type of appointment, would you say this visit is for a general office visit? a follow-up, or something else.
+005 patient [completed]: It's for a nonurgent orthopedic consultation for mild knee discomfort. No injury or urgent symptoms.
+006 remote [completed]: Thanks for clarifying. Do you have a specific provider you'd like to see, or are you open to any available provider
+007 patient [completed]: I'm open to any available provider for this consultation.
+008 remote [completed]: There are several morning appointments available on Monday, September twenty first with doctor z Bignew Lakowski and doctor Kelly Noble. Would you prefer to see either doctor, or should I offer the earliest available slot?
+009 patient [completed]: Actually, I meant a weekday afternoon appointment, not morning. Could you check for weekday afternoons instead?
+010 remote [completed]: There are afternoon appointments available this week. Would you like the earliest afternoon slot on Monday, or do you have a different weekday in mind?
+011 patient [completed]: Monday afternoon would work. Could you please tell me the full date and time of the earliest Monday afternoon appointment?
+012 remote [completed]: The earliest Monday afternoon appointment is on September twenty first at two thirty PM with doctor ZigBegnew Lukowski. Would you like to book this slot?
+013 patient [completed]: Yes, please book me for the appointment on Monday, September 21st at 2:30 PM with Dr. ZigBegnew Lukowski. Thank you.
+014 remote [completed]: You're all set.
+015 remote [completed]: Your appointment is confirmed for Monday, September twenty first at two thirty PM with doctor zed

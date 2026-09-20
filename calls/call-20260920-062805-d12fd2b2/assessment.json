@@ -1,0 +1,166 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-062805-d12fd2b2",
+      "created_at": "2026-09-20T06:32:44.551833+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "0d4c991bb4e90a55063c464184ee2ccb204d3a0dc6c001ea1f0610f36faea133",
+        "transcript.json": "02bd47de43fd8ccae406d8ee5d8b681c73553be6a2c6a32c6790d4beb36ba7a2",
+        "recording.ogg": "2cf66ce43a0214ae6166464d87d167a5aaf3364aabe5d67800ce3d4e2bce4ec7",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's requests, corrections, and clarifications well overall, providing consistent information and clear next steps. There was a minor issue where the agent assumed the patient wanted to move an existing appointment after the patient corrected their request, rather than confirming the intent. This did not materially impact the outcome, as the agent later explained the scheduling policy and options. No concerns were found with patient coherence or call ending in the text, but audio review is needed to confirm turn-taking and closure.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addressed the patient's requests, explained the scheduling policy, and offered alternatives when the original request could not be fulfilled.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "Let me check for the next available morning appointments for a new patient consultation."
+              },
+              {
+                "turn": 9,
+                "quote": "You already have a new patient appointment booked with doctor Dugie Hauser on Tuesday, September twenty second at two fifteen PM at Pivot Point Orthopedics. Would you like to keep this appointment or do you want to reschedule it for a morning time?"
+              },
+              {
+                "turn": 11,
+                "quote": "You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM. Which appointment would you like to move to a weekday afternoon slot?"
+              },
+              {
+                "turn": 13,
+                "quote": "You already have new patient appointments booked. So I can't schedule another of the same type. If you need to discuss your knee at one of your existing appointments, you can bring it up then. If you'd like to change one of your current appointments to a different afternoon, let me know, and I can help reschedule."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent provided consistent information about the date and time of the appointment with Dr. Lakowski/Likowski, despite a minor spelling variation in the name, which is likely a STT artifact. The date and time details are consistent across turns.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM."
+              },
+              {
+                "turn": 15,
+                "quote": "Your appointment with doctor Zygmue Likowski is on Wednesday, September twenty third at two PM."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent responded to the patient's correction (afternoon instead of morning) and clarified the scheduling policy, addressing the ambiguity and incorporating the patient's correction.",
+            "evidence": [
+              {
+                "turn": 10,
+                "quote": "Oh, I actually meant a weekday afternoon appointment, not morning. Could you please check for an available afternoon slot instead?"
+              },
+              {
+                "turn": 11,
+                "quote": "You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM. Which appointment would you like to move to a weekday afternoon slot?"
+              },
+              {
+                "turn": 12,
+                "quote": "I don't want to move either of those. I just want to book a new appointment for a weekday afternoon for a knee consultation. Could you please check availability for that?"
+              },
+              {
+                "turn": 13,
+                "quote": "You already have new patient appointments booked. So I can't schedule another of the same type. If you need to discuss your knee at one of your existing appointments, you can bring it up then. If you'd like to change one of your current appointments to a different afternoon, let me know, and I can help reschedule."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about the patient's appointments are consistent with information provided earlier in the call and repeated accurately when requested.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM."
+              },
+              {
+                "turn": 15,
+                "quote": "Your appointment with doctor Zygmue Likowski is on Wednesday, September twenty third at two PM."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provided a clear next step, inviting the patient to request rescheduling or further assistance.",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "Let me know if you'd like to reschedule this appointment or need anything else."
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Assumption about intent after patient correction",
+            "expected_behavior": "The agent should have clarified whether the patient wanted to move an existing appointment or book a new one, rather than assuming the patient wanted to move an existing appointment.",
+            "basis_for_expectation": "When a patient corrects their request, the agent should directly address the new request and not assume the patient wants to move existing appointments unless explicitly stated.",
+            "evidence": [
+              {
+                "turn": 10,
+                "quote": "Oh, I actually meant a weekday afternoon appointment, not morning. Could you please check for an available afternoon slot instead?"
+              },
+              {
+                "turn": 11,
+                "quote": "You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM. Which appointment would you like to move to a weekday afternoon slot?"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The agent may have been following a policy that restricts new patient appointments, but the response could have been more explicitly clarifying.",
+            "recommended_improvement": "The agent should confirm the patient's intent after a correction, e.g., 'Just to confirm, would you like to move one of your existing appointments to the afternoon, or are you looking to book an additional appointment?'",
+            "next_test": "Test a scenario where the patient corrects their request to see if the agent confirms the intent before proceeding."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provided a clear closing statement and farewell, indicating they were able to finish their turn and the call ended with closure.",
+            "evidence": [
+              {
+                "turn": 16,
+                "quote": "Thanks for confirming. I'll keep the appointment with Doctor Zebignew Lakowski on Wednesday, September 23rd at 2 PM. That's all I needed. Thank you and goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient was able to finish their farewell and the call was not cut off."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruption or overlap in the transcript. Text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Audio review required to assess interruptions or overlap."
+          },
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient initiated the closing and there is no evidence in the text of an incomplete ending, but only audio can confirm the full delivery.",
+            "evidence": [
+              {
+                "turn": 16,
+                "quote": "Thanks for confirming. I'll keep the appointment with Doctor Zebignew Lakowski on Wednesday, September 23rd at 2 PM. That's all I needed. Thank you and goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the final 10–15 seconds to ensure the patient's closing was fully delivered and not cut off by the system."
+          }
+        ]
+      }
+    }
+  ]
+}

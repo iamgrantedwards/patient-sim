@@ -1,0 +1,16 @@
+Call call-20260920-150217-fd5998cf — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGood AI. How may I help you today,
+001 patient [completed]: Hi, I need some help with a visit.
+002 remote [completed]: I see you're calling from a number we have on file. Am I speaking with Dana?
+003 patient [completed]: Yes, this is Dana. Thanks for confirming. I need some help with a visit.
+004 remote [completed]: Please provide your date of birth
+005 patient [completed]: My birthday is July 4, 2000. What can you help me with regarding my visit?
+006 remote [completed]: What do you need help with for your visit? Are you looking to schedule, reschedule, cancel, or get details about an appointment
+007 patient [completed]: I'm not looking to schedule anything right now. I just want to know how to prepare for a first orthopedic visit. Like, what records or imaging should I bring?
+008 remote [completed]: For your first orthopedic visit, bring any recent imaging like X rays or MRIs.
+009 remote [completed]: your medical records related to your condition, a list of your current medications, and your insurance card. If you have a referral or notes from another doctor, bring those two. Let me know if you have more questions about your visit.
+010 patient [completed]: Thanks for that. Do I need to bring any specific forms filled out before the visit, or will they provide those when I arrive?
+011 remote [completed]: You don't need to bring any specific forms filled out ahead of time. The clinic will provide all necessary forms when you arrive. If you'd like to fill them out early, I can check if they can send you an intake link by text. Would you like that?
+012 patient [completed]: No, that's okay. I'll just fill them out when I get there. Thanks for your help. Goodbye.

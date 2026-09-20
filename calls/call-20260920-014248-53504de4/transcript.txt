@@ -1,0 +1,21 @@
+Call call-20260920-014248-53504de4 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I need some help with a visit.
+002 remote [completed]: Sure. I can help with that. To get started, I'll need to verify your information. Are you calling for yourself or for someone else?
+003 patient [completed]: I'm calling for myself.
+004 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana
+005 patient [completed]: Yes, this is Dana.
+006 remote [completed]: Please provide your date of birth.
+007 patient [completed]: My date of birth is July 4, 2000.
+008 remote [completed]: Thanks, Dana. What do you need help with regarding your visit? Are you looking to schedule, reschedule, cancel, or get details about an appointment
+009 patient [completed]: I just want to know how to prepare for my first orthopedic visit. Like, what records or imaging should I bring?
+010 remote [completed]: For your first orthopedic visit, it's helpful to bring any recent imaging like X rays or MRIs, plus records from other doctors related to your condition. Also, bring a list of your current medications and any questions you have. If you have insurance, bring your card too. If you need help getting records sent over, let me know.
+011 patient [completed]: Thanks for the info. Is it okay if I bring notes about my symptoms instead of formal records?
+012 remote [completed]: Yes.
+013 remote [completed]: bringing notes about your symptoms is very helpful. you don't need formal records if you don't have them.
+014 remote [completed]: Your notes can help the provider understand your concerns and history.
+015 patient [completed]: Got it, thanks. Is there anything specific I should wear or avoid wearing for the knee exam?
+016 remote [completed]: For need, ma'am, where a loose or comfortable clothing shorts or pants that can be rolled up above your knee work best. Avoid tight pants or anything difficult to move in. This helps the provider examine your knee easily.
+017 patient [completed]: Okay, that makes sense. Thanks for your help. I don't need to schedule anything right now.

@@ -1,0 +1,134 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-150217-fd5998cf",
+      "created_at": "2026-09-20T15:06:03.327618+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "b50783b56acba2a042ca5ade28105d2ba34326e3392a3a13f2deca2854786086",
+        "transcript.json": "9ccecab562cc9bcc6ac1571a4b13498671506b3d846ace2971af66d5398cce81",
+        "recording.ogg": "601008f70c1bf45eb7d1f4c2ee265b67e7630a5972122d38f3fa9fa778963b2e",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's request for information about preparing for a first orthopedic visit effectively, clarifying the patient's needs and providing consistent, actionable information. No material issues were observed in request handling, consistency, clarification, supported claims, or next steps. The patient engaged appropriately and allowed the office to finish instructions before ending the call. No concerns were identified in the text regarding call ending or patient behavior. No candidate observations for improvement are warranted based on the available transcript.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses the patient's requests and questions directly, providing relevant information and options.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "What do you need help with for your visit? Are you looking to schedule, reschedule, cancel, or get details about an appointment"
+              },
+              {
+                "turn": 8,
+                "quote": "For your first orthopedic visit, bring any recent imaging like X rays or MRIs."
+              },
+              {
+                "turn": 11,
+                "quote": "You don't need to bring any specific forms filled out ahead of time. The clinic will provide all necessary forms when you arrive. If you'd like to fill them out early, I can check if they can send you an intake link by text. Would you like that?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent's instructions about what to bring are consistent across turns, with no contradictions or discrepancies.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "For your first orthopedic visit, bring any recent imaging like X rays or MRIs."
+              },
+              {
+                "turn": 9,
+                "quote": "your medical records related to your condition, a list of your current medications, and your insurance card. If you have a referral or notes from another doctor, bring those two."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent initially seeks clarification about the patient's needs and then adapts their response when the patient clarifies their request.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "What do you need help with for your visit? Are you looking to schedule, reschedule, cancel, or get details about an appointment"
+              },
+              {
+                "turn": 7,
+                "quote": "I'm not looking to schedule anything right now. I just want to know how to prepare for a first orthopedic visit. Like, what records or imaging should I bring?"
+              },
+              {
+                "turn": 8,
+                "quote": "For your first orthopedic visit, bring any recent imaging like X rays or MRIs."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about forms and preparation are consistent with the conversation and not contradicted by other information in the call.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "You don't need to bring any specific forms filled out ahead of time. The clinic will provide all necessary forms when you arrive."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent offers a clear next step (option to receive an intake link) and confirms the patient does not need to take further action unless desired.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "If you'd like to fill them out early, I can check if they can send you an intake link by text. Would you like that?"
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient answers coherently and allows the office to finish instructions before ending the call.",
+            "evidence": [
+              {
+                "turn": 10,
+                "quote": "Thanks for that. Do I need to bring any specific forms filled out before the visit, or will they provide those when I arrive?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to provide clear, relevant responses to office questions and allow the office to finish instructions before ending the call."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "There is no textual evidence of interruptions or overlapping turns.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call audio to check for interruptions or overlapping speech."
+          },
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient initiates the ending with a clear farewell after the agent's last complete response.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds of the call to confirm the farewell was played fully and no instructions were cut off."
+          }
+        ]
+      }
+    }
+  ]
+}

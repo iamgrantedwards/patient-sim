@@ -1,0 +1,15 @@
+Call call-20260920-042404-94899755 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGoodAI. How may I help you today?
+001 patient [completed]: Hi, I need some help with a visit.
+002 remote [completed]: I see you're calling from the number we have on file. And we're speaking with Dana.
+003 patient [completed]: Yes, that's right. How can I prepare for my first orthopedic visit? Like, what records or imaging should I bring?
+004 remote [completed]: Thanks, Dana. you please provide your date of birth I'll check your chart and then answer your questions about preparing for your visit.
+005 patient [completed]: Sure, my date of birth is July 4, 2000.
+006 remote [completed]: Thanks,
+007 remote [completed]: For your first orthopedic visit, it's helpful to bring any recent imaging results, like X rays or MRIs, and any records from other doctors related to your condition. Also, bring a list of your current medications and your insurance card. If you have questions about specific documents, let me know.
+008 patient [completed]: Thanks for the info. Do I need to fast or avoid any medications before this visit?
+009 remote [completed]: You do not need to fast or stop any medications before a standard orthopedic visit. If your provider needs special instructions, the clinic will contact you ahead of time. If you have a specific procedure plan, let me know and I can check for any special requirements.
+010 patient [completed]: No, I don't have any procedure planned yet. Thanks for clarifying that. That's all I needed to know for now. Thank you!
+011 remote [completed]: You're welcome, Dana. If you have more questions or need to schedule an appointment, just call us anytime. Have a great day.

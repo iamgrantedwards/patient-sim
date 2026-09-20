@@ -1,0 +1,94 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-042404-94899755",
+      "created_at": "2026-09-20T04:26:29.357996+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "2424c860bbd61b70e373b9f48bb40cab24fa5df446f7a76a349477540bb83dc8",
+        "transcript.json": "97036f2a969b4bf587acf2b4e7b454cf86659c808c68c2c33b50c8328d097726",
+        "recording.ogg": "a5fea505e92131970a08ea365df5334a1e56e073d9ec8366bd6fabf404a295e4",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's requests thoroughly, provided consistent information, clarified ambiguities, and supported all claims with conversation context. Next steps were clearly communicated. No material issues observed.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses the patient's request about preparing for the visit, specifying which records and items to bring, and offers to answer further questions about documents.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "How can I prepare for my first orthopedic visit? Like, what records or imaging should I bring?"
+              },
+              {
+                "turn": 7,
+                "quote": "For your first orthopedic visit, it's helpful to bring any recent imaging results, like X rays or MRIs, and any records from other doctors related to your condition. Also, bring a list of your current medications and your insurance card. If you have questions about specific documents, let me know."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently refers to the patient as Dana throughout the call, showing attention to detail in identity.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "And we're speaking with Dana."
+              },
+              {
+                "turn": 11,
+                "quote": "You're welcome, Dana."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The patient asks for clarification about fasting or medication restrictions. The agent provides a clear answer, explains exceptions, and invites further clarification if needed.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "Do I need to fast or avoid any medications before this visit?"
+              },
+              {
+                "turn": 9,
+                "quote": "You do not need to fast or stop any medications before a standard orthopedic visit. If your provider needs special instructions, the clinic will contact you ahead of time. If you have a specific procedure plan, let me know and I can check for any special requirements."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Claims about preparation and fasting are directly supported by the conversation context and the agent's explanations. No unsupported claims are made.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "You do not need to fast or stop any medications before a standard orthopedic visit."
+              },
+              {
+                "turn": 9,
+                "quote": "If your provider needs special instructions, the clinic will contact you ahead of time."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides a clear next step, inviting the patient to call with further questions or to schedule an appointment.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "If you have more questions or need to schedule an appointment, just call us anytime."
+              }
+            ]
+          }
+        ],
+        "observations": []
+      }
+    }
+  ]
+}

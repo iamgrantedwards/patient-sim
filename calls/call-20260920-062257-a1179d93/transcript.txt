@@ -1,0 +1,11 @@
+Call call-20260920-062257-a1179d93 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics. Card of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I wanted to ask if an adult family member needs to call themselves to arrange an appointment, or can I do that for them?
+002 remote [completed]: You can arrange an appointment for an adult family member. I'll just need to verify your authorization to speak on their behalf. Would you like to go ahead and schedule an appointment for them now?
+003 patient [completed]: Thanks for letting me know about the authorization. Before we go further, can you tell me what kind of information or proof you need from me to verify that?
+004 remote [completed]: To verify authorization, I'll ask for some details about your family members such as their name and date of birth and your relationship to them. I may also need to confirm your contact information. This helps us protect their privacy and follow clinic policies. Would you like to start the process now?
+005 patient [completed]: I don't have those details handy right now. So, does that mean the adult family member would need to call themselves to arrange the appointment if I can't provide that info?
+006 remote [completed]: If you don't have their details, your family member would need to call themselves or provide you with the needed information. That way we can make sure their privacy is protected. If you get the details later, you're welcome to call back and schedule for them.
+007 patient [completed]: Got it. Thanks for explaining. I appreciate your help. Goodbye.

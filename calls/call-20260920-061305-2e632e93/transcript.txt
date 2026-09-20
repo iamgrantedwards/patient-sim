@@ -1,0 +1,16 @@
+Call call-20260920-061305-2e632e93 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics. Part of PrettyGood AI. How may I help you today?
+001 patient [completed]: Hi, I'd like to schedule a visit for some mild knee discomfort I've been having for about two weeks. It's not urgent, just a consultation. Do you have any weekday afternoons available?
+002 remote [completed]: I can check the schedule for you. First, may I have your full name and date of birth,
+003 patient [completed]: Sure, my name is Dana Whitfield, and my date of birth is July 4, 2000.
+004 remote [completed]: Just to confirm, is this your first time visiting our clinic, or have you seen one of our providers before from this issue?
+005 patient [completed]: This is my first time visiting your clinic for this issue.
+006 remote [completed]: You already have an appointment scheduled with doctor Dudi Hauser on Tuesday, September twenty second at two fifteen PM here at Pivot Point Orthopedics. Would you like to keep this appointment, reschedule it, or cancel it?
+007 patient [completed]: I don't have that appointment scheduled, so I would like to schedule a new one instead. Could you please check for a weekday afternoon slot for the knee consultation?
+008 remote [completed]: You currently have an appointment booked for Tuesday, September twenty second at two fifteen PM with doctor Dugie Hauser. I'm unable to book another new patient consultation of the same type. Would you like to reschedule your existing appointment to a different afternoon? or do you want to cancel it and book a new one?
+009 patient [completed]: Okay, let's reschedule the existing appointment then. Can you tell me what other weekday afternoons are available around that time?
+010 remote [completed]: You actually have two upcoming appointments on file. One is on Monday, September twenty first at two thirty PM with doctor Zygmue Lacowski, and the other is on Tuesday, September twenty second at two fifteen PM with doctor Dudi Hauser. Which of these would you like to reschedule
+011 patient [completed]: I would like to reschedule the Tuesday, September 22nd appointment with Dr. Dudi Hauser. What other weekday afternoons are available for that?
+012 remote [completed]: The next opening for a weekday after

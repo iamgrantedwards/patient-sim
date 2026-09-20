@@ -1,9 +1,93 @@
 # Findings and engineering iteration
 
-This report distinguishes defects in our simulator from observations of the office
-agent. **No office-agent defect is confirmed yet.** Call transcripts have been inspected
-and saved recordings decode, but end-to-end listening and audio-offset verification
-are still pending. A refusal or identity check is not automatically a defect.
+Final review reconciliation — September 20, 2026. Grant listened to and saved reviews
+for the [primary ten](calls/README.md), plus four additional usable calls and one recheck.
+This report distinguishes transcript-supported contradictions, human-reported audible
+problems and unresolved causes. It does not treat AI scores as proof or infer backend
+state. The ending guard was diagnosed, fixed and retested in #92/#93 before this final publication.
+
+## Office response: explicit “no injury” is reversed during intake
+
+- **Call / locator:** [scheduling transcript](calls/call-20260920-152827-c782d723/transcript.txt),
+  turns 001, 004 and 005; [original audio](calls/call-20260920-152827-c782d723/recording.ogg).
+  Audio-aligned seconds were not measured; turn numbers are exact transcript locators.
+- **Expected / basis:** preserve the patient's explicitly stated injury and urgency
+  information. If uncertain, ask neutrally instead of confirming the opposite.
+- **Evidence:** patient 001: “It's not urgent or due to an injury.” Remote 004:
+  “Just to confirm, you'd like to schedule a visit for knee discomfort that started after an injury.”
+  Patient 005: “Actually, the knee discomfort is not from an injury, and it's not urgent.”
+- **Impact / severity:** medium; the caller must correct intake information that could
+  affect appointment selection or urgency handling. No actual clinical outcome is claimed.
+- **Attribution / confidence:** office-side conversational contradiction in the captured
+  transcript. Grant's [listening review](calls/call-20260920-152827-c782d723/review.json)
+  independently notes that the assessment agent was not fully listening. This supports
+  investigation, but a word-level audio offset/independent transcription was not recorded.
+- **Suggested improvement:** retain explicit negations in the intake summary and
+  confirm uncertain details without presupposing an injury. No access to their prompt or
+  internal STT exists, so the internal cause and any backend effect are unknown.
+
+## Audible office introductions: choppy or dropping voice
+
+- **Expected / basis:** the greeting and recording notice should be intelligible without
+  missing syllables; otherwise patients can miss the identity or opening question.
+- **Human evidence:** Grant reports “voice dropping in the intro” in
+  [scheduling](calls/call-20260920-152827-c782d723/review.json), “voice drops on intro” in
+  [insurance](calls/call-20260920-155626-e98e0c8f/review.json), “choppy” in
+  [correction](calls/call-20260920-155843-a34fb22c/review.json), and “dropped assessment
+  agent intro” in [unclear request](calls/call-20260920-160135-0dc99449/review.json).
+  Inspect the opening greeting, turn 000, in each linked call's original recording.
+  These are verbatim review excerpts, not fabricated transcript quotes or exact audio offsets.
+- **Impact / severity:** moderate audible quality concern; conversations still proceeded.
+- **Attribution / uncertainty:** the symptom is heard on the office speaker, but office
+  synthesis, telephony transport and our capture path have not been isolated. Do not
+  label a specific provider defective. A complete transcript does not disprove an audio glitch.
+- **Suggested next check:** compare the two recorded channels with Cloud session evidence
+  around the greeting before changing a provider. This was not performed for submission.
+
+## Call endings: usable interactions can still stop before a complete close
+
+- **Expected / basis:** allow the active response and final confirmation to finish before
+  hanging up. A tool invocation or `ended` status is not evidence of a natural farewell.
+- **Human evidence:** Grant flags dropped/incomplete endings in
+  [rescheduling](calls/call-20260920-153210-b4de979e/review.json),
+  [insurance](calls/call-20260920-155626-e98e0c8f/review.json),
+  [correction](calls/call-20260920-155843-a34fb22c/review.json) and
+  [third-party request](calls/call-20260920-162313-7544c7c2/review.json).
+  The [unclear-request review](calls/call-20260920-160135-0dc99449/review.json) leaves
+  the ending grade unassessed but records an early-ending concern; preserve that distinction.
+- **Exact transcript evidence:** correction turn 015 ends “Your appointment is confirmed
+  for Monday, September twenty first at two thirty PM with doctor zed”. The
+  [raw transcript](calls/call-20260920-155843-a34fb22c/transcript.txt) labels it completed
+  despite the unfinished content. Audio alignment is unmeasured; inspect the final exchange.
+- **Impact / severity:** medium; final details or a closing question may be lost.
+- **Attribution / uncertainty:** the final reviewed calls report `end_call_tool`, so our
+  caller had a confirmed protection gap: the end tool could schedule shutdown while
+  newer remote input remained pending. #93 adds a guard before SDK shutdown side effects.
+  This is separate from the first call's `remote_hangup`, and it does not explain every
+  missing farewell or identify an office-side defect.
+- **Fix / retest:** [Correction follow-up](calls/call-20260920-175412-c28bccad/transcript.txt)
+  used the same pipeline and patient prompt. Local events show one deferred hangup while
+  the remote agent was speaking, dialogue continuing, then a later accepted close with
+  no failsafe. The final turns contain the patient's goodbye and the office's full
+  confirmation/farewell. [Grant's saved review](calls/call-20260920-175412-c28bccad/review.json)
+  confirms listening and marks the call usable; the optional Ending grade is unassessed.
+  Do not infer a comprehensive audio-quality grade or that all cutoff causes are fixed.
+  The office reported existing appointments, so this was not an identical dialogue replay.
+  [DEBUGGING.md](docs/DEBUGGING.md) records the offline regression and implementation.
+
+## Patient repetition: one duplicated question needs audio confirmation
+
+In [third-party request](calls/call-20260920-162313-7544c7c2/transcript.txt), patient turn
+003 contains the same three-sentence question twice. Grant's saved note asks whether
+there was patient-agent repetition. Expected behavior is one question unless clarification
+is needed. Attribution remains our generation, capture/reconciliation or mixed until
+compared against the audio; do not count it as an office-agent bug. The duplicate is
+preserved verbatim, not silently cleaned from the submission transcript.
+
+## Earlier implementation findings and iteration
+
+The following dated findings preserve the earlier build evidence. Their original
+listening caveats apply to those specific earlier calls, not the final reviewed set.
 
 ## Our caller: child failure did not reach the controller (#46)
 

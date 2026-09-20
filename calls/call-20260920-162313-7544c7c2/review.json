@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-162313-7544c7c2",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T16:37:49.070228+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "pass"
+          },
+          "transcript": {
+            "result": "issue",
+            "note": "there was patient agent repetition?"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "quick"
+          },
+          "turn_taking": {
+            "result": "not_assessed",
+            "note": "pass"
+          },
+          "pacing": {
+            "result": "not_assessed",
+            "note": "strong"
+          },
+          "audio": {
+            "result": "not_assessed",
+            "note": "pass"
+          },
+          "ending": {
+            "result": "issue",
+            "note": "no official ending detected"
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "92f86420f9fc59d80b2ae5a3f070291e498fd31c2fec5c2f8f4e662683675c8d",
+          "transcript.json": "f01b2c69322259138c7b8171467d857a7f27dfeab41f4473a0669eb4b327db85",
+          "recording.ogg": "5c7922b8e7ac4f14eda4e7564cc45751824d3e9b816a753ebe1fd1c22bfc600d",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

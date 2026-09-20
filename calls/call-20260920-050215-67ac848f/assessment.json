@@ -1,0 +1,245 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-050215-67ac848f",
+      "created_at": "2026-09-20T05:05:27.830923+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "6fdb76c26a233daa913bc48de88d78d6099f7022a66a13b8946225497a28bc4c",
+        "transcript.json": "4ad78bfd0637d055518d96fc95bd1cf212b2487e60f25896315a88e7dcc5167b",
+        "recording.ogg": "334d350c210dc0e73352b1a581297b4da2bc6160acb74e6ec4f20e8b51ab8d58",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the request appropriately, maintained consistency, clarified the process and next steps, and supported their claims with the conversation context. However, there was a minor contradiction in describing whether prescription number or last fill date are required, which could be improved for clarity.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses the patient's request for a refill, explains the limitation (no medications on chart), and offers a next step (connecting to patient support).",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart. For help with this, you can speak with our patient support team. Would you like me to connect you to them now?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently states that there are no medications available for refill on the patient's chart across multiple turns.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "I don't see any medications on your chart that we can refill right now."
+              },
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The patient asks for clarification about what information is needed and who to contact. The agent provides a clear, direct answer listing the required information and clarifies the next step.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "What information do you need from me to request a refill without the prescription number or last fill date? And if you can't handle it, who should I contact next?"
+              },
+              {
+                "turn": 11,
+                "quote": "You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claim about the absence of medications on the chart is consistent with their previous statements. There are no contradictory facts in the transcript.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "I don't see any medications on your chart that we can refill right now."
+              },
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides actionable next steps: offering to connect the patient to support and advising what information to gather before contacting them.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "For help with this, you can speak with our patient support team. Would you like me to connect you to them now?"
+              },
+              {
+                "turn": 11,
+                "quote": "You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster."
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Ambiguity in refill information requirements",
+            "expected_behavior": "The agent should clearly state whether prescription number or last fill date are required or optional, avoiding contradictory statements.",
+            "basis_for_expectation": "Agents should provide accurate information about what is required for a medication refill request.",
+            "evidence": [
+              {
+                "turn": 11,
+                "quote": "If possible, also have your prescription number or last fill date, but those are always required."
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The agent says 'if possible... but those are always required,' which is contradictory and may confuse patients.",
+            "recommended_improvement": "Clarify whether prescription number or last fill date are required or just helpful, and avoid conflicting statements in the same sentence.",
+            "next_test": "Ask the agent directly if prescription number or last fill date are mandatory for all refill requests."
+          }
+        ],
+        "call_quality": []
+      }
+    },
+    {
+      "call_id": "call-20260920-050215-67ac848f",
+      "created_at": "2026-09-20T05:21:52.836116+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "6fdb76c26a233daa913bc48de88d78d6099f7022a66a13b8946225497a28bc4c",
+        "transcript.json": "4ad78bfd0637d055518d96fc95bd1cf212b2487e60f25896315a88e7dcc5167b",
+        "recording.ogg": "334d350c210dc0e73352b1a581297b4da2bc6160acb74e6ec4f20e8b51ab8d58",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent handled the refill request appropriately, explained the limitation, offered a referral to patient support, and provided detailed guidance on what information to prepare. All assessed dimensions scored 2, with no material issues observed. The patient responded coherently and the call ended with a clear textual farewell, but audio review is needed to confirm turn-taking and ending completeness.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses the refill request, explains the limitation, offers a next step, and provides information on what to prepare for further assistance.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "I don't see any medications on your chart that we can refill right now."
+              },
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart. For help with this, you can speak with our patient support team. Would you like me to connect you to them now?"
+              },
+              {
+                "turn": 11,
+                "quote": "You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently states that no medications are listed on the chart and cannot be refilled, with no contradiction across turns.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "I don't see any medications on your chart that we can refill right now."
+              },
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent responds directly to the patient's clarifying question about what information to gather and who to contact, providing a detailed answer.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "What information do you need from me to request a refill without the prescription number or last fill date? And if you can't handle it, who should I contact next?"
+              },
+              {
+                "turn": 11,
+                "quote": "You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about the chart and inability to refill are consistent with the conversation context and not contradicted by other supplied facts.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "I don't see any medications on your chart that we can refill right now."
+              },
+              {
+                "turn": 9,
+                "quote": "I can't request a refill since there are no medications listed on your chart."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides clear next steps: contact patient support and gather specific information to expedite the process.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "For help with this, you can speak with our patient support team. Would you like me to connect you to them now?"
+              },
+              {
+                "turn": 11,
+                "quote": "You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster."
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient responds coherently, acknowledges the information, and provides a clear farewell.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "Got it. Thanks for the info. I'll gather those details before reaching out. I appreciate your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the patient’s final turn to confirm clarity and completeness of the farewell."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or overlap, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call audio to check for interruptions or overlapping speech."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "The transcript ends with a clear patient farewell, but audio confirmation is needed for completeness.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "Goodbye."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the last 10–15 seconds to confirm the farewell was played fully and no instructions were cut off."
+          }
+        ]
+      }
+    }
+  ]
+}

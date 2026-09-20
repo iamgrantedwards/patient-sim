@@ -1,0 +1,134 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-052701-e11d5907",
+      "created_at": "2026-09-20T05:28:39.631320+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "8fe32ee296704439b5cd663910c273c21677a378e6eac0aa83ccb42939e73b48",
+        "transcript.json": "6433d0761f501e6b6f6ca95c33da56ff696867dbf30ed937ff9b6a69e0d0a360",
+        "recording.ogg": "226f671382a1a6e2ab7a30f0ee137d6732066288d72f90587829df5f9f153755",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent handled the request clearly, consistently, and with appropriate clarification. All claims were supported by the conversation, and actionable next steps were provided. No concerns were observed in patient coherence or agent performance based on the transcript. Turn-taking and ending require audio review for full assessment.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses the caller’s request, explains the process, and offers alternatives.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I just need to verify your authorization to speak on their behalf before scheduling."
+              },
+              {
+                "turn": 4,
+                "quote": "Yes. If your family member calls directly, the process will be quicker since they can verify their own information right away."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently explains the need for authorization and the alternative of the family member calling directly.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I just need to verify your authorization to speak on their behalf before scheduling."
+              },
+              {
+                "turn": 4,
+                "quote": "If you get their authorization later, you're welcome to call back, and I can help you schedule for them."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent clarifies the process in response to the patient’s follow-up question about the best approach.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "Thanks for explaining. I don't have their authorization handy right now. So, is it best if they call themselves to set up the appointment?"
+              },
+              {
+                "turn": 4,
+                "quote": "Yes. If your family member calls directly, the process will be quicker since they can verify their own information right away."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Claims about authorization and process are consistent with the conversation and not contradicted by other turns.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I just need to verify your authorization to speak on their behalf before scheduling."
+              },
+              {
+                "turn": 4,
+                "quote": "If your family member calls directly, the process will be quicker since they can verify their own information right away."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides clear next steps: have the family member call or call back with authorization.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "If you get their authorization later, you're welcome to call back, and I can help you schedule for them."
+              },
+              {
+                "turn": 5,
+                "quote": "Got it, thanks. I'll have them call directly then."
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient responds coherently, acknowledges the information, and allows the agent to finish instructions.",
+            "evidence": [
+              {
+                "turn": 5,
+                "quote": "Got it, thanks. I'll have them call directly then. Appreciate your help! Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the patient’s final turn to confirm clarity and completeness."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or partial turns, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call to check for interruptions or overlapping speech."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "The text shows a clear farewell, but audio confirmation is needed to verify a complete ending.",
+            "evidence": [
+              {
+                "turn": 5,
+                "quote": "Got it, thanks. I'll have them call directly then. Appreciate your help! Goodbye."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the last 10–15 seconds to confirm the farewell was played fully and no instructions were cut off."
+          }
+        ]
+      }
+    }
+  ]
+}
