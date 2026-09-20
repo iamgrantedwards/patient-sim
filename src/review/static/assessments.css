@@ -1,0 +1,122 @@
+.assessment-panel {
+  margin: 12px 0;
+  border: 1px solid var(--surface-border);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.assessment-panel > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  font-weight: 650;
+}
+.assessment-panel > summary::before {
+  content: "+";
+}
+.assessment-panel[open] > summary::before {
+  content: "−";
+}
+.assessment-panel > summary > span:first-of-type {
+  margin-right: auto;
+}
+.assessment-status {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: right;
+}
+.assessment-body {
+  padding: 0 18px 18px;
+}
+.assessment-summary {
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+.assessment-scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.assessment-dimension,
+.assessment-observation {
+  background: var(--surface-soft);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 12px;
+  min-width: 0;
+  margin-bottom: 8px;
+}
+.assessment-dimension summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.assessment-dimension summary strong {
+  white-space: nowrap;
+}
+.assessment-dimension p,
+.assessment-observation p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.assessment-observation summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+.assessment-citations {
+  display: grid;
+  gap: 6px;
+}
+.assessment-citation {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.assessment-citation:hover {
+  border-color: var(--green);
+  box-shadow: 0 2px 8px #00000010;
+}
+.assessment-provenance {
+  overflow-wrap: anywhere;
+  margin-top: 16px;
+}
+#transcript .turn:focus {
+  outline: 2px solid var(--green);
+  outline-offset: -2px;
+}
+@media (max-width: 480px) {
+  .assessment-scores {
+    grid-template-columns: 1fr;
+  }
+  .assessment-panel > summary {
+    padding: 12px;
+  }
+  .assessment-body {
+    padding: 0 12px 12px;
+  }
+}
+
+/* Keep text/surface colors synchronized when changing themes. */
+.assessment-citation {
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.assessment-scores {
+  align-items: start;
+}

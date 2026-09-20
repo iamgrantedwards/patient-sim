@@ -153,3 +153,24 @@ helper and noreply commit email.
 The [ten-call test strategy](docs/TEST-STRATEGY.md) defines planned scenario coverage,
 review checkpoints and how evidence leads to a fix or finding. The implementation now exposes the scenarios; actual captured and reviewed counts
 are tracked separately in the collection results.
+
+### AI transcript assessments
+
+Start with `uv run python -m src.review --enable-reviews --enable-assessments`
+(add `--enable-calls` only when you also want outbound controls). Open **AI assessment**
+in a call's details and choose **Assess transcript**. This sends the saved transcript
+to LiveKit Inference using the existing local credentials; `JUDGE_MODEL=gpt-4.1` selects
+`openai/gpt-4.1`, separately from the caller's model. Each explicit assessment uses
+account credits. Identical evidence/model/rubric results are reused, not regenerated.
+
+Five text-only dimensions use anchored 0/1/2 grades or not-assessable. The provisional
+0–100 aggregate is calculated from assessed dimensions and withheld below 3/5 coverage.
+It is not a success probability or a benchmark. Exact quote validation rejects unsupported
+references but cannot establish that STT heard correctly. Follow-up suggestions never
+change prompts or start calls. Results do not confirm backend state or audio quality.
+
+`calls/<call-id>/assessment.json` holds up to ten revisions with the input fingerprints,
+model, prompt hash, rubric version and generation time. Changed evidence/settings make
+old results stale. Raw artifacts and `review.json` remain unchanged. These local files
+stay ignored until explicitly reviewed for publication. Compare judge observations with
+your listening review; this small, uncalibrated grader does not replace that acceptance.

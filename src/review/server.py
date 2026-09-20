@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
-from . import reviews
+from . import assessments, reviews
 from .store import ArtifactError, EvidenceStore
 
 ASSETS = Path(__file__).parent / "static"
@@ -23,7 +23,12 @@ SECURITY_HEADERS = {
 
 
 def create_app(
-    calls_dir: Path | None = None, *, controls=None, configuration=None, enable_reviews=False
+    calls_dir: Path | None = None,
+    *,
+    controls=None,
+    configuration=None,
+    enable_reviews=False,
+    judge=None,
 ) -> FastAPI:
     @asynccontextmanager
     async def lifespan(_app):
@@ -57,6 +62,11 @@ def create_app(
                 (
                     controls is not None
                     and request.url.path in ("/api/console/start", "/api/console/stop")
+                )
+                or (
+                    judge is not None
+                    and request.url.path.startswith("/api/calls/")
+                    and request.url.path.endswith("/assessment")
                 )
                 or (
                     enable_reviews
@@ -96,6 +106,8 @@ def create_app(
             "console.js": "text/javascript",
             "learning.js": "text/javascript",
             "reviews.js": "text/javascript",
+            "assessments.js": "text/javascript",
+            "assessments.css": "text/css",
         }
         if name not in allowed:
             raise ArtifactError("Asset not found.")
@@ -142,6 +154,7 @@ def create_app(
         )
 
     reviews.install(app, store, enable_reviews)
+    assessments.install(app, store, judge)
 
     if controls is not None:
         from .control_routes import install

@@ -1,3 +1,4 @@
+import { renderAssessment } from "./assessments.js";
 import { renderReview } from "./reviews.js";
 
 const $ = (id) => document.getElementById(id);
@@ -375,6 +376,8 @@ function renderConversation(call) {
       null,
       `turn ${turn.role} ${turn.status === "partial" || turn.interrupted ? "partial" : ""}`,
     );
+    section.dataset.turn = String(turn.idx);
+    section.tabIndex = -1;
     const icon = node("span", turn.role === "patient" ? "P" : "A", "speaker-icon");
     icon.setAttribute("aria-hidden", "true");
     const body = node("div");
@@ -558,6 +561,7 @@ async function selectCall(id) {
     state.detail = call;
     renderHeader(call);
     renderConversation(call);
+    renderAssessment(call);
     renderReview(call, async (id) => {
       if (state.selected !== id) return;
       await refresh();

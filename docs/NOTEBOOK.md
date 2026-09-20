@@ -741,3 +741,25 @@ the reported provider-name variation as an unattributed candidate needing audio 
 Three quoted caller/office turns match raw transcripts byte-for-byte; that validates
 quotation, not STT accuracy. Raw recordings, journals and the private candidate bundle
 are not part of this documentation PR. Updated stale assessment and README status.
+
+
+## 2026-09-19 — Bounded transcript assessment (#71)
+
+Grant requested scored AI reviews and recommendations without delaying submission.
+Implementing an opt-in LiveKit judge with five anchored dimensions, verified raw quotes,
+local cached provenance and a compact per-call panel. This analyzes text only; it never
+marks listening complete, edits the caller, initiates another call, or verifies backend state.
+
+Provider check: the first new, generic office-hours fixture returned valid structured
+output and exact quotes, but graded all five dimensions even though ambiguity and
+repeated facts were not exercised. Tightened the applicability rubric to require N/A
+for unexercised dimensions and ungrounded external facts. This is a judge calibration
+observation on authored fixture text, not a finding about the assessment line.
+
+Final authored-fixture retest: request handling and next steps scored 2; consistency,
+clarification and supported claims were not assessable. Code withheld the aggregate
+at 2/5 coverage. This verifies the provider path and one rubric applicability case,
+not broad judge accuracy. The complete initial browser suite passed 87 cases; the
+nine assessment cases also passed after adding both-theme accessibility and fixing
+citation-button color transitions. Saved-call evaluation remains opt-in; no assessment
+is a human listening approval.
