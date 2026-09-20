@@ -114,20 +114,20 @@ test("quick guide works with hints off, traps focus, scrolls and returns to its 
     "false",
   );
   await accessible(page);
-  await guide.getByText("What do the three tabs mean?", { exact: true }).click();
+  await guide.getByText("Understand the call details tabs", { exact: true }).click();
   await expect(
     guide.getByText("Later changes do not rewrite them.", { exact: false }),
   ).toBeVisible();
-  await guide.getByText("How do I stop or recover a call?", { exact: true }).click();
+  await guide.getByText("Stop a call or handle a problem", { exact: true }).click();
   await expect(
     guide.getByText("Refreshing or closing the browser does not stop a call.", { exact: false }),
   ).toBeVisible();
-  await guide.getByText("What are the privacy and AI limits?", { exact: true }).click();
+  await guide.getByText("Know where your data goes", { exact: true }).click();
   await expect(
-    guide.getByText("The app does not claim HIPAA compliance.", { exact: false }),
+    guide.getByText("the app does not automatically redact them.", { exact: false }),
   ).toBeVisible();
   await accessible(page);
-  const lastTopic = guide.getByText("What are the privacy and AI limits?", { exact: true });
+  const lastTopic = guide.getByText("Know where your data goes", { exact: true });
   await lastTopic.focus();
   await page.keyboard.press("Tab");
   await expect(guide.getByRole("button", { name: "Close quick guide", exact: true })).toBeFocused();
@@ -142,3 +142,34 @@ test("quick guide works with hints off, traps focus, scrolls and returns to its 
   await expect(opener).toBeFocused();
   expect(mutations).toEqual([]);
 });
+
+for (const theme of ["light", "dark"]) {
+  test(`complete product guide is readable in ${theme} mode without starting work`, async ({
+    page,
+  }) => {
+    const mutations = await load(page);
+    if (theme === "dark")
+      await page.getByRole("button", { name: "Use dark mode", exact: true }).click();
+    await page.getByRole("button", { name: "Open quick guide", exact: true }).click();
+    const guide = page.getByRole("dialog", { name: "Quick guide", exact: true });
+    const sections = guide.locator("details");
+    for (const section of await sections.all()) await section.locator("summary").click();
+    await expect(guide.getByText("Save a listening review", { exact: true })).toBeVisible();
+    await expect(guide.getByText("Use an AI assessment", { exact: true })).toBeVisible();
+    await expect(guide).toContainText("uses account credits");
+    await expect(guide).toContainText("It does not run an assessment or fill in your checklist");
+    await expect(guide).toContainText(
+      "Reopening a current result does not generate another assessment",
+    );
+    await expect(guide).not.toContainText(
+      /job application|employer|submission|Loom|GitHub|HIPAA|Open saved evidence/i,
+    );
+    await accessible(page);
+    expect(await guide.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true);
+    const last = guide.locator("details").last();
+    await last.scrollIntoViewIfNeeded();
+    await expect(last).toBeInViewport();
+    await page.keyboard.press("Escape");
+    expect(mutations).toEqual([]);
+  });
+}

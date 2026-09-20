@@ -18,7 +18,7 @@ const topics = {
   ],
   review: [
     "Listening review",
-    "Open Review beside the recording to save checks and timestamped notes. Confirm full listening explicitly. Usable conversations need complete evidence; changed files require a recheck. Reviews are saved separately from the originals.",
+    "Open Review below the recording to save an outcome and optional notes. The detailed checklist is optional. Marking a conversation usable requires full listening and Complete evidence set to OK.",
   ],
   library: [
     "Calls",
@@ -30,11 +30,11 @@ const topics = {
   ],
   provenance: [
     "Provenance",
-    "The models, settings, prompt fingerprint and code version saved with this call. Use these to understand what changed between experiments. Cloud evidence is a dated check for this call, separate from listening review.",
+    "The models, settings, prompt fingerprint and code version saved with this call. Use these to compare call configurations. Cloud evidence, when present, is a dated view of this session.",
   ],
   governance: [
     "Controls & data",
-    "See the current console mode, enforced call limits, local files and external providers. Broader governance recommendations live in the project documentation.",
+    "See which actions are enabled, the call limits, where files are stored and which external services process call data.",
   ],
   recording: [
     "Call recording",
@@ -42,7 +42,7 @@ const topics = {
   ],
   transcript: [
     "Conversation transcript",
-    "Text from the conversation, including partial speech. Speech recognition can be wrong. Compare it with the audio; turn numbers are not timestamps.",
+    "Open the transcript to read or download the conversation, including partial speech. Compare important words with the audio; turn numbers are not timestamps.",
   ],
 };
 const byId = (id) => document.getElementById(id);
