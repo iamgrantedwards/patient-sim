@@ -153,10 +153,13 @@
     .review-field select,
     .review-field textarea,
     input[type="search"],
-    select,
-    #scenario-picker,
-    .review-picker
+    select
   ) {
+  background: var(--surface-raised);
+  color: var(--ink);
+  border-color: var(--surface-border);
+}
+:root[data-theme="dark"] :is(#scenario-picker, .review-picker) {
   background: var(--surface-raised);
   color: var(--ink);
   border-color: var(--surface-border);
@@ -341,7 +344,8 @@
 :root[data-theme="dark"] .live-turn.patient strong {
   color: #d1ebda;
 }
-:root[data-theme="dark"] :is(.icon-button::after, .skip-link) {
+:root[data-theme="dark"] .icon-button::after,
+:root[data-theme="dark"] .skip-link {
   background: #d7e7dc;
   color: #21372a;
 }
