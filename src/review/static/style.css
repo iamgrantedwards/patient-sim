@@ -945,9 +945,6 @@ audio {
   .call-card {
     transition: background-color 0.15s;
   }
-  .review-panel[aria-busy="true"] {
-    opacity: 0.65;
-  }
 }
 .console-panel {
   background: #fcfdfb;
@@ -2420,4 +2417,23 @@ summary:focus-visible {
 
 .review-panel .tab-bar button {
   color: #40594c;
+}
+
+/* Retain the last record during a fetch; reveal feedback only for a perceptible wait. */
+.review-panel {
+  position: relative;
+}
+.detail-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 36px 20px;
+  background: color-mix(in srgb, var(--detail-surface, #eef3ef) 92%, transparent);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
 }
