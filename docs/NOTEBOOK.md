@@ -640,3 +640,15 @@ legitimate demo onboarding when needed. All automated test calls still use only 
 allowlisted assessment line; this personal demo is not one of our ten submitted calls.
 Earlier entries correctly describe what was unverified at that time; they are not
 rewritten to imply we had this report earlier.
+
+
+## 2026-09-19 — scenario implementation after the debug recording
+
+Grant reports the debugging recording is finished and authorizes sequential remaining
+assessment calls. #59 implements the #18 catalog. The first transcript identifies
+Pivot Point Orthopedics and offers demo onboarding; the patient now accepts that offer
+using synthetic facts. New appointment objectives use a nonurgent knee consultation.
+Reschedule/cancel ask for lookup and do not assert an unverified prior booking.
+The third-party request is an additional edge case; controlled barge-in remains untested.
+The optional three-configuration screen is deferred to prioritize required coverage;
+provider choices remain engineering rationale, not measured comparative superiority.
