@@ -4,11 +4,11 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** two real attempts are recorded locally. The first saved a 70-second stereo
-OGG and transcript; listening review and a clean ending remain pending. The second
-exposed a child-worker crash and saved only partial evidence before an operator stop.
-The [debugging journal](docs/DEBUGGING.md) separates the known callback fix from this
-unresolved failure and sets up the next genuine debugging session.
+**Status:** worker recovery and the scenario catalog are merged. Sequential collection
+is in progress across office information, appointments, refills and edge cases. New
+calls have completed with decoded recordings and clean tool-driven endings; human
+listening acceptance remains open. See [collection results](docs/COLLECTION.md) and
+[findings and iteration](BUGS.md). The native crash's root cause remains unresolved.
 
 ## Review recordings locally
 
@@ -82,7 +82,10 @@ confirms the worker has stopped and the room is absent. Do not delete recovery f
 bypass the lock. Ctrl-C closes an active console/CLI call; recordings can be incomplete
 if interrupted. See [call operations and recovery](docs/OPERATIONS.md).
 
-The first supported scenario asks about office information without changing appointments.
+The console includes office information, scheduling, rescheduling, cancellation, refill,
+missing refill information, insurance, availability correction, unclear requests and
+third-party workflow questions. Each scenario has a versioned objective; unknown
+patient facts and unverified prior bookings are never supplied as facts.
 There is no initial caller greeting or automatic redial. Provider/model settings remain
 fixed; the managed worker requires this same checkout and Python environment.
 
@@ -114,8 +117,7 @@ uv run python -m src.caller.transcript calls/<call-id>
 
 Audio-derived timing is pending: delay and overlap fields are `null`, never filled from
 callback arrival times. Claimed state, consistency, and verified state remain separate.
-IVR/voicemail classification and the full scenario suite are also pending real-line
-inspection. Credentials and raw call artifacts are ignored; review recordings before
+Controlled interruption and audio-aligned latency measurement remain untested. Credentials and raw call artifacts are ignored; review recordings before
 explicitly adding selected submission evidence to the public repository.
 
 ## Design and progress
@@ -130,10 +132,11 @@ explicitly adding selected submission evidence to the public repository.
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
-The local review UI and opt-in outbound controls are merged. The second attempt was
-started and stopped through the UI; #46 now blocks #24's full live acceptance. The
-first-good-call gate remains open. Calibration, broader call collection, findings,
-and the final walkthrough follow it. No bug in the assessment agent has been confirmed.
+The local review UI and opt-in controls are merged, and the callback defect has passed
+live verification (#21). Child-failure handling is merged (#58); natural endings have
+been observed in subsequent calls. The debugging video is recorded per Grant's report;
+its public link, final walkthrough and human listening reviews remain submission work.
+The optional model-configuration comparison is deferred; no best-model claim is made.
 
 ## Personal GitHub account
 
@@ -147,5 +150,5 @@ account and skips existing issue/milestone titles. Git uses a repository-local c
 helper and noreply commit email.
 
 The [ten-call test strategy](docs/TEST-STRATEGY.md) defines planned scenario coverage,
-review checkpoints and how evidence leads to a fix or finding. It is a plan, not a claim
-that those scenarios are implemented or ten calls have been collected.
+review checkpoints and how evidence leads to a fix or finding. The implementation now exposes the scenarios; actual captured and reviewed counts
+are tracked separately in the collection results.
