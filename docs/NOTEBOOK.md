@@ -947,3 +947,13 @@ expect 21 records and 20 audio files; verify the resulting inventory. Publish th
 full history with diagnostic/incomplete records labeled and identify the minimum ten
 complete conversations separately. This supersedes the earlier no-more-calls plan,
 not the application-code freeze. No call was initiated by this documentation audit.
+
+### September 20 — pending-input hangup investigation (#92)
+
+User authorized a narrow caller fix after reviewing cut-off endings. Original
+Correction events show newer partial speech preceding the older committed turn and
+our end-tool invocation. Registered SDK-tool regression failed before the guard;
+focused end/lifecycle cases pass after guarding before any SDK shutdown side effects.
+Historical replay separates matching pending-input cases from the Insurance
+missing-signoff case. Full event sequence, limits and verification are in DEBUGGING.md.
+Original calls are untouched. Live audible improvement remains unverified.

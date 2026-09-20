@@ -21,11 +21,11 @@ from livekit.agents import (
     inference,
     room_io,
 )
-from livekit.agents.beta.tools import EndCallTool
 from livekit.agents.llm import ChatMessage
 
 from .admission import accept_job
 from .config import PROJECT_ROOT, load
+from .ending import CLOSING_PAUSE_SECONDS, GuardedEndCallTool, RemoteInput
 from .lifecycle import disconnect_end, session_end, sip_failure
 from .patient import DEFAULT_PATIENT, build_instructions
 from .recording import preserve_recording
@@ -111,6 +111,10 @@ async def entrypoint(ctx: JobContext) -> None:
             "started_at": time.time(),
             "pipeline": cfg.pipeline,
             "patient_record": asdict(DEFAULT_PATIENT),
+            "closing_policy": {
+                "version": "pending-input-v1",
+                "pause_seconds": CLOSING_PAUSE_SECONDS,
+            },
             "prompt_sha256": hashlib.sha256(instructions.encode()).hexdigest(),
             "status": "worker_started",
             "ended_by": None,
@@ -126,7 +130,10 @@ async def entrypoint(ctx: JobContext) -> None:
         async def on_end_call(_event):
             artifacts.end("end_call_tool")
 
-        end_tool = EndCallTool(
+        remote_input = RemoteInput()
+        end_tool = GuardedEndCallTool(
+            remote_input=remote_input,
+            record=artifacts.append,
             end_instructions=None,
             delete_room=True,
             extra_description="As the patient, end after acknowledging the outcome and closing, including refusal or unavailability.",
@@ -157,7 +164,15 @@ async def entrypoint(ctx: JobContext) -> None:
 
         @session.on("user_input_transcribed")
         def partial(event):
-            artifacts.append("user_input_transcribed", event.model_dump(mode="json"))
+            data = event.model_dump(mode="json")
+            remote_input.transcribed(data.get("transcript", ""), data.get("is_final", False))
+            artifacts.append("user_input_transcribed", data)
+
+        @session.on("user_state_changed")
+        def remote_state_changed(event):
+            if event.new_state == "speaking":
+                remote_input.speech_started()
+            artifacts.append("user_state_changed", event.model_dump(mode="json"))
 
         @session.on("function_tools_executed")
         def tools_executed(event):
@@ -166,6 +181,8 @@ async def entrypoint(ctx: JobContext) -> None:
         @session.on("conversation_item_added")
         def committed(event):
             artifacts.append("conversation_item_added", event.model_dump(mode="json"))
+            if isinstance(event.item, ChatMessage) and event.item.role == "user":
+                remote_input.committed(event.item.text_content or "")
             if isinstance(event.item, ChatMessage) and event.item.role in ("user", "assistant"):
                 artifacts.seen_turns.add(event.item.id)
             if len(artifacts.seen_turns) >= cfg.max_turns:

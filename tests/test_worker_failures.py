@@ -33,6 +33,7 @@ def worker(monkeypatch, tmp_path, configured):
             return register
 
         async def start(self, *args, **kwargs):
+            state.patient = args[0]
             await state.start()
 
         def shutdown(self, **kwargs):
@@ -259,3 +260,40 @@ def test_repeated_call_identity_preserves_evidence_and_never_redials(worker, tmp
     state.start.assert_not_awaited()
     ctx.api.sip.create_sip_participant.assert_not_awaited()
     assert {p.name: p.read_bytes() for p in directory.iterdir()} == originals
+
+
+def test_real_worker_wires_pending_transcript_guard_before_end_metadata(worker):
+    from livekit.agents.llm import ChatMessage, StopResponse
+    from livekit.agents.voice.events import ConversationItemAddedEvent, UserInputTranscribedEvent
+
+    ctx, state = worker
+
+    async def run():
+        await agent.entrypoint(ctx)
+        patient = state.patient
+        partial = state.handlers["user_input_transcribed"]
+        partial(UserInputTranscribedEvent(transcript="You're all set.", is_final=True))
+        partial(UserInputTranscribedEvent(transcript="Your appointment", is_final=False))
+        state.handlers["conversation_item_added"](
+            ConversationItemAddedEvent(item=ChatMessage(role="user", content=["You're all set."]))
+        )
+        state.handlers["user_state_changed"](
+            SimpleNamespace(
+                new_state="listening", model_dump=lambda **kw: {"new_state": "listening"}
+            )
+        )
+        tool_ctx = SimpleNamespace(
+            session=SimpleNamespace(user_state="listening"),
+            speech_handle=SimpleNamespace(interrupted=False, add_done_callback=Mock()),
+        )
+        with pytest.raises(StopResponse):
+            await patient.tools[0](tool_ctx)
+        tool_ctx.speech_handle.add_done_callback.assert_not_called()
+        artifacts = agent._calls[ctx.job.id]
+        assert artifacts.meta["ended_by"] is None
+        assert "remote_transcript_pending" in (artifacts.directory / "events.jsonl").read_text()
+        state.shutdown.assert_not_called()
+        for callback in state.callbacks:
+            await callback()
+
+    asyncio.run(run())

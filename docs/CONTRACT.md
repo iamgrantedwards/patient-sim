@@ -1,11 +1,12 @@
 # patient-sim — implementation contract
 
-Revision 8. Supersedes the planning notes. Earlier external-review decisions retain
+Revision 9. Supersedes the planning notes. Earlier external-review decisions retain
 their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
 build the local UI before recording the debugging video; call-quality gates are unchanged.
 **[R6]** specifies opt-in UI/CLI call ownership, explicit confirmation, and crash recovery.
 **[R7]** records delivered scope and explicit deferrals on 2026-09-20 UTC (#77).
 **[R8]** adds bounded call-quality assessment coverage (#85); caller behavior is unchanged.
+**[R9]** guards caller hangup against pending remote speech (#92); live ending acceptance remains required.
 Historical internal experiments below are not claims of completed work. Runtime
 source and [EVALUATION.md](EVALUATION.md) define the implemented judge; current
 submission acceptance is [SUBMISSION.md](SUBMISSION.md).
@@ -63,7 +64,7 @@ Introspected from the installed package, not from documentation.
 | Telephony | Twilio Elastic SIP Trunk, one DID, reported in E.164 on the submission form |
 | Recording | `record={"audio": True, "transcript": True, "traces": True, "redaction": False}` — no Egress, no external bucket |
 | Noise cancellation | **Off.** With NC on, recorded remote audio is post-cancellation. The recording is evidence about their audio; processing it first destroys the measurement. |
-| Call ending | `EndCallTool` with `end_instructions=None` **[R3]** plus server-side `max_call_duration` |
+| Call ending | Pending-input guard before `EndCallTool`, `end_instructions=None`, one-second closing pause **[R9]**, plus server-side `max_call_duration` |
 | Judge | Optional throughout. Produces candidates, never findings. **First findings are written by hand.** **[R3]** |
 | Report | `BUGS.md` required. `report.html` is a derivative and is the first thing cut. |
 | Repo | `github.com/iamgrantedwards/patient-sim`, public, real-name commits |
