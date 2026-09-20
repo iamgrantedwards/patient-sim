@@ -4,11 +4,12 @@ A Python patient simulator for a healthcare voice-agent assessment. It uses a Li
 Agents STT / LLM / TTS pipeline to call the designated test line and preserve recordings
 and transcripts for manually verified findings.
 
-**Status:** worker recovery and the scenario catalog are merged. Sequential collection
-is in progress across office information, appointments, refills and edge cases. New
-calls have completed with decoded recordings and clean tool-driven endings; human
-listening acceptance remains open. See [collection results](docs/COLLECTION.md) and
-[findings and iteration](BUGS.md). The native crash's root cause remains unresolved.
+**Status:** ten candidate audio/transcript pairs are captured across office information,
+appointments, refills and edge cases (20.59 minutes). Original recordings decode; human
+listening acceptance is still pending. Caller recovery and scenario fixes are merged.
+See [collection results](docs/COLLECTION.md) and [findings and iteration](BUGS.md).
+The native crash's root cause remains unresolved. Candidate files remain local until
+reviewed for publication.
 
 ## Review recordings locally
 

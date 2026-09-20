@@ -719,3 +719,13 @@ All 69 browser cases passed; the final neutral-charcoal adjustment and live-dial
 checks passed another six focused cases across the three browser projects. Python:
 254 tests passed. Inspected light, charcoal and mobile fixture screenshots. No real
 calls or review judgments were changed by this UI work.
+
+## 2026-09-19 — collection report reconciliation (#17, #18, #19)
+
+Ten candidate pairs are captured and validated for file integrity; the collection
+ledger lists their IDs, durations and remaining listening decisions. Human acceptance
+remains pending. Kept office claims separate from backend verification, and recorded
+the reported provider-name variation as an unattributed candidate needing audio review.
+Three quoted caller/office turns match raw transcripts byte-for-byte; that validates
+quotation, not STT accuracy. Raw recordings, journals and the private candidate bundle
+are not part of this documentation PR. Updated stale assessment and README status.

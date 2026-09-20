@@ -52,7 +52,8 @@ are still pending. A refusal or identity check is not automatically a defect.
 - **Cause / change:** the old instruction prohibited requesting a transfer to another
   number but did not explicitly reject offered team transfers. The new rule covers both
   acceptance and staff callbacks, then requests general next steps and a clean ending.
-- **Verification:** prompt regression covers all scenarios; live retest is pending.
+- **Verification:** prompt regression covers all scenarios; a subsequent live retest declined
+  the offered transfer and requested general next steps. PR #63 is merged.
   The original attempt ended through end_call_tool with confirmed controller cleanup.
 - **Uncertainty:** a spoken transfer announcement does not prove a transfer completed.
   Prompting cannot guarantee protection from unsolicited remote routing.
@@ -68,6 +69,20 @@ The refill conversation declined a medication absent from the chart and offered 
 steps. That boundary can be appropriate; the simulator's supplied medication is not
 proof of an authorized prescription in the demo record. Several provider-name spellings
 vary in raw STT. Audio review is required before attributing that to the office.
+
+### Candidate for listening review: provider-name consistency
+
+- **Expected / basis:** when confirming the same provider, the spoken identity should
+  remain consistent with the earlier confirmation unless a change is explained.
+- **Observation:** Grant reported a possible audible name variation; raw transcripts
+  also show spelling variations. The scheduling/rescheduling sequence and the
+  availability-correction candidate are the listening targets in the collection ledger.
+- **Evidence limit:** no human-verified audio offset or pronunciation comparison has
+  been saved yet. Transcript spelling alone cannot establish changed pronunciation.
+- **Attribution:** unknown; remote speech, our STT, our patient's repetition, or mixed
+  effects remain possible. Severity is unassigned until the audio establishes impact.
+- **Next action:** listen to the original audio, record both timestamps and exact words
+  in the Review notes, and distinguish a transcription error from an audible change.
 
 See [collection results](docs/COLLECTION.md) for coverage, evidence status and remaining
 checks. No automatic judge or invented bug quota is used.
