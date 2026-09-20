@@ -424,6 +424,7 @@ they cannot establish an audible fix.
 
 Grant closed development scope after the UI, assessment and local-access corrections.
 The debug video is already recorded; historical speaking notes remain historical. No
-new call or prompt/model experiment is planned. The native SIGSEGV cause and audible
+prompt/model experiment is planned. Grant later specified one final presentation call
+before publishing all records. The native SIGSEGV cause and audible
 ending diagnosis remain limitations, not silently completed fixes. #87/#88 improve
 review coverage, visibility and browser access; they do not fix premature hangup.

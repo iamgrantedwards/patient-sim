@@ -3,15 +3,16 @@
 Application-freeze audit: 2026-09-20 UTC (2026-09-19 Pacific), #90, following #75.
 Grant has closed application scope. Finish the already-open fix PRs and documentation,
 then add the final video links and deliverable evidence. This checklist tracks handoff
-acceptance; it does not authorize more features, calls or experiments.
+acceptance; it does not authorize more features or experiments. Grant plans one final
+presentation call, followed by publication of all call records.
 
 ## Finish in this order
 
 | Step | Owner | Remaining acceptance | Issue |
 | --- | --- | --- | --- |
-| 1. Select the evidence | Grant | Choose at least ten full conversations from the existing candidates/retests in COLLECTION.md; confirm two-sided audio, matching transcripts and endings. Detailed checklist rows are optional. No further calls are planned under the application freeze. | #18, #12, #24 |
+| 1. Select the evidence | Grant | After the final presentation call, identify at least ten full conversations in COLLECTION.md; confirm two-sided audio, matching transcripts and endings. Keep diagnostic/incomplete attempts labeled separately. Detailed checklist rows are optional. | #18, #12, #24 |
 | 2. Finalize findings | Grant + Codex | Check candidate observations against the audio; add exact offsets, quotes, expected behavior, impact and attribution to BUGS.md. Do not turn STT spelling differences or unverified backend claims into confirmed office defects. | #4 |
-| 3. Publish the call pairs | Codex, after review | Review the selected files for public release, explicitly add OGG/MP3 plus transcripts and an index in a focused labeled PR, verify hashes and public downloads. A local ZIP alone is not submission. | #18, #26 |
+| 3. Publish all call records | Codex, after the presentation | Check files for credentials/personal data, explicitly add all call records and available OGG/MP3 plus transcripts in a focused labeled PR, and verify hashes/public downloads. Identify the qualifying conversations; label the failed record with no audio. A local ZIP alone is not submission. | #18, #26 |
 | 4. Finish the videos | Grant | Final walkthrough at most three minutes; own voice/webcam. Debugging video already recorded. Verify both videos play without login and include the required content. | #25, #26 |
 | 5. Final delivery check | Codex + Grant | Green protected main, fresh-clone setup, ten public playable pairs, final findings, both video links in GitHub, exact caller number and applicable receipts. Grant submits the employer form; no direct assessment email. | #26 |
 
@@ -69,8 +70,8 @@ form submission was performed by this audit.
 
 ## Remaining evidence limits
 
-- The original ten-candidate set totals 20.59 minutes. The freeze inventory is 19
-  attempts / 18 file pairs, including diagnostics and four later retests. No listening
+- The original ten-candidate set totals 20.59 minutes. The current inventory is 20
+  attempts / 19 file pairs, including diagnostics and five later retests. No listening
   or Usable decision is saved at audit time; that does not claim Grant has never listened.
   Only `calls/.gitkeep` is tracked: the raw audio/transcripts are not yet in GitHub.
   Capture integrity and a green test suite do not establish coherent audio.
@@ -88,8 +89,9 @@ form submission was performed by this audit.
 
 After Grant supplies the final walkthrough and debugging links, update README, this
 checklist and the matching issues; verify public playback and required content. Confirm
-the selected minimum-ten OGG/MP3 recordings and transcripts are actually available in
-GitHub, rather than merely on this Mac. Include applicable receipts and the caller DID.
+all call records and available audio/transcripts are actually available in GitHub,
+with at least ten complete conversations identified. Expected after the final call:
+21 records / 20 audio files if capture succeeds; verify actual counts, not a promise. Include applicable receipts and the caller DID.
 The team explicitly requires its submission form and asks applicants not to contact
 them by email, LinkedIn or other direct channels about the assessment. A concise
 cover-note draft can be used in the form where appropriate; no HTML letter is needed.

@@ -29,9 +29,9 @@ Earlier diagnostic attempts remain separate: the original callback/crash attempt
 
 ## Later retests and application freeze — 2026-09-20 UTC
 
-The local index contains **19 attempts and 18 audio/transcript file pairs**. This
+The local index contains **20 attempts and 19 audio/transcript file pairs**. This
 includes diagnostic/short/incomplete attempts and is not an accepted-conversation count.
-The four later records below are available alternatives; they have not silently replaced
+The five later records below are available alternatives; they have not silently replaced
 rows in the original candidate bundle or been approved for public release.
 
 | Scenario | Call ID | Duration shown by the app | Turns | Saved human acceptance |
@@ -40,17 +40,21 @@ rows in the original candidate bundle or been approved for public release.
 | Unclear Request | `call-20260920-042404-94899755` | 2:01 | 12 | Pending |
 | Availability Correction | `call-20260920-043854-fd9ce1a5` | 2:21 | 17 | Pending |
 | Refill Missing Information | `call-20260920-050215-67ac848f` | 2:05 | 13 | Pending |
+| Third-party Request | `call-20260920-052701-e11d5907` | 1:09 | 6 | Pending |
 
 These durations/turn counts come from saved metadata and the local index; this audit
-has not newly listened to or decoded these four recordings. AI assessment state may
+has not newly listened to or decoded these five recordings. AI assessment state may
 change as Grant assesses calls; its scores are not human listening acceptance. The
 latest seven-topic checklist distinguishes text-supported ending concerns from audio
 checks that still need listening. Suspected end-tool cutoffs remain in #12.
 
-Grant has frozen application development and further call collection. Select the
-minimum ten complete conversations from existing evidence and document any remaining
-limitations. A private bundle is not a public deliverable; no raw call files are yet
-tracked in GitHub. Publication remains a deliberate reviewed handoff step.
+Grant has frozen application development and plans one final call during the presentation.
+If it captures audio, the expected final inventory is 21 records and 20 audio files;
+verify actual counts afterward. Publish all call records, retaining the failed record
+without inventing missing audio. Identify at least ten complete conversations separately
+from diagnostic/incomplete attempts and document limitations. A private bundle is not a
+public deliverable; no raw call files are yet tracked in GitHub. Check for credentials
+and personal data before publication; preserve originals and label any redacted copy.
 
 ## Iteration boundary
 
@@ -99,7 +103,7 @@ checks can remain not assessed. None of these inspection notes automatically mar
 
 ## Remaining submission work
 
-- #18: listen to every selected pair, record suitability and listening, select an existing alternative for any unusable conversation where possible, then publish the reviewed set. No further calling is planned.
+- #18: after the final presentation call, publish all records with suitability and missing files labeled. Identify at least ten complete conversations; diagnostic/incomplete attempts do not count toward that minimum.
 - #12: verify natural endings by listening, especially the last 15 seconds.
 - #24: confirm the call/review workflow in use; automated checks alone do not finish human acceptance.
 - #46: retain the unresolved native-crash limitation separately from the repaired lifecycle behavior.

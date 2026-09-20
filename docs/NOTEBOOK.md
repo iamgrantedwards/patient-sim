@@ -937,3 +937,13 @@ cases and 95.8% branch-inclusive coverage; lint/types, security and installed-pa
 checks passed. Checked 88 relative file links across 20 Markdown documents with no
 missing targets. The guide passes the product-only copy audit. No new call or inference
 request was made for this documentation audit.
+
+### Final presentation/publication plan clarification
+
+Grant specified one last call during the presentation, then upload all calls. The
+read-only inventory now shows 20 records and 19 recordings/transcripts, including the
+later proxy call `call-20260920-052701-e11d5907`. If the final call captures audio,
+expect 21 records and 20 audio files; verify the resulting inventory. Publish the
+full history with diagnostic/incomplete records labeled and identify the minimum ten
+complete conversations separately. This supersedes the earlier no-more-calls plan,
+not the application-code freeze. No call was initiated by this documentation audit.

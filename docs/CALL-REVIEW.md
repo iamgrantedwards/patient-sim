@@ -158,8 +158,8 @@ ignored local artifacts do not become a submission automatically. Check public r
 and video links while logged out, the exact caller number, and a fresh-clone setup.
 Keep credentials private; supply `.env.example`, not an encrypted credential bundle.
 
-At the application freeze, no new calls or code changes are planned. Current handoff
-order: select and review at least ten existing pairs, finalize findings, publish
-the reviewed evidence, then verify both videos and submit. The debugging recording
+Application code is frozen. Grant plans one final presentation call. Current handoff
+order: identify at least ten complete conversations, finalize findings, publish all call
+records with diagnostic/incomplete attempts labeled, then verify both videos and submit. The debugging recording
 is already captured. Use [the submission checklist](SUBMISSION.md) as the current
 closeout plan; earlier recording runbooks are historical preparation.

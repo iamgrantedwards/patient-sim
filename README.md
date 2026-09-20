@@ -6,10 +6,13 @@ and transcripts for manually verified findings.
 
 **Status:** application development is frozen for handoff. The original ten-candidate
 set covers office information, appointments, refills and edge cases (20.59 minutes).
-The local inventory now contains 19 attempts and 18 recording/transcript pairs, including
+The local inventory now contains 20 attempts and 19 recording/transcript pairs, including
 diagnostics and later retests; those are not automatically 18 accepted conversations.
 No human-listening decisions are saved at this audit. Selection and public release remain
-handoff steps, not additional application development.
+handoff steps, not additional application development. Grant plans one final call during
+the presentation, then publication of all call records. If that call records successfully,
+the expected total is 21 records and 20 audio files; complete conversations will be
+identified separately from diagnostic/incomplete attempts.
 Start with the [submission checklist](docs/SUBMISSION.md), [collection results](docs/COLLECTION.md),
 and [findings and iteration](BUGS.md).
 The native crash's root cause remains unresolved. Candidate files remain local until
