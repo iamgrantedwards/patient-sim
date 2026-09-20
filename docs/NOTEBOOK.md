@@ -741,3 +741,11 @@ the reported provider-name variation as an unattributed candidate needing audio 
 Three quoted caller/office turns match raw transcripts byte-for-byte; that validates
 quotation, not STT accuracy. Raw recordings, journals and the private candidate bundle
 are not part of this documentation PR. Updated stale assessment and README status.
+
+
+## 2026-09-19 — Bounded transcript assessment (#71)
+
+Grant requested scored AI reviews and recommendations without delaying submission.
+Implementing an opt-in LiveKit judge with five anchored dimensions, verified raw quotes,
+local cached provenance and a compact per-call panel. This analyzes text only; it never
+marks listening complete, edits the caller, initiates another call, or verifies backend state.
