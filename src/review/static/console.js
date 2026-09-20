@@ -185,10 +185,13 @@ function render(data) {
     summary.push("Evidence may be incomplete. Review the saved files.");
   byId("operation-summary").textContent = summary.join(" ");
   if (lastCall !== op.call_id) {
+    // Open once per attempt; polling must respect a user's manual collapse.
+    byId("live-dialogue").open = active && Boolean(op.call_id);
     lastCall = op.call_id;
     lastTurns = undefined;
     followLive = true;
   }
+  if (!active) byId("live-dialogue").open = false;
   const turns = JSON.stringify([
     op.live_turns,
     // Empty-state text must follow status changes even before a turn arrives.

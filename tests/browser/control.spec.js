@@ -108,7 +108,7 @@ test("confirmed single call, committed dialogue, refresh, stop and saved evidenc
   expect(requests[0].body).not.toHaveProperty("destination");
   expect(requests[0].headers["x-console-token"]).toContain("fixture-token");
   await expect(page.locator("#call-start")).toBeDisabled();
-  await page.getByText("Live transcript · committed turns").click();
+  await expect(page.locator("#live-dialogue")).toHaveJSProperty("open", true);
   await expect(page.locator("#live-turns")).toContainText('<img src=x onerror="alert(1)">Hello');
   await expect(page.locator("#live-turns img")).toHaveCount(0);
   await accessible(page);
@@ -261,7 +261,7 @@ test("live dialogue follows new turns, preserves scrollback, and resumes explici
     status: "completed",
   });
   state.operation.live_turns = Array.from({ length: 12 }, (_, idx) => turn(idx));
-  await page.getByText("Live transcript · committed turns").click();
+  await expect(page.locator("#live-dialogue")).toHaveJSProperty("open", true);
   const viewport = page.locator("#live-turns");
   await expect(viewport.locator(".live-turn")).toHaveCount(12);
   const height = await viewport.evaluate((node) => node.clientHeight);
@@ -297,7 +297,7 @@ test("live transcript waits during startup, refreshes empty states and reveals r
 }) => {
   const { state, requests } = await fixture(page, "dialing");
   state.operation.call_id = "call-loading-fixture";
-  await page.getByText("Live transcript · committed turns").click();
+  await expect(page.locator("#live-dialogue")).toHaveJSProperty("open", true);
   const viewport = page.locator("#live-turns");
   await expect(viewport).toContainText("Connecting call…");
   await expect(viewport.locator(".live-loading-indicator")).toBeVisible();
@@ -337,4 +337,49 @@ test("live transcript waits during startup, refreshes empty states and reveals r
   state.operation.phase = "failed";
   await expect(page.locator("#active-operation")).toBeHidden();
   expect(requests).toEqual([]);
+});
+
+test("live transcript opens per call, respects collapse, and closes when finished", async ({
+  page,
+}) => {
+  const { state, requests } = await fixture(page);
+  const dialogue = page.locator("#live-dialogue");
+  await expect(dialogue).toHaveJSProperty("open", false);
+  await page.getByRole("button", { name: "Review & call", exact: true }).click();
+  await page.getByRole("button", { name: "Cancel", exact: true }).click();
+  await expect(dialogue).toHaveJSProperty("open", false);
+  expect(requests).toEqual([]);
+  await page.getByRole("button", { name: "Review & call", exact: true }).click();
+  await page.getByRole("checkbox", { name: /I confirm/ }).check();
+  await page.getByRole("button", { name: "Place one call", exact: true }).click();
+  await expect(dialogue).toHaveJSProperty("open", true);
+  await dialogue.locator("summary").click();
+  await expect(dialogue).toHaveJSProperty("open", false);
+  state.operation.live_turns.push({
+    idx: 1,
+    role: "remote",
+    text: "How can I help?",
+    status: "completed",
+  });
+  await expect(page.locator("#live-turns")).toContainText("How can I help?");
+  await expect(dialogue).toHaveJSProperty("open", false);
+  // A fresh page discovers the active call and opens it without dialing again.
+  await page.reload();
+  await expect(dialogue).toHaveJSProperty("open", true);
+  state.operation.phase = "finalizing";
+  await expect(page.locator("#console-phase")).toHaveText("Finalizing evidence");
+  await expect(dialogue).toHaveJSProperty("open", true);
+  state.operation.phase = "ended";
+  await expect(dialogue).toHaveJSProperty("open", false);
+  state.operation = {
+    ...state.operation,
+    phase: "preparing_worker",
+    call_id: "call-next-fixture",
+    live_turns: [],
+  };
+  await expect(dialogue).toHaveJSProperty("open", true);
+  await expect(page.locator("#live-turns")).toContainText("Connecting call…");
+  state.operation.phase = "failed";
+  await expect(dialogue).toHaveJSProperty("open", false);
+  expect(requests.map((request) => request.route)).toEqual(["start"]);
 });
