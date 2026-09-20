@@ -85,4 +85,5 @@ vary in raw STT. Audio review is required before attributing that to the office.
   in the Review notes, and distinguish a transcription error from an audible change.
 
 See [collection results](docs/COLLECTION.md) for coverage, evidence status and remaining
-checks. No automatic judge or invented bug quota is used.
+checks. Optional AI transcript assessments propose observations; their scores are uncalibrated
+and do not confirm audio quality or backend claims. No invented bug quota is used.

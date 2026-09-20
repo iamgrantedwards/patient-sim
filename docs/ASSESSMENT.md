@@ -17,7 +17,7 @@ The mandatory implementation choices are followed; the submission is not complet
 | Setup/run README and .env.example; no committed secrets | Present; one-command console or explicit CLI now manages its worker. Secret scans are part of the required verification gate; no provider keys reach the UI |
 | Architecture explanation in 1–2 paragraphs | Condensed to two paragraphs. Provider and latency choices remain hypotheses pending call-based comparison |
 | Public walkthrough video, maximum 3 minutes | Pending; Grant's own voice and webcam required |
-| Second public video showing AI-assisted debugging | Recorded per Grant's 2026-09-19 report; public URL and logged-out playback still need verification (#25) |
+| Second public video showing AI-assisted debugging | Recorded per Grant's 2026-09-19 report; [link recorded](https://www.loom.com/share/648e67f4f08d4d75af16477e1995304e); logged-out playback/content verification remains (#25) |
 | Submission form with public links and exact caller DID | Pending; check access while logged out before submitting |
 
 ## Scope and priorities
@@ -35,6 +35,8 @@ Keep receipts; the brief offers reimbursement up to $20, not unlimited spending.
 
 CI is supporting work. Preserve the existing gates and extend them only for actual
 new UI code. Grant's requested local call console is in scope; production deployment,
-analytics dashboards, fancy diagrams, and an automated judge remain unnecessary.
+analytics dashboards and fancy diagrams remain unnecessary. The optional transcript
+judge is now implemented at Grant's request; it proposes observations and never
+substitutes for listening or independent verification.
 Keep model/settings changes traceable between experiments. Do not contact the employer
 or its team outside the stated submission process.
