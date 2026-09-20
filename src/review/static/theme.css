@@ -387,3 +387,8 @@
   background: #bdddc8;
   color: #21372a;
 }
+
+/* Secondary card text remains readable against both the card and rail surfaces. */
+.call-card :is(.card-date, .card-description, .duration) {
+  color: var(--muted);
+}

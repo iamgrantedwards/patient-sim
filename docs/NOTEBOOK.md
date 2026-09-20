@@ -888,3 +888,27 @@ and the detailed panel still withholds its current aggregate until reassessment.
 Full local verification passed: 293 Python tests, 114 browser/accessibility cases,
 lint/types, security checks and package/install verification. Card checks cover current
 and historical scores, zero scores, insufficient coverage and independent human status.
+
+
+## 2026-09-20 UTC — top-level local navigation (#89)
+
+Grant reported a CORS error. The existing Chrome tab displayed the server's plain
+Cross-origin requests are not permitted document, while direct loopback GETs to the
+page/index/console returned 200. The fetch-metadata boundary blocked normal cross-site
+links along with subresource access. Narrowed the exception to GET / document navigation
+with no Origin header. Cross-site API/assets, iframe loads, foreign Origins and writes
+remain rejected; loopback host checks, frame restrictions and tokens are unchanged.
+
+Validation: 305 Python tests and 114 browser/accessibility cases passed, along with
+all local lint/type, security and packaging gates. The updated running service returns
+200 for cross-site top-level navigation and 403 for cross-site API access. Chrome
+returned to the app. No call or inference request was made for this verification.
+
+Hosted WebKit found secondary card text below 4.5:1 contrast against the rail surface
+while local runs passed. Reused the existing theme-aware muted token for card dates,
+descriptions and duration instead of their older fixed colors; the full-card audit
+remains enabled. Navigation fix #89 is included in #88 because it affected access to
+the local app during this card-status rollout.
+
+Final combined local gates passed: 305 Python tests, 95.8% branch-inclusive coverage,
+114 browser/accessibility cases and all quality/security/package checks.

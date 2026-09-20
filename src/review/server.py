@@ -52,7 +52,17 @@ def create_app(
             )
         except ValueError:
             foreign_origin = True
-        if request.headers.get("sec-fetch-site") == "cross-site" or foreign_origin:
+        # A link may open the app, but must not read local evidence as a subresource.
+        document_navigation = (
+            request.method == "GET"
+            and request.url.path == "/"
+            and request.headers.get("sec-fetch-mode") == "navigate"
+            and request.headers.get("sec-fetch-dest") == "document"
+            and origin is None
+        )
+        if foreign_origin or (
+            request.headers.get("sec-fetch-site") == "cross-site" and not document_navigation
+        ):
             response = PlainTextResponse(
                 "Cross-origin requests are not permitted.", status_code=403
             )

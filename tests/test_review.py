@@ -404,3 +404,34 @@ def test_packaged_cloud_evidence_matches_the_documented_call(tmp_path):
     screenshot = evidence.cloud_artifact(call_id, "screenshot")
     assert hashlib.sha256(screenshot.read_bytes()).hexdigest() in note
     assert call_id in note and cloud["session_id"] in note
+
+
+@pytest.mark.parametrize(
+    "method,path,overrides,status",
+    [
+        ("GET", "/", {}, 200),
+        ("GET", "/?call=call-fixture-03", {}, 200),
+        ("GET", "/api/calls", {}, 403),
+        ("GET", "/assets/app.js", {}, 403),
+        ("GET", "/", {"Sec-Fetch-Dest": "iframe"}, 403),
+        ("GET", "/", {"Sec-Fetch-Mode": "cors"}, 403),
+        ("GET", "/", {"Origin": "https://evil.example"}, 403),
+        ("GET", "/", {"Origin": "null"}, 403),
+        ("GET", "/", {"Host": "evil.example"}, 400),
+        ("POST", "/", {}, 403),
+        ("POST", "/api/console/start", {}, 403),
+        ("POST", "/api/calls/call-fixture-03/assessment", {}, 403),
+    ],
+)
+def test_cross_site_document_navigation_only(client, method, path, overrides, status):
+    headers = {
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Dest": "document",
+        **overrides,
+    }
+    response = client.request(method, path, headers=headers)
+    assert response.status_code == status
+    assert "access-control-allow-origin" not in response.headers
+    assert response.headers["x-frame-options"] == "DENY"
+    assert response.headers["cache-control"] == "no-store"
