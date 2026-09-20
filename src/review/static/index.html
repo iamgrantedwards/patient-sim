@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
+    <meta name="color-scheme" content="light dark">
+    <script src="/assets/theme.js"></script>
     <title>Call review · patient-sim</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/theme.css">
     <script type="module" src="/assets/app.js"></script>
     <script type="module" src="/assets/console.js"></script>
     <script type="module" src="/assets/learning.js"></script>
@@ -20,7 +22,7 @@
             ><span class="brand-mark" aria-hidden="true">p.</span
             ><span>patient<span class="brand-light">-sim</span></span></a
           >
-          <span class="header-context">Voice evaluation</span>
+          <p class="brand-tagline">Listen. Review. Follow the evidence.</p>
         </div>
         <div class="topbar-actions">
           <div class="learning-tools">
@@ -74,6 +76,44 @@
           <button
             type="button"
             class="icon-button"
+            id="theme-toggle"
+            aria-label="Use dark mode"
+            data-tooltip="Use dark mode"
+          >
+            <svg
+              class="theme-moon"
+              aria-hidden="true"
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" />
+            </svg>
+            <svg
+              class="theme-sun"
+              aria-hidden="true"
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="icon-button"
             id="refresh"
             aria-label="Refresh calls"
             data-tooltip="Refresh calls"
@@ -99,13 +139,7 @@
         <div class="learning-note" id="learning-note" hidden>
           <p>Learning mode on. Hover, focus or tap a <strong>?</strong> for help.</p>
         </div>
-        <div class="page-heading">
-          <div>
-            <h1>Call review<span class="heading-dot">.</span></h1>
-            <p>Listen to the conversation. Follow the evidence.</p>
-          </div>
-          <span class="scope-pill">Synthetic patients</span>
-        </div>
+        <h1 class="sr-only">Call review</h1>
         <section class="console-panel" id="console-panel" aria-labelledby="console-title" hidden>
           <div class="console-heading">
             <div>
@@ -186,7 +220,18 @@
             <p id="operation-summary" class="context-note"></p>
             <details id="live-dialogue">
               <summary>Live transcript · committed turns</summary>
-              <div id="live-turns" class="transcript"></div>
+              <div class="live-toolbar">
+                <span class="context-note">Patient · Office agent</span>
+                <button type="button" id="live-latest" class="button" hidden>Latest turns ↓</button>
+              </div>
+              <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: Scrollable transcript must support keyboard scrolling. -->
+              <section
+                id="live-turns"
+                class="transcript"
+                aria-label="Live conversation"
+                tabindex="0"
+              ></section>
+              <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End scrollable transcript. -->
             </details>
           </div>
         </section>
@@ -259,6 +304,7 @@
                     <label class="search-label" for="filter">Filter calls</label>
                     <select id="filter">
                       <option value="all">All calls</option>
+                      <option value="usable">Reviewed · usable</option>
                       <option value="pending">Needs listening review</option>
                       <option value="partial">Incomplete speech</option>
                       <option value="missing">Missing evidence</option>
@@ -443,18 +489,29 @@
                 </div>
                 <div id="listening-review"></div>
                 <div id="call-notices"></div>
-                <div class="transcript-heading">
-                  <div>
-                    <h3 data-learn="transcript">Conversation transcript</h3>
-                    <p id="timing-note">
-                      Turn order is preserved. Audio timestamps are not measured.
-                    </p>
+                <details class="transcript-disclosure" id="conversation-transcript">
+                  <summary>Conversation transcript</summary>
+                  <div class="transcript-heading">
+                    <p id="timing-note" data-learn="transcript">Audio timestamps not measured.</p>
+                    <a id="download-transcript" class="button transcript-download" href="#calls">
+                      <svg
+                        aria-hidden="true"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M12 3v12m-4-4 4 4 4-4M5 16v5h14v-5" />
+                      </svg>
+                      Download .txt
+                    </a>
                   </div>
-                  <a id="download-transcript" class="text-link" href="#calls"
-                    >Download .txt <span aria-hidden="true">↗</span></a
-                  >
-                </div>
-                <div id="transcript" class="transcript"></div>
+                  <div id="transcript" class="transcript"></div>
+                </details>
               </section>
               <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End focusable tab panel. -->
               <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: WAI-ARIA tab panels are keyboard-focusable. -->

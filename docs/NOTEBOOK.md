@@ -685,3 +685,37 @@ transfer to another number. Tightened it to decline all offered transfers and st
 callbacks, ask general next steps and end. The call ended through end_call_tool and
 controller cleanup was confirmed. No conversation with staff is established by the
 saved transcript; the remote statement of transfer is not independently verified.
+
+
+## 2026-09-19 — live dialogue follow and record separation (#65)
+
+During collection Grant observed new dialogue below the visible scroll position and
+requested clearer speaker styling and a distinct lower detail area. Added a bounded
+live viewport that follows new turns, preserves manual scrollback and offers a Latest
+turns control. Patient and office backgrounds differ; selected-call details have a
+separate dark header and inset surface. No call lifecycle or evidence changes.
+
+Follow-up feedback: moved the large review introduction into a compact logo tagline;
+scenario cards now share the dropdown's display names and include a one-line purpose.
+A Usable marker/filter reflects saved review state only; no candidate is automatically
+marked listened or usable. Browser fixtures cover that distinction.
+
+Verification: 252 Python tests and 63 browser cases passed across desktop Chromium,
+mobile Chromium and desktop WebKit. Browser checks include accessibility, live follow /
+manual scrollback, review-driven usable filtering, and no unintended call requests.
+Inspected desktop and 390px mobile screenshots; kept card descriptions short to fit.
+
+## 2026-09-19 — charcoal theme and recording-first review (#67)
+
+Grant requested an icon-based charcoal theme, stronger light-mode surfaces, a more
+separate selected record and a closed-by-default transcript. Added persisted explicit
+theme choice (light default, storage-failure fallback), a stronger inset details surface
+and a native transcript disclosure with a styled download link. Changing the selected
+call closes its transcript; refreshing the same record preserves an open disclosure.
+
+The first contrast run caught small library labels on the stronger light fill and
+footer/help/search labels in charcoal. Adjusted those rather than weakening the gate.
+All 69 browser cases passed; the final neutral-charcoal adjustment and live-dialogue
+checks passed another six focused cases across the three browser projects. Python:
+254 tests passed. Inspected light, charcoal and mobile fixture screenshots. No real
+calls or review judgments were changed by this UI work.

@@ -59,9 +59,25 @@ function date(value, compact = false) {
     ...(compact ? {} : { timeZoneName: "short" }),
   }).format(new Date(value * 1000));
 }
+const scenarioPresentation = {
+  smoke: ["Office Information", "Hours, location and visit prep."],
+  calibration: ["Office Information", "Hours, location and visit prep."],
+  schedule: ["Appointment Scheduling", "Book and confirm a visit."],
+  reschedule: ["Rescheduling", "Change an appointment time."],
+  cancel: ["Cancellation", "Cancel a scheduled visit."],
+  refill: ["Medication Refill", "Request a medication refill."],
+  "refill-details": ["Refill Missing Information", "Ask with missing refill details."],
+  insurance: ["Insurance Questions", "Clarify insurance requirements."],
+  correction: ["Availability Correction", "Revise a time preference."],
+  ambiguity: ["Unclear Request", "Clarify a vague visit request."],
+  proxy: ["Third Party Request", "Ask about helping a relative."],
+};
 function scenario(value) {
-  if (["smoke", "calibration"].includes(value)) return "Office information";
-  return value?.replaceAll("_", " ") || "Unknown scenario";
+  return (
+    scenarioPresentation[value]?.[0] ||
+    value?.replace(/[-_]/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase()) ||
+    "Unknown Scenario"
+  );
 }
 function outcome(call) {
   const values = {
@@ -172,12 +188,13 @@ function renderList() {
   const query = $("search").value.trim().toLowerCase();
   const filter = $("filter").value;
   const calls = state.calls.filter((call) => {
-    const matches = `${scenario(call.scenario)} ${call.call_id} ${call.ended_by}`
+    const matches = `${scenario(call.scenario)} ${call.scenario} ${call.call_id} ${call.ended_by}`
       .toLowerCase()
       .includes(query);
     return (
       matches &&
       (filter === "all" ||
+        (filter === "usable" && call.review?.usable === true) ||
         (filter === "pending" && call.review?.listened !== true) ||
         (filter === "partial" && call.partial_turns > 0) ||
         (filter === "missing" && (!call.recording.available || !call.transcript_available)))
@@ -226,6 +243,13 @@ function renderList() {
       node("span", duration(call.duration_seconds)),
     );
     top.append(node("h3", scenario(call.scenario)));
+    const description = node(
+      "p",
+      scenarioPresentation[call.scenario]?.[1] || "Review the conversation outcome.",
+      "card-description",
+    );
+    description.title = description.textContent;
+    top.append(description);
     const status = node("div", null, "card-status");
     status.append(time, badge(...outcome(call)));
     const emblem = node("div", null, "card-emblem");
@@ -239,6 +263,13 @@ function renderList() {
       ),
     );
     emblem.append(symbol, node("span", date(call.started_at, true), "card-date"));
+    if (call.review?.usable === true) {
+      emblem.append(node("span", "Usable", "reviewed-chip"));
+      button.setAttribute(
+        "aria-label",
+        `${button.getAttribute("aria-label")} · Reviewed usable conversation`,
+      );
+    }
     const files = node("div", null, "card-files");
     for (const [available, label, paths] of [
       [
@@ -489,6 +520,7 @@ function renderGovernance(call) {
   }
 }
 async function selectCall(id) {
+  if (state.selected !== id) $("conversation-transcript").open = false;
   state.controller?.abort();
   const controller = new AbortController();
   state.controller = controller;

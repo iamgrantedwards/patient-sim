@@ -33,7 +33,7 @@ uv pip install --python "$smoke_dir/venv/bin/python" --no-deps "$build_dir"/*.wh
   ./venv/bin/python -I - <<'PYSMOKE'
 from src.review.server import ASSETS, create_app
 from src.review.store import CLOUD_EVIDENCE, CloudVerification
-assert all((ASSETS / name).is_file() for name in ("index.html", "app.js", "console.js", "learning.js", "style.css", "favicon.svg"))
+assert all((ASSETS / name).is_file() for name in ("index.html", "app.js", "console.js", "learning.js", "reviews.js", "theme.js", "style.css", "theme.css", "favicon.svg"))
 assert create_app().openapi_url is None
 for record_path in CLOUD_EVIDENCE.glob("*/verification.json"):
     record = CloudVerification.model_validate_json(record_path.read_text())

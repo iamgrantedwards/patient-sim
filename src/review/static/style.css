@@ -99,8 +99,16 @@ a {
 }
 .brand-row {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 0;
+}
+.brand-tagline {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #617166;
 }
 .brand {
   display: flex;
@@ -304,10 +312,26 @@ select {
   box-shadow: inset 3px 0 #42694d;
 }
 .card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  min-width: 0;
+}
+.call-card .card-description {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #617166;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.reviewed-chip {
+  margin-left: auto;
+  border: 1px solid #a7c5b3;
+  border-radius: 5px;
+  padding: 2px 5px;
+  background: #e4f0e8;
+  color: #285741;
+  font-size: 10px;
+  font-weight: 650;
 }
 .call-card h3 {
   font-size: 14px;
@@ -1124,16 +1148,50 @@ audio {
 }
 #live-turns {
   margin-top: 14px;
-  max-height: 280px;
+  height: clamp(240px, 34vh, 360px);
   overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  overflow-anchor: none;
+  padding: 8px;
+  border: 1px solid #d7e0da;
+  border-radius: 12px;
+  background: #f3f6f4;
 }
 .live-turn {
-  border-left: 2px solid #c5d4c6;
-  padding: 0 12px;
+  flex-shrink: 0;
+  border: 1px solid #d6e0e8;
+  border-left: 3px solid #678598;
+  border-radius: 10px;
+  background: #edf2f7;
+  padding: 10px 12px;
+}
+.live-turn.patient {
+  border-color: #c7ddd2;
+  border-left-color: #42745e;
+  background: #e5f0e9;
+}
+.live-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 38px;
+}
+.live-toolbar .context-note {
+  margin: 0;
+}
+#live-latest {
+  padding: 5px 10px;
+  min-height: 32px;
+  font-size: 12px;
 }
 .live-turn strong {
   font-size: 12px;
   color: var(--green);
+}
+.live-turn:where(.remote) strong {
+  color: #35566b;
 }
 .live-turn p {
   font-size: 14px;
@@ -2314,4 +2372,52 @@ summary:focus-visible {
   padding: 8px 10px;
   font-size: inherit;
   gap: 8px;
+}
+
+/* Separate the workspace library from the selected record below it. */
+.review-grid[data-view] {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.review-grid[data-view] .call-library {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.review-panel {
+  margin-top: 20px;
+  border: 1px solid #b8cbc0;
+  border-radius: 16px;
+  background: #eef3ef;
+  box-shadow: 0 8px 24px #203e3310;
+  overflow: hidden;
+}
+.review-panel .call-header {
+  background: linear-gradient(120deg, #244b3e, #193a31);
+  padding-top: 22px;
+  padding-bottom: 20px;
+}
+.review-panel .detail-top h2,
+.review-panel .empty-state h2 {
+  color: #f6faf7;
+}
+.review-panel .detail-kicker,
+.review-panel .detail-meta,
+.review-panel .empty-symbol {
+  color: #d0e1d6;
+}
+.review-panel .tab-bar {
+  background: #e4ece6;
+  border-bottom-color: #cbd9cf;
+}
+.review-panel .recording-card {
+  background: #ffffff;
+}
+
+.review-panel .empty-state {
+  --muted: #d0e1d6;
+}
+
+.review-panel .tab-bar button {
+  color: #40594c;
 }

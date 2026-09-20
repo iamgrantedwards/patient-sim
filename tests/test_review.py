@@ -96,6 +96,8 @@ def test_audio_supports_seeking_head_and_unsatisfiable_range(client, evidence):
         "/",
         "/assets/app.js",
         "/assets/style.css",
+        "/assets/theme.css",
+        "/assets/theme.js",
         "/assets/favicon.svg",
         "/api/calls",
         "/not-a-route",
