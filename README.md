@@ -134,8 +134,8 @@ explicitly adding selected submission evidence to the public repository.
 - [Architecture](ARCHITECTURE.md)
 
 The local review UI and opt-in controls are merged, and the callback defect has passed
-live verification (#21). Child-failure handling is merged (#58); natural endings have
-been observed in subsequent calls. The debugging video is recorded per Grant's report;
+live verification (#21). Child-failure handling is merged (#58); subsequent calls reached the end-call tool,
+while natural endings still await listening review. The debugging video is recorded per Grant's report;
 its public link, final walkthrough and human listening reviews remain submission work.
 The optional model-configuration comparison is deferred; no best-model claim is made.
 
