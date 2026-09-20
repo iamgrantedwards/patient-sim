@@ -55,6 +55,7 @@ class Turn(BaseModel):
 class Transcript(BaseModel):
     call_id: StrictStr
     turns: list[Turn] = Field(max_length=1000)
+    uncommitted_transcriptions: list[dict] = Field(default_factory=list, max_length=10000)
     claimed_state: dict | str | None = None
     consistency: dict | str | None = None
     verified_state: dict | str | None = None
@@ -214,6 +215,18 @@ class EvidenceStore:
             "duration_seconds": duration,
             "turn_count": len(turns),
             "partial_turns": partial_count,
+            "uncommitted_transcriptions": len(transcript.uncommitted_transcriptions)
+            if transcript
+            else None,
+            "termination": {
+                "failsafe_reason": meta.get("failsafe_reason")
+                if meta.get("failsafe_reason") in ("max_call_seconds", "max_turns")
+                else None,
+                "duration_limit_may_have_fired": obj(meta.get("sip")).get(
+                    "duration_limit_may_have_fired"
+                )
+                is True,
+            },
             "transcript_available": transcript is not None,
             "recording": {
                 "available": audio is not None,

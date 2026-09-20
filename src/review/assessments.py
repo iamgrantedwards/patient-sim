@@ -17,11 +17,13 @@ from src.analysis.assessment import (
     PROMPT,
     RUBRIC_VERSION,
     Assessment,
+    CallAssessment,
     StrictModel,
     score,
     validate_evidence,
 )
 
+from .quality import capture_context, quality_checks
 from .reviews import fingerprints
 
 PROMPT_SHA = hashlib.sha256(PROMPT.encode()).hexdigest()
@@ -89,6 +91,9 @@ def install(app, store, judge=None):
             "eligible": eligible(detail),
             "latest": latest.model_dump() if latest else None,
             "score": score(latest.result) if latest and not stale else None,
+            "quality_checks": quality_checks(
+                detail, latest.result if latest and not stale else None
+            ),
         }
 
     @app.get("/api/calls/{call_id}/assessment")
@@ -141,11 +146,16 @@ def install(app, store, judge=None):
                     return error("Assessment revision limit reached.", 409)
                 before = fingerprints(store, call_id)
                 detail = store.detail(call_id)
-                evidence = {"scenario": detail["scenario"], "turns": detail["turns"]}
+                evidence = {
+                    "scenario": detail["scenario"],
+                    "turns": detail["turns"],
+                    "capture": capture_context(detail),
+                }
                 if len(json.dumps(evidence)) > 60000:
                     return error("Transcript exceeds the assessment size limit.", 422)
                 try:
                     result = await asyncio.wait_for(judge(evidence), timeout=90)
+                    result = CallAssessment.model_validate(result.model_dump())
                     validate_evidence(result, detail["turns"])
                 except Exception:
                     # Provider exceptions may include credentials or transcript content.

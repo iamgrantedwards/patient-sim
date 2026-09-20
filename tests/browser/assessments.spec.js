@@ -125,3 +125,66 @@ test("late assessment cannot replace a different selected call", async ({ page }
   release();
   await expect(page.locator(".assessment-panel")).not.toContainText("90/100");
 });
+
+test("call-quality checklist separates AI concerns, capture checks and listening gaps", async ({
+  page,
+}) => {
+  const quality_checks = [
+    ["completeness", "files_present", "Local files"],
+    ["transcript", "needs_audio", "Audio needed"],
+    ["patient", "concern", "AI · transcript"],
+    ["turn_taking", "not_assessable", "AI · transcript"],
+    ["pacing", "needs_audio", "Audio needed"],
+    ["audio", "needs_audio", "Audio needed"],
+    ["ending", "concern", "AI · transcript"],
+  ].map(([topic, status, source]) => ({
+    topic,
+    result: status,
+    source,
+    rationale:
+      topic === "ending" ? "The final instruction appears unfinished." : "Synthetic check.",
+    next_step: "Listen to the final exchange before deciding.",
+    context:
+      topic === "ending"
+        ? "Our caller requested hangup. This does not verify a clean audible ending."
+        : null,
+    attribution: topic === "ending" ? "ours" : null,
+    evidence: topic === "ending" ? [{ turn: 1, quote: "Synthetic patient fixture." }] : [],
+  }));
+  const writes = [];
+  page.on("request", (r) => {
+    if (r.method() === "POST") writes.push(r.url());
+  });
+  await page.route("**/api/calls/call-fixture-03/assessment", (r) =>
+    r.fulfill({ json: { ...result, quality_checks } }),
+  );
+  await page.goto("/?call=call-fixture-03");
+  const panel = page.locator(".assessment-panel");
+  await panel.locator(":scope > summary").click();
+  await expect(panel).toContainText("90/100 · provisional");
+  await expect(panel.locator(".assessment-quality-row")).toHaveCount(7);
+  const ending = panel.locator(".assessment-quality-row").last();
+  await expect(ending).toHaveJSProperty("open", true);
+  await expect(ending).toContainText("The final instruction appears unfinished.");
+  await expect(ending).toContainText("Attribution: ours");
+  await expect(panel).toContainText("Audio has not been assessed");
+  for (const row of await panel.locator(".assessment-quality-row").all()) {
+    if (!(await row.evaluate((node) => node.open))) await row.locator("summary").click();
+  }
+  expect((await new AxeBuilder({ page }).include("#ai-assessment").analyze()).violations).toEqual(
+    [],
+  );
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.locator("#theme-toggle").click();
+  expect((await new AxeBuilder({ page }).include("#ai-assessment").analyze()).violations).toEqual(
+    [],
+  );
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await panel
+    .locator(".assessment-quality")
+    .screenshot({ path: test.info().outputPath("quality-charcoal.png") });
+  await ending.locator(".assessment-citation").click();
+  await expect(page.locator('#transcript [data-turn="1"]')).toBeFocused();
+  await expect(page.locator(".listening-review > summary")).toContainText("Not reviewed");
+  expect(writes).toEqual([]);
+});

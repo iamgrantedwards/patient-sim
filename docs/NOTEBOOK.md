@@ -851,3 +851,21 @@ so polling and new dialogue preserve manual collapse. Ended/failed/idle states c
 it; a distinct next attempt opens it again. Confirmation cancellation does not open
 it. Updated the product guide and offline lifecycle/browser assertions. No call
 requests, worker behavior or saved evidence changed.
+
+
+## 2026-09-20 UTC — call-quality checks and ending investigation (#85)
+
+Grant observed clipped endings despite Caller ended status and requested the seven
+review topics in automated assessment. Added a separate call-quality section, keeping
+the five-dimension office-agent aggregate unchanged. Local checks report capture facts;
+AI evaluates patient behavior, textual turn-taking concerns and final exchanges.
+Transcript accuracy, pacing and audio clarity explicitly require listening. No audio
+is sent to the judge, no manual checkbox is approved, and no call timing is changed.
+
+Read-only artifact/source inspection found recent suspected cutoffs below the four-minute
+limit with end-tool termination. The pinned tool waits for our speech handle but not
+another remote closing reply; causal attribution remains provisional. See DEBUGGING.md.
+Added legacy-result preservation, strict quality/citation validation, ending-context and
+browser coverage. Full local verification passed: 286 Python tests, 95.8% branch-inclusive coverage,
+111 browser/accessibility checks, lint/types, security audits and package/install checks.
+All provider responses were mocked; no paid assessment or real call was run.

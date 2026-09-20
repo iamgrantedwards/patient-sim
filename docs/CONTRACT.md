@@ -1,10 +1,11 @@
 # patient-sim — implementation contract
 
-Revision 7. Supersedes the planning notes. Earlier external-review decisions retain
+Revision 8. Supersedes the planning notes. Earlier external-review decisions retain
 their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
 build the local UI before recording the debugging video; call-quality gates are unchanged.
 **[R6]** specifies opt-in UI/CLI call ownership, explicit confirmation, and crash recovery.
 **[R7]** records delivered scope and explicit deferrals on 2026-09-20 UTC (#77).
+**[R8]** adds bounded call-quality assessment coverage (#85); caller behavior is unchanged.
 Historical internal experiments below are not claims of completed work. Runtime
 source and [EVALUATION.md](EVALUATION.md) define the implemented judge; current
 submission acceptance is [SUBMISSION.md](SUBMISSION.md).
@@ -293,3 +294,14 @@ manual reviews, prior calls or audio. It cannot approve a recording, verify back
 state, repair either agent or automatically retest. Detailed human-review rows are
 optional; the app's Usable outcome requires explicit listening and complete-evidence
 approval. See [EVALUATION.md](EVALUATION.md) for actual coverage and validation limits.
+
+
+## [R8] Call-quality review coverage
+
+The current transcript-v2 assessment retains the five office-agent score dimensions
+and adds separate patient behavior, turn-taking and ending text checks. Its inputs
+include allowlisted capture/termination metadata. The UI shows all seven manual-review
+topics, distinguishing local file checks, AI text judgments and audio-only items that
+need listening. End-call-tool success does not verify an audible ending. Old results
+remain saved and become stale; only an explicit request generates a new revision.
+No call limit, hangup behavior, original evidence or human decision changes here.

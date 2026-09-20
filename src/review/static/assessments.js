@@ -1,3 +1,21 @@
+const qualityLabels = {
+  completeness: "Complete evidence",
+  transcript: "Transcript accuracy",
+  patient: "Patient behavior",
+  turn_taking: "Turn-taking",
+  pacing: "Pacing",
+  audio: "Audio clarity",
+  ending: "Ending",
+};
+const qualityResults = {
+  files_present: "Files present",
+  attention: "Check capture",
+  needs_audio: "Needs listening",
+  not_assessed: "Not assessed",
+  concern: "Possible issue",
+  no_text_issue: "No text concern",
+  not_assessable: "Needs listening / context",
+};
 const labels = {
   request_handling: "Request handling",
   consistency: "Consistency",
@@ -144,6 +162,35 @@ export async function renderAssessment(call) {
           "context-note assessment-provenance",
         ),
       );
+    }
+    if (state.quality_checks?.length) {
+      body.append(
+        el("h4", "Call quality"),
+        el(
+          "p",
+          "Checks for the whole call, separate from the office-agent score. Audio has not been assessed. Nothing here completes your listening review.",
+          "context-note",
+        ),
+      );
+      const checklist = el("div", null, "assessment-quality");
+      for (const check of state.quality_checks) {
+        const row = el("details", null, "assessment-quality-row");
+        row.dataset.result = check.result;
+        const title = el("summary");
+        title.append(
+          el("span", qualityLabels[check.topic]),
+          el("strong", qualityResults[check.result]),
+        );
+        row.append(title, el("p", check.source, "context-note"), el("p", check.rationale));
+        if (check.context) row.append(el("p", check.context, "context-note"));
+        if (check.attribution)
+          row.append(el("p", `Attribution: ${check.attribution} · Provisional`, "context-note"));
+        row.append(el("p", check.next_step), citations(check.evidence, call));
+        // Keep the ending concern visible without hunting through nested controls.
+        if (check.topic === "ending") row.open = true;
+        checklist.append(row);
+      }
+      body.append(checklist);
     }
     if (!state.enabled) {
       body.append(
