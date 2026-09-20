@@ -189,7 +189,11 @@ function render(data) {
     lastTurns = undefined;
     followLive = true;
   }
-  const turns = JSON.stringify(op.live_turns);
+  const turns = JSON.stringify([
+    op.live_turns,
+    // Empty-state text must follow status changes even before a turn arrives.
+    op.live_turns.length ? null : [op.phase, op.live_warning],
+  ]);
   if (lastTurns !== turns) {
     const previousTop = liveTurns.scrollTop;
     const shouldFollow = followLive;
@@ -204,10 +208,48 @@ function render(data) {
         entry.append(text("span", "Incomplete speech", "badge warning"));
       byId("live-turns").append(entry);
     }
-    if (!op.live_turns.length)
-      byId("live-turns").append(
-        text("p", op.live_warning || "No committed dialogue yet.", "context-note"),
+    if (!op.live_turns.length) {
+      const waiting =
+        !op.live_warning &&
+        [
+          "preparing_worker",
+          "dispatching",
+          "waiting_for_worker",
+          "preparing_audio",
+          "dialing",
+          "connected",
+        ].includes(op.phase);
+      const placeholder = text("div", "", "live-placeholder");
+      placeholder.setAttribute("role", "status");
+      if (waiting) {
+        const indicator = text("span", "", "live-loading-indicator");
+        indicator.setAttribute("aria-hidden", "true");
+        placeholder.append(indicator);
+      }
+      placeholder.append(
+        text(
+          "strong",
+          op.live_warning
+            ? "Transcript unavailable"
+            : waiting
+              ? op.phase === "connected"
+                ? "Waiting for conversation…"
+                : "Connecting call…"
+              : ["stopping", "finalizing"].includes(op.phase)
+                ? "Finishing call…"
+                : "No dialogue captured",
+        ),
+        text(
+          "p",
+          op.live_warning ||
+            (waiting
+              ? "The transcript will appear when the first spoken turn is captured."
+              : "Check the call status and saved details."),
+          "context-note",
+        ),
       );
+      liveTurns.append(placeholder);
+    }
     if (shouldFollow) jumpToLatest();
     else {
       liveTurns.scrollTop = previousTop;

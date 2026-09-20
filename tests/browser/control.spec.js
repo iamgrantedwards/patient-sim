@@ -291,3 +291,50 @@ test("live dialogue follows new turns, preserves scrollback, and resumes explici
   await accessible(page);
   expect(requests).toEqual([]);
 });
+
+test("live transcript waits during startup, refreshes empty states and reveals read failures", async ({
+  page,
+}) => {
+  const { state, requests } = await fixture(page, "dialing");
+  state.operation.call_id = "call-loading-fixture";
+  await page.getByText("Live transcript · committed turns").click();
+  const viewport = page.locator("#live-turns");
+  await expect(viewport).toContainText("Connecting call…");
+  await expect(viewport.locator(".live-loading-indicator")).toBeVisible();
+  const height = await viewport.evaluate((el) => el.clientHeight);
+  state.operation.phase = "connected";
+  await expect(viewport).toContainText("Waiting for conversation…");
+  await accessible(page);
+  // Audit settled colors, not the intermediate colors of the theme transition.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.getByRole("button", { name: "Use dark mode", exact: true }).click();
+  await accessible(page);
+  expect(
+    await viewport
+      .locator(".live-loading-indicator")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("none");
+  state.operation.live_warning = "Live transcript unavailable. Check the saved call details.";
+  await expect(viewport).toContainText("Transcript unavailable");
+  await expect(viewport.locator(".live-loading-indicator")).toHaveCount(0);
+  delete state.operation.live_warning;
+  await expect(viewport).toContainText("Waiting for conversation…");
+  state.operation.live_turns = [
+    { idx: 0, role: "remote", text: "Good morning, how can I help?", status: "completed" },
+  ];
+  await expect(viewport.locator(".live-turn")).toHaveCount(1);
+  await expect(viewport.locator(".live-placeholder")).toHaveCount(0);
+  expect(await viewport.evaluate((el) => el.clientHeight)).toBe(height);
+  // Another attempt resets to its own empty state, without retaining old dialogue.
+  state.operation.call_id = "call-loading-next";
+  state.operation.live_turns = [];
+  await expect(viewport).toContainText("Waiting for conversation…");
+  state.operation.phase = "stopping";
+  await expect(viewport).toContainText("Finishing call…");
+  await expect(viewport.locator(".live-loading-indicator")).toHaveCount(0);
+  state.operation.phase = "recovery_required";
+  await expect(viewport).toContainText("No dialogue captured");
+  state.operation.phase = "failed";
+  await expect(page.locator("#active-operation")).toBeHidden();
+  expect(requests).toEqual([]);
+});
