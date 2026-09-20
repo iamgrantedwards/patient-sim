@@ -14,7 +14,7 @@ def test_evaluator_fields_cannot_change_patient_instructions():
 def test_patient_facts_and_callback_are_stable():
     prompt = build_instructions(DEFAULT_PATIENT, SMOKE, "+12025550123")
     assert "Dana Whitfield" in prompt
-    assert "March 4, 1986" in prompt
+    assert "July 4, 2000" in prompt
     assert "+12025550123" in prompt
     assert "prescriber" in prompt and "Name not available" in prompt
 

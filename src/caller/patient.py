@@ -9,8 +9,8 @@ from .scenarios import CallScenario
 @dataclass(frozen=True)
 class PatientRecord:
     display_name: str = "Dana Whitfield"
-    dob: str = "March 4, 1986"
-    reason_for_visit: str = "A routine checkup, with no urgent symptoms"
+    dob: str = "July 4, 2000 (assigned by the office for this demo profile)"
+    reason_for_visit: str = "A nonurgent orthopedic consultation for mild knee discomfort for two weeks; no injury or urgent symptoms"
     availability: str = "Weekday afternoons; ask for an actual date before agreeing"
     insurance: str = "A fictional Example Health PPO plan; member ID not available"
     medication: str = "Lisinopril, ten milligrams once daily, in this synthetic scenario"

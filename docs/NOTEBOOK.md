@@ -659,3 +659,11 @@ next attempt (call-20260920-011456-fe6d34a0) held a multi-turn conversation with
 worker crash, but still declined onboarding. The generic rule lost to the office-info
 opening posture. Smoke v3 makes onboarding the first action explicitly. This is our
 prompt defect, not evidence against the office; the original transcript is preserved.
+
+Smoke v3 call-20260920-011714-108d161e accepted onboarding, obtained weekday hours,
+address and insurance-card guidance, and ended through end_call_tool. Ten dialogue
+turns and 90.92 seconds of decoded stereo OGG were saved. Listening remains pending.
+The office explicitly assigned July 4, 2000 as the demo DOB. Subsequent synthetic
+patient facts use that assigned demo DOB, rather than silently conflicting with it;
+the original March 4 facts and both recordings remain unchanged. The reason for visit
+is aligned with the nonurgent knee scenario before transaction collection.
