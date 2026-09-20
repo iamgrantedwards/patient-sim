@@ -5,7 +5,7 @@ const pending = { status: "pending", enabled: true, eligible: true, token: "fixt
 const result = {
   ...pending,
   status: "saved",
-  score: { percent: 80, assessed: 5, total: 5 },
+  score: { percent: 90, assessed: 5, total: 5 },
   latest: {
     model: "fixture-judge",
     rubric: "transcript-v1",
@@ -56,7 +56,7 @@ test("assess, inspect evidence and reopen saved result without dialing or human 
   const panel = page.locator(".assessment-panel");
   await panel.locator(":scope > summary").click();
   await page.getByRole("button", { name: "Assess transcript", exact: true }).click();
-  await expect(panel).toContainText("80/100 · provisional");
+  await expect(panel).toContainText("90/100 · provisional");
   await panel.locator(".assessment-dimension summary").first().click();
   await expect(panel.locator("img")).toHaveCount(0);
   await panel.locator(".assessment-citation").first().click();
@@ -69,8 +69,14 @@ test("assess, inspect evidence and reopen saved result without dialing or human 
   const axe = await new AxeBuilder({ page }).include("#ai-assessment").analyze();
   expect(axe.violations).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await panel.screenshot({ path: test.info().outputPath("assessment-light.png") });
+  await page.locator("#theme-toggle").click();
+  expect((await new AxeBuilder({ page }).include("#ai-assessment").analyze()).violations).toEqual(
+    [],
+  );
+  await panel.screenshot({ path: test.info().outputPath("assessment-charcoal.png") });
   await page.reload();
-  await expect(panel).toContainText("80/100 · provisional");
+  await expect(panel).toContainText("90/100 · provisional");
   await panel.locator(":scope > summary").click();
   await expect(page.getByRole("button", { name: "Assess transcript", exact: true })).toHaveCount(0);
   expect(writes).toHaveLength(1);
@@ -93,11 +99,11 @@ test("provider failure is retryable and stale results withhold aggregate", async
   const panel = page.locator(".assessment-panel");
   await panel.locator(":scope > summary").click();
   await expect(panel).toContainText("Evidence changed · reassess");
-  await expect(panel).not.toContainText("80/100");
+  await expect(panel).not.toContainText("90/100");
   await page.getByRole("button", { name: "Reassess transcript" }).click();
   await expect(panel).toContainText("Fixture provider failed.");
   await page.getByRole("button", { name: "Retry assessment" }).click();
-  await expect(panel).toContainText("80/100");
+  await expect(panel).toContainText("90/100");
 });
 
 test("late assessment cannot replace a different selected call", async ({ page }) => {
@@ -117,5 +123,5 @@ test("late assessment cannot replace a different selected call", async ({ page }
   await page.locator('[data-call-id="call-fixture-02"]').click();
   await expect(page.locator("#call-header h2")).toHaveText("Rescheduling");
   release();
-  await expect(page.locator(".assessment-panel")).not.toContainText("80/100");
+  await expect(page.locator(".assessment-panel")).not.toContainText("90/100");
 });

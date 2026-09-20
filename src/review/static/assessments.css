@@ -110,3 +110,13 @@
     padding: 0 12px 12px;
   }
 }
+
+/* Keep text/surface colors synchronized when changing themes. */
+.assessment-citation {
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.assessment-scores {
+  align-items: start;
+}

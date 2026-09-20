@@ -217,3 +217,59 @@ def test_rubric_and_score_coverage_and_target_citations(evidence):
     raw["dimensions"][0]["dimension"] = "consistency"
     with pytest.raises(ValueError):
         Assessment.model_validate(raw)
+
+
+@pytest.mark.parametrize("output", ["valid", "invalid", "oversize", "provider_error"])
+def test_judge_sdk_boundary_closes_client_and_rejects_invalid_output(monkeypatch, output):
+    import asyncio
+    from types import SimpleNamespace
+
+    from livekit.agents import inference
+
+    from src.analysis.assessment import PROMPT, LiveKitJudge
+
+    captured = {}
+
+    class Stream:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            pass
+
+        def __aiter__(self):
+            return self.generate()
+
+        async def generate(self):
+            if output == "provider_error":
+                raise RuntimeError("fixture error")
+            text = (
+                report().model_dump_json()
+                if output == "valid"
+                else "x" * (33000 if output == "oversize" else 5)
+            )
+            yield SimpleNamespace(delta=None)
+            yield SimpleNamespace(delta=SimpleNamespace(content=text))
+
+    class Model:
+        def __init__(self, model, **kwargs):
+            captured["model"] = model
+
+        def chat(self, **kwargs):
+            captured.update(kwargs)
+            return Stream()
+
+        async def aclose(self):
+            captured["closed"] = True
+
+    monkeypatch.setattr(inference, "LLM", Model)
+    if output == "valid":
+        result = asyncio.run(LiveKitJudge()({"scenario": "fixture", "turns": []}))
+        assert result == report()
+        assert captured["response_format"] is Assessment
+        assert captured["conn_options"].max_retry == 0
+        assert captured["chat_ctx"].items[0].text_content == PROMPT
+    else:
+        with pytest.raises((ValueError, RuntimeError)):
+            asyncio.run(LiveKitJudge()({"turns": []}))
+    assert captured["closed"]

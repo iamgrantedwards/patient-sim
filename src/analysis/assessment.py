@@ -94,6 +94,14 @@ clarification (resolves ambiguity and incorporates corrections); supported_claim
 available text; 1 = a specific minor gap; 0 = a specific substantial failure; null =
 not assessable/not exercised. Cite exact, nonempty verbatim substrings with original
 zero-based idx for every grade, including at least one remote turn. Explain each grade.
+Applicability is mandatory: clarification is null unless the patient actually presents
+ambiguity or a correction; consistency is null unless comparable facts are repeated
+or related across turns; supported_claims is null when a claim (such as office hours)
+cannot be checked against facts supplied elsewhere in the conversation. Courtesy acknowledgements and farewells are not factual grounding. For example,
+a call asking office hours and receiving hours followed by goodbyes has null consistency,
+clarification and supported_claims; only request_handling and next_steps are exercised.
+Merely seeing no contradiction is not enough to assess these three dimensions. Information-only
+calls can have request_handling and next_steps grades without a publishable aggregate.
 A 2 is not proof of overall quality. Do not penalize the remote agent for our caller's
 behavior, missing evidence, reasonable identity verification, legitimate refusal,
 unavailable appointments or appropriate medication boundaries. Do not invent policies.
