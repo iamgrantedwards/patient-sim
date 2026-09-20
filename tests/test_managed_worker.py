@@ -1,9 +1,12 @@
 import asyncio
 import json
 import os
+from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import pytest
+from livekit.agents import utils
+from livekit.agents.ipc.job_executor import JobStatus
 
 from src.caller import managed_worker as module
 
@@ -75,3 +78,60 @@ def test_invalid_managed_call_id_never_runs_server(monkeypatch):
     monkeypatch.setenv("PATIENT_SIM_CALL_ID", "../escape")
     with pytest.raises(ValueError, match="Invalid managed call"):
         asyncio.run(module.run())
+
+
+@pytest.mark.parametrize("exit_code", [0, -11])
+def test_child_exit_receipt_distinguishes_success_from_failure(tmp_path, monkeypatch, exit_code):
+    (tmp_path / ".runtime").mkdir()
+    async def run():
+        handlers = {}
+        pool = utils.EventEmitter()
+        closed = asyncio.Event()
+
+        class Server:
+            _proc_pool = pool
+            drain = AsyncMock()
+
+            def on(self, event):
+                def register(callback):
+                    handlers[event] = callback
+                    return callback
+
+                return register
+
+            async def run(self, **kwargs):
+                handlers["worker_started"]()
+                proc = SimpleNamespace(
+                    status=JobStatus.SUCCESS if exit_code == 0 else JobStatus.FAILED,
+                    exitcode=exit_code,
+                    pid=4567,
+                    running_job=SimpleNamespace(job=SimpleNamespace(id="job-test")),
+                )
+                pool.emit("process_closed", proc)
+                pool.emit("process_closed", proc)  # A repeated notification must not overwrite.
+                if exit_code == 0:
+                    assert not (tmp_path / ".runtime/call-test-failure.json").exists()
+                    handlers["signal"]()
+                await closed.wait()
+
+            async def aclose(self):
+                closed.set()
+
+        monkeypatch.setattr(module, "server", Server())
+        monkeypatch.setattr(module, "PROJECT_ROOT", tmp_path)
+        monkeypatch.setenv("PATIENT_SIM_CALL_ID", "call-test")
+        monkeypatch.setenv("PATIENT_SIM_WORKER_NONCE", "fixture")
+        monkeypatch.setenv("PATIENT_SIM_PARENT_PID", str(os.getppid()))
+        loop = asyncio.get_running_loop()
+        monkeypatch.setattr(loop, "add_signal_handler", lambda sig, cb: handlers.update(signal=cb))
+        monkeypatch.setattr(loop, "remove_signal_handler", lambda sig: True)
+        await module.run()
+        if exit_code:
+            receipt = json.loads((tmp_path / ".runtime/call-test-failure.json").read_text())
+            assert receipt["exit_code"] == -11
+            assert receipt["job_id"] == "job-test"
+            assert receipt["parent_pid"] == os.getpid()
+        else:
+            assert not (tmp_path / ".runtime/call-test-failure.json").exists()
+
+    asyncio.run(run())

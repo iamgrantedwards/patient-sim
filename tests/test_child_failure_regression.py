@@ -2,8 +2,8 @@
 
 Network access is disabled by pytest-socket. Provider operations and the process
 boundary are replaced; CallManager and LiveBackend.exited remain production code.
-The strict xfail is an OPEN defect, not evidence that failure handling is fixed.
-Run with --runxfail to see the failing acceptance assertion before implementing it.
+The regression failed before child-failure receipts were introduced.
+This verifies failure handling, not a remedy for the native segmentation fault.
 """
 
 import asyncio
@@ -12,6 +12,7 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import pytest
+
 from livekit.agents import AgentServer, utils
 from livekit.agents.ipc.job_executor import JobStatus
 from livekit.protocol import agent as protocol
@@ -20,10 +21,6 @@ from src.caller import managed_worker
 from src.caller.control import CallManager
 from src.caller.control_backend import LiveBackend
 from src.caller.transcript import write_json
-
-
-class ChildFailureNotPropagated(AssertionError):
-    """Only the known missing status transition is an expected failure."""
 
 
 async def report_failed_child(monkeypatch):
@@ -46,12 +43,10 @@ def test_pinned_sdk_reports_failed_child_to_cloud(monkeypatch):
     asyncio.run(report_failed_child(monkeypatch))
 
 
-@pytest.mark.xfail(
-    strict=True,
-    raises=ChildFailureNotPropagated,
-    reason="Open #46: parent survives child failure; controller remains dialing until deadline/stop",
-)
-def test_child_failure_reaches_controller_before_call_deadline(tmp_path, configured, monkeypatch):
+@pytest.mark.parametrize("cleanup_fails", [False, True])
+def test_child_failure_reaches_controller_before_call_deadline(
+    tmp_path, configured, monkeypatch, cleanup_fails
+):
     async def run():
         registered = asyncio.Event()
         closed = asyncio.Event()
@@ -88,6 +83,7 @@ def test_child_failure_reaches_controller_before_call_deadline(tmp_path, configu
         class ParentProcess:
             def __init__(self, task):
                 self.task = task
+                self.pid = os.getpid()
 
             @property
             def returncode(self):
@@ -118,6 +114,8 @@ def test_child_failure_reaches_controller_before_call_deadline(tmp_path, configu
 
             async def hangup(self, call_id):
                 self.hangups += 1
+                if cleanup_fails:
+                    raise OSError("fixture room cleanup failed")
 
             async def close(self):
                 closed.set()
@@ -151,14 +149,22 @@ def test_child_failure_reaches_controller_before_call_deadline(tmp_path, configu
             observed = manager.snapshot()
             assert backend.dispatches == 1
             assert evidence.read_bytes() == original
-            if observed["phase"] != "failed":
-                raise ChildFailureNotPropagated(
-                    "SDK emitted process_closed / JS_FAILED, but the local controller reports "
-                    f"{observed['phase']!r}; parent returncode={backend.process.returncode!r}, "
-                    f"cleanup_confirmed={observed['cleanup_confirmed']!r}"
-                )
-            assert observed["cleanup_confirmed"] is True
-            assert backend.hangups >= 1
+            assert observed["phase"] == ("recovery_required" if cleanup_fails else "failed"), (
+                observed
+            )
+            assert observed["error"] == ("cleanup" if cleanup_fails else "worker_child_exit")
+            assert observed["worker_failure"]["exit_code"] == -11
+            assert observed["worker_failure"]["job_id"] == "fixture-child-job"
+            assert observed["evidence_status"] == "partial_or_unavailable"
+            assert "fixture-nonce" not in str(observed)
+            assert observed["cleanup_confirmed"] is not cleanup_fails
+            assert backend.hangups == 2
+            if cleanup_fails:
+                from src.caller.control import ControlError
+
+                with pytest.raises(ControlError, match="unresolved"):
+                    await manager.start("smoke", manager.start_token, "must-not-redial")
+                assert backend.dispatches == 1
         finally:
             await manager.shutdown()
 

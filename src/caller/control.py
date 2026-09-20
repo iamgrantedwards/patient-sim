@@ -18,6 +18,7 @@ MESSAGES = {
     "configuration": "Configuration is not ready. Check the required values in .env and the README.",
     "worker_start": "The dedicated worker did not register. Check .runtime worker logs and LiveKit connectivity; no automatic retry.",
     "dispatch": "Dispatch failed or timed out. Review the outcome before trying another call.",
+    "worker_child_exit": "The call worker crashed. Available evidence is preserved; review the worker log before another call.",
     "worker_exit": "The worker exited. Available evidence is preserved; review it before another call.",
     "deadline": "The controller deadline expired. Stop was requested and available evidence was preserved.",
     "cleanup": "Call termination could not be confirmed. Use Stop / recover again; new calls are blocked.",
@@ -164,6 +165,11 @@ class CallManager:
                     self.save(phase="waiting_for_worker", dispatch_id=dispatch_id)
                     deadline = time.monotonic() + self.max_seconds + 90
                     while not self.stop_event.is_set():
+                        failure = self.backend.failure()
+                        if failure:
+                            self.save(worker_failure=failure)
+                            error = "worker_child_exit"
+                            break
                         meta = self.metadata(call_id)
                         if meta.get("status") == "ended":
                             self.save(ended_by=meta.get("ended_by"), phase="finalizing")

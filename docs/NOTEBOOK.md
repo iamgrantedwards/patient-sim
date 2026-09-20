@@ -570,3 +570,17 @@ remain compact and aligned.
 - The original warning-only worker log cannot settle the exact reassignment mechanism.
   Next change should deliver child failure to cleanup and capture assignment identity.
   No calls, dependency changes, production fixes, or original evidence edits occurred.
+
+
+## 2026-09-19 — #46 first fix: child failure reaches the controller
+
+- Added a failure receipt from the pinned SDK process-closed notification. It records
+  call/worker identity, child PID, job ID, and exit code, then drains the dedicated
+  server. The controller accepts only a receipt matching its current call, nonce,
+  and parent PID; it records the failure separately from original call evidence.
+- The prior stuck-Dialing regression now passes with its xfail marker removed.
+  It retains the original metadata and records exit -11 while cleanup completes.
+  Cleanup failure instead leaves recovery_required and blocks a new call.
+- Native crash symbolication checked the installed binary UUID against the report:
+  they match, but the native frames still lack names beyond livekit_ffi_request.
+  This change handles that failure; it does not repair the native memory access.
