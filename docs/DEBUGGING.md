@@ -187,3 +187,94 @@ Copy this section only when there is actual work to record; leave unknowns expli
 - Human listening review and outcome (or pending):
 - Next action / acceptance still open:
 ```
+
+
+## 2026-09-19 — issue #46 offline investigation checkpoint
+
+This checkpoint changes tests and documentation only. No new call was placed, no
+worker was restarted, no dependency was changed, and original call artifacts were
+not edited. It is a before-fix investigation, not a completed remediation.
+
+### Native crash: matching report found
+
+The local macOS report `python3.12-2026-09-19-124216.ips` records a crash at
+**2026-09-19 12:42:11.4483 -0700**, shortly after the second attempt started.
+The crashing process is PID **20955**; its parent is PID **20951**, matching the
+second attempt's private worker-registration receipt.
+
+The report identifies `EXC_BAD_ACCESS`, `SIGSEGV`, and
+`KERN_INVALID_ADDRESS at 0x0000000000000000`. The first nine frames of the faulting
+thread are in `liblivekit_ffi.dylib`; the named boundary is `livekit_ffi_request`,
+followed by Python ctypes frames. The environment has `livekit==1.1.18` and
+`livekit-agents==1.8.2`.
+
+This narrows the failure to a native LiveKit FFI call with an invalid address. It
+does **not** identify the originating Python operation, prove an upstream library
+bug, or establish a safe dependency change. Most native frames are unsymbolicated.
+The private report is retained locally, not published with its machine details.
+Its SHA-256 is `dff57d0c4dd38a222f3de9d0085eb87b3b3fb10da5a65a2ecd3b6a0f155047aa`.
+
+### Later initialization: protection works; assignment cause remains unknown
+
+`test_repeated_call_identity_preserves_evidence_and_never_redials` seeds a fixture
+call directory with an existing journal, metadata, and partial-audio placeholder.
+It invokes the real agent entrypoint with the same call identity. The result is
+`FileExistsError` / errno 17 before session connection, session start, or any SIP
+request. All seeded files remain byte-identical, with no extra files.
+
+The exclusive-create guard is doing useful work and should remain. This test
+reproduces the duplicate-identity boundary, not the historical server reassignment.
+The pinned SDK's default request handler accepts offered jobs, and its process pool
+reports failed jobs back to Cloud. Neither fact proves the precise reason for the
+later job assignment seen in the original log. That log lacks timestamps, job IDs,
+and dispatch IDs needed to settle this. The managed entrypoint calls `server.run`
+directly without configuring the CLI's structured logging. Recording assignment
+identity and lifecycle events is a justified follow-up; automatic redial is not.
+
+### Stale Dialing: reproduced offline
+
+The regression runs the real managed-worker wrapper, `CallManager`, and
+`LiveBackend.exited`, with provider operations and the OS process boundary replaced
+by offline fixtures. It exercises the pinned SDK's real failed-job status mapping
+and delivers its `process_closed` notification to the server's process pool. The
+parent remains running. No actual segmentation fault is induced.
+
+After a two-second offline observation window, well before the controller's
+330-second fixture deadline, the expected failed state is absent:
+
+```text
+SDK emitted process_closed / JS_FAILED, but the local controller reports
+'dialing'; parent returncode=None, cleanup_confirmed=False
+```
+
+The browser renders `operation.phase` from the controller; `dialing` maps directly
+to the Dialing label. This is a missing failure signal in orchestration, not evidence
+of a browser rendering failure. Existing controller checks notice parent exit or
+finalized metadata, but the native child crash supplies neither.
+
+Reproduce the before-fix result:
+
+```sh
+uv run pytest tests/test_child_failure_regression.py tests/test_worker_failures.py \
+  -q --runxfail --tb=short
+```
+
+Result: **1 failed, 13 passed**. The failure is the missing failed-state transition.
+The default suite keeps that one assertion as a **strict expected failure** linked
+to #46. Only its dedicated exception type is allowed to xfail; unexpected setup or
+other assertion failures remain failures. An unexpected pass fails CI so the marker
+must be removed when the fix lands. A green suite with this marker does not mean
+#46 is fixed.
+
+### Next decision
+
+Add an explicit child-failure signal to the managed controller and route it through
+existing cleanup/recovery handling. Retain exclusive evidence creation and record
+job/dispatch identity so repeated assignment can be explained. A pinned-SDK process
+lifecycle adapter is one candidate; its private API dependency needs explicit tests.
+Do not guess a dependency upgrade from the native stack alone.
+
+The follow-up must cover failure delivery, cleanup uncertainty, duplicate assignment,
+normal completion, and removal of this expected-failure marker. A separately
+authorized live call is still required. Native crash resolution remains distinct
+from detecting it correctly.

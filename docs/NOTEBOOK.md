@@ -551,3 +551,22 @@ menus now share the scenario menu's styling, selected checkmark and hover state,
 arrow/Home/End/typeahead navigation, Enter selection and Escape dismissal. Review and
 scenario browser checks cover these interactions without dialing; the review controls
 remain compact and aligned.
+
+
+## 2026-09-19 — #46 investigation before a production fix
+
+- Grant started the planned offline investigation of the second call's native crash,
+  later initialization, and stale Dialing state. Issue #46 is assigned and in progress.
+- Found a matching local macOS crash report: child PID 20955, parent PID 20951 matching
+  the worker receipt, SIGSEGV / invalid null address in `liblivekit_ffi.dylib`. This
+  narrows the crash location but does not identify the triggering operation or root cause.
+- Added a passing regression proving a repeated call identity preserves original
+  fixture evidence and fails before connection or SIP dialing.
+- Reproduced the controller gap with the actual managed wrapper and SDK failure
+  mapping across mocked external boundaries: child failure is reported, parent stays
+  alive, controller still returns Dialing. The before-fix run is 1 failed / 13 passed.
+- Kept the one known failure explicitly marked strict xfail, with `--runxfail` documented
+  for demonstration. This is a test/evidence checkpoint, not a failure-handling fix.
+- The original warning-only worker log cannot settle the exact reassignment mechanism.
+  Next change should deliver child failure to cleanup and capture assignment identity.
+  No calls, dependency changes, production fixes, or original evidence edits occurred.
