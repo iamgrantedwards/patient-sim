@@ -16,6 +16,14 @@ I'm building a voice bot that acts as a patient and calls Pretty Good AI's test 
 It uses Python and LiveKit, with separate speech-to-text, language-model and
 text-to-speech components. This interface lets me start a call and review the evidence.
 
+My evaluation plan covers at least ten complete conversations: office questions,
+scheduling and changes, refills, and realistic edge cases. I review each recording,
+separate problems in my caller from findings about their agent, and repeat useful tests
+under comparable conditions. Before collecting that set, I need a reliable caller.
+
+[Preparation: the coverage and adjustment rules are in TEST-STRATEGY.md. This is the
+plan; do not describe ten calls or missing scenarios as already completed.]
+
 ## 2. What went wrong
 
 Our first call connected and saved a conversation, although its ending needs review.

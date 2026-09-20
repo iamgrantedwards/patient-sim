@@ -27,6 +27,9 @@ marks the saved review stale and removes it from reviewed/usable counts until re
 Legacy metadata listening flags do not silently become approval. Existing manual sheets
 remain readable documents but are not automatically imported.
 
+The [ten-call strategy](TEST-STRATEGY.md) maps scenario coverage, dependencies, review
+points and the rules for changing the caller.
+
 ## Before each call: choose one purpose
 
 Write one sentence describing what the patient wants and what you want to observe.
