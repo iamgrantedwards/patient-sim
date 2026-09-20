@@ -31,6 +31,7 @@ class LiveBackend:
         write_json(self.root / ".runtime" / f"{call_id}-intent.json", {"nonce": nonce})
         env = dict(os.environ)
         env.update(
+            PYTHONFAULTHANDLER="1",
             PATIENT_SIM_AGENT_NAME=self.agent_name,
             PATIENT_SIM_CALL_ID=call_id,
             PATIENT_SIM_WORKER_NONCE=nonce,
@@ -96,6 +97,27 @@ class LiveBackend:
                 rooms = await client.room.list_rooms(api.ListRoomsRequest(names=[call_id]))
                 if rooms.rooms:
                     raise RuntimeError("room_still_present")
+
+    def failure(self):
+        if not self.call_id or not self.nonce or self.process is None:
+            return None
+        path = self.root / ".runtime" / f"{self.call_id}-failure.json"
+        try:
+            data = json.loads(path.read_text())
+        except (OSError, ValueError):
+            return None
+        if not isinstance(data, dict) or (
+            data.get("call_id") != self.call_id
+            or data.get("nonce") != self.nonce
+            or data.get("parent_pid") != self.process.pid
+            or data.get("reason") != "child_exit"
+        ):
+            return None
+        # Return only diagnostic fields, never the receipt's authentication nonce.
+        return {
+            key: data.get(key)
+            for key in ("reason", "child_pid", "job_id", "exit_code", "observed_at")
+        }
 
     def exited(self):
         return self.process is not None and self.process.returncode is not None

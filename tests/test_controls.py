@@ -43,6 +43,9 @@ class Backend:
         )
         return "dispatch-fixture"
 
+    def failure(self):
+        return None
+
     def exited(self):
         return self.mode == "worker_exit"
 

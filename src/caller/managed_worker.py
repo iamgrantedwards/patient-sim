@@ -3,6 +3,9 @@
 import asyncio
 import os
 import signal
+import time
+
+from livekit.agents.ipc.job_executor import JobStatus
 
 from .agent import server
 from .config import PROJECT_ROOT
@@ -32,6 +35,45 @@ async def run():
                 "registered": True,
             },
         )
+
+    @server.on("worker_started")
+    def observe_children():
+        # Pinned LiveKit Agents 1.8.2 has no public child-exit event on AgentServer.
+        # Subscribe once the pool exists, before server.run yields to job dispatch.
+        pool = server._proc_pool
+        failure_seen = False
+
+        def child_closed(proc):
+            nonlocal failure_seen
+            exit_code = getattr(proc, "exitcode", None)
+            if stop.is_set() or failure_seen:
+                return
+            # An unassigned process has no job status; nonzero exit alone is sufficient.
+            if exit_code in (None, 0) and (
+                proc.running_job is None or proc.status != JobStatus.FAILED
+            ):
+                return
+            failure_seen = True
+            job = proc.running_job.job if proc.running_job else None
+            try:
+                write_json(
+                    PROJECT_ROOT / ".runtime" / f"{call_id}-failure.json",
+                    {
+                        "call_id": call_id,
+                        "nonce": nonce,
+                        "parent_pid": os.getpid(),
+                        "reason": "child_exit",
+                        "child_pid": getattr(proc, "pid", None),
+                        "job_id": job.id if job else None,
+                        "exit_code": exit_code,
+                        "observed_at": time.time(),
+                    },
+                )
+            finally:
+                # Even a storage failure must stop this dedicated server from taking more work.
+                stop.set()
+
+        pool.on("process_closed", child_closed)
 
     async def parent_watch():
         while not stop.is_set():
@@ -69,4 +111,8 @@ async def run():
 
 
 if __name__ == "__main__":
+    from livekit.agents.cli.log import setup_logging
+
+    # Include timestamps and SDK job/process fields in the already-private worker log.
+    setup_logging("INFO", devmode=False, console=False)
     asyncio.run(run())

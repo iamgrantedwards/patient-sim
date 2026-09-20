@@ -25,6 +25,7 @@ def test_worker_registration_is_required_and_dispatch_is_unique(backend, monkeyp
         assert args[-1] == "src.caller.managed_worker"
         assert kwargs["start_new_session"] is True
         env = kwargs["env"]
+        assert env["PYTHONFAULTHANDLER"] == "1"
         assert env["PATIENT_SIM_AGENT_NAME"] == backend.agent_name
         write_json(
             backend.root / ".runtime/call-fixture-worker.json",
@@ -188,3 +189,43 @@ def test_provider_requests_and_room_absence_verification(
             assert list(room.list_rooms.await_args.args[0].names) == ["call-api"]
 
     asyncio.run(run())
+
+
+@pytest.mark.parametrize(
+    "change",
+    [{}, {"nonce": "stale"}, {"parent_pid": 999}, {"call_id": "call-other"}, {"reason": "unknown"}],
+)
+def test_child_failure_receipt_requires_current_worker(backend, change):
+    backend.call_id = "call-fixture"
+    backend.nonce = "current-nonce"
+    backend.process = SimpleNamespace(pid=1234, returncode=None)
+    receipt = {
+        "call_id": "call-fixture",
+        "nonce": "current-nonce",
+        "parent_pid": 1234,
+        "reason": "child_exit",
+        "child_pid": 4567,
+        "job_id": "job-fixture",
+        "exit_code": -11,
+        "observed_at": 1.0,
+    }
+    receipt.update(change)
+    write_json(backend.root / ".runtime/call-fixture-failure.json", receipt)
+    result = backend.failure()
+    if change:
+        assert result is None
+    else:
+        assert result["exit_code"] == -11
+        assert result["child_pid"] == 4567
+        assert "nonce" not in result
+    assert not backend.exited()  # The receipt works independently of parent exit.
+
+
+@pytest.mark.parametrize("content", [None, "{broken", "[]"])
+def test_missing_or_malformed_failure_receipt_is_not_trusted(backend, content):
+    assert backend.failure() is None
+    backend.call_id, backend.nonce = "call-fixture", "current"
+    backend.process = SimpleNamespace(pid=1234, returncode=None)
+    if content is not None:
+        (backend.root / ".runtime/call-fixture-failure.json").write_text(content)
+    assert backend.failure() is None

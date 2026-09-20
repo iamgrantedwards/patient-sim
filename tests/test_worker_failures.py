@@ -235,3 +235,27 @@ def test_stop_during_audio_preparation_prevents_sip_and_preserves_reason(worker,
     assert agent._calls[ctx.job.id].meta["ended_by"] == (
         "controller_shutdown" if "controller_shutdown" in marker else "operator_stop"
     )
+
+
+def test_repeated_call_identity_preserves_evidence_and_never_redials(worker, tmp_path):
+    """Issue #46: replaying initialization must fail before any provider connection."""
+    ctx, state = worker
+    directory = tmp_path / "calls/call-fixture"
+    directory.mkdir(parents=True)
+    originals = {
+        "events.jsonl": b'{"type":"conversation_item_added","data":{"item":{"type":"agent_handoff"}}}\n',
+        "meta.json": b'{"status":"worker_started","sip":{"status":"dialing"}}\n',
+        "recording.ogg": b"original-partial-audio-fixture",
+    }
+    for name, content in originals.items():
+        (directory / name).write_bytes(content)
+
+    with pytest.raises(FileExistsError) as raised:
+        asyncio.run(agent.entrypoint(ctx))
+
+    assert raised.value.errno == 17
+    assert ctx.job.id not in agent._calls
+    state.connect.assert_not_awaited()
+    state.start.assert_not_awaited()
+    ctx.api.sip.create_sip_participant.assert_not_awaited()
+    assert {p.name: p.read_bytes() for p in directory.iterdir()} == originals
