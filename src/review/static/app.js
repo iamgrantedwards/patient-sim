@@ -520,16 +520,25 @@ function renderGovernance(call) {
   }
 }
 async function selectCall(id) {
-  if (state.selected !== id) $("conversation-transcript").open = false;
   state.controller?.abort();
   const controller = new AbortController();
   state.controller = controller;
+  const previous = state.detail;
   state.selected = id;
-  state.detail = null;
   $("audio").pause();
-  $("call-content").hidden = true;
+  $("call-content").inert = true;
+  $("call-loading").hidden = true;
   $("review-panel").setAttribute("aria-busy", "true");
-  emptyHeader("Loading call…", "Reading the original local artifacts.");
+  if (!previous) {
+    $("call-content").hidden = true;
+    emptyHeader("Loading call…", "Reading the original local artifacts.");
+  }
+  const loading = setTimeout(() => {
+    if (controller !== state.controller || controller.signal.aborted) return;
+    const next = state.calls.find((call) => call.call_id === id);
+    $("call-loading").textContent = `Loading ${scenario(next?.scenario)}…`;
+    $("call-loading").hidden = false;
+  }, 200);
   renderList();
   if (state.view === "cards") {
     const card = $("call-list").querySelector('[aria-current="true"]');
@@ -545,6 +554,7 @@ async function selectCall(id) {
   try {
     const call = await json(`/api/calls/${encodeURIComponent(id)}`, controller.signal);
     if (state.selected !== id || controller.signal.aborted) return;
+    if (previous?.call_id !== id) $("conversation-transcript").open = false;
     state.detail = call;
     renderHeader(call);
     renderConversation(call);
@@ -567,6 +577,8 @@ async function selectCall(id) {
       `${scenario(call.scenario)} loaded. ${call.turn_count} turns. ${outcome(call)[0]}.`;
   } catch (error) {
     if (controller !== state.controller) return;
+    state.detail = null;
+    $("call-content").hidden = true;
     emptyHeader(
       "Call evidence unavailable",
       controller.signal.aborted ? "Loading timed out. Use Refresh calls to retry." : error.message,
@@ -574,7 +586,12 @@ async function selectCall(id) {
     $("announcement").textContent = "Call evidence unavailable. Refresh to retry.";
   } finally {
     clearTimeout(timeout);
-    if (controller === state.controller) $("review-panel").setAttribute("aria-busy", "false");
+    clearTimeout(loading);
+    if (controller === state.controller) {
+      $("review-panel").setAttribute("aria-busy", "false");
+      $("call-content").inert = false;
+      $("call-loading").hidden = true;
+    }
   }
 }
 async function refresh() {

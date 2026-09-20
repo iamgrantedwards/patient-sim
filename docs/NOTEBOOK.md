@@ -720,6 +720,18 @@ checks passed another six focused cases across the three browser projects. Pytho
 254 tests passed. Inspected light, charcoal and mobile fixture screenshots. No real
 calls or review judgments were changed by this UI work.
 
+## 2026-09-19 — stable selection while call details load (#69)
+
+The detail flash came from hiding the entire content, replacing its header with Loading,
+and fading the panel on every selection. Keep the previous record visible during the
+fetch, pause its audio and make its controls inert. Only show a loading overlay after
+200ms. Replace the details together when the latest request completes; clear stale
+content on an error. The transcript closes only when a different record is committed.
+
+Validation: 254 Python tests and 78 browser cases passed. New cases verify no blank/fade
+on quick switching, stable pending geometry, blocked stale controls, rejection of an
+older delayed response, and recovery after a failed selection. No real call was made.
+
 ## 2026-09-19 — collection report reconciliation (#17, #18, #19)
 
 Ten candidate pairs are captured and validated for file integrity; the collection
