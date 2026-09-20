@@ -763,3 +763,12 @@ not broad judge accuracy. The complete initial browser suite passed 87 cases; th
 nine assessment cases also passed after adding both-theme accessibility and fixing
 citation-button color transitions. Saved-call evaluation remains opt-in; no assessment
 is a human listening approval.
+
+
+## 2026-09-19 — Reduce review effort (#73)
+
+Re-read the original employer brief: it requires complete recordings/transcripts and
+a useful bug report, not seven manual judgments per call. Simplified the review form
+around outcome and optional notes, with detailed checks behind a disclosure. A saved
+AI summary can be explicitly added as draft notes without changing listening, checks
+or acceptance. Existing evidence/acceptance rules remain unchanged.
