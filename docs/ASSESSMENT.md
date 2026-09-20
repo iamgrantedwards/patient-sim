@@ -8,7 +8,7 @@ The mandatory implementation choices are followed; the submission is not complet
 | Python + LiveKit Agents, separate STT/LLM/TTS | Implemented in `src/caller/agent.py`; no realtime models or prohibited hosted voice-agent platforms |
 | Call only +1-805-439-8008 | Destination enforced before dispatch and in configuration validation; rejection tests pass |
 | One caller number throughout, submitted in E.164 | Owned DID configured and used for the first call; keep the same number for all calls and final submission |
-| Athena test account; never call its confirmation-screen number | Account creation/product exploration not yet verified; permitted destination stays fixed |
+| Athena test account; never call its confirmation-screen number | Completed per Grant’s firsthand report on 2026-09-19; demo callback/booking experienced, calendar/SMS recollected but not independently checked; assessment-line state sharing unknown |
 | Natural, coherent conversations | Unverified until real calls are listened to; mocks and coverage do not establish this |
 | At least 10 full conversations, each with both-sided audio and transcript | One 70-second stereo OGG/transcript pair exists locally; the last patient turn was cut off and listening is pending. Zero pairs accepted toward the ten-call gate so far |
 | Variety: scheduling, changes/cancellation, refills, information, edge cases | Only the read-only office-information smoke scenario exists; expand after the first good call |

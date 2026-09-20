@@ -551,3 +551,34 @@ menus now share the scenario menu's styling, selected checkmark and hover state,
 arrow/Home/End/typeahead navigation, Enter selection and Escape dismissal. Review and
 scenario browser checks cover these interactions without dialing; the review controls
 remain compact and aligned.
+
+
+## 2026-09-19 — ten-call strategy before filming
+
+Grant asked how the simulator will test the office agent, document results and improve
+against the minimum ten-call requirement. Re-read the team's original brief and inspected
+the actual scenario registry: only office information exists. Prepared TEST-STRATEGY.md
+with ten coverage slots, state dependencies and honest fallbacks, review checkpoints,
+separate attribution, and matched retests. A prompt does not prove barge-in occurred;
+that behavior needs implementation and audio verification. Existing generic refill facts
+also need product-context review before treating a request as a supported happy path.
+No scenarios were executed, no calls were approved, and no findings were invented.
+
+
+## 2026-09-19 — Athena product exploration, reported by Grant (#8)
+
+Grant confirms that he already created the Athena test account and experienced the
+demo himself. He recalls accepting an offer to call his phone, receiving that call,
+and having an appointment-booking conversation. He believes the flow also arranged
+a date/calendar entry and sent a text about the appointment. This is Grant's firsthand
+report recorded today, not an independently inspected recording, calendar or SMS.
+The exact appointment outcome and message contents remain unverified.
+
+This satisfies the setup/exploration step and establishes appointment booking as an
+observed demo workflow. It does not establish office policies, refill support, or
+whether Athena and the assessment line share patient/appointment state. Do not reuse
+Grant's personal appointment details as synthetic test facts. Our caller should follow
+legitimate demo onboarding when needed. All automated test calls still use only the
+allowlisted assessment line; this personal demo is not one of our ten submitted calls.
+Earlier entries correctly describe what was unverified at that time; they are not
+rewritten to imply we had this report earlier.
