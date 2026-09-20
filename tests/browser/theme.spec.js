@@ -80,7 +80,7 @@ test("charcoal preference persists and covers controls, reviews, menus and help 
     { idx: 1, role: "remote", text: "We open at nine." },
   ];
   await expect(page.locator("#console-phase")).toHaveText("Connected");
-  await page.locator("#live-dialogue > summary").click();
+  await expect(page.locator("#live-dialogue")).toHaveJSProperty("open", true);
   await accessible(page);
   await page.getByRole("button", { name: "Use light mode", exact: true }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");

@@ -841,3 +841,13 @@ The transcript shows connection/waiting progress and updates on phase or warning
 changes, with a reduced-motion-aware indicator and unchanged viewport height.
 Offline regressions cover missing/corrupt journals, recovery, the first turn and
 phase-only updates. No dialing, recording or original-evidence behavior changed.
+
+
+## 2026-09-20 UTC — automatic live transcript disclosure (#83)
+
+The live transcript now opens when a new active call is observed, including an
+already-active call after a page reload. Disclosure changes are tied to call identity,
+so polling and new dialogue preserve manual collapse. Ended/failed/idle states close
+it; a distinct next attempt opens it again. Confirmation cancellation does not open
+it. Updated the product guide and offline lifecycle/browser assertions. No call
+requests, worker behavior or saved evidence changed.
