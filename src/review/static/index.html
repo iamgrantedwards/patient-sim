@@ -20,7 +20,7 @@
             ><span class="brand-mark" aria-hidden="true">p.</span
             ><span>patient<span class="brand-light">-sim</span></span></a
           >
-          <span class="header-context">Voice evaluation</span>
+          <p class="brand-tagline">Listen. Review. Follow the evidence.</p>
         </div>
         <div class="topbar-actions">
           <div class="learning-tools">
@@ -99,13 +99,7 @@
         <div class="learning-note" id="learning-note" hidden>
           <p>Learning mode on. Hover, focus or tap a <strong>?</strong> for help.</p>
         </div>
-        <div class="page-heading">
-          <div>
-            <h1>Call review<span class="heading-dot">.</span></h1>
-            <p>Listen to the conversation. Follow the evidence.</p>
-          </div>
-          <span class="scope-pill">Synthetic patients</span>
-        </div>
+        <h1 class="sr-only">Call review</h1>
         <section class="console-panel" id="console-panel" aria-labelledby="console-title" hidden>
           <div class="console-heading">
             <div>
@@ -186,7 +180,18 @@
             <p id="operation-summary" class="context-note"></p>
             <details id="live-dialogue">
               <summary>Live transcript · committed turns</summary>
-              <div id="live-turns" class="transcript"></div>
+              <div class="live-toolbar">
+                <span class="context-note">Patient · Office agent</span>
+                <button type="button" id="live-latest" class="button" hidden>Latest turns ↓</button>
+              </div>
+              <!-- biome-ignore-start lint/a11y/noNoninteractiveTabindex: Scrollable transcript must support keyboard scrolling. -->
+              <section
+                id="live-turns"
+                class="transcript"
+                aria-label="Live conversation"
+                tabindex="0"
+              ></section>
+              <!-- biome-ignore-end lint/a11y/noNoninteractiveTabindex: End scrollable transcript. -->
             </details>
           </div>
         </section>
@@ -259,6 +264,7 @@
                     <label class="search-label" for="filter">Filter calls</label>
                     <select id="filter">
                       <option value="all">All calls</option>
+                      <option value="usable">Reviewed · usable</option>
                       <option value="pending">Needs listening review</option>
                       <option value="partial">Incomplete speech</option>
                       <option value="missing">Missing evidence</option>

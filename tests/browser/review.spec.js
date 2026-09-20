@@ -80,7 +80,7 @@ test("search, filters, audio loading and genuine offset seeking", async ({ page 
   await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Search calls").fill("reschedule");
   await expect(page.locator(".call-card")).toHaveCount(1);
-  await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).click();
+  await page.getByRole("button", { name: /Rescheduling · call-fixture-02/ }).click();
   await expect(page.getByText("Date not recorded", { exact: true })).toHaveCount(2);
   await expect
     .poll(() => page.locator("audio").evaluate((audio) => audio.readyState))
@@ -105,11 +105,11 @@ test("missing and malformed evidence remains reviewable without fabricated succe
   await page.getByRole("button", { name: /Search and filter calls/ }).click();
   await page.getByLabel("Filter calls", { exact: true }).selectOption("missing");
   await expect(page.locator(".call-card")).toHaveCount(2);
-  await page.getByRole("button", { name: /missing recording · call-fixture-01/ }).click();
+  await page.getByRole("button", { name: /Missing Recording · call-fixture-01/ }).click();
   await expect(page.locator("audio")).toBeHidden();
   await expect(page.getByText(/Recording unavailable. This call is not an audio/)).toBeVisible();
   await accessible(page);
-  await page.getByRole("button", { name: /Unreadable artifacts/ }).click();
+  await page.getByRole("button", { name: /Unreadable Artifacts/ }).click();
   await expect(page.getByRole("heading", { name: "Call evidence unavailable" })).toBeVisible();
   await expect(page.getByRole("tab", { name: "Conversation" })).toBeHidden();
 });
@@ -180,7 +180,7 @@ test("Cloud evidence is dated, accessible and never accepts a call", async ({ pa
   await expect(panel.getByRole("link", { name: "Read verification note" })).toHaveCount(0);
   await expect(page.locator("#metric-reviewed")).toHaveText(reviewed);
   await accessible(page);
-  await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).click();
+  await page.getByRole("button", { name: /Rescheduling · call-fixture-02/ }).click();
   await page.getByRole("tab", { name: "Provenance" }).click();
   await expect(panel.getByText("No Cloud confirmation recorded for this call.")).toBeVisible();
   await expect(panel.getByRole("link")).toHaveCount(0);
@@ -221,10 +221,10 @@ test("card rail and list preserve selection, URL and stored preference without c
   expect(cardRects[1].x).toBeGreaterThan(cardRects[0].x + cardRects[0].width);
   expect(cardRects[1].y).toBeCloseTo(cardRects[0].y, 0);
   await expect(page.locator("#call-list")).toHaveCSS("display", "flex");
-  await page.getByRole("button", { name: /reschedule · call-fixture-02/ }).focus();
+  await page.getByRole("button", { name: /Rescheduling · call-fixture-02/ }).focus();
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/call=call-fixture-02/);
-  await expect(page.getByRole("button", { name: /reschedule · call-fixture-02/ })).toBeFocused();
+  await expect(page.getByRole("button", { name: /Rescheduling · call-fixture-02/ })).toBeFocused();
   const list = page.getByRole("button", { name: "List view", exact: true });
   await list.click();
   await expect(list).toHaveAttribute("aria-pressed", "true");
@@ -285,6 +285,6 @@ test("search menu dismisses, shows active filters and clears without losing sele
   await expect(opener).toBeFocused();
   await expect(page.locator('.call-card[aria-current="true"]')).toContainText("call-fixture-03");
   await opener.click();
-  await page.getByRole("heading", { name: "Call review.", exact: true }).click();
+  await page.locator(".brand-tagline").click();
   await expect(page.locator("#search-panel")).toBeHidden();
 });
