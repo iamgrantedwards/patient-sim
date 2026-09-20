@@ -428,3 +428,55 @@ prompt/model experiment is planned. Grant later specified one final presentation
 before publishing all records. The native SIGSEGV cause and audible
 ending diagnosis remain limitations, not silently completed fixes. #87/#88 improve
 review coverage, visibility and browser access; they do not fix premature hangup.
+
+## 2026-09-20 — pending remote speech at caller hangup (#92)
+
+Grant reopened caller behavior work narrowly after reviewing cut-off endings. This is
+separate from the original remote hangup in #12 and the earlier native worker crash.
+The replacement debugging recording covers this current investigation, not a replay
+of the already-fixed worker failure handling.
+
+For `call-20260920-155843-a34fb22c` (Correction), the raw event receipt sequence is:
+
+| Seconds from local initialization | Event |
+| --- | --- |
+| 142.375 | Final STT: “You're all set.” |
+| 143.101 | New partial STT: “Your appointment” |
+| 148.083 | The older “You're all set.” message commits |
+| 149.150 | `end_call` tool execution reported |
+| 150.168 | The next message commits, ending “…with doctor zed” |
+| 150.228 | Session closes, `user_initiated`; metadata says `end_call_tool` |
+
+These are event receipt times, **not audio offsets**. Grant's saved listening review
+flags “fail, assessment agent is cut off.” No duration failsafe is recorded. The
+sequence supports a caller-side protection gap, without proving every poor ending
+has this cause or independently verifying word-level audio timing.
+
+The installed LiveKit 1.8.2 end tool schedules session shutdown without checking for
+new remote speech. Crucially, it registers its shutdown callback before invoking
+`on_tool_called`, so rejecting inside that callback would be too late. An offline
+regression invoking the real registered SDK tool with remote state `speaking` failed
+before the change: the tool accepted the request instead of stopping it.
+
+The correction guards entry to that same SDK tool. It rejects interrupted responses,
+active remote speech, or uncommitted remote transcription; waits for the patient's
+current playout plus a one-second closing-only pause; then checks again and cancels
+if remote activity changed. An older committed turn cannot clear a newer partial.
+The next incoming turn drives a fresh decision. There is no automatic hangup retry
+and no spoken error over the remote agent. Accepted/deferred decisions and remote
+speech-state changes are journaled; metadata records `closing_policy=pending-input-v1`.
+
+Historical replay of available end-tool event records found pending input in 10 of
+36 records at tool completion. In reviewed calls this included Correction,
+Rescheduling and Proxy; none of the reviewed `ending=ok` calls had pending input
+there. Insurance's missing-signoff concern did not match. This is a retrospective
+state check, not 36 new calls or proof of causation. Timing limits and original files
+remain unchanged. Prompt, STT, LLM, TTS and ordinary turn detection are unchanged.
+
+Limits: the pause is an initial conservative value, not a measured optimum. Missing
+or mismatched STT commits can conservatively defer an ending until another turn or
+the existing failsafe. Speech starting after acceptance remains possible. This guard
+does not establish whether a semantic outcome or goodbye is complete. Focused tests
+cover the original ordering, clean closing, newer turns during playout/pause,
+interruption, cancellation and real worker callback wiring. A follow-up real call
+and listening confirmation remain required to claim audible improvement.
