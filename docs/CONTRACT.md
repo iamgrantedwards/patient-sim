@@ -1,9 +1,13 @@
 # patient-sim — implementation contract
 
-Revision 6. Supersedes the planning notes. Earlier external-review decisions retain
+Revision 7. Supersedes the planning notes. Earlier external-review decisions retain
 their **[R3]** and **[R4]** markers. **[R5]** records Grant's 2026-09-18 instruction to
 build the local UI before recording the debugging video; call-quality gates are unchanged.
 **[R6]** specifies opt-in UI/CLI call ownership, explicit confirmation, and crash recovery.
+**[R7]** records delivered scope and explicit deferrals on 2026-09-20 UTC (#77).
+Historical internal experiments below are not claims of completed work. Runtime
+source and [EVALUATION.md](EVALUATION.md) define the implemented judge; current
+submission acceptance is [SUBMISSION.md](SUBMISSION.md).
 
 ## What this is
 
@@ -77,7 +81,7 @@ Three separate concepts, never collapsed:
 | `consistency` | whether a later call's claim agrees with an earlier one | across transcripts |
 | `verified_state` | independently confirmed | usually **null** — we have no backend access |
 
-Calls 02/04/06 can establish *consistency across conversations*. They cannot establish
+The scheduling → rescheduling → cancellation sequence can establish *consistency across conversations*. They cannot establish
 backend persistence. Say so in BUGS.md rather than implying more.
 
 **Corollary, and the most important line in this document:** failing to recognize our
@@ -90,7 +94,11 @@ Fallback: if the environment turns out not to support cross-call state at all, t
 sequence degrades gracefully into independent scenarios. That is a documented
 environment fact, not a failed experiment.
 
-## [R3] Calibration is a screen, not a proof
+## [R3] Calibration is a screen, not a proof — deferred under [R7]
+
+This optional comparison (#13) was not performed. The current caller uses Flux
+with STT turn detection; no measured model-superiority claim is made. The table below
+preserves the proposed experiment, not shipped selectable configurations.
 
 Three **configurations**, not three STT models — C3 varies STT *and* turn detection
 together, and LiveKit's default turn detection is already a trained audio model, not a
@@ -113,6 +121,9 @@ Scored on: accuracy of dates, provider names, medication names and insurance nam
 count of overlapping speech; our response delay; their response delay.
 
 ## [R3] Timing and transcript integrity
+
+Audio-aligned measurement (#15) is deferred; current delay/overlap values remain
+unknown. These are definitions for future implementation, not measured results:
 
 Three distinct measurements, not one ambiguous "gap":
 
@@ -217,8 +228,8 @@ links the issues, dependencies, and focused PRs; recording readiness does not bl
 | M0 | Accounts and context | Twilio DID + Elastic SIP Trunk registered in LiveKit; redaction confirmed off; required Athena product exploration documented |
 | UI | **[R5] Local call console** | Existing recordings/transcripts reviewable; explicit outbound controls and real status; browser-verified before debugging video |
 | M1 | **First good call** | One 1–3 min conversation · ends via `EndCallTool`, not a failsafe · recording downloaded, playable, and matching the transcript |
-| M2 | Calibration screen | Three configurations on a read-only scenario; one chosen with a written reason |
-| M3 | Evidence pipeline | Incremental events · reconciled turns · timing from audio offsets · provenance per call |
+| M2 | Optional calibration screen (deferred) | Three configurations on a read-only scenario; one chosen with a written reason |
+| M3 | Evidence pipeline | Incremental events · reconciled turns · provenance delivered; audio-offset timing remains deferred (#15) |
 | M4 | Call collection | At least 10 complete reviewed call pairs across varied scenarios; 12 calls/≥8 kinds are stretch targets; state support documented |
 | M5 | Findings | Hand-written findings with basis and uncertainty; quote verification passing |
 | M6 | Submission | README · architecture doc · two Looms · public repo |
@@ -265,3 +276,20 @@ recordings remain partial; successful cleanup says nothing about conversation qu
 Local request tokens, exact-Origin checks, strict bounded input, and loopback binding
 limit accidental/cross-site actions. Local processes with filesystem access remain in
 the trust boundary. Provider duration bounds remain active if local control is lost.
+
+
+## [R7] Delivered evaluation and handoff boundary
+
+The local console and ten-scenario catalog are delivered and ten candidate pairs are
+captured. Debugging was recorded; listening, confirmed findings, public call artifacts
+and final video/form checks remain. The earlier two-session sequencing is historical
+planning, not a direction to record again. Optional calibration, audio-aligned timing
+and controlled barge-in are not submission blockers or completed experiments.
+
+The transcript-v1 judge is implemented behind `--enable-assessments`: five text-only
+dimensions, exact-quote/schema validation, provisional scoring and separate revisioned
+results. It does not ingest this contract, TEST-STRATEGY.md, scenario expectations,
+manual reviews, prior calls or audio. It cannot approve a recording, verify backend
+state, repair either agent or automatically retest. Detailed human-review rows are
+optional; the app's Usable outcome requires explicit listening and complete-evidence
+approval. See [EVALUATION.md](EVALUATION.md) for actual coverage and validation limits.

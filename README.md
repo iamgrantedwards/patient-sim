@@ -133,8 +133,9 @@ explicitly adding selected submission evidence to the public repository.
 - [Earlier recording preparation](docs/MORNING.md)
 - [Build order, GitHub issues, and PR workflow](docs/ROADMAP.md)
 - [Assessment compliance and remaining deliverables](docs/ASSESSMENT.md)
+- [How strategy, AI assessment and listening fit together](docs/EVALUATION.md)
 - [Implementation contract](docs/CONTRACT.md)
-- [Two-call debugging journal](docs/DEBUGGING.md)
+- [Debugging history, fixes and retests](docs/DEBUGGING.md)
 - [Build notebook](docs/NOTEBOOK.md)
 - [Architecture](ARCHITECTURE.md)
 
@@ -159,7 +160,9 @@ helper and noreply commit email.
 
 The [ten-call test strategy](docs/TEST-STRATEGY.md) defines planned scenario coverage,
 review checkpoints and how evidence leads to a fix or finding. The implementation now exposes the scenarios; actual captured and reviewed counts
-are tracked separately in the collection results.
+are tracked separately in the collection results. The strategy is a human planning
+document; the AI judge uses its own code-defined rubric. [EVALUATION.md](docs/EVALUATION.md)
+maps their overlap, actual inputs and the criteria that still require listening.
 
 ### AI transcript assessments
 

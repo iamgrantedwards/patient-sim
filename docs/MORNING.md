@@ -1,4 +1,9 @@
-# Next working session
+# Historical recording-session preparation
+
+**Archived preparation, written 2026-09-19.** The debugging video is now recorded,
+#21/#46 fixes are delivered and ten candidate calls are captured. The instructions
+below describe the earlier session; they are not the current work queue. Use
+[SUBMISSION.md](SUBMISSION.md) and [EVALUATION.md](EVALUATION.md) for handoff.
 
 The local UI exists before filming. Do not record tool installation or reenact a past
 fix as if it were new work. Keep the existing raw call private until listening/release review.

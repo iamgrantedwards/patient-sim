@@ -2,7 +2,9 @@
 
 The [debugging journal](DEBUGGING.md) records the first two actual attempts and
 separates observations, prior fixes and unresolved hypotheses. Its starting account
-was written retrospectively on 2026-09-19 for #48; the debugging video is still pending.
+was written retrospectively on 2026-09-19 for #48. This is a chronological record:
+statements under dated entries describe that time, not current status. The debugging
+video is now recorded; [SUBMISSION.md](SUBMISSION.md) tracks remaining delivery.
 
 ## 2026-09-18 — repository setup
 
@@ -792,3 +794,18 @@ publication remain open. No calls, raw-evidence edits or automatic approvals mad
 Closeout validation: 276 Python tests, 96 browser cases, quality/security checks and
 packaging passed. A fresh public clone of af3d57b installed locked dependencies and
 ran the smoke dry-run and review CLI help without credentials or a phone call.
+
+
+## 2026-09-20 UTC — full documentation and evaluation audit (#77)
+
+The prior closeout pass did not catch stale setup/governance claims or the historical
+runbooks reading as current instructions. Audited the documentation against the source,
+added current debugging outcomes without erasing the before-fix record, and marked
+recording preparation as historical. The strategy now distinguishes its original
+planned slots from the ten implemented scenarios and actual collection ledger.
+
+Confirmed the AI assessment sends only scenario ID and projected transcript turns.
+It does not load TEST-STRATEGY.md, scenario success criteria, objective, other calls,
+manual reviews or audio. Added EVALUATION.md mapping the five rubric dimensions to
+the broader review checklist and separating code-enforced validation from model
+instructions. No prompt, model, rubric, saved assessment or original evidence changed.

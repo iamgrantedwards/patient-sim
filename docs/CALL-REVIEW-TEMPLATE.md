@@ -16,9 +16,12 @@ Keep local until reviewed for publication. See the repository workflow in `docs/
 - Code revision and configuration reference (from recorded provenance):
 - Evidence fingerprints, if recorded; otherwise say not recorded:
 
-## Listening checklist
+## Optional detailed listening checklist
 
-Use OK / issue / not assessed. Start with not assessed; add a timestamped note for issues.
+Use only the rows helpful to this review; seven completed grades are not an employer
+requirement. Use OK / issue / not assessed and add a timestamped note for issues.
+This manual template does not update app badges. In the app, Usable additionally
+requires listening confirmation and Complete evidence: OK.
 
 | Check | Result | Playback offset and observation |
 | --- | --- | --- |

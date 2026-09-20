@@ -29,6 +29,7 @@ No new calls are needed merely to make the attempt count larger.
 - [Exact ten candidate IDs and coverage](COLLECTION.md)
 - [Findings and caller improvements](../BUGS.md)
 - [Two-paragraph architecture](../ARCHITECTURE.md)
+- [Strategy, AI assessment and listening boundaries](EVALUATION.md)
 - [Setup and required environment variables](SETUP.md); `.env.example` is committed,
   real `.env` files and credentials remain ignored. Reviewers use their own credentials
   to place calls; viewing published evidence should not require provider access.
