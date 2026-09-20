@@ -685,3 +685,22 @@ transfer to another number. Tightened it to decline all offered transfers and st
 callbacks, ask general next steps and end. The call ended through end_call_tool and
 controller cleanup was confirmed. No conversation with staff is established by the
 saved transcript; the remote statement of transfer is not independently verified.
+
+
+## 2026-09-19 — live dialogue follow and record separation (#65)
+
+During collection Grant observed new dialogue below the visible scroll position and
+requested clearer speaker styling and a distinct lower detail area. Added a bounded
+live viewport that follows new turns, preserves manual scrollback and offers a Latest
+turns control. Patient and office backgrounds differ; selected-call details have a
+separate dark header and inset surface. No call lifecycle or evidence changes.
+
+Follow-up feedback: moved the large review introduction into a compact logo tagline;
+scenario cards now share the dropdown's display names and include a one-line purpose.
+A Usable marker/filter reflects saved review state only; no candidate is automatically
+marked listened or usable. Browser fixtures cover that distinction.
+
+Verification: 252 Python tests and 63 browser cases passed across desktop Chromium,
+mobile Chromium and desktop WebKit. Browser checks include accessibility, live follow /
+manual scrollback, review-driven usable filtering, and no unintended call requests.
+Inspected desktop and 390px mobile screenshots; kept card descriptions short to fit.

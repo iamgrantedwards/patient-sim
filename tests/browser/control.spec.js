@@ -248,3 +248,46 @@ test("scenario picker supports keyboard, dismissal and selection without calling
   await expect(picker).toBeDisabled();
   expect(setup.requests).toEqual([]);
 });
+
+test("live dialogue follows new turns, preserves scrollback, and resumes explicitly", async ({
+  page,
+}) => {
+  const { state, requests } = await fixture(page, "connected");
+  state.operation.call_id = "call-live-follow";
+  const turn = (idx) => ({
+    idx,
+    role: idx % 2 ? "patient" : "remote",
+    text: `Turn ${idx}. A complete sentence with enough content to occupy the conversation viewport.`,
+    status: "completed",
+  });
+  state.operation.live_turns = Array.from({ length: 12 }, (_, idx) => turn(idx));
+  await page.getByText("Live transcript · committed turns").click();
+  const viewport = page.locator("#live-turns");
+  await expect(viewport.locator(".live-turn")).toHaveCount(12);
+  const height = await viewport.evaluate((node) => node.clientHeight);
+  const bottomGap = () =>
+    viewport.evaluate((node) => node.scrollHeight - node.scrollTop - node.clientHeight);
+  await expect.poll(bottomGap).toBeLessThan(2);
+  state.operation.live_turns.push(turn(12));
+  await expect(viewport.locator(".live-turn")).toHaveCount(13);
+  await expect.poll(bottomGap).toBeLessThan(2);
+  expect(await viewport.evaluate((node) => node.clientHeight)).toBe(height);
+  await viewport.evaluate((node) => {
+    node.scrollTop = 0;
+  });
+  await expect(page.locator("#live-latest")).toBeVisible();
+  state.operation.live_turns.push(turn(13));
+  await expect(viewport.locator(".live-turn")).toHaveCount(14);
+  expect(await viewport.evaluate((node) => node.scrollTop)).toBe(0);
+  await page.getByRole("button", { name: "Latest turns" }).click();
+  await expect.poll(bottomGap).toBeLessThan(2);
+  await expect(page.locator("#live-latest")).toBeHidden();
+  const colors = await viewport.evaluate((node) =>
+    [".patient", ".remote"].map(
+      (selector) => getComputedStyle(node.querySelector(selector)).backgroundColor,
+    ),
+  );
+  expect(colors[0]).not.toBe(colors[1]);
+  await accessible(page);
+  expect(requests).toEqual([]);
+});

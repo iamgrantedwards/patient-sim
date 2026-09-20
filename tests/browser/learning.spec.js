@@ -76,7 +76,7 @@ test("keyboard and hover hints keep normal tab actions and stay inside the viewp
   expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
   expect(box.y).toBeGreaterThanOrEqual(0);
   await accessible(page);
-  await page.getByRole("heading", { name: "Call review.", exact: true }).click();
+  await page.locator(".brand-tagline").click();
   await expect(page.getByRole("tooltip")).toBeHidden();
 });
 

@@ -19,6 +19,8 @@ let pending;
 let busy = false;
 let lastPhase;
 let lastTurns;
+let lastCall;
+let followLive = true;
 let initialized = false;
 let statusUnavailable = false;
 let pageActive = true;
@@ -117,6 +119,21 @@ function objective() {
   for (const item of options.children)
     item.setAttribute("aria-selected", String(item.dataset.value === selected?.id));
 }
+const liveTurns = byId("live-turns");
+const liveLatest = byId("live-latest");
+function jumpToLatest() {
+  followLive = true;
+  liveTurns.scrollTop = liveTurns.scrollHeight;
+  liveLatest.hidden = true;
+}
+liveTurns.addEventListener("scroll", () => {
+  followLive = liveTurns.scrollHeight - liveTurns.clientHeight - liveTurns.scrollTop <= 32;
+  liveLatest.hidden = followLive;
+});
+liveLatest.addEventListener("click", jumpToLatest);
+byId("live-dialogue").addEventListener("toggle", () => {
+  if (byId("live-dialogue").open && followLive) jumpToLatest();
+});
 function render(data) {
   current = data;
   if (!data.enabled) return;
@@ -167,8 +184,15 @@ function render(data) {
   if (op.evidence_status === "partial_or_unavailable")
     summary.push("Evidence may be incomplete. Review the saved files.");
   byId("operation-summary").textContent = summary.join(" ");
+  if (lastCall !== op.call_id) {
+    lastCall = op.call_id;
+    lastTurns = undefined;
+    followLive = true;
+  }
   const turns = JSON.stringify(op.live_turns);
   if (lastTurns !== turns) {
+    const previousTop = liveTurns.scrollTop;
+    const shouldFollow = followLive;
     byId("live-turns").replaceChildren();
     for (const turn of op.live_turns) {
       const entry = text("div", "", `live-turn ${turn.role}`);
@@ -184,6 +208,11 @@ function render(data) {
       byId("live-turns").append(
         text("p", op.live_warning || "No committed dialogue yet.", "context-note"),
       );
+    if (shouldFollow) jumpToLatest();
+    else {
+      liveTurns.scrollTop = previousTop;
+      liveLatest.hidden = false;
+    }
     lastTurns = turns;
   }
   if (lastPhase && lastPhase !== op.phase && terminal.has(op.phase))
