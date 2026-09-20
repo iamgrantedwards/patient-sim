@@ -18,7 +18,9 @@ to satisfy branch protection.
 | Verify and package | All preceding jobs must succeed; build wheel/sdist with the locked backend; install wheel with locked production dependencies and check both CLIs and packaged static assets outside the checkout |
 
 The early baseline was 70% coverage with 41 tests; the suite has since expanded.
-The #75 closeout passed 276 Python tests and 96 browser cases. Use each run's report
+The application-freeze verification passed 305 Python tests and 114 browser cases
+(95.8% combined statement/branch coverage). The earlier #75 closeout passed 276 Python
+tests and 96 browser cases. Use each run's report
 for its exact counts and coverage, rather than treating this snapshot as a live metric.
 Coverage measures exercised
 code, not voice quality or live telephony correctness. Tests do not dial the assessment
@@ -92,5 +94,5 @@ every PR needs one delivery type and at least one recognized area label. Force-p
 No additional reviewer is required for this personal repository.
 
 Artifact delivery is the current delivery boundary. This assessment does not require
-cloud deployment, a production service, or automatic calls. Finish the first real-call
-milestone before considering additional infrastructure.
+cloud deployment, a production service, or automatic calls. Application development
+is frozen; remaining acceptance concerns selected evidence and public delivery.

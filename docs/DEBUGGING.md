@@ -418,3 +418,12 @@ The v2 assessment now checks final turns with this metadata and distinguishes ou
 caller behavior from office-agent quality. No hangup behavior is changed and #12
 remains open. Offline checks validate schema/citations and incomplete-ending rejection;
 they cannot establish an audible fix.
+
+
+## Application freeze — 2026-09-20 UTC (#90)
+
+Grant closed development scope after the UI, assessment and local-access corrections.
+The debug video is already recorded; historical speaking notes remain historical. No
+new call or prompt/model experiment is planned. The native SIGSEGV cause and audible
+ending diagnosis remain limitations, not silently completed fixes. #87/#88 improve
+review coverage, visibility and browser access; they do not fix premature hangup.

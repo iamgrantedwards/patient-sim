@@ -1,13 +1,14 @@
-# Collection results — 2026-09-19
+# Collection results and freeze inventory
 
 These are capture and transcript inspections, not completed human listening reviews.
 Raw recordings, journals and transcripts are unchanged. Provider/model configuration
 and source revision are recorded separately for every call. No backend access exists;
 spoken transaction confirmations and cross-call consistency are not verified writes.
 
-## Captured candidates
+## Original ten-candidate set — 2026-09-19 Pacific
 
-Ten candidates total 20.59 minutes. All original stereo recordings fully decode, both channels contain audio, and transcripts contain both participants. These checks establish capture integrity, not conversation quality. All ten still require Grant’s listening review.
+Ten candidates total 20.59 minutes. All original stereo recordings fully decode, both channels contain audio, and transcripts contain both participants. These checks establish capture integrity, not conversation quality. No app listening/Usable decisions are saved for this set at the freeze audit. This is
+a saved-state observation, not a claim that Grant has never listened to the audio.
 
 | Scenario | Call ID | Audio | Turns | Human acceptance |
 | --- | --- | --- | --- | --- |
@@ -25,6 +26,31 @@ Ten candidates total 20.59 minutes. All original stereo recordings fully decode,
 The local candidate bundle preserves original file hashes and source revisions. Synthetic inputs were checked against the recorded source revision, recordings were decoded, and a secret scan passed. The bundle remains private while the recordings are reviewed. It does not include fabricated review records.
 
 Earlier diagnostic attempts remain separate: the original callback/crash attempts, an operator-stopped call, the onboarding refusal and the pre-fix transfer acceptance are not in this candidate set.
+
+## Later retests and application freeze — 2026-09-20 UTC
+
+The local index contains **19 attempts and 18 audio/transcript file pairs**. This
+includes diagnostic/short/incomplete attempts and is not an accepted-conversation count.
+The four later records below are available alternatives; they have not silently replaced
+rows in the original candidate bundle or been approved for public release.
+
+| Scenario | Call ID | Duration shown by the app | Turns | Saved human acceptance |
+| --- | --- | --- | --- | --- |
+| Office Information | `call-20260920-034355-fa5b226a` | 1:33 | 13 | Pending |
+| Unclear Request | `call-20260920-042404-94899755` | 2:01 | 12 | Pending |
+| Availability Correction | `call-20260920-043854-fd9ce1a5` | 2:21 | 17 | Pending |
+| Refill Missing Information | `call-20260920-050215-67ac848f` | 2:05 | 13 | Pending |
+
+These durations/turn counts come from saved metadata and the local index; this audit
+has not newly listened to or decoded these four recordings. AI assessment state may
+change as Grant assesses calls; its scores are not human listening acceptance. The
+latest seven-topic checklist distinguishes text-supported ending concerns from audio
+checks that still need listening. Suspected end-tool cutoffs remain in #12.
+
+Grant has frozen application development and further call collection. Select the
+minimum ten complete conversations from existing evidence and document any remaining
+limitations. A private bundle is not a public deliverable; no raw call files are yet
+tracked in GitHub. Publication remains a deliberate reviewed handoff step.
 
 ## Iteration boundary
 
@@ -73,7 +99,7 @@ checks can remain not assessed. None of these inspection notes automatically mar
 
 ## Remaining submission work
 
-- #18: listen to every selected pair, record suitability and listening, replace any unusable conversation, then publish the reviewed set.
+- #18: listen to every selected pair, record suitability and listening, select an existing alternative for any unusable conversation where possible, then publish the reviewed set. No further calling is planned.
 - #12: verify natural endings by listening, especially the last 15 seconds.
 - #24: confirm the call/review workflow in use; automated checks alone do not finish human acceptance.
 - #46: retain the unresolved native-crash limitation separately from the repaired lifecycle behavior.

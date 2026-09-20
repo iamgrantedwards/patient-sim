@@ -127,7 +127,10 @@ No score should be presented as verification of the office's backend.
 Saved results record model, rubric version, prompt SHA-256, evidence fingerprints and
 generation time, with up to ten revisions. Changed fingerprints, rubric or prompt mark
 results stale; a configured judge's model change also does so. A fresh result is reused,
-and rerunning stale evidence requires another explicit request. Existing call recordings
+and rerunning stale evidence requires another explicit request. Cards can retain the
+last saved aggregate explicitly marked prior; the detail panel withholds a current
+aggregate while stale. Human-reviewed, notes-saved and Usable indicators remain
+independent of AI scores. Existing call recordings
 are not invalidated by a new rubric, but scores from different rubric revisions should
 not be treated as a controlled comparison.
 

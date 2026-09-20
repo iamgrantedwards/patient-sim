@@ -1,6 +1,6 @@
 # Delivery status and GitHub workflow
 
-Reconciled 2026-09-20 UTC (2026-09-19 Pacific), #75. GitHub issues track acceptance;
+Application freeze reconciled 2026-09-20 UTC (2026-09-19 Pacific), #90 after #75. GitHub issues track acceptance;
 [SUBMISSION.md](SUBMISSION.md) is the current closeout order. Earlier plans and actual
 iteration remain in NOTEBOOK.md, DEBUGGING.md, issue comments and merged PR history.
 
@@ -9,7 +9,10 @@ iteration remain in NOTEBOOK.md, DEBUGGING.md, issue comments and merged PR hist
 The caller, ten-scenario catalog, evidence capture, local console, optional AI
 assessment and compact reviews are merged. Ten candidate recording/transcript pairs
 are captured. Remaining work is listening/selection, useful verified findings, public
-artifact delivery, video checks and submission. Do not restart UI or infrastructure work.
+artifact delivery, video checks and submission. Grant explicitly froze application
+scope: complete the already-open #88 fixes and #90 documentation, then only the final
+links/evidence handoff. Do not restart UI, infrastructure, scenarios or calling.
+The original candidate set is distinct from the later 19-attempt / 18-file-pair inventory.
 
 | Category | Issues | Next action |
 | --- | --- | --- |

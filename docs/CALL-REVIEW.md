@@ -1,11 +1,13 @@
 # Call review and improvement workflow
 
-Prepared 2026-09-19. Use one repeatable loop: **choose a purpose -> call -> listen ->
+Prepared 2026-09-19; audited at the application freeze (#90). This is a usage workflow,
+not an instruction to resume development or calling. Use one repeatable loop: **choose a purpose -> call -> listen ->
 record evidence -> decide -> change if justified -> retest**. The employer asks for
 coherent conversations and useful findings; this checklist supports those goals.
 It is not an additional employer-mandated scoring system.
 See [EVALUATION.md](EVALUATION.md) for which parts AI can assist with and which
-remain audio/human checks; the judge does not implement this entire checklist.
+remain audio/human checks. The app surfaces all seven topics, with AI text checks
+for patient behavior, turn-taking concerns and ending; it does not listen to the audio.
 
 ## Where each part belongs
 
@@ -29,7 +31,9 @@ This opt-in mode requires no provider credentials and never enables dialing. Add
 Reviews live in each call's `review.json`, separate from the original files, with dated
 revisions and evidence fingerprints. Amending appends a revision; changing evidence
 marks the saved review stale and removes it from reviewed/usable counts until rechecked.
-Legacy metadata listening flags do not silently become approval. Existing manual sheets
+Cards distinguish current AI scores, prior scores, notes saved and confirmed human
+listening. Human reviewed does not itself mean Usable. Legacy metadata listening flags
+do not silently become approval. Existing manual sheets
 remain readable documents but are not automatically imported.
 
 The [ten-call strategy](TEST-STRATEGY.md) maps scenario coverage, dependencies, review
@@ -154,7 +158,8 @@ ignored local artifacts do not become a submission automatically. Check public r
 and video links while logged out, the exact caller number, and a fresh-clone setup.
 Keep credentials private; supply `.env.example`, not an encrypted credential bundle.
 
-Current order: listen and select the ten candidate pairs, finalize findings, publish
+At the application freeze, no new calls or code changes are planned. Current handoff
+order: select and review at least ten existing pairs, finalize findings, publish
 the reviewed evidence, then verify both videos and submit. The debugging recording
 is already captured. Use [the submission checklist](SUBMISSION.md) as the current
 closeout plan; earlier recording runbooks are historical preparation.

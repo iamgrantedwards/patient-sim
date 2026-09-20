@@ -590,10 +590,7 @@
           </li>
           <li>
             <strong>Keep what you learn.</strong>
-            Call cards show the current AI score or assessment status and a separate human-review
-            indicator. “Notes saved” means listening has not been confirmed. “Outdated” means the
-            saved result needs another look; a score marked “prior” is historical. Use AI assessment
-            for analysis, or Review to save your observations.
+            Use AI assessment to analyze a transcript, or Review to save your observations.
           </li>
         </ol>
         <p class="guide-note">
@@ -623,7 +620,9 @@
         </ul>
         <p class="guide-copy">
           Audio and Transcript badges show which files are available. They do not mean the
-          conversation has been reviewed.
+          conversation has been reviewed. The AI chip shows a score or assessment status; “prior”
+          marks a historical score. “Human reviewed” means listening was confirmed. “Notes saved”
+          means notes exist without that confirmation. Neither automatically means Usable.
         </p>
       </details>
       <details class="guide-section">
@@ -636,7 +635,7 @@
           </li>
           <li>
             The Live transcript opens automatically. Watch the connection status and follow the
-            conversation; text appears as turns are captured.
+            conversation; a connecting or waiting message appears before the first captured turn.
           </li>
           <li>After the call finishes saving, select its record in Calls to listen back.</li>
         </ol>
@@ -649,7 +648,8 @@
         </p>
         <p class="guide-copy">
           Only one call runs at a time, to the configured destination. If Run a test call is absent,
-          calling is not enabled in this workspace.
+          calling is not enabled in this workspace. The displayed time limit bounds stuck calls and
+          usage; it does not establish that a conversation ended naturally.
         </p>
       </details>
       <details class="guide-section">
@@ -742,9 +742,10 @@
         </p>
         <p class="guide-copy">
           A finished conversation with both speakers and a recording is required. Read-only mode
-          lets you view saved results. When evidence or assessment settings change, the old score is
-          withheld; <strong>Reassess transcript</strong> requests a new analysis. Reopening a
-          current result does not generate another assessment.
+          lets you view saved results. When evidence or assessment settings change, the current
+          score is withheld; a card may retain the old score marked “prior”.
+          <strong>Reassess transcript</strong>
+          requests a new analysis. Reopening a current result does not generate another assessment.
         </p>
       </details>
       <details class="guide-section">
@@ -801,8 +802,9 @@
         </p>
         <p class="guide-copy">
           Calls use LiveKit, Twilio and speech and language services. AI assessment sends transcript
-          text through LiveKit Inference, without the recording or your review notes. A local page
-          does not mean all processing happens on your computer.
+          text, the scenario identifier and capture details through LiveKit Inference, without the
+          recording or your review notes. A local page does not mean all processing happens on your
+          computer.
         </p>
         <p class="guide-copy">
           Use synthetic patient details. Check audio and text for personal information before

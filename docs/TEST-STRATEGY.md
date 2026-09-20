@@ -3,7 +3,8 @@
 Originally planned 2026-09-19; reconciled against the implementation on 2026-09-20
 UTC (September 19 Pacific), #77. Ten candidate conversations have been captured;
 [COLLECTION.md](COLLECTION.md) records actual IDs, coverage and acceptance.
-This document explains evaluation intent and the implemented coverage. It is **not
+Application development and call collection are now frozen per Grant (#90); remaining
+work is selection, findings and handoff from existing evidence. This document explains evaluation intent and the implemented coverage. It is **not
 loaded by the application or sent to the AI judge**. Use [SUBMISSION.md](SUBMISSION.md)
 for remaining delivery work and [EVALUATION.md](EVALUATION.md) for the exact rubric,
 request payload, score calculation and test boundaries.

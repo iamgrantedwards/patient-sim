@@ -15,7 +15,9 @@ with the existing sole assessment destination and the same owned caller number.
 4. The console shows registration, dispatch, worker preparation, dialing, connection,
    and finalization from actual worker/provider acknowledgements and saved metadata.
    A phase can be brief or skipped between polls. The live transcript contains committed
-   dialogue only, with partial speech labeled. The bounded transcript follows new turns
+   dialogue only, with partial speech labeled. It opens automatically for a new call,
+   shows connection/waiting progress before the first turn, and closes when the call
+   ends. Manual collapse is preserved during that call. The bounded transcript follows new turns
    unless you scroll back; return to the latest turn to resume following. It is not a
    live audio monitor, and callback times are not audio boundaries.
 5. Once ended, select the resulting call in **Calls** to open its saved details. The
@@ -58,10 +60,22 @@ public tunnel. No recurring/batch calling or automatic retries are implemented.
 ## Optional transcript assessment
 
 Add `--enable-assessments` to enable **Assess transcript** on eligible saved calls.
-This is a paid, explicit LiveKit Inference request using the scenario ID and transcript,
+This is a paid, explicit LiveKit Inference request using the scenario ID, transcript
+and allowlisted capture/termination metadata,
 not a phone call or an audio review. Saved results remain viewable without that flag.
 **Add AI summary** in Review copies a fresh saved summary into draft notes without
-changing grades or listening approval. See [EVALUATION.md](EVALUATION.md).
+changing grades or listening approval. Call cards show current scores or historical
+scores marked prior; Notes saved is distinct from Human reviewed and Usable. The
+separate Call quality section highlights ending concerns without claiming an audio
+review. See [EVALUATION.md](EVALUATION.md).
+
+## Local browser access
+
+Use the same `http://127.0.0.1:8765` origin throughout the session. The app allows a
+top-level link to its home page but rejects cross-site API/asset requests and foreign
+write origins. If an old page reports an origin/token error after a server restart,
+reload the address and reopen the call before retrying an explicit action. Do not add
+permissive CORS or expose the server publicly to bypass the local boundary.
 
 ## Acceptance still required
 
