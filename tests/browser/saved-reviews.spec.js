@@ -49,6 +49,7 @@ test("review can be completed with keyboard, saved, reopened and amended without
   const panel = page.locator(".listening-review");
   const card = page.locator('[data-call-id="call-fixture-03"]');
   await expect(card.locator(".reviewed-chip")).toHaveCount(0);
+  await expect(card.locator(".human-evaluation")).toContainText("Not reviewed");
   await panel.locator(":scope > summary").focus();
   await page.keyboard.press("Enter");
   await page.getByLabel("Reviewer", { exact: true }).fill("Fixture reviewer");
@@ -102,6 +103,7 @@ test("review can be completed with keyboard, saved, reopened and amended without
   await expect(panel.locator(":scope > summary")).toContainText("Reviewed · usable");
   await expect(page.getByRole("button", { name: "Save revision" })).toBeVisible();
   await expect(card.locator(".reviewed-chip")).toHaveText("Usable");
+  await expect(card.locator(".human-evaluation")).toContainText("Human reviewed");
   await page.getByRole("button", { name: "Search and filter calls", exact: true }).click();
   await page.getByLabel("Filter calls", { exact: true }).selectOption("usable");
   await expect(page.locator(".call-card")).toHaveCount(1);

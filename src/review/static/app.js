@@ -183,6 +183,86 @@ function closeSearch(focus = false) {
   $("search-toggle").setAttribute("aria-expanded", "false");
   if (focus) $("search-toggle").focus();
 }
+function evaluationChips(call) {
+  const group = node("div", null, "card-evaluation");
+  const assessment = call.assessment || {
+    status: call.status === "unavailable" ? "unavailable" : "pending",
+  };
+  const scored = assessment.status === "saved" && Number.isFinite(assessment.score?.percent);
+  const prior =
+    assessment.status === "stale" && Number.isFinite(assessment.previous_score?.percent);
+  const aiLabel = scored
+    ? `AI ${assessment.score.percent}/100`
+    : prior
+      ? `AI ${assessment.previous_score.percent}/100 · prior`
+      : {
+          saved: "AI assessed · N/A",
+          stale: "AI outdated",
+          unavailable: "AI unavailable",
+        }[assessment.status] || "AI unassessed";
+  const aiTitle = scored
+    ? "Provisional transcript score; not audio or human verification."
+    : prior
+      ? "Previous provisional score; evidence or assessment settings have changed. Reassess for a current result."
+      : assessment.status === "saved"
+        ? `Assessed ${assessment.score?.assessed ?? 0}/5 dimensions; not enough coverage for an aggregate.`
+        : assessment.status === "stale"
+          ? "Saved assessment is out of date. Reassess in call details."
+          : assessment.status === "unavailable"
+            ? "Saved assessment cannot be read."
+            : "No AI assessment has been saved.";
+  const review = call.review || {
+    status: call.status === "unavailable" ? "unavailable" : "pending",
+  };
+  const reviewed =
+    review.listened === true && review.status !== "stale" && review.status !== "unavailable";
+  const humanLabel = reviewed
+    ? "Human reviewed"
+    : {
+        saved: "Notes saved",
+        stale: "Review outdated",
+        unavailable: "Review unavailable",
+      }[review.status] || "Not reviewed";
+  const humanTitle = reviewed
+    ? "A human confirmed listening to the full recording and checking the transcript. This is separate from the Usable outcome."
+    : review.status === "saved"
+      ? "Notes saved; full listening review has not been confirmed."
+      : review.status === "stale"
+        ? "Evidence changed since the saved review. Review again."
+        : review.status === "unavailable"
+          ? "Saved review cannot be read."
+          : "No human listening review has been confirmed.";
+  for (const [kind, label, title, done, paths] of [
+    [
+      "ai",
+      aiLabel,
+      aiTitle,
+      assessment.status === "saved",
+      ["m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7L12 3Z"],
+    ],
+    [
+      "human",
+      humanLabel,
+      humanTitle,
+      reviewed,
+      [
+        "M15 7a3 3 0 1 1-6 0a3 3 0 0 1 6 0",
+        "M4 21v-2a6 6 0 0 1 9-5.2",
+        reviewed ? "m15 18 2 2 4-5" : "M17 15v3m0 3h.01",
+      ],
+    ],
+  ]) {
+    const chip = node(
+      "span",
+      null,
+      `evaluation-chip ${kind}-evaluation ${done ? "evaluated" : "evaluation-pending"}`,
+    );
+    chip.title = title;
+    chip.append(icon(paths, 14), node("span", label));
+    group.append(chip);
+  }
+  return { group, label: `${aiLabel} · ${humanLabel}` };
+}
 function renderList() {
   const focusedCall = document.activeElement?.closest(".call-card")?.dataset.callId;
   const scrollLeft = $("call-list").scrollLeft;
@@ -285,7 +365,16 @@ function renderList() {
       file.append(icon(paths), node("span", available ? label : `No ${label.toLowerCase()}`));
       files.append(file);
     }
-    button.append(emblem, top, node("p", call.call_id, "call-id mono"), status, files);
+    const evaluation = evaluationChips(call);
+    button.append(
+      emblem,
+      top,
+      node("p", call.call_id, "call-id mono"),
+      status,
+      files,
+      evaluation.group,
+    );
+    button.setAttribute("aria-label", `${button.getAttribute("aria-label")} · ${evaluation.label}`);
     button.addEventListener("click", () => selectCall(call.call_id));
     $("call-list").append(button);
     if (focusedCall === call.call_id) button.focus({ preventScroll: true });
@@ -561,7 +650,12 @@ async function selectCall(id) {
     state.detail = call;
     renderHeader(call);
     renderConversation(call);
-    renderAssessment(call);
+    renderAssessment(call, (id, result) => {
+      const indexed = state.calls.find((item) => item.call_id === id);
+      if (!indexed) return;
+      indexed.assessment = { status: result.status, score: result.score };
+      renderList();
+    });
     renderReview(call, async (id) => {
       if (state.selected !== id) return;
       await refresh();

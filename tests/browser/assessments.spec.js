@@ -57,6 +57,12 @@ test("assess, inspect evidence and reopen saved result without dialing or human 
   await panel.locator(":scope > summary").click();
   await page.getByRole("button", { name: "Assess transcript", exact: true }).click();
   await expect(panel).toContainText("90/100 · provisional");
+  await expect(page.locator('[data-call-id="call-fixture-03"] .ai-evaluation')).toContainText(
+    "AI 90/100",
+  );
+  await expect(page.locator('[data-call-id="call-fixture-03"] .human-evaluation')).toContainText(
+    "Not reviewed",
+  );
   await panel.locator(".assessment-dimension summary").first().click();
   await expect(panel.locator("img")).toHaveCount(0);
   await panel.locator(".assessment-citation").first().click();
