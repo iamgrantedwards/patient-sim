@@ -1,0 +1,17 @@
+Call call-20260920-152827-c782d723 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I'd like to schedule a visit for some mild knee discomfort I've been having for about two weeks. It's not urgent or due to an injury. Could I get an appointment for a weekday afternoon?
+002 remote [completed]: I can help with that. May I have your full name and date of birth,
+003 patient [completed]: Sure, my name is Dana Whitfield, and my date of birth is July 4, 2000.
+004 remote [completed]: Just to confirm, you'd like to schedule a visit for knee discomfort that started after an injury. Would you say this is an urgent concern needing prompt attention or more of a routine check-in? the sales may book the right type of appointment for you.
+005 patient [completed]: Actually, the knee discomfort is not from an injury, and it's not urgent. It's more of a routine check-in.
+006 remote [completed]: We have weekday afternoon appointments available with doctor Zygmenia Lukowski and doctor Kelly Noble. Would you prefer to see either of these providers? or is the first available okay?
+007 patient [completed]: I don't have a preference between those doctors. Could you please tell me the actual date and time of the first available weekday afternoon appointment? Also, where would the appointment be located?
+008 remote [completed]: The first available weekday afternoon appointment is Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski. The visit will be at Pivot Point Orthopedics, one zero zero zero Main Street, San Francisco. Would you like to book this slot?
+009 patient [completed]: Monday, September 21 at 2:30 PM works for me. Please go ahead and book that appointment.
+010 remote [completed]: Your appointment is set for Monday, September twenty first at two thirty PM with doctor Zignew Lukowski at Pivot Point Orthopedics. Please bring your photo ID, insurance card, a list of your current medications, and any imaging discs if you have them. Would you like me to send you a text message with these appointment details?
+011 patient [completed]: Yes, please send me a text message with the appointment details. Thank you.
+012 remote [completed]: You'll get a text with your appointment details soon. Is there anything else I can help you with today?
+013 patient [completed]: No, that's all for now. Thanks for your help. Goodbye.

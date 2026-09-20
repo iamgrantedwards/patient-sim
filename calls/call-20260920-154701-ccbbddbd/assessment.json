@@ -1,0 +1,146 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-154701-ccbbddbd",
+      "created_at": "2026-09-20T15:52:55.904427+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "8780c00447bbe941d6d032a1a14c04f76f9ed4b952048366534b7f10e9cd51fe",
+        "transcript.json": "bbd26a72445188f36d778a80990614f43e42d38dd3f57705c3712280927e1267",
+        "recording.ogg": "76f72a31e47b35a0147bc1a6f4147d82c5a1a8108ee39c27d1acedd60fc3d711",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent handled the medication refill request appropriately, verified identity, addressed the patient’s clarification, and provided clear next steps. No material issues were observed in request handling, consistency, clarification, supported claims, or next steps. The patient responded coherently and the call ended cleanly. No concerns or gaps requiring improvement were identified in the available text.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "Agent addresses the refill request, explains inability to refill, and provides a next step.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "Yes. I can help with medication refill requests for patients at Pivot Point Orthopedics."
+              },
+              {
+                "turn": 10,
+                "quote": "I don't see any medications under chart that I can refill right now."
+              },
+              {
+                "turn": 12,
+                "quote": "The best next step is to contact our clinic support team. They can review your chart and help with your refill request."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "Agent consistently verifies identity and refers to patient by name after confirmation. No conflicting information observed.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "I see you're calling from the number we have on file. Am I speaking with Dana?"
+              },
+              {
+                "turn": 5,
+                "quote": "Yes, this is Dana."
+              },
+              {
+                "turn": 6,
+                "quote": "Please provide your date of birth."
+              },
+              {
+                "turn": 7,
+                "quote": "It's July 4, 2000."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "Agent responds to patient’s clarification request about not being connected and provides the requested information.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "No, please don't connect me. Could you just tell me how I can contact the clinic support team?"
+              },
+              {
+                "turn": 14,
+                "quote": "You can reach the clinic support team by calling our main clinic number during business hours."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Agent’s claims about refill ability and chart status are consistent with the conversation context. No unsupported claims detected.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "Yes. I can help with medication refill requests for patients at Pivot Point Orthopedics."
+              },
+              {
+                "turn": 10,
+                "quote": "I don't see any medications under chart that I can refill right now."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "Agent provides clear actionable next steps for the patient to follow.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "The best next step is to contact our clinic support team. They can review your chart and help with your refill request."
+              },
+              {
+                "turn": 14,
+                "quote": "You can reach the clinic support team by calling our main clinic number during business hours."
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient provided a clear farewell and closure. No evidence of confusion or abrupt ending in the text.",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "No, that's all. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient’s farewell was played fully and the call ended cleanly."
+          },
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "Patient responses are coherent and relevant throughout the call.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, I wanted to check if you handle medication refill requests here?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Review patient responses for coherence and completeness in future calls."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text alone cannot confirm turn-taking quality or interruptions.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen for interruptions or overlapping speech to assess turn-taking."
+          }
+        ]
+      }
+    }
+  ]
+}

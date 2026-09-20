@@ -1,0 +1,19 @@
+Call call-20260920-012229-385cbddd — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, can you check if there's an appointment on file under the name Dana Whitfield? I might need to change the time.
+002 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana
+003 patient [completed]: Yes, this is Dana Whitfield.
+004 remote [completed]: Please provide your date of birth.
+005 patient [completed]: My date of birth is July 4, 2000.
+006 remote [completed]: You have an appointment scheduled for Monday, September twenty first at three PM with doctor Zbingyu Lakowski. you like to reschedule this appointment?
+007 patient [completed]: Yes, I would like to reschedule it to a different weekday afternoon. Could you please tell me what other weekday afternoons are available?
+008 remote [completed]: Before I look for new weekday afternoon times, can you tell me the reason you need to reschedule your appointment
+009 patient [completed]: It's just a mild knee discomfort I've been having for a couple of weeks. I want to make sure I can come at a time that fits better with my schedule.
+010 remote [completed]: The next opening is Tuesday, September twenty second at two PM with doctor Zippig New Locosti at Pivot Point Orthopedics. Would you like to move your appointment to this time?
+011 patient [completed]: Yes, please move my appointment to Tuesday, September 22nd at 2 PM. Can you confirm that new date and time for me?
+012 remote [completed]: Your appointment is now set for Tuesday, September twenty second at two PM with doctor Zygbig Mewlekowski. Would you like me to send you a text message with these details?
+013 patient [completed]: Yes, please send me a text message with the appointment details. Thank you.
+014 remote [completed]: You should get a text soon with your updated appointment details. Is there anything else I can help you with today?
+015 patient [completed]: No, that's all for now. Thanks for your help. Goodbye.

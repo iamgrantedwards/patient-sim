@@ -1,0 +1,138 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-162313-7544c7c2",
+      "created_at": "2026-09-20T16:26:01.545752+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "92f86420f9fc59d80b2ae5a3f070291e498fd31c2fec5c2f8f4e662683675c8d",
+        "transcript.json": "f01b2c69322259138c7b8171467d857a7f27dfeab41f4473a0669eb4b327db85",
+        "recording.ogg": "5c7922b8e7ac4f14eda4e7564cc45751824d3e9b816a753ebe1fd1c22bfc600d",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The remote agent handled the patient's request clearly and consistently, explaining both options for scheduling an appointment for an adult family member and the authorization requirement. Clarification was provided when the patient asked about the process, and all claims were supported by the conversation. Next steps were actionable and relevant. No concerns were identified in patient coherence, but turn-taking and ending require audio review for full assessment.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "Agent directly addresses the patient's request about who can arrange an appointment and explains the process and requirements for both options.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange an appointment for an adult family member. I'll just need to verify your authorization to speak on their behalf before we continue."
+              },
+              {
+                "turn": 4,
+                "quote": "An adult patient can call us directly to arrange their own appointment. If you want to schedule for them, you'll just need to confirm you're authorized to do so when you call. Either option works, whatever is easier for you and your family member."
+              },
+              {
+                "turn": 7,
+                "quote": "If your family member calls themselves, the process is usually quicker and smoother. If you call for them, just be ready to confirm you're authorized to help with their care."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "Agent consistently explains the authorization requirement and the options for scheduling, repeating and reinforcing the information across multiple turns.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange an appointment for an adult family member. I'll just need to verify your authorization to speak on their behalf before we continue."
+              },
+              {
+                "turn": 4,
+                "quote": "An adult patient can call us directly to arrange their own appointment. If you want to schedule for them, you'll just need to confirm you're authorized to do so when you call."
+              },
+              {
+                "turn": 7,
+                "quote": "If your family member calls themselves, the process is usually quicker and smoother. If you call for them, just be ready to confirm you're authorized to help with their care."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "Patient asks for clarification about the process and whether the adult must call themselves; agent provides a clear answer addressing both scenarios.",
+            "evidence": [
+              {
+                "turn": 3,
+                "quote": "I don't have their authorization handy right now. Could you tell me what the process is for them to arrange an appointment? Do they need to call themselves?"
+              },
+              {
+                "turn": 4,
+                "quote": "An adult patient can call us directly to arrange their own appointment. If you want to schedule for them, you'll just need to confirm you're authorized to do so when you call. Either option works, whatever is easier for you and your family member."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Agent's claims about the process and options for appointment scheduling are consistent with the conversation and not contradicted by other supplied facts.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "An adult patient can call us directly to arrange their own appointment."
+              },
+              {
+                "turn": 7,
+                "quote": "If your family member calls themselves, the process is usually quicker and smoother."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "Agent provides actionable next steps for both scenarios: either the adult calls themselves, or the caller confirms authorization if scheduling for them.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "If you call for them, just be ready to confirm you're authorized to help with their care."
+              }
+            ]
+          }
+        ],
+        "observations": [],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "Patient's responses are coherent and relevant to the agent's information, showing understanding and engagement.",
+            "evidence": [
+              {
+                "turn": 5,
+                "quote": "Thanks for explaining. So the adult family member should call themselves to arrange the visit if they want to be sure everything goes smoothly, right?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Review patient simulator scripting for clarity and completeness in responses."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Transcript does not show evidence of interruptions or incomplete turns; text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call audio to check for interruptions or overlapping speech."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "Final agent turn appears complete and provides closure, but only audio can confirm if it was played fully and not cut off.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "If your family member calls themselves, the process is usually quicker and smoother. If you call for them, just be ready to confirm you're authorized to help with their care."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the final 10–15 seconds of the call to verify if the ending was played fully and not cut off."
+          }
+        ]
+      }
+    }
+  ]
+}

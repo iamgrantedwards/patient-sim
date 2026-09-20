@@ -1,0 +1,30 @@
+Call call-20260920-175412-c28bccad — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Orthopedics. Part of PrettyGoodAI. How may I help you today?
+001 patient [completed]: Hi, I'm Dana Whitfield. I wanted to see if I could get a morning appointment for a mild knee discomfort I've had for the last two weeks.
+002 remote [completed]: Please provide your date of birth
+003 patient [completed]: Sure, my date of birth is July 4, 2000.
+004 remote [completed]: Thanks, Dana. To make sure I book the right type of appointment, would you say this visit is for a general office visit, a follow-up, or something else?
+005 patient [completed]: It's a nonurgent orthopedic consultation for mild knee discomfort. No injury or urgent symptoms.
+006 remote [completed]: Thanks for clarifying. Do you have a specific provider you'd like to see, or are you open to the next available
+007 patient [completed]: I'm open to the next available provider, thanks.
+008 remote [completed]: Let me check for the next available morning appointments for your knee consultation. One moment,
+009 patient [partial]: Actually,
+010 remote [completed]: You already have an office with... go ahead, Dana. What would you like to change or ask about your appointment
+011 patient [completed]: Sorry, I meant a weekday afternoon appointment instead of morning. Could you check availability for weekday afternoons?
+012 remote [completed]: You have two upcoming appointments.
+013 remote [completed]: one tomorrow, Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski and another on Thursday, September twenty fourth at noon with Dubey Hauser. Which of these would you like to reschedule to a weekday afternoon?
+014 patient [completed]: I don't have any appointments scheduled, so I would like to book a new weekday afternoon appointment, please. Could you tell me what weekday afternoons are available?
+015 remote [completed]: Let's look for a new weekday afternoon appointment for
+016 patient [partial]: Could you please tell me
+017 remote [completed]: Just to confirm, this
+018 remote [completed]: No problem.
+019 remote [completed]: I'm checking for weekday afternoon openings for a general office visit about your knee discomfort. One moment while I find the next available slot.
+020 patient [completed]: Thanks. Could you please tell me the full date and time of the next available weekday afternoon appointment?
+021 remote [completed]: Let me fetch the next available weekday afternoon appointment for you.
+022 patient [partial]: Could you please tell me the full
+023 remote [completed]: You already have an
+024 remote [completed]: You already have an office visit scheduled for Monday, September twenty first at two thirty PM with doctor Zibignew Locosky at Pivot Point Orthopedics. Would you like to keep this appointment reschedule it. or cancel it.
+025 patient [completed]: I wasn't aware of that appointment. I'll keep the Monday, September 21st at 2:30 PM appointment with Dr. Zibignew Locosky. Thank you. Goodbye.
+026 remote [completed]: You're all set for Monday, September twenty first at two thirty PM with doctor z Bignew Lukowski. If you need anything else, just call. Take care.

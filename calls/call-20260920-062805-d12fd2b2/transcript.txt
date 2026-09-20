@@ -1,0 +1,20 @@
+Call call-20260920-062805-d12fd2b2 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling to the Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I'm Dana Whitfield. I wanted to see if I could get a morning appointment for a consultation about some mild knee discomfort I've had for the past two weeks.
+002 remote [completed]: Please provide your date of birth.
+003 patient [completed]: Sure, my date of birth is July 4, 2000.
+004 remote [completed]: Just to confirm, is this your first visit with us? or are you an existing patient looking for a follow-up consultation
+005 patient [completed]: This would be my first visit with you.
+006 remote [completed]: Do you have a specific provider you'd like to see, or are you open to the first available
+007 patient [completed]: I'm open to seeing the first available provider.
+008 remote [completed]: Let me check for the next available morning appointments for a new patient consultation.
+009 remote [completed]: You already have a new patient appointment booked with doctor Dugie Hauser on Tuesday, September twenty second at two fifteen PM at Pivot Point Orthopedics. Would you like to keep this appointment or do you want to reschedule it for a morning time?
+010 patient [completed]: Oh, I actually meant a weekday afternoon appointment, not morning. Could you please check for an available afternoon slot instead?
+011 remote [completed]: You have two upcoming appointments. one with Doctor. Dubey Hauser on Tuesday, September twenty second at two fifteen PM, and another with Doctor. Zebignew Lakowski on Wednesday, September twenty third at two PM. Which appointment would you like to move to a weekday afternoon slot?
+012 patient [completed]: I don't want to move either of those. I just want to book a new appointment for a weekday afternoon for a knee consultation. Could you please check availability for that?
+013 remote [completed]: You already have new patient appointments booked. So I can't schedule another of the same type. If you need to discuss your knee at one of your existing appointments, you can bring it up then. If you'd like to change one of your current appointments to a different afternoon, let me know, and I can help reschedule.
+014 patient [completed]: Thanks for letting me know. Could you please tell me the full date and time of the appointment with Doctor Zebignew Lakowski on Wednesday, September 23rd at 2 PM? I want to make sure I have it right before deciding if I want to reschedule.
+015 remote [completed]: Your appointment with doctor Zygmue Likowski is on Wednesday, September twenty third at two PM. Let me know if you'd like to reschedule this appointment or need anything else.
+016 patient [completed]: Thanks for confirming. I'll keep the appointment with Doctor Zebignew Lakowski on Wednesday, September 23rd at 2 PM. That's all I needed. Thank you and goodbye.

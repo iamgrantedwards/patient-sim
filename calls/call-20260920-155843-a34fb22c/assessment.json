@@ -1,0 +1,185 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-155843-a34fb22c",
+      "created_at": "2026-09-20T16:11:58.221676+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "a91b2b5c31161f01fba535f5f03b48b43fbaae127218ebd9f8cb61335f0b2740",
+        "transcript.json": "e81d67e1ca15865b320be9e5a9d38971ea636de5b032b1f4c00ea358c030c97f",
+        "recording.ogg": "b608629854534a206fe3344043d9f710b3d46e4b8ad9bd54c607c72133b8165c",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's requests and corrections well, offering appropriate options and confirming the appointment. However, there is inconsistency in the provider's name across turns, which could cause confusion. The final turn lacks a full closure or farewell, possibly due to cutoff or incomplete speech. The patient responded coherently and allowed the agent to finish instructions. Supported claims and next steps are partially met, but provider naming and closure need improvement. Audio review is recommended for the ending.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses the patient's requests, including the correction from morning to afternoon, and provides options and confirmation.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "There are several morning appointments available on Monday, September twenty first with doctor z Bignew Lakowski and doctor Kelly Noble. Would you prefer to see either doctor, or should I offer the earliest available slot?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are afternoon appointments available this week. Would you like the earliest afternoon slot on Monday, or do you have a different weekday in mind?"
+              },
+              {
+                "turn": 12,
+                "quote": "The earliest Monday afternoon appointment is on September twenty first at two thirty PM with doctor ZigBegnew Lukowski. Would you like to book this slot?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent's naming of the provider is inconsistent: 'doctor z Bignew Lakowski', 'doctor ZigBegnew Lukowski', and 'doctor zed' are used for the same appointment. This could cause confusion about the provider's identity.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "doctor z Bignew Lakowski"
+              },
+              {
+                "turn": 12,
+                "quote": "doctor ZigBegnew Lukowski"
+              },
+              {
+                "turn": 15,
+                "quote": "doctor zed"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent responds appropriately to the patient's correction about appointment timing, offering afternoon options and confirming the new request.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "Actually, I meant a weekday afternoon appointment, not morning. Could you check for weekday afternoons instead?"
+              },
+              {
+                "turn": 10,
+                "quote": "There are afternoon appointments available this week. Would you like the earliest afternoon slot on Monday, or do you have a different weekday in mind?"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 1,
+            "rationale": "The agent's claims about appointment date, time, and provider are consistent with the options previously offered, though the provider's name is inconsistently stated. The appointment details are supported by prior conversation.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "The earliest Monday afternoon appointment is on September twenty first at two thirty PM with doctor ZigBegnew Lukowski."
+              },
+              {
+                "turn": 15,
+                "quote": "Your appointment is confirmed for Monday, September twenty first at two thirty PM with doctor zed"
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 1,
+            "rationale": "The agent provides a clear outcome (appointment confirmation), but the final turn is incomplete, lacking a full closure or farewell.",
+            "evidence": [
+              {
+                "turn": 14,
+                "quote": "You're all set."
+              },
+              {
+                "turn": 15,
+                "quote": "Your appointment is confirmed for Monday, September twenty first at two thirty PM with doctor zed"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider naming in appointment confirmation",
+            "expected_behavior": "State the provider's name consistently throughout the call, especially in the final confirmation.",
+            "basis_for_expectation": "Provider names should be stated consistently to avoid confusion and ensure the patient knows who they are seeing.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "doctor z Bignew Lakowski"
+              },
+              {
+                "turn": 12,
+                "quote": "doctor ZigBegnew Lukowski"
+              },
+              {
+                "turn": 15,
+                "quote": "doctor zed"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "STT errors may contribute, but the inconsistency is evident in the transcript.",
+            "recommended_improvement": "Ensure the provider's name is repeated exactly as initially stated, especially in the final confirmation.",
+            "next_test": "Retest with a focus on provider name consistency in booking and confirmation."
+          },
+          {
+            "title": "Incomplete closure or farewell at call end",
+            "expected_behavior": "Deliver a complete closing statement or farewell after confirming the appointment.",
+            "basis_for_expectation": "A clear closure or farewell is expected at the end of a booking call to signal completion and provide reassurance.",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "Your appointment is confirmed for Monday, September twenty first at two thirty PM with doctor zed"
+              }
+            ],
+            "attribution": "mixed",
+            "uncertainty": "Possible cutoff or STT truncation; audio review needed to confirm if closure was delivered or received.",
+            "recommended_improvement": "Add a clear closing statement or farewell after appointment confirmation.",
+            "next_test": "Listen to the last 10–15 seconds and retest with explicit closure/farewell."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient responds coherently, provides corrections, and allows the agent to finish instructions.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, I'm Dana Whitfield. I wanted to see if I could get a morning appointment for a mild knee discomfort I've had for a couple of weeks."
+              },
+              {
+                "turn": 11,
+                "quote": "Monday afternoon would work. Could you please tell me the full date and time of the earliest Monday afternoon appointment?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to monitor for clear, relevant responses and allow the office to finish instructions."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruption or turn-taking issues in the transcript. Text alone cannot confirm smooth turn-taking.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Audio review required to assess interruptions or overlap."
+          },
+          {
+            "topic": "ending",
+            "result": "concern",
+            "rationale": "The final turn trails off with 'doctor zed', lacking a full closure or farewell. Possible cutoff or incomplete ending.",
+            "evidence": [
+              {
+                "turn": 15,
+                "quote": "Your appointment is confirmed for Monday, September twenty first at two thirty PM with doctor zed"
+              }
+            ],
+            "attribution": "mixed",
+            "next_step": "Listen to the last 10–15 seconds to confirm if the farewell or closure was delivered and received fully."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+Call call-20260920-011456-fe6d34a0 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thank you for calling Pitt Epoy Orthopedics. Would you like to create a demo patient profile? I just need your first and last name and get started.
+001 patient [completed]: Hi, what time does the office close on weekdays?
+002 remote [completed]: I do not have the exact weekday closing hours for the office. Would you like to create a demo patient profile? I can help you with more details once your profile is set up. I just need your first and last name.
+003 patient [completed]: Thanks for the offer, but I just want to know some information first. Can you tell me where the office is located?
+004 remote [completed]: I do not have the office address available right now. If you'd like, you can create a demo patient profile, and I'll be able to help with more details. Would you like to do that? I just need your first and last name.
+005 patient [completed]: Okay, no problem. Do I need to bring my insurance card to the appointment?
+006 remote [completed]: Yes. It's a good idea to bring your insurance card to your appointment. If you decide to book a visit, I can help you with the details. Would you like to create a demo patient profile now?
+007 patient [completed]: Thanks for the info. That's all I needed to know for now. Goodbye.

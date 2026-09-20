@@ -480,3 +480,25 @@ does not establish whether a semantic outcome or goodbye is complete. Focused te
 cover the original ordering, clean closing, newer turns during playout/pause,
 interruption, cancellation and real worker callback wiring. A follow-up real call
 and listening confirmation remain required to claim audible improvement.
+
+
+## Final handoff follow-up — September 20, 2026
+
+PR #93 merged with all required checks green: 317 Python tests, 114 browser tests,
+95.84% coverage, quality/type/security gates and package installation. Correction
+follow-up `call-20260920-175412-c28bccad` used the same pipeline and patient-prompt
+hash. Its caller files matched merged revision 58eaf9bb; staged publication files
+accounted for the dirty working-tree flag. No server restart was needed.
+
+Local receipt times: +158.60 seconds end_call_deferred (remote_speaking); +197.05
+end_call_accepted; +199.08 session close. These are not audio offsets. The 198.29-second
+stereo OGG finalized and decoded, with no failsafe. The final patient turn includes a
+goodbye and the final office turn completes a confirmation and farewell. Grant then
+saved a listened/usable review; the optional Ending grade remains not_assessed. This
+supports the limited live guard result, not a claim that every ending issue is solved.
+The office reported earlier appointments, so the dialogue was not an identical replay.
+
+The deleted first debugging video was replaced by Grant's genuine recording of this
+investigation: https://www.loom.com/share/12245c3a689549f69ff08590087fc83e .
+Final demo: https://www.loom.com/share/0db55c95dd894cd388593a33c5d9a2b1 .
+Original recordings and review decisions remain intact.

@@ -3,9 +3,9 @@
 Originally planned 2026-09-19; reconciled against the implementation on 2026-09-20
 UTC (September 19 Pacific), #77. Ten candidate conversations have been captured;
 [COLLECTION.md](COLLECTION.md) records actual IDs, coverage and acceptance.
-Application development is frozen per Grant (#90). One final call is planned during
-the presentation, followed by publication of all call records with complete conversations
-identified separately from diagnostics. Remaining work is findings and handoff. This document explains evaluation intent and the implemented coverage. It is **not
+Application development is frozen. Grant has completed the presentation and final
+reviews; calls/README.md identifies the primary ten within all 47 records. Final
+findings and actual submission status are recorded in SUBMISSION.md. This document explains evaluation intent and the implemented coverage. It is **not
 loaded by the application or sent to the AI judge**. Use [SUBMISSION.md](SUBMISSION.md)
 for remaining delivery work and [EVALUATION.md](EVALUATION.md) for the exact rubric,
 request payload, score calculation and test boundaries.

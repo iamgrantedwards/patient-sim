@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-171034-46507490",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T17:14:59.265401+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": ""
+          },
+          "transcript": {
+            "result": "ok",
+            "note": ""
+          },
+          "patient": {
+            "result": "ok",
+            "note": ""
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": ""
+          },
+          "pacing": {
+            "result": "ok",
+            "note": ""
+          },
+          "audio": {
+            "result": "ok",
+            "note": ""
+          },
+          "ending": {
+            "result": "ok",
+            "note": ""
+          }
+        },
+        "summary": "",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "9e6842763afb861d89d6bb715d2092df929e8e4c80a381e2f4378251e4342b58",
+          "transcript.json": "855054e10ab0c0a1c710a737306ef53d95c72edb10c259ae98954cb15a49f822",
+          "recording.ogg": "1f72972282c76d44c2173a1c11061cd0283973c534c0d22386a4b29a83aac75e",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

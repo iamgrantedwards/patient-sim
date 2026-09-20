@@ -1,0 +1,100 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-034355-fa5b226a",
+      "created_at": "2026-09-20T04:00:16.030462+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "c3f2727cafed0fb87caf7f776127bcead5b8b314eca95e24581ae1f17bcd01d3",
+        "transcript.json": "77caeb6870c9a3fd3bb52b619b0d7ae574278435e9c76ec608efe8ec114a86ac",
+        "recording.ogg": "df6fab2623a30060cb7a65387e83145a22e033d7de3814f4126a8f2c5a732b36",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled all requests directly and provided clear, actionable information. No issues with consistency, clarification, or unsupported claims were observed, and next steps were clearly communicated. No concerns were identified in this interaction.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses each request: denies demo profile setup, provides office hours, gives the address, and answers the insurance card question. No requests are ignored or mishandled.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "That's not something we offer. there anything else I can help you with today?"
+              },
+              {
+                "turn": 4,
+                "quote": "The clinic closes at four PM on Monday, Tuesday, and Thursday at seven PM on Wednesday, and at twelve PM on Friday. Let me know if you need anything else."
+              },
+              {
+                "turn": 6,
+                "quote": "The clinic is at one two three four Recovery Way, suite two hundred, Austin. Would you like directions or any other details?"
+              },
+              {
+                "turn": 8,
+                "quote": "Yes."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": null,
+            "rationale": "No repeated or related facts (e.g., office hours, address, or insurance requirements) are presented in a way that allows for internal consistency checking within this call.",
+            "evidence": []
+          },
+          {
+            "dimension": "clarification",
+            "score": null,
+            "rationale": "The patient does not present ambiguity or corrections; all questions are clear and directly answered.",
+            "evidence": []
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "Claims about office hours, address, and insurance card requirement are all directly supported by the agent's own statements in response to explicit questions.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "The clinic closes at four PM on Monday, Tuesday, and Thursday at seven PM on Wednesday, and at twelve PM on Friday."
+              },
+              {
+                "turn": 6,
+                "quote": "The clinic is at one two three four Recovery Way, suite two hundred, Austin."
+              },
+              {
+                "turn": 8,
+                "quote": "Yes."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides clear next steps or offers further assistance after each answer, especially regarding bringing the insurance card and offering to help update information.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "Let me know if you need anything else."
+              },
+              {
+                "turn": 6,
+                "quote": "Would you like directions or any other details?"
+              },
+              {
+                "turn": 9,
+                "quote": "Please bring your insurance card to your appointment."
+              },
+              {
+                "turn": 10,
+                "quote": "If you need to update your insurance information, I can help with that too."
+              }
+            ]
+          }
+        ],
+        "observations": []
+      }
+    }
+  ]
+}

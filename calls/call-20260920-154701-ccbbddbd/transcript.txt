@@ -1,0 +1,19 @@
+Call call-20260920-154701-ccbbddbd — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I wanted to check if you handle medication refill requests here?
+002 remote [completed]: Yes. I can help with medication refill requests for patients at Pivot Point Orthopedics. Are you calling for yourself or for someone else?
+003 patient [completed]: I'm calling for myself.
+004 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana?
+005 patient [completed]: Yes, this is Dana.
+006 remote [completed]: Please provide your date of birth.
+007 patient [completed]: It's July 4, 2000.
+008 remote [completed]: Thanks, Dana. I can help with your medication refill request. Which medication do you need refilled?
+009 patient [completed]: I need a refill for Lisinopril, ten milligrams once daily.
+010 remote [completed]: I don't see any medications under chart that I can refill right now. like to speak with someone about this, just let me know.
+011 patient [completed]: If you can't refill it here, what would be the next step for me to get it refilled?
+012 remote [completed]: The best next step is to contact our clinic support team. They can review your chart and help with your refill request. Would you like me to connect you to our support team now?
+013 patient [completed]: No, please don't connect me. Could you just tell me how I can contact the clinic support team?
+014 remote [completed]: You can reach the clinic support team by calling our main clinic number during business hours. They'll be able to help with your medication refill and any other questions. Is there anything else I can help you with today?
+015 patient [completed]: No, that's all. Thanks for your help. Goodbye.

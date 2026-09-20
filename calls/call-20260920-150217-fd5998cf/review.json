@@ -1,0 +1,52 @@
+{
+  "call_id": "call-20260920-150217-fd5998cf",
+  "revisions": [
+    {
+      "revision": 1,
+      "saved_at": "2026-09-20T15:18:59.403512+00:00",
+      "review": {
+        "reviewer": "Grant",
+        "listened": true,
+        "suitability": "usable",
+        "checks": {
+          "completeness": {
+            "result": "ok",
+            "note": "Evidence of call is complete and available"
+          },
+          "transcript": {
+            "result": "ok",
+            "note": "there were not observed issues on our side, unknown scripts on the other side"
+          },
+          "patient": {
+            "result": "ok",
+            "note": "good attitude and authenticity"
+          },
+          "turn_taking": {
+            "result": "ok",
+            "note": "no issue"
+          },
+          "pacing": {
+            "result": "ok",
+            "note": "seems quite natural"
+          },
+          "audio": {
+            "result": "ok",
+            "note": "the background sound of the office is a nice touch"
+          },
+          "ending": {
+            "result": "not_assessed",
+            "note": "both agents ended the call well"
+          }
+        },
+        "summary": "Overall we have a usable conversation test that shows clear steering and correct conversational interactions. ",
+        "base_revision": 0,
+        "fingerprints": {
+          "meta.json": "b50783b56acba2a042ca5ade28105d2ba34326e3392a3a13f2deca2854786086",
+          "transcript.json": "9ccecab562cc9bcc6ac1571a4b13498671506b3d846ace2971af66d5398cce81",
+          "recording.ogg": "601008f70c1bf45eb7d1f4c2ee265b67e7630a5972122d38f3fa9fa778963b2e",
+          "recording.mp3": null
+        }
+      }
+    }
+  ]
+}

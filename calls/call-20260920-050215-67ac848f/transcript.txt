@@ -1,0 +1,16 @@
+Call call-20260920-050215-67ac848f — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I have a refill question but I don't have my prescription number with me right now. Can you help me with that?
+002 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana?
+003 patient [completed]: Yes, this is Dana.
+004 remote [completed]: Please provide your date of birth.
+005 patient [completed]: My date of birth is July 4, 2000.
+006 remote [completed]: I don't see any medications on your chart that we can refill right now.
+007 remote [completed]: If you think this is a mistake or need more help, just let me know.
+008 patient [completed]: I take Lisinopril, ten milligrams once daily. What information do you need from me to request a refill without the prescription number or last fill date? And if you can't handle it, who should I contact next?
+009 remote [completed]: I can't request a refill since there are no medications listed on your chart. For help with this, you can speak with our patient support team. Would you like me to connect you to them now?
+010 patient [completed]: No, thank you. Could you please tell me generally what information I should gather before contacting the patient support team?
+011 remote [completed]: You'll want to have the medication name, dosage, how often you take it, your pharmacy name and location, and your contact information. If possible, also have your prescription number or last fill date, but those are always required. This will help the support team process your request faster.
+012 patient [completed]: Got it. Thanks for the info. I'll gather those details before reaching out. I appreciate your help. Goodbye.

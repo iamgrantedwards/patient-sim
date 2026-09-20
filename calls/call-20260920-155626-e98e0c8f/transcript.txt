@@ -1,0 +1,13 @@
+Call call-20260920-155626-e98e0c8f — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of pretty good AI. How may I help you today?
+001 patient [completed]: Hi, I wanted to find out if you accept Example Health PPO insurance? I don't have my member ID handy right now.
+002 remote [completed]: That's no problem. I can still help answer general questions about insurance.
+003 remote [completed]: Pivot Point Orthopaedics accepts most major insurance plans. For details about example health PPO, I recommend calling your insurance provider or checking your plan's coverage for orthopedic care. If you'd like to update your insurance on file or have specific questions about your coverage, just let me know.
+004 patient [completed]: Thanks for that. If I don't have my member number, what insurance info should I bring to my appointment to help with coverage verification?
+005 remote [completed]: You should bring your insurance card to your appointment. The front desk will need your full name as it appears on the card. Your date of birth, the insurance company name, the plan type, and the group number if available.
+006 remote [completed]: you find your member ID before your visit, bring that too. This will help make sure your coverage is verified smoothly.
+007 patient [completed]: Got it. If I want to check coverage before coming in, is there a way to do that with your office?
+008 remote [completed]: You can call your insurance company directly to check your coverage for orthopedic visits at Pivot Point Orthopedics. Our office can also help verify your benefits when you provide your insurance details. Do you want us to check for you? Just bring your insurance card or send us your information before your appointment.
+009 patient [completed]: I don't have my insurance details handy to provide now, so I won't ask you to check. Thanks for the info. That helps.

@@ -1,0 +1,166 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-180319-05f09527",
+      "created_at": "2026-09-20T18:07:00.972205+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "f588526dc46e951c2894bd02441be218347a75d42a3acb89547d28dac4198e45",
+        "transcript.json": "361514087bbb2d44f3f706e3d39438ab4b831a3a7220de30e6b1ce5b44e04133",
+        "recording.ogg": "66bbd04406a3553653db589c1fa10ed868deb5ec5b740a6272a82d6dbcaa1881",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the cancellation request appropriately, verified identity, clarified which appointment to cancel, and confirmed the outcome. However, there was inconsistency in the provider's name across multiple turns, which could cause confusion. All other dimensions were handled well, and the patient was able to complete the call without issue. No major concerns were observed in request handling, clarification, supported claims, or next steps.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent verified identity, confirmed appointments, clarified which to cancel, asked for a cancellation reason, and confirmed the cancellation. All steps were addressed appropriately.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "Can you please provide your date of birth"
+              },
+              {
+                "turn": 4,
+                "quote": "You have two upcoming appointments, one tomorrow, Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski and another on Thursday, September twenty fourth at twelve PM with doctor Dubey Halzer. Which one would you like to cancel?"
+              },
+              {
+                "turn": 6,
+                "quote": "Before I cancel your appointment with doctor Zagnulikowski tomorrow, can you tell me the reason for your cancellation"
+              },
+              {
+                "turn": 8,
+                "quote": "Your appointment with doctor Zygmue Lacowski tomorrow, Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM with doctor Doogie Hauser is still booked. Is there anything else I can help you with?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent refers to the same appointment multiple times but uses inconsistent spellings for the doctor's name (e.g., 'z Bignew Lakowski', 'Zagnulikowski', 'Zygmue Lacowski'). This could cause confusion about whether the correct appointment was canceled.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "You have two upcoming appointments, one tomorrow, Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski and another on Thursday, September twenty fourth at twelve PM with doctor Dubey Halzer. Which one would you like to cancel?"
+              },
+              {
+                "turn": 6,
+                "quote": "Before I cancel your appointment with doctor Zagnulikowski tomorrow, can you tell me the reason for your cancellation"
+              },
+              {
+                "turn": 8,
+                "quote": "Your appointment with doctor Zygmue Lacowski tomorrow, Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM with doctor Doogie Hauser is still booked. Is there anything else I can help you with?"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent asked for clarification when multiple appointments were present, and the patient specified which to cancel. No ambiguity or correction was left unresolved.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "Which one would you like to cancel?"
+              },
+              {
+                "turn": 5,
+                "quote": "Please cancel the appointment for tomorrow, September twenty first at two thirty PM with doctor z Bignew Lakowski. Do you need anything else from me?"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about appointments and their status are consistent with the information provided earlier in the call.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "You have two upcoming appointments, one tomorrow, Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski and another on Thursday, September twenty fourth at twelve PM with doctor Dubey Halzer."
+              },
+              {
+                "turn": 8,
+                "quote": "Your appointment with doctor Zygmue Lacowski tomorrow, Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM with doctor Doogie Hauser is still booked."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent clearly confirms the cancellation and the status of the remaining appointment, and offers further assistance.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "Your appointment with doctor Zygmue Lacowski tomorrow, Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM with doctor Doogie Hauser is still booked. Is there anything else I can help you with?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider name references across turns",
+            "expected_behavior": "Agent should refer to the same provider with a consistent name throughout the call.",
+            "basis_for_expectation": "Agent should use consistent and accurate names for providers to avoid confusion and ensure the correct appointment is referenced and canceled.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "You have two upcoming appointments, one tomorrow, Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski and another on Thursday, September twenty fourth at twelve PM with doctor Dubey Halzer. Which one would you like to cancel?"
+              },
+              {
+                "turn": 6,
+                "quote": "Before I cancel your appointment with doctor Zagnulikowski tomorrow, can you tell me the reason for your cancellation"
+              },
+              {
+                "turn": 8,
+                "quote": "Your appointment with doctor Zygmue Lacowski tomorrow, Monday, September twenty first at two thirty PM has been canceled. Your other appointment on Thursday, September twenty fourth at twelve PM with doctor Doogie Hauser is still booked. Is there anything else I can help you with?"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "It is unclear if the name variations are due to STT errors or agent mispronunciation, but the text inconsistency could confuse patients.",
+            "recommended_improvement": "Ensure the agent uses the exact provider name as listed in the system and repeats it consistently when confirming or discussing appointments.",
+            "next_test": "Test with a similar scenario and check if the agent maintains consistent provider names across all references."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provided a clear closing statement, indicating they were able to finish their turn without interruption.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient was able to finish and the agent did not speak over the goodbye."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "There is no textual evidence of interruptions or overlapping turns. Text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen for interruptions or overlapping speech to assess turn-taking dynamics."
+          },
+          {
+            "topic": "ending",
+            "result": "not_assessable",
+            "rationale": "The patient provided a clear farewell, but text cannot confirm if the agent responded or if the call ended smoothly.",
+            "evidence": [
+              {
+                "turn": 9,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "unknown",
+            "next_step": "Listen to the final exchange to ensure the call ended cleanly and the agent did not continue speaking after the patient farewell."
+          }
+        ]
+      }
+    }
+  ]
+}

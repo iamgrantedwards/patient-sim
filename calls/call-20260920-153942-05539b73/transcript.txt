@@ -1,0 +1,17 @@
+Call call-20260920-153942-05539b73 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics. Heart a pretty good AI. How may I help you today?
+001 patient [completed]: Hi, can you help me check if I have an appointment on file under the name Dana Whitfield? If there is one, I'd like to cancel it.
+002 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana?
+003 patient [completed]: Yes, this is Dana Whitfield.
+004 remote [completed]: Please provide your date of birth.
+005 patient [completed]: My date of birth is July 4, 2000.
+006 remote [completed]: You have two upcoming appointments. One is tomorrow, Monday, September twenty first at two thirty PM with doctor z Bigniew Locowski. The other is Thursday, September twenty fourth at noon with doctor Doobie Hauser. Which one would you like to cancel?
+007 patient [completed]: Please cancel the appointment on Monday, September twenty first at two thirty PM with Dr. Locowski. Is there anything else you need from me?
+008 remote [completed]: Could you please share the reason you'd like to cancel your appointment with doctor Lakowski?
+009 patient [completed]: I just need to cancel that one. No special reason.
+010 remote [completed]: To confirm, you want to cancel your appointment with doctor Lakowski on Monday, September twenty first. Is that correct?
+011 patient [completed]: Yes, that's correct. Please go ahead and cancel it.
+012 remote [completed]: Your appointment with doctor Lakowski on Monday, September twenty first at two thirty PM has been canceled. Is there anything else I can help you with today?
+013 patient [completed]: No, that's all for now. Thanks for your help. Goodbye.

@@ -948,6 +948,44 @@ full history with diagnostic/incomplete records labeled and identify the minimum
 complete conversations separately. This supersedes the earlier no-more-calls plan,
 not the application-code freeze. No call was initiated by this documentation audit.
 
+
+## 2026-09-20 — final reviewed evidence publication (#18/#26)
+
+Grant supplied final demo/debug links, completed reviews and authorized publication of
+all audio. Inventory grew to 37 records with 36 original OGG/transcript pairs. Twelve
+current fingerprinted reviews confirm listening; eleven are usable, including the
+latest ten covering all scenarios, and one needs recheck. Preserve their quality flags.
+All 36 OGG files decode; exact local credential-value scan found no matches in the
+publication allowlist. Transcript personal-data scan found synthetic patient facts and
+demo-practice information, no personal email addresses. Audio is unedited. Runtime
+journals/logs and secrets stay private; one derived MP3 is labeled duplicate playback.
+
+Both Loom share and oEmbed endpoints return 200 unauthenticated. The demo is 416.009
+seconds, exceeding the required three minutes; Grant was informed and asked to trim.
+The debug is 569.590 seconds; no brief-imposed time limit applies to that second video.
+Metadata verification is not independent full playback or webcam verification.
+
+Application code remains unchanged. Publication adds an index/manifest, raw deliverables,
+updated human-attributed findings and handoff docs. Optional experiments and unresolved
+ending diagnosis are closed explicitly as not planned, never relabeled as verified fixes.
+The final delivery issue remains open for the demo and actual form submission.
+
+
+### Publication verification and replacement demo — September 20, 2026
+
+Grant is recording a shorter demo and one additional call. Hold final publication
+until that call has finalized and the replacement video link is supplied; the current
+37-record manifest remains a checked snapshot, not the final anticipated count.
+All 179 listed artifacts match their SHA-256/size records; each of the primary ten
+transcripts contains both patient and remote turns.
+
+The full local gate passed 305 Python tests (95.78% coverage), quality and secret
+checks, but two of 114 UI tests failed: a mobile review-details visibility timeout
+and a WebKit contrast measurement. With no code changes, the two test files then
+passed all 12 cases using one worker. This suggests timing sensitivity but does not
+establish a root cause. The full gate and CI still need a passing final run before
+publication; the isolated rerun is not reported as a full-suite pass.
+
 ### September 20 — pending-input hangup investigation (#92)
 
 User authorized a narrow caller fix after reviewing cut-off endings. Original
@@ -957,3 +995,18 @@ focused end/lifecycle cases pass after guarding before any SDK shutdown side eff
 Historical replay separates matching pending-input cases from the Insurance
 missing-signoff case. Full event sequence, limits and verification are in DEBUGGING.md.
 Original calls are untouched. Live audible improvement remains unverified.
+
+
+### September 20 — final replacement videos and publication snapshot
+
+Grant supplied replacement demo/debug links after the genuine #92/#93 investigation.
+Anonymous Loom metadata reports 178.821 seconds for the demo and 225.876 seconds for
+debug. Demo is within three minutes. Inventory now contains 47 records and 46 original
+recording/transcript pairs; 15 saved listening reviews, 14 usable and one needs recheck.
+The primary ten select one usable call per scenario, including the guarded Correction
+follow-up and final Cancellation presentation call. Additional attempts stay distinct.
+All original audio decoded; credential-value, secret and email-pattern checks are clean.
+Manifest hashes preserve 227 original/derived files. Full human video playback and
+actual form submission are separate final confirmations.
+
+Grant confirmed both replacement video links work after checking them. Final local verification passed: 317 Python tests, 95.84% coverage, 114 browser tests, lint/types/security and installed-package checks. Public archive publication and the actual submission form remain separate steps.

@@ -1,0 +1,174 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-152827-c782d723",
+      "created_at": "2026-09-20T15:32:30.784552+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "65543c90929b2f9a9f4a8239840047bcd16e1fe191b678c5e714e470fce9b9e5",
+        "transcript.json": "e56b297bb01af6c64cfb67c36404008932216ba2202508a61ca2107c51ba5ce5",
+        "recording.ogg": "35f0e76db2f21c763571b439388a041705f4d427d186c66aa4a33b45383cfa06",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the scheduling request efficiently, clarified the patient's needs, and provided clear next steps. However, there was inconsistency in the provider's name across multiple turns, which could cause confusion. The agent accepted patient corrections and moved the conversation forward appropriately. No issues were observed with patient coherence or call ending in the transcript, but only audio review can confirm the ending was fully delivered.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses the scheduling request, gathers necessary information, offers appointment options, confirms booking, and offers to send details via text.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "I can help with that. May I have your full name and date of birth,"
+              },
+              {
+                "turn": 6,
+                "quote": "We have weekday afternoon appointments available with doctor Zygmenia Lukowski and doctor Kelly Noble. Would you prefer to see either of these providers? or is the first available okay?"
+              },
+              {
+                "turn": 8,
+                "quote": "The first available weekday afternoon appointment is Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski. The visit will be at Pivot Point Orthopedics, one zero zero zero Main Street, San Francisco. Would you like to book this slot?"
+              },
+              {
+                "turn": 10,
+                "quote": "Your appointment is set for Monday, September twenty first at two thirty PM with doctor Zignew Lukowski at Pivot Point Orthopedics. Please bring your photo ID, insurance card, a list of your current medications, and any imaging discs if you have them. Would you like me to send you a text message with these appointment details?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "There is inconsistency in the spelling and pronunciation of the provider's name across turns 6, 8, and 10, which could cause confusion for the patient.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "doctor Zygmenia Lukowski and doctor Kelly Noble"
+              },
+              {
+                "turn": 8,
+                "quote": "doctor z Bignew Lakowski"
+              },
+              {
+                "turn": 10,
+                "quote": "doctor Zignew Lukowski"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent initially misstates the patient's reason for visit but the patient corrects it. The agent then proceeds appropriately, accepting the correction and moving forward with scheduling.",
+            "evidence": [
+              {
+                "turn": 4,
+                "quote": "Just to confirm, you'd like to schedule a visit for knee discomfort that started after an injury. Would you say this is an urgent concern needing prompt attention or more of a routine check-in?"
+              },
+              {
+                "turn": 5,
+                "quote": "Actually, the knee discomfort is not from an injury, and it's not urgent. It's more of a routine check-in."
+              },
+              {
+                "turn": 6,
+                "quote": "We have weekday afternoon appointments available with doctor Zygmenia Lukowski and doctor Kelly Noble. Would you prefer to see either of these providers? or is the first available okay?"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about the appointment date, time, provider, and location are consistent within the conversation, despite the name spelling issue.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "The first available weekday afternoon appointment is Monday, September twenty first at two thirty PM with doctor z Bignew Lakowski. The visit will be at Pivot Point Orthopedics, one zero zero zero Main Street, San Francisco."
+              },
+              {
+                "turn": 10,
+                "quote": "Your appointment is set for Monday, September twenty first at two thirty PM with doctor Zignew Lukowski at Pivot Point Orthopedics."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides a clear next step (sending a text with appointment details) and checks for any further needs before ending the call.",
+            "evidence": [
+              {
+                "turn": 10,
+                "quote": "Would you like me to send you a text message with these appointment details?"
+              },
+              {
+                "turn": 12,
+                "quote": "You'll get a text with your appointment details soon. Is there anything else I can help you with today?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider name presentation",
+            "expected_behavior": "The agent should use a consistent and correct provider name throughout the call.",
+            "basis_for_expectation": "Provider names should be presented consistently to avoid patient confusion and ensure clarity.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "doctor Zygmenia Lukowski and doctor Kelly Noble"
+              },
+              {
+                "turn": 8,
+                "quote": "doctor z Bignew Lakowski"
+              },
+              {
+                "turn": 10,
+                "quote": "doctor Zignew Lukowski"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The variation may be due to STT errors, but the inconsistency is present in the transcript and could confuse patients.",
+            "recommended_improvement": "Ensure the agent uses a single, correct spelling and pronunciation of provider names when presenting options and confirming appointments.",
+            "next_test": "Test with a scenario where the patient asks for the provider's name to be repeated or spelled out to check for consistency."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient provides a clear farewell and does not appear to be cut off in the transcript, but only listening can confirm the ending was fully delivered.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the farewell was played fully and not cut off."
+          },
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provides clear, relevant information and answers all questions appropriately.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, I'd like to schedule a visit for some mild knee discomfort I've been having for about two weeks. It's not urgent or due to an injury. Could I get an appointment for a weekday afternoon?"
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to monitor for coherent and relevant patient responses in future calls."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No evidence of interruptions or overlapping turns in the transcript; text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen for interruptions or overlapping speech to assess turn-taking."
+          }
+        ]
+      }
+    }
+  ]
+}

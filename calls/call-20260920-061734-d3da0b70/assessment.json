@@ -1,0 +1,170 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-061734-d3da0b70",
+      "created_at": "2026-09-20T15:06:30.107639+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "f955c4d503535f31c7ff7d2292e6d855607a6fad8d49a13a1f7feded69f62bd6",
+        "transcript.json": "c75ad8a3a4beb886ccb7c6537887b461cea3c8382e6ba07936bad70f41b8a327",
+        "recording.ogg": "0f6451e255b64232cf813881ea1c6470d38f31ae36f30946c2f56e0f6e1bb32f",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the rescheduling request appropriately, confirmed patient identity, and provided clear next steps. The main concern is inconsistent references to the doctor’s name, which could cause confusion. Otherwise, the agent responded to clarifications and supported claims with conversation evidence. The patient was coherent and allowed the agent to finish. Turn-taking and audio clarity cannot be fully assessed from text alone.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses the patient’s request to reschedule, asks clarifying questions, and offers alternative times.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "Which appointment would you like to reschedule?"
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville. Would you like to move your appointment to that time"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent’s references to the doctor’s name vary: Zygmi Locosti, Zygnu Lukowski, Zygniu Lukowski, Zbigniew Locofsky, z Bignew Lukowski. This inconsistency could confuse the patient about which doctor the appointment is with.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "One is on Monday, September twenty first at two thirty PM with doctor Zygmi Locosti, and the other is on Tuesday, September twenty second at two fifteen PM. with doctor Dubey Hauser."
+              },
+              {
+                "turn": 9,
+                "quote": "What is the reason you need to reschedule your Monday, September twenty first appointment with doctor Zygnu Lukowski?"
+              },
+              {
+                "turn": 11,
+                "quote": "The next opening with doctor Zygniu Lukowski is on Tuesday, September twenty second at two PM in Nashville."
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent responds to the patient’s clarification about already having an appointment on Tuesday and offers the next available slot, resolving ambiguity about scheduling.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "No, I see I already have an appointment that day with another doctor. Is there another weekday afternoon available after that?"
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville. Would you like to move your appointment to that time"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent’s claims about appointment times and openings are consistent with the conversation’s context, though doctor name consistency is questionable. Claims about times and dates are supported by prior turns.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "One is on Monday, September twenty first at two thirty PM with doctor Zygmi Locosti, and the other is on Tuesday, September twenty second at two fifteen PM. with doctor Dubey Hauser."
+              },
+              {
+                "turn": 11,
+                "quote": "The next opening with doctor Zygniu Lukowski is on Tuesday, September twenty second at two PM in Nashville."
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent confirms the rescheduled appointment and offers to send a text message, providing a clear outcome and actionable next step.",
+            "evidence": [
+              {
+                "turn": 17,
+                "quote": "Your appointment with doctor z Bignew Lukowski is now set for Wednesday, September twenty third at two PM in Nashville. Would you like me to send you a text message with these details?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent doctor name references",
+            "expected_behavior": "Agent should refer to the same doctor by a consistent name throughout the call.",
+            "basis_for_expectation": "Agent should use consistent doctor names to avoid confusion and ensure clarity for the patient.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "One is on Monday, September twenty first at two thirty PM with doctor Zygmi Locosti, and the other is on Tuesday, September twenty second at two fifteen PM. with doctor Dubey Hauser."
+              },
+              {
+                "turn": 9,
+                "quote": "What is the reason you need to reschedule your Monday, September twenty first appointment with doctor Zygnu Lukowski?"
+              },
+              {
+                "turn": 11,
+                "quote": "The next opening with doctor Zygniu Lukowski is on Tuesday, September twenty second at two PM in Nashville."
+              },
+              {
+                "turn": 13,
+                "quote": "The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville."
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "Unclear if name variations are due to STT errors or agent mispronunciation; listening to audio would clarify.",
+            "recommended_improvement": "Agent should verify and use the correct, consistent spelling and pronunciation of doctor names when discussing appointments.",
+            "next_test": "Retest with a scenario where the patient asks for clarification about doctor names to see if the agent can resolve confusion."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient responds coherently throughout, provides requested information, and allows the agent to finish instructions and questions.",
+            "evidence": [
+              {
+                "turn": 18,
+                "quote": "No, thank you. I have the details now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the patient’s final turn to confirm clarity and completeness of the farewell."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "Text does not show interruptions or overlapping speech, but cannot confirm turn-taking without audio.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Listen to the call audio to verify turn-taking and check for interruptions or overlap."
+          },
+          {
+            "topic": "ending",
+            "result": "no_text_issue",
+            "rationale": "The patient initiates the ending with a clear farewell; no trailing fragments or unfinished instructions are present in the text.",
+            "evidence": [
+              {
+                "turn": 18,
+                "quote": "No, thank you. I have the details now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient’s farewell was played fully and the call ended cleanly."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+Call call-20260920-061734-d3da0b70 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, can you check if there's an appointment on file under the name Dana Whitfield? I might need to change the time.
+002 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana
+003 patient [completed]: Yes, this is Dana Whitfield.
+004 remote [completed]: Please provide your date of birth
+005 patient [completed]: My date of birth is July 4, 2000.
+006 remote [completed]: Dana, you have two upcoming appointments. One is on Monday, September twenty first at two thirty PM with doctor Zygmi Locosti, and the other is on Tuesday, September twenty second at two fifteen PM. with doctor Dubey Hauser.
+007 remote [completed]: Which appointment would you like to reschedule?
+008 patient [completed]: I'd like to reschedule the Monday, September twenty-first appointment. Can it be moved to a different weekday afternoon?
+009 remote [completed]: What is the reason you need to reschedule your Monday, September twenty first appointment with doctor Zygnu Lukowski?
+010 patient [completed]: It's just a scheduling conflict on that afternoon. Nothing urgent, just need a different weekday afternoon.
+011 remote [completed]: The next opening with doctor Zygniu Lukowski is on Tuesday, September twenty second at two PM in Nashville. Would you like to move your appointment to that time?
+012 patient [completed]: No, I see I already have an appointment that day with another doctor. Is there another weekday afternoon available after that?
+013 remote [completed]: The next opening after Tuesday is Wednesday, September twenty third at two PM with doctor Zbigniew Locofsky in Nashville. Would you like to move your appointment to that time
+014 patient [completed]: Yes, please move my Monday appointment to Wednesday, September twenty-third at two PM. Can you confirm that for me?
+015 remote [completed]: You'd like to move your Monday, September twenty first appointment with doctors, the big new Lukowski, to Wednesday, September twenty third at two PM in Nashville. Is that correct?
+016 patient [completed]: Yes, that's correct. Thank you for confirming.
+017 remote [completed]: Your appointment with doctor z Bignew Lukowski is now set for Wednesday, September twenty third at two PM in Nashville. Would you like me to send you a text message with these details?
+018 patient [completed]: No, thank you. I have the details now. Thanks for your help. Goodbye.

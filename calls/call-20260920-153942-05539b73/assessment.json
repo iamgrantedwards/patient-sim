@@ -1,0 +1,170 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-153942-05539b73",
+      "created_at": "2026-09-20T15:47:36.407169+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v2",
+      "prompt_sha256": "c62dd5ec2a362c33e2147cc8b60e9b8dbf13645e13224f339f820e353da34210",
+      "fingerprints": {
+        "meta.json": "32989c8218c856afed108a0448921470b7b82bb0252205cca379778f0b2e655f",
+        "transcript.json": "a263df1a929b61a620a61b1a2d3b0ef6267deb12680922e7fc85ae3f6f3b2a82",
+        "recording.ogg": "ee90708df83a244c39225c9b222e14bbb067ca297b7895b717c071fe1f071291",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled the patient's request to check and cancel an appointment efficiently, confirming identity and clarifying which appointment to cancel. There was a minor inconsistency in the provider's name, but it did not materially affect the outcome. The agent confirmed the cancellation and offered further assistance. The call ending may require audio review to ensure the agent was not cut off, as the patient ended the call with a farewell and the agent did not have a final closing statement.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent checks for appointments, confirms identity, provides options, and processes the cancellation as requested.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, can you help me check if I have an appointment on file under the name Dana Whitfield? If there is one, I'd like to cancel it."
+              },
+              {
+                "turn": 6,
+                "quote": "You have two upcoming appointments. One is tomorrow, Monday, September twenty first at two thirty PM with doctor z Bigniew Locowski. The other is Thursday, September twenty fourth at noon with doctor Doobie Hauser. Which one would you like to cancel?"
+              },
+              {
+                "turn": 12,
+                "quote": "Your appointment with doctor Lakowski on Monday, September twenty first at two thirty PM has been canceled. Is there anything else I can help you with today?"
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 1,
+            "rationale": "The agent refers to the same doctor as 'z Bigniew Locowski' and 'Lakowski,' which is inconsistent. However, the context makes it clear which appointment is being discussed, so the impact is minor.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "doctor z Bigniew Locowski"
+              },
+              {
+                "turn": 8,
+                "quote": "doctor Lakowski"
+              },
+              {
+                "turn": 10,
+                "quote": "doctor Lakowski"
+              },
+              {
+                "turn": 12,
+                "quote": "doctor Lakowski"
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The agent seeks clarification on which appointment to cancel and confirms the patient's intent before proceeding, resolving any ambiguity.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "Which one would you like to cancel?"
+              },
+              {
+                "turn": 10,
+                "quote": "To confirm, you want to cancel your appointment with doctor Lakowski on Monday, September twenty first. Is that correct?"
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about appointments and cancellation are consistent with the information provided in the call.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "You have two upcoming appointments. One is tomorrow, Monday, September twenty first at two thirty PM with doctor z Bigniew Locowski. The other is Thursday, September twenty fourth at noon with doctor Doobie Hauser."
+              },
+              {
+                "turn": 12,
+                "quote": "Your appointment with doctor Lakowski on Monday, September twenty first at two thirty PM has been canceled."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent confirms the cancellation and offers further assistance, providing a clear outcome and next step.",
+            "evidence": [
+              {
+                "turn": 12,
+                "quote": "Your appointment with doctor Lakowski on Monday, September twenty first at two thirty PM has been canceled. Is there anything else I can help you with today?"
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "title": "Inconsistent provider name usage",
+            "expected_behavior": "Use the same name or spelling for the provider throughout the call.",
+            "basis_for_expectation": "Agent should use consistent naming for providers to avoid confusion.",
+            "evidence": [
+              {
+                "turn": 6,
+                "quote": "doctor z Bigniew Locowski"
+              },
+              {
+                "turn": 8,
+                "quote": "doctor Lakowski"
+              },
+              {
+                "turn": 10,
+                "quote": "doctor Lakowski"
+              },
+              {
+                "turn": 12,
+                "quote": "doctor Lakowski"
+              }
+            ],
+            "attribution": "theirs",
+            "uncertainty": "The context makes it clear which appointment is being discussed, but inconsistent naming could cause confusion in more complex scenarios.",
+            "recommended_improvement": "Ensure the agent repeats the provider's name exactly as initially stated or as it appears in the system.",
+            "next_test": "Test with a scenario where similar-sounding provider names could cause confusion to see if the agent maintains consistency."
+          }
+        ],
+        "call_quality": [
+          {
+            "topic": "ending",
+            "result": "concern",
+            "rationale": "The patient ends the call with a clear farewell, but the agent does not have a final closing statement. Textually, the ending appears complete, but audio review is needed to confirm no cutoff.",
+            "evidence": [
+              {
+                "turn": 13,
+                "quote": "No, that's all for now. Thanks for your help. Goodbye."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Listen to the last 10–15 seconds to confirm the patient was not cut off and the agent had a chance to respond if needed."
+          },
+          {
+            "topic": "patient",
+            "result": "no_text_issue",
+            "rationale": "The patient provides clear, coherent responses and allows the agent to proceed through the necessary steps.",
+            "evidence": [
+              {
+                "turn": 1,
+                "quote": "Hi, can you help me check if I have an appointment on file under the name Dana Whitfield? If there is one, I'd like to cancel it."
+              }
+            ],
+            "attribution": "ours",
+            "next_step": "Continue to ensure the patient answers questions and allows the agent to complete instructions."
+          },
+          {
+            "topic": "turn_taking",
+            "result": "not_assessable",
+            "rationale": "No explicit evidence of interruptions or turn-taking issues in the transcript. Text alone cannot confirm turn-taking quality.",
+            "evidence": [],
+            "attribution": "unknown",
+            "next_step": "Audio review required to assess interruptions or overlap."
+          }
+        ]
+      }
+    }
+  ]
+}

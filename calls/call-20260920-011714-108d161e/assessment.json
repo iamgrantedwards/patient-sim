@@ -1,0 +1,75 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-011714-108d161e",
+      "created_at": "2026-09-20T03:45:51.962264+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "d7e170ca1ea8bbe9dfe12cf48beb7dc94f10fbcd6ed6f3dafee325996e28ad04",
+        "transcript.json": "a1932b7df0287b958faaa994a023e5e1d7db2bc96ee5996393dc08fcf969fb44",
+        "recording.ogg": "b266a5552d76b2aaed85079e7c703b8cb2a99f2252f9debf7dd962a26f9d987b",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent handled all requests directly and provided clear actionable information. No ambiguity, repeated facts, or cross-checkable claims were present, so only request_handling and next_steps are exercised. No concerns observed.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent addresses all patient requests directly: creating a demo profile, providing office hours, giving the office location, and answering about insurance card requirements.",
+            "evidence": [
+              {
+                "turn": 0,
+                "quote": "Would you like to create a demo patient profile? I just need your first and last name to get started."
+              },
+              {
+                "turn": 2,
+                "quote": "Your demo patient profile is set up, and your date of birth is July fourth two thousand for this demo. How may I help you today?"
+              },
+              {
+                "turn": 4,
+                "quote": "The clinic closes at four PM on Monday, Tuesday, and Thursday at seven PM on Wednesday and at twelve PM on Friday."
+              },
+              {
+                "turn": 6,
+                "quote": "The clinic is at one two three four Recovery Way, suite two hundred. Austin."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": null,
+            "rationale": "No repeated or related facts are referenced across turns; each request is independent and answered once.",
+            "evidence": []
+          },
+          {
+            "dimension": "clarification",
+            "score": null,
+            "rationale": "The patient does not present ambiguity or corrections; all requests are clear and directly answered.",
+            "evidence": []
+          },
+          {
+            "dimension": "supported_claims",
+            "score": null,
+            "rationale": "Claims such as office hours, location, and insurance card requirements are not cross-checked or repeated within the conversation, so cannot be assessed for internal consistency.",
+            "evidence": []
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides a clear actionable next step regarding bringing the insurance card to the appointment.",
+            "evidence": [
+              {
+                "turn": 8,
+                "quote": "Yes. Please bring your insurance card to your appointment. It helps us verify your coverage and speed up your check-in."
+              }
+            ]
+          }
+        ],
+        "observations": []
+      }
+    }
+  ]
+}

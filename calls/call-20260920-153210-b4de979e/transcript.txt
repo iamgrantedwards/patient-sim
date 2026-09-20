@@ -1,0 +1,23 @@
+Call call-20260920-153210-b4de979e — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGood AI. How may I help you today?
+001 patient [completed]: Hi, can you check if there is an appointment on file under the name Dana Whitfield? I might need to change the time.
+002 remote [completed]: I see you're calling from the number we have on file. Am I speaking with Dana?
+003 patient [completed]: Yes, this is Dana Whitfield.
+004 remote [completed]: Please provide your date of birth
+005 patient [completed]: My date of birth is July 4, 2000.
+006 remote [completed]: You have two upcoming appointments.
+007 remote [completed]: One is tomorrow, Monday, September twenty first at two thirty PM with doctor Zigniew Lukowski. The other is Tuesday, September twenty second at two fifteen PM with doctor Dudi Hauser. Which appointment would you like to reschedule?
+008 patient [completed]: Could you move the one on Tuesday, September twenty second to a different weekday afternoon? Please confirm the new date and time.
+009 remote [completed]: You'd like to move your appointment on Tuesday, September twenty second at two fifteen PM with doctor Dubey Hauser to a different weekday afternoon. Before I look for new times, can you tell me the reason you need to reschedule?
+010 patient [completed]: I have a scheduling conflict that afternoon. It's for a nonurgent orthopedic consultation for mild knee discomfort.
+011 remote [completed]: The next opening I see is Tuesday, September twenty second at twelve PM with doctor Dudi Hauser at Pivot Point Orthopedics. Would you like to move your appointment to that time? or would you prefer a different weekday afternoon?
+012 patient [completed]: Could you please check for openings on a different weekday afternoon, not Tuesday?
+013 remote [completed]: The next opening on a different weekday afternoon is Thursday, September twenty fourth at twelve PM with doctor Dugie Hauser at Pivot Point Orthopedic. Would you like to move your appointment to that time or would you like to hear other Thursday afternoon options?
+014 patient [completed]: Thursday, September twenty fourth at twelve PM works for me. Please confirm that new appointment date and time.
+015 remote [completed]: You are moving your appointment to Thursday, September twenty fourth at twelve PM with doctor Dubey Hauser at Pivot Point Orthopedics. Is that correct? If so, please remember to bring a photo ID and your insurance card to your visit. Can I go ahead and reschedule to this new time?
+016 patient [completed]: Yes, please go ahead and reschedule to Thursday, September twenty fourth at twelve PM. Thank you.
+017 remote [completed]: Your appointment is being rescheduled now. Once it's confirmed, you'll be all set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser.
+018 remote [completed]: Let me know if you need anything else.
+019 remote [completed]: Your appointment is now set for Thursday, September twenty fourth at twelve PM with doctor Dudi Hauser. Would you like me to send you a text message with these details?

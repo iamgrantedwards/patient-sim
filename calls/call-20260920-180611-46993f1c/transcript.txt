@@ -1,0 +1,11 @@
+Call call-20260920-180611-46993f1c — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of Pretty Good AI. How may I help you today?
+001 patient [completed]: Hi, I wanted to schedule a visit for some mild knee discomfort I've been having for about two weeks. It's not urgent or from an injury. Could I get a consultation?
+002 remote [completed]: I can help with that. May I add your full name and date of birth?
+003 patient [completed]: Yes, my full name is Dana Whitfield, and my date of birth is July 4, 2000.
+004 remote [completed]: Just to confirm, would you like this visit to focus on your knee discomfort from a recent injury, or is this more of a general checkup? this will help me book the right type of appointment for you.
+005 remote [completed]: Thanks, Dana. Since you mentioned knee discomfort from an injury, would you like this visit to focus on the injury specifically? Or are you looking for a general checkup as well? This will help me book the right type of consultation for you.
+006 remote [completed]: Are you still there?
+007 remote [completed]: I am going to end the call now. Goodbye.

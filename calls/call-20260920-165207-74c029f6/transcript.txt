@@ -1,0 +1,14 @@
+Call call-20260920-165207-74c029f6 — ended
+Audio timings not yet measured.
+
+000 remote [completed]: This call may be recorded for quality and training purposes. Thanks for calling Pivot Point Orthopedics, part of PrettyGood AI. How may I help you today?
+001 patient [completed]: Hi, do you offer a demo patient profile setup? I'd like to create one if possible.
+002 remote [completed]: That's not something we offer. Is there anything else I can help you with today?
+003 patient [completed]: Okay, what time do you close on weekdays?
+What time do you close on weekdays?
+004 remote [completed]: Can Appointe Orthopaedics closes at four PM on Monday, Tuesday, and Thursday, at seven PM on Wednesday, and at twelve PM on Friday? Let me know if you need more details or want to schedule an appointment.
+005 patient [completed]: Thanks for the info. Where is your office located?
+006 remote [completed]: Our office is at one two three four Recovery Way, suite two hundred, Austin. Would you like directions or help with anything else?
+007 patient [completed]: Do I need to bring my insurance card to the appointment?
+008 remote [completed]: Yes. Please bring your insurance card to your appointment. It helps us verify your coverage and speed up check-in. Anything else I can help with?
+009 patient [completed]: Thanks for your help. That's all for now. Goodbye.

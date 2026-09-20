@@ -1,0 +1,102 @@
+{
+  "revisions": [
+    {
+      "call_id": "call-20260920-014604-0566403f",
+      "created_at": "2026-09-20T04:00:40.824436+00:00",
+      "model": "openai/gpt-4.1",
+      "rubric": "transcript-v1",
+      "prompt_sha256": "73f30cc74c24a5d9845244ffbf87d5fd0a7239c9237d5855c91ab9a9ae0f7fd1",
+      "fingerprints": {
+        "meta.json": "a89418cb45e1d7c35a7c3924a3cc9ff18f1eaad4e35af146cb0ff8cf8d32e4c0",
+        "transcript.json": "73840bb727298992c24aa2a7f6153ef54d64aca99934c9d025ad44c634f8c409",
+        "recording.ogg": "44033a7feede7321b5057c73d6957acec4899eb33e2953add4157bc641ee30d0",
+        "recording.mp3": null
+      },
+      "result": {
+        "summary": "The agent addressed the caller's request, maintained consistency, clarified ambiguity, supported claims with conversation evidence, and provided clear next steps. No material issues were observed in any dimension.",
+        "dimensions": [
+          {
+            "dimension": "request_handling",
+            "score": 2,
+            "rationale": "The agent directly addresses the caller's request about arranging a visit for an adult family member, explains the need for authorization, and responds appropriately when the caller lacks the required information.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I'll just need to verify your authorization to speak on their behalf before scheduling. Would you like to get started?"
+              },
+              {
+                "turn": 4,
+                "quote": "I'll guide you through a quick verification process. I'll ask for details like your relationship to the patient and some information to confirm their identity. Ready to begin?"
+              },
+              {
+                "turn": 6,
+                "quote": "That's correct."
+              },
+              {
+                "turn": 7,
+                "quote": "The patient can call directly or you can call back with their details and authorization. Let me know if you have any other questions."
+              }
+            ]
+          },
+          {
+            "dimension": "consistency",
+            "score": 2,
+            "rationale": "The agent consistently explains the requirement for authorization and the options for arranging a visit throughout the conversation.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I'll just need to verify your authorization to speak on their behalf before scheduling."
+              },
+              {
+                "turn": 7,
+                "quote": "The patient can call directly or you can call back with their details and authorization."
+              }
+            ]
+          },
+          {
+            "dimension": "clarification",
+            "score": 2,
+            "rationale": "The patient presents a clarifying question about whether the family member needs to call themselves, and the agent confirms this clearly.",
+            "evidence": [
+              {
+                "turn": 5,
+                "quote": "Thanks for explaining. I don't have any details or authorization from my family member right now. So I guess they would need to call themselves to arrange the visit, right?"
+              },
+              {
+                "turn": 6,
+                "quote": "That's correct."
+              }
+            ]
+          },
+          {
+            "dimension": "supported_claims",
+            "score": 2,
+            "rationale": "The agent's claims about the process for arranging a visit and the need for authorization are consistent with the conversation and not contradicted by any other information provided.",
+            "evidence": [
+              {
+                "turn": 2,
+                "quote": "You can arrange a visit for an adult family member. I'll just need to verify your authorization to speak on their behalf before scheduling."
+              },
+              {
+                "turn": 7,
+                "quote": "The patient can call directly or you can call back with their details and authorization."
+              }
+            ]
+          },
+          {
+            "dimension": "next_steps",
+            "score": 2,
+            "rationale": "The agent provides clear next steps: either the patient calls directly or the caller can call back with the necessary details and authorization.",
+            "evidence": [
+              {
+                "turn": 7,
+                "quote": "The patient can call directly or you can call back with their details and authorization. Let me know if you have any other questions."
+              }
+            ]
+          }
+        ],
+        "observations": []
+      }
+    }
+  ]
+}

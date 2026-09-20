@@ -1,0 +1,1161 @@
+{
+  "published_at": "2026-09-20",
+  "records": 47,
+  "original_recordings": 46,
+  "transcripts": 46,
+  "primary_reviewed_calls": [
+    "call-20260920-151940-adf2c427",
+    "call-20260920-152827-c782d723",
+    "call-20260920-153210-b4de979e",
+    "call-20260920-180319-05f09527",
+    "call-20260920-154701-ccbbddbd",
+    "call-20260920-155203-17c36e64",
+    "call-20260920-155626-e98e0c8f",
+    "call-20260920-175412-c28bccad",
+    "call-20260920-150217-fd5998cf",
+    "call-20260920-162313-7544c7c2"
+  ],
+  "extra_usable_reviews": [
+    "call-20260920-171034-46507490",
+    "call-20260920-160135-0dc99449",
+    "call-20260920-155843-a34fb22c",
+    "call-20260920-153942-05539b73"
+  ],
+  "files": [
+    {
+      "path": "call-20260918-231955-765427d8/meta.json",
+      "bytes": 4135,
+      "sha256": "72918be8d5a4143793179c1587b28c2c7dcbe6189bd76d2d999ed8154404c51e"
+    },
+    {
+      "path": "call-20260918-231955-765427d8/recording.ogg",
+      "bytes": 859489,
+      "sha256": "7c146ef05f5d737067690e0fafee62f610568e4d9588e011b203ba4ad8ae236b"
+    },
+    {
+      "path": "call-20260918-231955-765427d8/transcript.json",
+      "bytes": 3689,
+      "sha256": "2e0008fdc2068adcd736bdd6f0e21f4078eba21c8d4345743ebd90bd2f38afa0"
+    },
+    {
+      "path": "call-20260918-231955-765427d8/transcript.txt",
+      "bytes": 1103,
+      "sha256": "ae68ded4373e70e6a1d0c22ba74a30b162891fbc9def5516c58593d50ea8e709"
+    },
+    {
+      "path": "call-20260919-194206-bc3ae8e3/meta.json",
+      "bytes": 1709,
+      "sha256": "c50f701d66ad36be0e04ced1d0e5e1eddf3bbc2e3452858609bf25d04d52e7c1"
+    },
+    {
+      "path": "call-20260920-011336-9e2e5e9b/meta.json",
+      "bytes": 3041,
+      "sha256": "a2827e6bdc1983b2792ae48edf56a19940030a04b49d74f2af94b57945417bde"
+    },
+    {
+      "path": "call-20260920-011336-9e2e5e9b/recording.ogg",
+      "bytes": 87983,
+      "sha256": "258cf7ec6952ca64c744486ee11fa26ac18a830601549f32be7fe0e6b51d5587"
+    },
+    {
+      "path": "call-20260920-011336-9e2e5e9b/transcript.json",
+      "bytes": 743,
+      "sha256": "7aee0a6184be40815fee7554a3efd056b3d6b24247591bbfb7d7d8080fe61055"
+    },
+    {
+      "path": "call-20260920-011336-9e2e5e9b/transcript.txt",
+      "bytes": 163,
+      "sha256": "acbeb6f18d7fc1734b1b5707251a4db2667d7cec1364790e201f3da09981f11c"
+    },
+    {
+      "path": "call-20260920-011456-fe6d34a0/meta.json",
+      "bytes": 4045,
+      "sha256": "29c6bb94f03ec27986aafab9903f7b5ff86c141896b7dab099a29804eb74ba9d"
+    },
+    {
+      "path": "call-20260920-011456-fe6d34a0/recording.ogg",
+      "bytes": 1055972,
+      "sha256": "88a07fe5685d31e0761232634350219d7cb0cdb698bc3166e065d02bdb954f56"
+    },
+    {
+      "path": "call-20260920-011456-fe6d34a0/transcript.json",
+      "bytes": 4323,
+      "sha256": "a7b094f4015e41317634b6aeec9269846504859f962fcbafe0f8b5e601b0e472"
+    },
+    {
+      "path": "call-20260920-011456-fe6d34a0/transcript.txt",
+      "bytes": 1406,
+      "sha256": "ee6ed4ef84976a9508f194c7cc6a4aa36997b20ccb169e0cef29d012932193d9"
+    },
+    {
+      "path": "call-20260920-011714-108d161e/meta.json",
+      "bytes": 4048,
+      "sha256": "d7e170ca1ea8bbe9dfe12cf48beb7dc94f10fbcd6ed6f3dafee325996e28ad04"
+    },
+    {
+      "path": "call-20260920-011714-108d161e/recording.ogg",
+      "bytes": 1092076,
+      "sha256": "b266a5552d76b2aaed85079e7c703b8cb2a99f2252f9debf7dd962a26f9d987b"
+    },
+    {
+      "path": "call-20260920-011714-108d161e/transcript.json",
+      "bytes": 4862,
+      "sha256": "a1932b7df0287b958faaa994a023e5e1d7db2bc96ee5996393dc08fcf969fb44"
+    },
+    {
+      "path": "call-20260920-011714-108d161e/transcript.txt",
+      "bytes": 1276,
+      "sha256": "a7ae9a244db61691ad38b86161428ec029719a8f82b57e97bf7ef95c9afed43a"
+    },
+    {
+      "path": "call-20260920-011714-108d161e/assessment.json",
+      "bytes": 3388,
+      "sha256": "57089ddcf4c948c162b81de51a40294fb8c8d350d0a7c9ae548cd092b926c1eb"
+    },
+    {
+      "path": "call-20260920-011949-1416594f/meta.json",
+      "bytes": 4165,
+      "sha256": "dbe4a1ef553f62a17656c79441fbe61a287cfb4cab2f3ab7c0305da3c671c3a5"
+    },
+    {
+      "path": "call-20260920-011949-1416594f/recording.ogg",
+      "bytes": 1686879,
+      "sha256": "6a7b8d1c03913a5c9d8acae60704f64357f205c6d3b49ca5715985404e4a4d8e"
+    },
+    {
+      "path": "call-20260920-011949-1416594f/transcript.json",
+      "bytes": 6238,
+      "sha256": "689c77da4b1ec4184440b2188b7715165c432ef40d6034c95d6031d2a5911f29"
+    },
+    {
+      "path": "call-20260920-011949-1416594f/transcript.txt",
+      "bytes": 1977,
+      "sha256": "ce476d7ffdb0b2730700f5d70e01ce44dcd61c7427b6efbb9ffddeedb577812f"
+    },
+    {
+      "path": "call-20260920-012229-385cbddd/meta.json",
+      "bytes": 4169,
+      "sha256": "5afbac4a13f051bb385b7af3a0bfad8be689d6f0ade1267f213fb3c7b850dd4c"
+    },
+    {
+      "path": "call-20260920-012229-385cbddd/recording.ogg",
+      "bytes": 1932951,
+      "sha256": "9cf99a5a2d226e76dd06a640fc0930327b5f6819a7a02c5242703e8d44148d27"
+    },
+    {
+      "path": "call-20260920-012229-385cbddd/transcript.json",
+      "bytes": 7787,
+      "sha256": "999c5b5f49f3dc3f97abff4e5a8024ebc3430f9a91ab164c78e2d9ca6077c5db"
+    },
+    {
+      "path": "call-20260920-012229-385cbddd/transcript.txt",
+      "bytes": 2181,
+      "sha256": "44b143180ba41422aeb4b4f2876a6c162ad6dc1925af93056351c5470f4f3e0d"
+    },
+    {
+      "path": "call-20260920-012551-68c384cc/meta.json",
+      "bytes": 4155,
+      "sha256": "24fb385521d447f83e50e3d1110a4f34942cd2eb8aee6fd527f22503aa076ece"
+    },
+    {
+      "path": "call-20260920-012551-68c384cc/recording.ogg",
+      "bytes": 1236901,
+      "sha256": "d1dc861f7deecc25422a2f26a18e845a43f839409eec51a362f2dd4fe3b7a1d0"
+    },
+    {
+      "path": "call-20260920-012551-68c384cc/transcript.json",
+      "bytes": 6138,
+      "sha256": "7f87206449e7f26d2de8e4c9f6c397c1f07ee83ef7c003ed180847ae805529ca"
+    },
+    {
+      "path": "call-20260920-012551-68c384cc/transcript.txt",
+      "bytes": 1543,
+      "sha256": "6f3490f2f54571f3978ee5588b462a2f2e7be6c8bca9d5695aef10ef3517c255"
+    },
+    {
+      "path": "call-20260920-012849-8a9bc2d4/meta.json",
+      "bytes": 4161,
+      "sha256": "54599eb2364d71b1600c46bd6d56e4d8c602e24721d229cbaeb5d8d024d71682"
+    },
+    {
+      "path": "call-20260920-012849-8a9bc2d4/recording.ogg",
+      "bytes": 1662291,
+      "sha256": "351b0a5a80fc3db5cc26333d0e39e6da75c5f4f93d39c539cac394a115c14abe"
+    },
+    {
+      "path": "call-20260920-012849-8a9bc2d4/transcript.json",
+      "bytes": 7299,
+      "sha256": "1fd44e777136a720a8195d1f5b653a59cf6f82c82d058bdfb4a96cc54eb12360"
+    },
+    {
+      "path": "call-20260920-012849-8a9bc2d4/transcript.txt",
+      "bytes": 2033,
+      "sha256": "3d835a146f396d4740a8976186782a725506ba4d14ef7cc05171b5577663a27e"
+    },
+    {
+      "path": "call-20260920-013308-e844b113/meta.json",
+      "bytes": 4177,
+      "sha256": "2952ab3df213010ee08a5dcbd458775cd97875fd74b0ca3e2316e9b0e3394014"
+    },
+    {
+      "path": "call-20260920-013308-e844b113/recording.ogg",
+      "bytes": 1421644,
+      "sha256": "15c2c4bffb0a66c47a59bad05a5c1a962ebec8fa9c304617eff2c40ab5a1ae03"
+    },
+    {
+      "path": "call-20260920-013308-e844b113/transcript.json",
+      "bytes": 6048,
+      "sha256": "a5e1b0985956b431ec5320023c1886c12301ae5a2a40927ec603cb6e98669d68"
+    },
+    {
+      "path": "call-20260920-013308-e844b113/transcript.txt",
+      "bytes": 1784,
+      "sha256": "7875238e63694b5719bde487e4737c27851c894c895311057717bf6e410b995b"
+    },
+    {
+      "path": "call-20260920-013605-748acbe7/meta.json",
+      "bytes": 4167,
+      "sha256": "6ae4f20d28e3fbf5072daad46ccce8169eca8cd8e6bf885fc3930ef6b9b6c204"
+    },
+    {
+      "path": "call-20260920-013605-748acbe7/recording.ogg",
+      "bytes": 2040254,
+      "sha256": "8d9f62cb64cac6681dddab3e1511acaa2e542df31da71ec23ba56e9b6ff80457"
+    },
+    {
+      "path": "call-20260920-013605-748acbe7/transcript.json",
+      "bytes": 8566,
+      "sha256": "00604b70ff3d6a900dbc653c07c9b96b84d1788a15dec27a1d7f568c44c914cc"
+    },
+    {
+      "path": "call-20260920-013605-748acbe7/transcript.txt",
+      "bytes": 2635,
+      "sha256": "481114e9ed26f16500894ecece42c277c768d22137d985263d42ea99e9a6173a"
+    },
+    {
+      "path": "call-20260920-013929-89116fae/meta.json",
+      "bytes": 4170,
+      "sha256": "94fad1ef5d999db5b1a1a3c3fb9f5884f00d675c7abda8c3c0ec7b1cdb7e295a"
+    },
+    {
+      "path": "call-20260920-013929-89116fae/recording.ogg",
+      "bytes": 1794572,
+      "sha256": "22416dcb90c9661fe48e861993657baca7ea05aca3dc7825e7d70a5daa937353"
+    },
+    {
+      "path": "call-20260920-013929-89116fae/transcript.json",
+      "bytes": 9273,
+      "sha256": "a344f2d06175dfa6891ae637e690ca0993c59172465b52181301fd41f272e3f5"
+    },
+    {
+      "path": "call-20260920-013929-89116fae/transcript.txt",
+      "bytes": 2331,
+      "sha256": "f0e900939bfceac084435cce00d086f2042fc4a7031e4c0b52616f92d5242ae7"
+    },
+    {
+      "path": "call-20260920-014248-53504de4/meta.json",
+      "bytes": 4165,
+      "sha256": "c9e046a5008f74a5afc7722ad46206165fed667e8370ba9596e71dc36efec4ee"
+    },
+    {
+      "path": "call-20260920-014248-53504de4/recording.ogg",
+      "bytes": 1833617,
+      "sha256": "3c9a7d809251836231d4fa6c04acb8894c55bf6e18fae35b5a95af3371d8dcba"
+    },
+    {
+      "path": "call-20260920-014248-53504de4/transcript.json",
+      "bytes": 8573,
+      "sha256": "61dd7519436ac7ad185a84d683b2b13d0cd325312224e24eeac2b811f607e779"
+    },
+    {
+      "path": "call-20260920-014248-53504de4/transcript.txt",
+      "bytes": 2302,
+      "sha256": "b869589bd2318238b1e9b90fe99323442829419f7353883afabb988eaaa8d746"
+    },
+    {
+      "path": "call-20260920-014604-0566403f/meta.json",
+      "bytes": 4153,
+      "sha256": "a89418cb45e1d7c35a7c3924a3cc9ff18f1eaad4e35af146cb0ff8cf8d32e4c0"
+    },
+    {
+      "path": "call-20260920-014604-0566403f/recording.ogg",
+      "bytes": 988102,
+      "sha256": "44033a7feede7321b5057c73d6957acec4899eb33e2953add4157bc641ee30d0"
+    },
+    {
+      "path": "call-20260920-014604-0566403f/transcript.json",
+      "bytes": 4253,
+      "sha256": "73840bb727298992c24aa2a7f6153ef54d64aca99934c9d025ad44c634f8c409"
+    },
+    {
+      "path": "call-20260920-014604-0566403f/transcript.txt",
+      "bytes": 1335,
+      "sha256": "d075df25de9e7d04b66e7edd45cb1301886155033c8c2030bd19d5c056b789c1"
+    },
+    {
+      "path": "call-20260920-014604-0566403f/assessment.json",
+      "bytes": 4802,
+      "sha256": "85bfe997fc60e8170c443cfb576ef5a45627a3dd4bf7b996325d8995c96b7b18"
+    },
+    {
+      "path": "call-20260920-014805-936b2fa6/meta.json",
+      "bytes": 4147,
+      "sha256": "560f7d68afc062a79703dbebd29e3edd9a88ceff9cdf9067c31be92efa7db740"
+    },
+    {
+      "path": "call-20260920-014805-936b2fa6/recording.ogg",
+      "bytes": 1645315,
+      "sha256": "acfd9414c624f8e1b385322ab1de6c191334a2d55b0fe9b79408212049c8f707"
+    },
+    {
+      "path": "call-20260920-014805-936b2fa6/transcript.json",
+      "bytes": 7253,
+      "sha256": "e448c8d7ff7a28a113e22008b23543ff73b97155fc2aa2840fedeb9de74f6acd"
+    },
+    {
+      "path": "call-20260920-014805-936b2fa6/transcript.txt",
+      "bytes": 1990,
+      "sha256": "a8a340c1bf52ea4a4849599a270ab94ccbbcda9a4cf532ce264ae432c7411697"
+    },
+    {
+      "path": "call-20260920-014805-936b2fa6/assessment.json",
+      "bytes": 6433,
+      "sha256": "0022a2e84c8a16ad65af8835f25bce545e725cbe32f18e31de05d07b5f005907"
+    },
+    {
+      "path": "call-20260920-034355-fa5b226a/meta.json",
+      "bytes": 4157,
+      "sha256": "c3f2727cafed0fb87caf7f776127bcead5b8b314eca95e24581ae1f17bcd01d3"
+    },
+    {
+      "path": "call-20260920-034355-fa5b226a/recording.ogg",
+      "bytes": 1128731,
+      "sha256": "df6fab2623a30060cb7a65387e83145a22e033d7de3814f4126a8f2c5a732b36"
+    },
+    {
+      "path": "call-20260920-034355-fa5b226a/transcript.json",
+      "bytes": 6012,
+      "sha256": "77caeb6870c9a3fd3bb52b619b0d7ae574278435e9c76ec608efe8ec114a86ac"
+    },
+    {
+      "path": "call-20260920-034355-fa5b226a/transcript.txt",
+      "bytes": 1421,
+      "sha256": "33c476751e38b427e9b94c7aa69d0f695114f0c6c3c86b9320e65eed7aaa8dc8"
+    },
+    {
+      "path": "call-20260920-034355-fa5b226a/assessment.json",
+      "bytes": 4313,
+      "sha256": "7351419cff1deaf00a6c76c6c5b9bf972a88456439f6944a5b4b791613bd7270"
+    },
+    {
+      "path": "call-20260920-042404-94899755/meta.json",
+      "bytes": 4167,
+      "sha256": "2424c860bbd61b70e373b9f48bb40cab24fa5df446f7a76a349477540bb83dc8"
+    },
+    {
+      "path": "call-20260920-042404-94899755/recording.ogg",
+      "bytes": 1519365,
+      "sha256": "a5fea505e92131970a08ea365df5334a1e56e073d9ec8366bd6fabf404a295e4"
+    },
+    {
+      "path": "call-20260920-042404-94899755/transcript.json",
+      "bytes": 6103,
+      "sha256": "97036f2a969b4bf587acf2b4e7b454cf86659c808c68c2c33b50c8328d097726"
+    },
+    {
+      "path": "call-20260920-042404-94899755/transcript.txt",
+      "bytes": 1838,
+      "sha256": "dc65fafc8728f3fec79c2a87a1f0408d5cf6c5337d2754343490bb90b089d74e"
+    },
+    {
+      "path": "call-20260920-042404-94899755/assessment.json",
+      "bytes": 4334,
+      "sha256": "74ea0e21730c0bb6831d8c60090ab30f982dc9a85808385bfe7e67707d149857"
+    },
+    {
+      "path": "call-20260920-043854-fd9ce1a5/meta.json",
+      "bytes": 4171,
+      "sha256": "88fc70574aa0573bdb84a6e91be065e4a0d707721ddc4922ffacb801ec89c9c6"
+    },
+    {
+      "path": "call-20260920-043854-fd9ce1a5/recording.ogg",
+      "bytes": 1833133,
+      "sha256": "d308fb3b5b30bcabf20913249b0ad76ebe435f6696659bf0be01616897a5a90a"
+    },
+    {
+      "path": "call-20260920-043854-fd9ce1a5/transcript.json",
+      "bytes": 8198,
+      "sha256": "87432234afaf1ad069d03ed7178c605f3a165c13744c7e77be0131941298294e"
+    },
+    {
+      "path": "call-20260920-043854-fd9ce1a5/transcript.txt",
+      "bytes": 2256,
+      "sha256": "8b3b3cb4dd5bde694d198d2abc9bb51d48babfa8a8493a5961abadb4a056ed2c"
+    },
+    {
+      "path": "call-20260920-043854-fd9ce1a5/assessment.json",
+      "bytes": 15550,
+      "sha256": "59e4e446cd68be3301c0d2786c61b0811764d984029dcbb842f38fec367d8df1"
+    },
+    {
+      "path": "call-20260920-050215-67ac848f/meta.json",
+      "bytes": 4174,
+      "sha256": "6fdb76c26a233daa913bc48de88d78d6099f7022a66a13b8946225497a28bc4c"
+    },
+    {
+      "path": "call-20260920-050215-67ac848f/recording.ogg",
+      "bytes": 1586864,
+      "sha256": "334d350c210dc0e73352b1a581297b4da2bc6160acb74e6ec4f20e8b51ab8d58"
+    },
+    {
+      "path": "call-20260920-050215-67ac848f/transcript.json",
+      "bytes": 6505,
+      "sha256": "4ad78bfd0637d055518d96fc95bd1cf212b2487e60f25896315a88e7dcc5167b"
+    },
+    {
+      "path": "call-20260920-050215-67ac848f/transcript.txt",
+      "bytes": 1901,
+      "sha256": "367b6be69c2d241ea8897036dd357c9e7a7b910a11104416341e3ab17cc3399b"
+    },
+    {
+      "path": "call-20260920-050215-67ac848f/assessment.json",
+      "bytes": 12831,
+      "sha256": "eebbc1dcb2de4a134bff3b552bd43fa2e66c0f1273eddd023b4977de92eb2caf"
+    },
+    {
+      "path": "call-20260920-052701-e11d5907/meta.json",
+      "bytes": 4152,
+      "sha256": "8fe32ee296704439b5cd663910c273c21677a378e6eac0aa83ccb42939e73b48"
+    },
+    {
+      "path": "call-20260920-052701-e11d5907/recording.ogg",
+      "bytes": 852541,
+      "sha256": "226f671382a1a6e2ab7a30f0ee137d6732066288d72f90587829df5f9f153755"
+    },
+    {
+      "path": "call-20260920-052701-e11d5907/transcript.json",
+      "bytes": 3378,
+      "sha256": "6433d0761f501e6b6f6ca95c33da56ff696867dbf30ed937ff9b6a69e0d0a360"
+    },
+    {
+      "path": "call-20260920-052701-e11d5907/transcript.txt",
+      "bytes": 1126,
+      "sha256": "ada544bd50ff8a0b767f67c09a5f29886a8564ed6c350df1823688c4c35d234b"
+    },
+    {
+      "path": "call-20260920-052701-e11d5907/assessment.json",
+      "bytes": 6079,
+      "sha256": "72d1e31f9bdfcd94e36d406e39ce5e7c47b0fd2899ca535fbef9d11a334955e7"
+    },
+    {
+      "path": "call-20260920-061305-2e632e93/meta.json",
+      "bytes": 4167,
+      "sha256": "fd233eb69a670d9b6ff298d2c752ad20bf903fdef611a205e594bcf1c2cb5a67"
+    },
+    {
+      "path": "call-20260920-061305-2e632e93/recording.ogg",
+      "bytes": 1976016,
+      "sha256": "2cd179a990bd877b96434bb8f4e7996e022ed7e48914dbcddf3cdc0fc2809f6a"
+    },
+    {
+      "path": "call-20260920-061305-2e632e93/transcript.json",
+      "bytes": 6971,
+      "sha256": "9b5ae4c47e1f684630548e3f706754c7a255f591f6fb6fb659d3fcba0b1e5ea0"
+    },
+    {
+      "path": "call-20260920-061305-2e632e93/transcript.txt",
+      "bytes": 2378,
+      "sha256": "6e3bdc283e232cef918e929d7f734a74b8c4a495a46bf9c7cba099ce3bf78ae6"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/meta.json",
+      "bytes": 4169,
+      "sha256": "f955c4d503535f31c7ff7d2292e6d855607a6fad8d49a13a1f7feded69f62bd6"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/recording.ogg",
+      "bytes": 2342200,
+      "sha256": "0f6451e255b64232cf813881ea1c6470d38f31ae36f30946c2f56e0f6e1bb32f"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/transcript.json",
+      "bytes": 9278,
+      "sha256": "c75ad8a3a4beb886ccb7c6537887b461cea3c8382e6ba07936bad70f41b8a327"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/transcript.txt",
+      "bytes": 2672,
+      "sha256": "d4aeca42651cecbdd42452ec1d555638d0658d2289c9ecd8fd96d13c16845fd8"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/review.json",
+      "bytes": 2726,
+      "sha256": "04c93336d4c89b58fa4b28b3ee85d641a192ad9629346b0406b011f70add78a6"
+    },
+    {
+      "path": "call-20260920-061734-d3da0b70/assessment.json",
+      "bytes": 9003,
+      "sha256": "3871e131e7d51dfcc2cc16375be2bcd7d920d5a39c95bafeb6b4e16f7a74ca51"
+    },
+    {
+      "path": "call-20260920-062257-a1179d93/meta.json",
+      "bytes": 4153,
+      "sha256": "24db7795a6ac884c61e2da44619319fcf99f8008938cc47baddd52f7720fe011"
+    },
+    {
+      "path": "call-20260920-062257-a1179d93/recording.ogg",
+      "bytes": 1265398,
+      "sha256": "cd96136551bd8f67d1d841dc6c7aa4aa31ebb3dbf936dbf00441f1842d3a5052"
+    },
+    {
+      "path": "call-20260920-062257-a1179d93/transcript.json",
+      "bytes": 4628,
+      "sha256": "3c153e120c964157506f10fe394c90cac162ef5d96dd00271fc27882f36811dc"
+    },
+    {
+      "path": "call-20260920-062257-a1179d93/transcript.txt",
+      "bytes": 1711,
+      "sha256": "324e8cc3b37e7484172029e7a7b830a3e09962a71244f08ecd56abe725bb7b45"
+    },
+    {
+      "path": "call-20260920-062805-d12fd2b2/meta.json",
+      "bytes": 4155,
+      "sha256": "0d4c991bb4e90a55063c464184ee2ccb204d3a0dc6c001ea1f0610f36faea133"
+    },
+    {
+      "path": "call-20260920-062805-d12fd2b2/recording.ogg",
+      "bytes": 2367038,
+      "sha256": "2cf66ce43a0214ae6166464d87d167a5aaf3364aabe5d67800ce3d4e2bce4ec7"
+    },
+    {
+      "path": "call-20260920-062805-d12fd2b2/transcript.json",
+      "bytes": 8934,
+      "sha256": "02bd47de43fd8ccae406d8ee5d8b681c73553be6a2c6a32c6790d4beb36ba7a2"
+    },
+    {
+      "path": "call-20260920-062805-d12fd2b2/transcript.txt",
+      "bytes": 2998,
+      "sha256": "6d5dda9c9b083e5cd1ec7fed113e10593aa7e00a81788129fc2fc5e347c5805c"
+    },
+    {
+      "path": "call-20260920-062805-d12fd2b2/assessment.json",
+      "bytes": 10315,
+      "sha256": "a91f6b6006ae804ddf0bdc05e246790278ef442d751b7d342818de62b67cf21c"
+    },
+    {
+      "path": "call-20260920-145621-e2165091/meta.json",
+      "bytes": 4162,
+      "sha256": "d9ddf7b72cb859a9e4ae77803faf5faee303ca86d447f0569711332141fef574"
+    },
+    {
+      "path": "call-20260920-145621-e2165091/recording.ogg",
+      "bytes": 1565817,
+      "sha256": "8b5e5372da48afa79bbfab3aed1e9ea432d3d035360c062d5a0528f336f52a0e"
+    },
+    {
+      "path": "call-20260920-145621-e2165091/transcript.json",
+      "bytes": 6735,
+      "sha256": "78979de7dc2ce1270c0df5447c932c0a6e4722003c896798ec8654e2f64b7f3d"
+    },
+    {
+      "path": "call-20260920-145621-e2165091/transcript.txt",
+      "bytes": 1806,
+      "sha256": "a0019d232d5db4701b218163ef4eaec37c829f75894bb1e86c7b28fa598adf38"
+    },
+    {
+      "path": "call-20260920-145917-931fe919/meta.json",
+      "bytes": 4167,
+      "sha256": "a5114e5de891a1a95c36595f2a810c839a9d1e68c0f32a3ce4539c3b194d8264"
+    },
+    {
+      "path": "call-20260920-145917-931fe919/recording.ogg",
+      "bytes": 1511674,
+      "sha256": "c13cf74bf3404505b239af87715452ad932bdd20111cfc820c34dc1d281af5d3"
+    },
+    {
+      "path": "call-20260920-145917-931fe919/transcript.json",
+      "bytes": 6936,
+      "sha256": "f770c030f8e72278602a48de7be70cd775c842ba08682e21639e6af4950ee67f"
+    },
+    {
+      "path": "call-20260920-145917-931fe919/transcript.txt",
+      "bytes": 2006,
+      "sha256": "80c2714b5a5b9ca390bc58fa4bfcf3d8b81b5894a1f50e0f91dde480c3cd9e18"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/meta.json",
+      "bytes": 4169,
+      "sha256": "b50783b56acba2a042ca5ade28105d2ba34326e3392a3a13f2deca2854786086"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/recording.ogg",
+      "bytes": 1482324,
+      "sha256": "601008f70c1bf45eb7d1f4c2ee265b67e7630a5972122d38f3fa9fa778963b2e"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/transcript.json",
+      "bytes": 6506,
+      "sha256": "9ccecab562cc9bcc6ac1571a4b13498671506b3d846ace2971af66d5398cce81"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/transcript.txt",
+      "bytes": 1908,
+      "sha256": "93ac6595dbde99268a2fb6a1a2badcbf0d3f6abf35dbef3d276f3de873b789e6"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/review.json",
+      "bytes": 1698,
+      "sha256": "c28de466884ad035119442769e64096cac544d3a558f184bb4a94adfc7fd45d4"
+    },
+    {
+      "path": "call-20260920-150217-fd5998cf/assessment.json",
+      "bytes": 6614,
+      "sha256": "5a78b86f26ec13c39403fb7bb1d7535b46f466b91d2c71e62072f6b54708050d"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/meta.json",
+      "bytes": 4155,
+      "sha256": "a6cfb6bf56d5f8be462dfa94ba52b2e9ab50050e93f8d6768d5f2523ebd3b4de"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/recording.ogg",
+      "bytes": 990576,
+      "sha256": "16808609714ba67367b8fe734c9cf0ff586c716bc091231285850602b26fa32d"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/transcript.json",
+      "bytes": 4860,
+      "sha256": "2734ceb3c15b1e5157f37b00ac6075e1d89c79ac57d8ce3d8c181313cf64f699"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/transcript.txt",
+      "bytes": 1273,
+      "sha256": "a191737f09fc6e5697ba54c0b616995921dec757a28aef17c89eeabe6a91fad7"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/review.json",
+      "bytes": 2814,
+      "sha256": "cd153411d56e882341765ac902bc75a8bb51b3ee31cc5679f77b292282998082"
+    },
+    {
+      "path": "call-20260920-151940-adf2c427/assessment.json",
+      "bytes": 6500,
+      "sha256": "625b86855a78febe827dae700a27dcd565580ab23cede66a446db007f1f54dd0"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/meta.json",
+      "bytes": 4168,
+      "sha256": "65543c90929b2f9a9f4a8239840047bcd16e1fe191b678c5e714e470fce9b9e5"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/recording.ogg",
+      "bytes": 2182228,
+      "sha256": "35f0e76db2f21c763571b439388a041705f4d427d186c66aa4a33b45383cfa06"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/transcript.json",
+      "bytes": 7494,
+      "sha256": "e56b297bb01af6c64cfb67c36404008932216ba2202508a61ca2107c51ba5ce5"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/transcript.txt",
+      "bytes": 2560,
+      "sha256": "0a8267fa9f98608d94085f0fd8ceb94b41ce1af722c35948f25200ae0e4941c0"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/review.json",
+      "bytes": 1534,
+      "sha256": "13f6e6b412fb53852e80418262a773f01b36ab1692508f9a1858d25a2636566a"
+    },
+    {
+      "path": "call-20260920-152827-c782d723/assessment.json",
+      "bytes": 8967,
+      "sha256": "e7df366824d3cde5cd0f10181dec535010222818b46ca7dd8b627f2d3557ee9d"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/meta.json",
+      "bytes": 4172,
+      "sha256": "3cb598836fe15a790c435836dcf9ac122671c0bb367be2d9f413b3cc19043d05"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/recording.ogg",
+      "bytes": 2641494,
+      "sha256": "009169579653dcf3ef33423f91245a7c71916c7a227c7bb69ad556d4c2e2bb2f"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/transcript.json",
+      "bytes": 10138,
+      "sha256": "51ba4e8f4cb705de38e1bd293a30dc42979efd3d5a195cbcafe5db75f85877e1"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/transcript.txt",
+      "bytes": 3192,
+      "sha256": "abddc0d7c7dad7d93b3c25eb268f9a44256c4f5a7201a769afa060e7c4a8441b"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/review.json",
+      "bytes": 4936,
+      "sha256": "a77075a705898407fffb2bac1a05b38e382352d11d08a7bb53628d44752e78a5"
+    },
+    {
+      "path": "call-20260920-153210-b4de979e/assessment.json",
+      "bytes": 10207,
+      "sha256": "a7a476b2e50c5033d63726ed682197181055f51d6bbe005a055556aa02ce9272"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/meta.json",
+      "bytes": 4161,
+      "sha256": "32989c8218c856afed108a0448921470b7b82bb0252205cca379778f0b2e655f"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/recording.ogg",
+      "bytes": 1510130,
+      "sha256": "ee90708df83a244c39225c9b222e14bbb067ca297b7895b717c071fe1f071291"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/transcript.json",
+      "bytes": 6738,
+      "sha256": "a263df1a929b61a620a61b1a2d3b0ef6267deb12680922e7fc85ae3f6f3b2a82"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/transcript.txt",
+      "bytes": 1806,
+      "sha256": "0c612e11d98de7b825fb654c2d427de35759f8d96c43d1081c10302ce60b505e"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/review.json",
+      "bytes": 2791,
+      "sha256": "1bde2e411998bfe95850a65eac66cc79a634b8828fb918a40e03a8a6c167717c"
+    },
+    {
+      "path": "call-20260920-153942-05539b73/assessment.json",
+      "bytes": 8053,
+      "sha256": "598e7c7a198b64118b579761a937178dd3e525776302b9c1c6c3d32ad82fa36e"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/meta.json",
+      "bytes": 4160,
+      "sha256": "8780c00447bbe941d6d032a1a14c04f76f9ed4b952048366534b7f10e9cd51fe"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/recording.ogg",
+      "bytes": 1561264,
+      "sha256": "76f72a31e47b35a0147bc1a6f4147d82c5a1a8108ee39c27d1acedd60fc3d711"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/transcript.json",
+      "bytes": 7519,
+      "sha256": "bbd26a72445188f36d778a80990614f43e42d38dd3f57705c3712280927e1267"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/transcript.txt",
+      "bytes": 1921,
+      "sha256": "0a82325515e134feced558c9be885975f315ad67995d8d4edc112ec8c8fa6389"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/review.json",
+      "bytes": 2789,
+      "sha256": "c8460d5f35ae0399b61b6f91c10089f07cc51c1e6304548148b515a7997a9d7f"
+    },
+    {
+      "path": "call-20260920-154701-ccbbddbd/assessment.json",
+      "bytes": 6120,
+      "sha256": "567c3b6154c97a9cb933a06cd7d171bfdabc1ee7df045ca35b82e4b5ce388747"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/meta.json",
+      "bytes": 4172,
+      "sha256": "d4cad713cd7cad28a86635ac0487e7ce5888c2d729f0e8d52558b4690082a37e"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/recording.ogg",
+      "bytes": 1581637,
+      "sha256": "24a4967600cc9c01d65a757fb93f50ed68b97e5a59bb0362a03063c7e39019ba"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/transcript.json",
+      "bytes": 6915,
+      "sha256": "028a251c5643e5e33f2652bfb8cf2dc162c5eb1b2245084a02b1af1dc55d79fb"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/transcript.txt",
+      "bytes": 1980,
+      "sha256": "1e5f2c343bfa5f8dc0e9d792f0fd82ec309538a39d4f998a697061a9625b0637"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/review.json",
+      "bytes": 1505,
+      "sha256": "3a8c3d7011d28c3aa0934b2851216a07ab293a5b37aa26fccb3266a6ccd2cd89"
+    },
+    {
+      "path": "call-20260920-155203-17c36e64/assessment.json",
+      "bytes": 7518,
+      "sha256": "ecbf489fdffbc41df6422afbd7e426a2b44f94aae9aae1256c36ecbf2d80e98d"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/meta.json",
+      "bytes": 4164,
+      "sha256": "3072e639069891542dab73a000231825e1e562c889b90be5eb715666d4c2221c"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/recording.ogg",
+      "bytes": 1525390,
+      "sha256": "76ecf20921741519f23808c5a4193a1bb36012ecd78679dc85f7a68d25b4e771"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/transcript.json",
+      "bytes": 5593,
+      "sha256": "2d1ba712e9ba3e8e3821b199dc84bbb4ef9042c37905fb3de292ef8c2014f4c4"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/transcript.txt",
+      "bytes": 1998,
+      "sha256": "7b1f2126d9a284ff43ec14016ece24db0f21d10ec806f1f63739b0d4edb9f47e"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/review.json",
+      "bytes": 1574,
+      "sha256": "d57176bf4b92e11c3feea06549a42fb0f337127646c885fb2d6eec84740dd384"
+    },
+    {
+      "path": "call-20260920-155626-e98e0c8f/assessment.json",
+      "bytes": 6661,
+      "sha256": "f08bf7bd73187b81ac8d22ade528e75b69633f12812ef2432da3e4718cbd2080"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/meta.json",
+      "bytes": 4169,
+      "sha256": "a91b2b5c31161f01fba535f5f03b48b43fbaae127218ebd9f8cb61335f0b2740"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/recording.ogg",
+      "bytes": 1923649,
+      "sha256": "b608629854534a206fe3344043d9f710b3d46e4b8ad9bd54c607c72133b8165c"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/transcript.json",
+      "bytes": 7867,
+      "sha256": "e81d67e1ca15865b320be9e5a9d38971ea636de5b032b1f4c00ea358c030c97f"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/transcript.txt",
+      "bytes": 2261,
+      "sha256": "1516781f3af77cf9408a0683dc2d97b072e9e707dd4ab75604903958983f9b87"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/review.json",
+      "bytes": 1453,
+      "sha256": "e2ceee93ba42174a0273083c7aaa73b86a832d102e0609a6d9e483c69a1c6bdd"
+    },
+    {
+      "path": "call-20260920-155843-a34fb22c/assessment.json",
+      "bytes": 9257,
+      "sha256": "479e63b1abd5ca1c991d9fae4c601f17d5dc3f4b6572494c027b0cbf8bdebca6"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/meta.json",
+      "bytes": 4167,
+      "sha256": "91770f85d8db5e7e7db5317d0aa5a1ccc3e4903fd2ba1027490045ed58262a04"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/recording.ogg",
+      "bytes": 1726728,
+      "sha256": "d9be01a5b8f8bf30595c9a6fae5a9b4226abe0ea5305c9b50c00a32c3469186f"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/transcript.json",
+      "bytes": 7497,
+      "sha256": "09eb8b753f88870277fe75068e51fc3262cc4d92250c2861c6c5f0d2fbc0b2ba"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/transcript.txt",
+      "bytes": 2227,
+      "sha256": "cec08fd1676ae9b5db1dd2f8f8334aab61fc3ddac216a2bb2679f9a0f5959a9e"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/review.json",
+      "bytes": 1581,
+      "sha256": "5665d8f5830cbc3df9f1a0fd1bf698e81a82d7351aae0e31fe33431f2eae5172"
+    },
+    {
+      "path": "call-20260920-160135-0dc99449/assessment.json",
+      "bytes": 9012,
+      "sha256": "76daa7521d89d53dd2cbf38fe332795848ba0cf2f329d5001efab948f8c4222f"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/meta.json",
+      "bytes": 4154,
+      "sha256": "92f86420f9fc59d80b2ae5a3f070291e498fd31c2fec5c2f8f4e662683675c8d"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/recording.ogg",
+      "bytes": 1192308,
+      "sha256": "5c7922b8e7ac4f14eda4e7564cc45751824d3e9b816a753ebe1fd1c22bfc600d"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/transcript.json",
+      "bytes": 4587,
+      "sha256": "f01b2c69322259138c7b8171467d857a7f27dfeab41f4473a0669eb4b327db85"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/transcript.txt",
+      "bytes": 1662,
+      "sha256": "815d995abff6653e4e2070af0c10039a5e363ec07da85b43aa3159a51f51bba9"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/review.json",
+      "bytes": 1442,
+      "sha256": "8e898868e9b50a70c0c41c3e6c99efcd500525514044eee94ec7e30c53483e2e"
+    },
+    {
+      "path": "call-20260920-162313-7544c7c2/assessment.json",
+      "bytes": 7271,
+      "sha256": "8e79b4ffa53be2a5682889a66a588557983575a80250b0de46661a8fe225c9d7"
+    },
+    {
+      "path": "call-20260920-165207-74c029f6/meta.json",
+      "bytes": 4151,
+      "sha256": "84ba954440b98a8d02a9ade769e00ee4fb4864a5caaad5c0537056d589383c32"
+    },
+    {
+      "path": "call-20260920-165207-74c029f6/recording.ogg",
+      "bytes": 1077464,
+      "sha256": "f3214c4ea2b6c9b9a909a1962e514839e6b10a1abb78124d9d6391a330027452"
+    },
+    {
+      "path": "call-20260920-165207-74c029f6/transcript.json",
+      "bytes": 4948,
+      "sha256": "a4b962fca7ad550ce8ca1788a11e66dcd973bec526bba8d191e462e776fdffb3"
+    },
+    {
+      "path": "call-20260920-165207-74c029f6/transcript.txt",
+      "bytes": 1360,
+      "sha256": "ba634190980ff683f2b829cf723790011515b3dc0819e92ad45dbf46a2bf690a"
+    },
+    {
+      "path": "call-20260920-165207-74c029f6/assessment.json",
+      "bytes": 5820,
+      "sha256": "4f305311c2214de799d3dbd497f42dce7799375504c50223a508fe704ad8a33c"
+    },
+    {
+      "path": "call-20260920-165629-807a20b2/meta.json",
+      "bytes": 4153,
+      "sha256": "1b52ba998c5a49c8cd12e8e6f207384219e9ad7e37c686a662a5ea907d07e2ea"
+    },
+    {
+      "path": "call-20260920-165629-807a20b2/recording.ogg",
+      "bytes": 444678,
+      "sha256": "20206781e4ca6e96f61297eda7eb7d700af287ba8b0ca3751013dd7185626557"
+    },
+    {
+      "path": "call-20260920-165629-807a20b2/transcript.json",
+      "bytes": 2847,
+      "sha256": "ca151370fa8971f12367f1ae2ca7849fb09ff12361467d8eed01b31dfc677098"
+    },
+    {
+      "path": "call-20260920-165629-807a20b2/transcript.txt",
+      "bytes": 597,
+      "sha256": "fea597060c552633e40beab270f8754ba443aa0bc45eba200278a3539acaa785"
+    },
+    {
+      "path": "call-20260920-165813-272cc9e5/meta.json",
+      "bytes": 4156,
+      "sha256": "ecae001c55154cdf7cd9cc4da0cd798d655f40814cc25c0e46c4a5801083d08e"
+    },
+    {
+      "path": "call-20260920-165813-272cc9e5/recording.ogg",
+      "bytes": 1002326,
+      "sha256": "49adc7fa1494cd95c09471323854baa4f21c6b16e1947b15dab610c5328a9f44"
+    },
+    {
+      "path": "call-20260920-165813-272cc9e5/transcript.json",
+      "bytes": 5255,
+      "sha256": "8e1ba7c966171b870127e64798a47c3b876f05ca08abdf75b012908cd63de89a"
+    },
+    {
+      "path": "call-20260920-165813-272cc9e5/transcript.txt",
+      "bytes": 1337,
+      "sha256": "ee720b5385ed882b9e035d3237ede130c791a37d71ffd378ec0a64c44656e68e"
+    },
+    {
+      "path": "call-20260920-165813-272cc9e5/assessment.json",
+      "bytes": 5562,
+      "sha256": "465f675ebd1bc7ec4b2268434af0da66a5f8051d522b8dfa353f6aee0d73818d"
+    },
+    {
+      "path": "call-20260920-170155-ed2750c8/meta.json",
+      "bytes": 4156,
+      "sha256": "22312639e3542db488200182561a35ef00b8519529e2aba473d270d4813c8e08"
+    },
+    {
+      "path": "call-20260920-170155-ed2750c8/recording.ogg",
+      "bytes": 954573,
+      "sha256": "485ca8db92241a11a03831a7ef0ff07836f7f3e2da5dd06647e97faf90fd1e8f"
+    },
+    {
+      "path": "call-20260920-170155-ed2750c8/transcript.json",
+      "bytes": 4846,
+      "sha256": "93e5c047fd064dad15e28be845fa1c035a8d5f7822eb1c0e674126e1102a991b"
+    },
+    {
+      "path": "call-20260920-170155-ed2750c8/transcript.txt",
+      "bytes": 1260,
+      "sha256": "943daadbb7c711e74ac1b9c2aa1de22af541a6c208875e8810743ab5f5d8dd42"
+    },
+    {
+      "path": "call-20260920-170746-1a60a636/meta.json",
+      "bytes": 4167,
+      "sha256": "f9b819dcc24cc1abf68efcf0112447ff45ccf5802c09026e6955c86ad66cc6a9"
+    },
+    {
+      "path": "call-20260920-170746-1a60a636/recording.ogg",
+      "bytes": 1618794,
+      "sha256": "18336a37774c20dd275fcd042f731fa86c448632eb2e70b5d4a3e6aef5ac0d1c"
+    },
+    {
+      "path": "call-20260920-170746-1a60a636/transcript.json",
+      "bytes": 7007,
+      "sha256": "985eb594aa6ea33118ec774c7f35c9d75d2c2503881414a09b8d40c9f76f1f5b"
+    },
+    {
+      "path": "call-20260920-170746-1a60a636/transcript.txt",
+      "bytes": 2074,
+      "sha256": "bd0efb0e0b27ae0d8777a35d39153c49fcf51740a6dafdd1a27b0223d648e43b"
+    },
+    {
+      "path": "call-20260920-171034-46507490/meta.json",
+      "bytes": 4157,
+      "sha256": "9e6842763afb861d89d6bb715d2092df929e8e4c80a381e2f4378251e4342b58"
+    },
+    {
+      "path": "call-20260920-171034-46507490/recording.ogg",
+      "bytes": 1471545,
+      "sha256": "1f72972282c76d44c2173a1c11061cd0283973c534c0d22386a4b29a83aac75e"
+    },
+    {
+      "path": "call-20260920-171034-46507490/transcript.json",
+      "bytes": 6374,
+      "sha256": "855054e10ab0c0a1c710a737306ef53d95c72edb10c259ae98954cb15a49f822"
+    },
+    {
+      "path": "call-20260920-171034-46507490/transcript.txt",
+      "bytes": 1780,
+      "sha256": "9666f0bb81bb465d7366a8c4adcc161fe3709d0d3782c3403f156c88c069612e"
+    },
+    {
+      "path": "call-20260920-171034-46507490/review.json",
+      "bytes": 1321,
+      "sha256": "95a9addfe85e2e33ab9987228c9c5053be765c5590b00e511a6895c308da1717"
+    },
+    {
+      "path": "call-20260920-171034-46507490/assessment.json",
+      "bytes": 8417,
+      "sha256": "f38dd2c064fba144146143f39241fbbff9470a751ee3c68a23702f1fab3f17f9"
+    },
+    {
+      "path": "call-20260920-174843-9aa6cd95/meta.json",
+      "bytes": 4168,
+      "sha256": "35ca0e0a5cfb829e785db2e8773ba741affcaeedf9c5f2a1a2bcb7737891c6bc"
+    },
+    {
+      "path": "call-20260920-174843-9aa6cd95/recording.ogg",
+      "bytes": 1917705,
+      "sha256": "06a939ec4651859389d4b877f7b5943f24ca66c9ffe0ddd60c32f29d0b447f86"
+    },
+    {
+      "path": "call-20260920-174843-9aa6cd95/transcript.json",
+      "bytes": 7105,
+      "sha256": "76918a0e637abea598a9b375e0dd2c75f42ded0e123184ae2d0cb65db398bc0d"
+    },
+    {
+      "path": "call-20260920-174843-9aa6cd95/transcript.txt",
+      "bytes": 2176,
+      "sha256": "55e44fc76a4d187e26c813733a03442c088dac6a794479647734334874f732e0"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/meta.json",
+      "bytes": 4346,
+      "sha256": "20bdbf80bd6d61a93a88df0f94f6a19b6e70e27caa149c4c221d2b66476e2972"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/recording.ogg",
+      "bytes": 2585215,
+      "sha256": "a05b13b48df6f68760596ffcb2b6957de137b334684c4bfb016293fdd27f4175"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/transcript.json",
+      "bytes": 12566,
+      "sha256": "0358e2a629d19070187c768c209dbd02d7ef44cc7cb738ef321585366c50ea87"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/transcript.txt",
+      "bytes": 3278,
+      "sha256": "0f7d518f626d8485c182db265268e3b97126295bdff9afc51991f27d9367406f"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/review.json",
+      "bytes": 2672,
+      "sha256": "19732c2b6bdbe65201b57051488cac9dc768f94e4c3c07abd5f7c1620bf566cf"
+    },
+    {
+      "path": "call-20260920-175412-c28bccad/assessment.json",
+      "bytes": 11041,
+      "sha256": "2feb0db84032d60bc5c9cd77344248a028c70617efb66d9bfa156831e05f91e4"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/meta.json",
+      "bytes": 4241,
+      "sha256": "f588526dc46e951c2894bd02441be218347a75d42a3acb89547d28dac4198e45"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/recording.ogg",
+      "bytes": 1412715,
+      "sha256": "66bbd04406a3553653db589c1fa10ed868deb5ec5b740a6272a82d6dbcaa1881"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/transcript.json",
+      "bytes": 5219,
+      "sha256": "361514087bbb2d44f3f706e3d39438ab4b831a3a7220de30e6b1ce5b44e04133"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/transcript.txt",
+      "bytes": 1628,
+      "sha256": "399a336a4d77e9beea2147e8fcf1f19b054e2daea61cc1f421098512b4a8080f"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/review.json",
+      "bytes": 1381,
+      "sha256": "81b9c42920bf8048cbacc814597463e71b9b1b6be059bd8bb99ed358c199daef"
+    },
+    {
+      "path": "call-20260920-180319-05f09527/assessment.json",
+      "bytes": 9719,
+      "sha256": "32f1374c4bccb23a38440889fe88527acdbf14bfebdb86ad94aa8ae86e0a4405"
+    },
+    {
+      "path": "call-20260920-180611-46993f1c/meta.json",
+      "bytes": 4335,
+      "sha256": "9ab42c4c5b83a8dd91524fb200895f480cde9ff6e6970c74ee463805ce0d7b52"
+    },
+    {
+      "path": "call-20260920-180611-46993f1c/recording.ogg",
+      "bytes": 1220803,
+      "sha256": "47b23bbd6e3e03296dab760c224232b7849f3f56bc2604e22fc779d62969750d"
+    },
+    {
+      "path": "call-20260920-180611-46993f1c/transcript.json",
+      "bytes": 4156,
+      "sha256": "75557af7ec93cced6f3adb8365324c7b5f553e8098c37d853c508e23d93a423e"
+    },
+    {
+      "path": "call-20260920-180611-46993f1c/transcript.txt",
+      "bytes": 1234,
+      "sha256": "787d2ab3fbf1e03e89e7c7b10dc205f6791a48d07676ebdd20077d193f7c2af0"
+    },
+    {
+      "path": "call-20260918-231955-765427d8/playback.mp3",
+      "bytes": 825596,
+      "sha256": "92901d780ed1e4d179e3d6b90f9e6f66e374cd25b634382bc0142c2454322a9d"
+    }
+  ]
+}

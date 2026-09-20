@@ -66,7 +66,7 @@ Govern, Map, Measure, and Manage functions, not an assertion of full framework c
 | Govern | Named owner; contract and notebook; issue-linked branches/PRs; required CI; separate human-listening and publication gates. See `ROADMAP.md`, `CONTRACT.md`, and `.github/workflows/ci.yml`. | Owner reviews and approves evidence for public release. No independent audit or certification has been performed. |
 | Map | Defined synthetic evaluation use, fixed destination, provider pipeline, known limitations, and a risk register below. The UI distinguishes caller and assessment agent. | Athena context is recorded from Grant’s firsthand report (#8); shared backend state remains unknown. Assess provider/data obligations before expanding scope. |
 | Measure | Preserved audio, committed turns, explicit partial speech, code/model/prompt provenance, SHA-256 of currently served audio, separate claimed/consistent/verified state, automated failure-path tests and axe checks. | Listen end to end; validate quote/timestamp pairs; audio timing is deferred (#15); obtain independent evidence before labeling outcomes verified. |
-| Manage | Read-only default viewer and opt-in confirmed controls; shared call lock/recovery; coded destination limit; call duration/turn limits; manual evidence-release gate; dependency/secret scans; fixes tracked separately from assessment findings. | Callback #21 and lifecycle #46 are closed on scoped evidence; original ending #12 and human acceptance remain. Native crash cause is unknown; ten varied candidates are captured. |
+| Manage | Read-only default viewer and opt-in confirmed controls; shared call lock/recovery; coded destination limit; call duration/turn limits; manual evidence-release gate; dependency/secret scans; fixes tracked separately from assessment findings. | Callback #21 and lifecycle #46 are closed on scoped evidence; ending concerns remain documented after human review. Native crash cause is unknown; ten varied reviewed calls are delivered. |
 
 ## Risk register
 
@@ -78,7 +78,7 @@ Govern, Map, Measure, and Manage functions, not an assertion of full framework c
 | Misleading evidence quality | No autoplay; partial turns and missing artifacts remain visible; decoded audio is not called human-reviewed. Fingerprints identify current bytes without claiming a trusted timestamp or signed chain of custody. | Raw STT can be wrong. Readable files and file pairs do not count as complete assessment conversations. A human must compare the audio with the transcript. |
 | Inappropriate generalization or bias | Scenario provenance and explicit limits keep findings tied to observed calls. | The small synthetic set cannot establish fairness across accents, languages, disability, or patient populations. Do not claim representative performance. |
 | Accidental calling, state changes, or spending | Read-only default; opt-in confirmation, fixed destination, single-call lock, one-use tokens/idempotent requests, stop/recovery, and duration/turn bounds. | Offline tests and connected call/cleanup paths have been exercised. Voice quality and publication review remain. An uncertain provider outcome blocks another call; new judge requests incur separate inference usage. |
-| Loss or unintended retention of evidence | Originals remain local; packaging excludes calls; CI uses generated fixtures only. | Abrupt worker termination can lose unfinished audio. There is no automated retention/deletion policy or backup guarantee. Owner must decide retention after submission and review provider-side storage separately. |
+| Loss or unintended retention of evidence | Originals retained locally; explicit Git publication includes the selected file allowlist; wheel/sdist packages exclude calls; CI tests use generated fixtures only. | Abrupt worker termination can lose unfinished audio. There is no automated retention/deletion policy or backup guarantee. Owner must decide retention after submission and review provider-side storage separately. |
 
 ## Human review and public release
 
@@ -95,9 +95,11 @@ Govern, Map, Measure, and Manage functions, not an assertion of full framework c
 5. Add only reviewed submission artifacts explicitly. Public Git history is difficult
    to retract; `calls/` is ignored and never uploaded by CI. Review the final diff.
 
-This workflow is specified, not asserted complete. Ten candidate pairs are captured;
-listening/publication decisions remain in #18. No finding against the assessment
-agent has been confirmed. Detailed evidence and current obligations are in
+Final release: Grant saved fifteen listening reviews, fourteen usable, and authorized
+publication of the full call archive. Ten selected usable calls, one per scenario, form the
+primary set. Text/metadata credential scans and audio decoding passed; unreviewed
+additional attempts are explicitly labeled. Findings distinguish human observations
+from inferred causes and unverified backend outcomes. Detailed evidence and current obligations are in
 [COLLECTION.md](COLLECTION.md) and [SUBMISSION.md](SUBMISSION.md).
 
 ## Privacy, providers, and accessibility
