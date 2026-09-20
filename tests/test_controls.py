@@ -305,3 +305,42 @@ def test_cancelled_startup_still_closes_owned_resources(tmp_path):
         assert manager.slot.handle is None
 
     asyncio.run(run())
+
+
+def test_live_startup_waits_for_journal_but_preserves_read_failures(tmp_path):
+    async def run():
+        manager = CallManager(tmp_path, lambda: None)
+        call = tmp_path / "calls" / "call-pending-fixture"
+        call.mkdir(parents=True)
+        manager.operation = {"phase": "preparing_worker", "call_id": call.name}
+        manager.task = asyncio.create_task(asyncio.Event().wait())
+        journal = call / "events.jsonl"
+        try:
+            for phase in (
+                "preparing_worker",
+                "dispatching",
+                "waiting_for_worker",
+                "preparing_audio",
+                "dialing",
+                "connected",
+            ):
+                manager.operation["phase"] = phase
+                snapshot = manager.snapshot()
+                assert snapshot["live_turns"] == []
+                assert "live_warning" not in snapshot
+            journal.write_text("broken JSON\n{}\n")
+            assert "live_warning" in manager.snapshot()
+            journal.write_text("")
+            assert "live_warning" not in manager.snapshot()
+            journal.unlink()
+            journal.symlink_to(call / "absent.jsonl")
+            assert "live_warning" in manager.snapshot()
+            journal.unlink()
+            for phase in ("stopping", "finalizing", "ended", "failed", "recovery_required"):
+                manager.operation["phase"] = phase
+                assert "live_warning" in manager.snapshot()
+        finally:
+            manager.task.cancel()
+            await asyncio.gather(manager.task, return_exceptions=True)
+
+    asyncio.run(run())

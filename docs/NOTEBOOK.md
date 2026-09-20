@@ -829,3 +829,15 @@ The expanded dark-theme audit exposed low-contrast guide headings on hover: a gl
 light-theme hover color overrode the inherited text color. Scoped guide headings and
 hover states to theme tokens; the regression check keeps the last opened heading
 hovered while checking every expanded section.
+
+
+## 2026-09-20 UTC — live transcript startup state (#81)
+
+A missing events journal during worker startup was surfaced as a read failure. The
+UI also keyed its empty-state rendering only on turns, leaving status messages stale
+until dialogue arrived. Missing journals now remain pending only during call setup
+and connection; corrupt, unsafe or unreadable artifacts still produce a warning.
+The transcript shows connection/waiting progress and updates on phase or warning
+changes, with a reduced-motion-aware indicator and unchanged viewport height.
+Offline regressions cover missing/corrupt journals, recovery, the first turn and
+phase-only updates. No dialing, recording or original-evidence behavior changed.

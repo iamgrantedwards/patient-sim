@@ -14,6 +14,14 @@ from .scenarios import SCENARIOS, get_scenario
 from .transcript import read_events, reconcile, write_json
 
 TERMINAL = {"ended", "failed"}
+TRANSCRIPT_PENDING = {
+    "preparing_worker",
+    "dispatching",
+    "waiting_for_worker",
+    "preparing_audio",
+    "dialing",
+    "connected",
+}
 MESSAGES = {
     "configuration": "Configuration is not ready. Check the required values in .env and the README.",
     "worker_start": "The dedicated worker did not register. Check .runtime worker logs and LiveKit connectivity; no automatic retry.",
@@ -71,7 +79,17 @@ class CallManager:
         call_id = record.get("call_id")
         if isinstance(call_id, str) and CALL_ID.fullmatch(call_id):
             try:
-                path = EvidenceStore(self.root / "calls").file(call_id, "events.jsonl")
+                store = EvidenceStore(self.root / "calls")
+                # The operation exists before the worker creates its event journal.
+                # lstat distinguishes an absent file from an unsafe/broken symlink.
+                candidate = store.directory(call_id) / "events.jsonl"
+                try:
+                    candidate.lstat()
+                except FileNotFoundError:
+                    if record["phase"] in TRANSCRIPT_PENDING:
+                        return record
+                    raise
+                path = store.file(call_id, "events.jsonl")
                 # The caller's reconciler preserves committed item IDs and partial speech.
                 turns, _ = reconcile(read_events(path))
                 record["live_turns"] = [
@@ -80,7 +98,7 @@ class CallManager:
                 ]
             except (ValueError, OSError, KeyError, TypeError):
                 record["live_warning"] = (
-                    "Live transcript unavailable; saved raw evidence remains on disk."
+                    "Live transcript unavailable. Check the saved call details."
                 )
         return record
 
