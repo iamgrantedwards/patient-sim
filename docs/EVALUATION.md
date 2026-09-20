@@ -1,7 +1,8 @@
 # Evaluation: strategy, AI assessment and listening
 
-Implementation audit: 2026-09-20 UTC, #77. This document describes the shipped
-`transcript-v1` judge. It does not change that rubric or regenerate any saved result.
+Implementation audit: 2026-09-20 UTC, #77; call-quality extension #85. This document
+describes `transcript-v2`. Existing assessments are preserved; another explicit
+assessment request is required to generate the new checks.
 
 ## Three different kinds of evaluation
 
@@ -25,9 +26,11 @@ criteria and the five-dimension judge. Editing the strategy alone changes no sco
 2. Local eligibility requires ended status, end-call-tool or remote-hangup outcome,
    an available recording and at least one completed turn from each speaker. This
    excludes incomplete attempts; it does not prove audio quality or a natural ending.
-3. The server builds JSON with exactly `scenario` (saved scenario ID) and `turns`
-   (the viewer's projection of raw transcript turns, including IDs, speaker, text and
-   status). The system prompt and structured output schema come from Python code.
+3. The server builds JSON with exactly `scenario` (saved scenario ID), `turns`
+   (raw transcript projection: IDs, speaker, text and status) and `capture`
+   (status, termination reason, duration, recording availability/decode status, partial
+   and pending speech counts, and explicit safety-limit indicators). Metadata is not
+   audio timing. The system prompt and structured schema come from Python code.
    Raw audio, review notes, patient configuration, prior calls, external policy facts,
    scenario objective/success criteria/traps and Markdown docs are not sent.
 4. `LiveKitJudge` sends a separate request through LiveKit Inference. The default
@@ -64,13 +67,35 @@ a basis, citations, attribution, uncertainty, suggested improvement and focused 
 
 | Manual review item | Automated help | Remaining human judgment |
 | --- | --- | --- |
-| Complete evidence | File/turn eligibility and separate capture/decode checks | Both sides audible; coherent full conversation; suitability for submission. |
-| Transcript accuracy | Exact quote-to-text validation | Compare important words to audio; preserve raw STT and label corrections. |
-| Patient behavior | The patient turns provide context; observations may attribute a problem to our caller | No dedicated patient-behavior grade; assess realism and fair pursuit of the objective. |
-| Turn-taking | Partial speech is visible and weakens evidence | Listen for overlap/interruptions; no automatic audio-aligned timing. |
-| Pacing | No audio-based grade | Listen or measure from audio offsets, never callback arrival timestamps. |
-| Voice/audio clarity | Recording availability/decoding are separate technical checks | Listen for clarity, clipping, glitches and intelligibility. |
-| Ending/outcome | `next_steps` can assess a textual outcome; metadata records termination reason | End-call-tool execution and transcript goodbyes do not prove a natural audible ending. |
+| Complete evidence | Local file, decode, both-speaker and pending-speech checks | Files present does not mean a complete audible conversation. |
+| Transcript accuracy | Explicit Needs listening status; exact quote-to-text validation | Compare important words to audio; preserve raw STT and label corrections. |
+| Patient behavior | Dedicated AI text check with patient-turn citations | Realism in audio and fair pursuit of the objective; hidden patient facts are not supplied. |
+| Turn-taking | AI can flag text-supported concerns; cannot clear the check from text | Listen for overlap/interruptions; no automatic audio-aligned timing. |
+| Pacing | Explicit Needs listening status | Listen or measure from audio offsets, never callback arrival timestamps. |
+| Audio clarity | Explicit Needs listening status | Decoding alone cannot establish intelligibility, clipping or dropouts. |
+| Ending | Dedicated AI check of final exchange plus termination metadata; expanded by default | Listen to the final 10–15 seconds. A committed transcript item or caller hangup does not prove completed playback. |
+
+These seven rows appear in **Call quality**, separate from the unchanged five-dimension
+0–100 office-agent score. The model returns exactly three text checks: patient behavior,
+turn-taking and ending. Each uses Concern, No issue in text, or Not assessable, with a
+rationale, provisional attribution and next step. Assessed checks require exact quotes;
+patient checks require a patient citation and ending checks a citation from the final
+two turns. Code rejects a clear ending when the last turn is partial, interrupted or
+ends in an ellipsis, and rejects any text-only clearance of turn-taking. A grammatically
+unfinished sentence without those markers remains a model judgment, not a deterministic
+language rule. These checks do not automatically mark any manual review item complete.
+
+### Ending diagnosis and the time limit
+
+`Caller ended` means our simulator invoked its end-call tool. It does not mean the
+conversation ended well. The default and maximum call duration is 240 seconds, with
+additional turn and cleanup bounds to limit stuck calls and usage. Recent suspected
+cutoffs ended via the tool well before 240 seconds; the recorded limit indicators did
+not identify a timeout. The pinned SDK waits for the patient's current speech handle,
+then shuts down the session; it does not explicitly wait for another office-agent
+closing turn. Early tool invocation is a hypothesis to investigate, not a confirmed
+root cause. This review extension changes no call timing or hangup behavior. See
+[DEBUGGING.md](DEBUGGING.md) and the still-open ending investigation #12.
 
 The optional **Add AI summary** action copies a fresh saved model summary into draft
 review notes. It preserves existing notes and changes no checklist result, listening

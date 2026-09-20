@@ -5,7 +5,8 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-RUBRIC_VERSION = "transcript-v1"
+RUBRIC_VERSION = "transcript-v2"
+QUALITY_DIMENSIONS = ("patient", "turn_taking", "ending")
 DIMENSIONS = ("request_handling", "consistency", "clarification", "supported_claims", "next_steps")
 Text = Annotated[str, Field(min_length=1, max_length=1600)]
 
@@ -45,23 +46,51 @@ class Observation(StrictModel):
     next_test: Text
 
 
+class QualityCheck(StrictModel):
+    topic: Literal["patient", "turn_taking", "ending"]
+    result: Literal["concern", "no_text_issue", "not_assessable"]
+    rationale: Text
+    evidence: list[Citation] = Field(max_length=4)
+    attribution: Literal["theirs", "ours", "environment", "mixed", "unknown"]
+    next_step: Text
+
+    @model_validator(mode="after")
+    def supported_check(self):
+        if self.result != "not_assessable" and not self.evidence:
+            raise ValueError("Assessed quality checks require transcript evidence.")
+        if self.topic == "turn_taking" and self.result == "no_text_issue":
+            raise ValueError("Text alone cannot clear turn-taking.")
+        return self
+
+
 class Assessment(StrictModel):
     summary: Text
     dimensions: list[Dimension] = Field(min_length=5, max_length=5)
     observations: list[Observation] = Field(max_length=5)
+    # Optional only when reading historical v1 records. New requests require all three.
+    call_quality: list[QualityCheck] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def complete_rubric(self):
         if {d.dimension for d in self.dimensions} != set(DIMENSIONS):
             raise ValueError("All five distinct dimensions are required.")
+        if self.call_quality and (
+            len(self.call_quality) != 3
+            or {c.topic for c in self.call_quality} != set(QUALITY_DIMENSIONS)
+        ):
+            raise ValueError("All three distinct call-quality checks are required.")
         return self
+
+
+class CallAssessment(Assessment):
+    call_quality: list[QualityCheck] = Field(min_length=3, max_length=3)
 
 
 def validate_evidence(result: Assessment, turns: list[dict]) -> None:
     by_id = {turn["idx"]: turn for turn in turns}
     if len(by_id) != len(turns):
         raise ValueError("Ambiguous transcript turn identifiers.")
-    for item in [*result.dimensions, *result.observations]:
+    for item in [*result.dimensions, *result.observations, *(result.call_quality or [])]:
         for citation in item.evidence:
             turn = by_id.get(citation.turn)
             if turn is None or citation.quote not in turn["text"]:
@@ -69,6 +98,22 @@ def validate_evidence(result: Assessment, turns: list[dict]) -> None:
         if isinstance(item, Dimension) and item.score is not None:
             if not any(by_id[c.turn]["role"] == "remote" for c in item.evidence):
                 raise ValueError("Target-agent grades require target-agent evidence.")
+        if isinstance(item, QualityCheck) and item.result != "not_assessable":
+            if item.topic == "patient" and not any(
+                by_id[c.turn]["role"] == "patient" for c in item.evidence
+            ):
+                raise ValueError("Patient checks require patient evidence.")
+            if item.topic == "ending":
+                final_ids = {t["idx"] for t in turns[-2:]}
+                if not any(c.turn in final_ids for c in item.evidence):
+                    raise ValueError("Ending checks require a final-turn citation.")
+                final = turns[-1]
+                if item.result == "no_text_issue" and (
+                    final.get("status") == "partial"
+                    or final.get("interrupted")
+                    or final["text"].rstrip().endswith(("...", "…"))
+                ):
+                    raise ValueError("Incomplete final speech cannot clear the ending check.")
 
 
 def score(result: Assessment) -> dict:
@@ -117,6 +162,30 @@ from STT or callback timestamps. Name spelling differences may be STT errors; re
 listening before attribution. Partial speech weakens evidence. Spoken booking/refill
 confirmations are claims, not verified outcomes. Cross-call state cannot be assessed
 from this single call. Do not claim access to their prompts, models, database or tools.
+Also return call_quality with exactly patient, turn_taking and ending. These are
+separate from the five remote-agent grades and never contribute to their aggregate.
+For each, use concern, no_text_issue, or not_assessable, with concise rationale,
+exact citations, attribution and a concrete next_step. no_text_issue means only that
+no concern is apparent in the text; it never verifies audio or approves the call.
+Patient: assess whether our simulator answers coherently and lets the office finish
+useful questions/instructions. Cite a patient turn when assessing it. No hidden patient
+facts or scenario goals are supplied: do not invent expectations about them.
+Turn-taking: text cannot clear this check. Use not_assessable unless interrupted/partial
+turns or explicit conversational evidence support a concern. Never invent overlap times.
+Ending: inspect the final turns, pending STT count and capture termination metadata.
+Cite one of the final two turns for any assessed ending. Look for unanswered questions,
+trailing fragments, ellipses, instructions still in progress or no coherent closure.
+A completed STT flag only means a committed item, not a finished sentence or farewell.
+end_call_tool / Caller ended records our decision to hang up, not a successful ending.
+Do not mark an ending clear when the last words trail off or instructions are unfinished.
+An early end by our simulator should be attributed ours or mixed/unknown as supported,
+not blamed automatically on the remote agent. Even a complete textual farewell requires
+listening to verify it was played fully. Suggest listening to the last 10–15 seconds and
+a focused retest that allows the office to finish when a cutoff is suspected.
+The capture object contains local file/termination metadata, not independently measured
+speech timing. Recording duration is total file duration; it does not measure pauses.
+Transcript accuracy, pacing and audio clarity require audio and are labeled separately
+by the app. Do not claim to have listened. No changes or retests are executed by this review.
 Keep wording concise and specific. No confidence percentages or invented measurements.
 """
 
@@ -132,7 +201,7 @@ class LiveKitJudge:
 
         model = inference.LLM(
             self.model,
-            extra_kwargs={"temperature": 0, "max_completion_tokens": 3200},
+            extra_kwargs={"temperature": 0, "max_completion_tokens": 4800},
         )
         try:
             context = llm.ChatContext()
@@ -141,7 +210,7 @@ class LiveKitJudge:
             text = ""
             async with model.chat(
                 chat_ctx=context,
-                response_format=Assessment,
+                response_format=CallAssessment,
                 conn_options=APIConnectOptions(max_retry=0, timeout=60),
             ) as stream:
                 async for chunk in stream:
@@ -149,6 +218,6 @@ class LiveKitJudge:
                         text += chunk.delta.content
                         if len(text) > 32000:
                             raise ValueError("Assessment response exceeds limit.")
-            return Assessment.model_validate_json(text)
+            return CallAssessment.model_validate_json(text)
         finally:
             await model.aclose()

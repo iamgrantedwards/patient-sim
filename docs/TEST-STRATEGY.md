@@ -38,14 +38,15 @@ is guidance, not a reason to stretch or cut a natural conversation.
 - Configuration comparison #13 and audio-aligned timing #15 are deferred. Controlled
   barge-in was not implemented. Neither a partial turn nor a prompt proves interruption.
 - The optional AI assessment is implemented. It evaluates a single transcript with a
-  generic rubric, not scenario-specific success criteria or the full listening checklist.
+  generic office-agent rubric plus dedicated patient, turn-taking and ending text checks.
+  All seven listening topics are surfaced, but audio-only judgments still require listening.
 
 ## Implemented coverage and the AI assessment
 
 The live call uses [scenarios.py](../src/caller/scenarios.py). The patient receives
 its objective, opening posture and synthetic facts. Evaluator fields stay outside
-the patient prompt. The judge receives only the saved scenario ID and projected
-transcript turns; it does **not** receive the scenario objective, `success_criteria`,
+the patient prompt. The judge receives the saved scenario ID, projected transcript
+turns and allowlisted capture/termination metadata; it does **not** receive the scenario objective, `success_criteria`,
 `known_traps`, this plan, prior calls or a policy reference. A scenario's name is
 context, not an executable assertion that its complete objective was achieved.
 

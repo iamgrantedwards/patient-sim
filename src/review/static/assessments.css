@@ -120,3 +120,35 @@
 .assessment-scores {
   align-items: start;
 }
+
+.assessment-quality-row {
+  border-top: 1px solid var(--surface-border);
+  padding: 12px 0;
+}
+.assessment-quality-row summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+.assessment-quality-row summary strong {
+  color: var(--green);
+  font-size: 0.78rem;
+}
+.assessment-quality-row p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.assessment-quality-row[data-result="concern"] summary strong,
+.assessment-quality-row[data-result="attention"] summary strong {
+  color: var(--amber);
+}
+.assessment-quality-row[data-result="needs_audio"] summary strong,
+.assessment-quality-row[data-result="not_assessed"] summary strong,
+.assessment-quality-row[data-result="not_assessable"] summary strong {
+  color: var(--muted);
+}

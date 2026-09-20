@@ -395,3 +395,26 @@ If the child crashes again, preserve `.runtime/<call-id>-failure.json`,
 macOS native report. Correlate call/job/PID/nonce and event order; verify cleanup before
 starting another explicit call. Reproduce narrowly before changing dependencies.
 Do not remove the existing journal, silently append a new attempt or automatically redial.
+
+
+## 2026-09-20 UTC — ending audit and assessment coverage (#85, related #12)
+
+Recent calls with suspected cutoffs record `ended_by=end_call_tool`, no failsafe
+reason and no provider duration-limit indicator. For example,
+`call-20260920-034355-fa5b226a` lasted about 93 seconds and
+`call-20260920-043854-fd9ce1a5` about 142 seconds, both below the 240-second bound.
+Their final committed remote transcript turns trail off. A committed/completed STT
+item is not evidence that a sentence or its audible playback finished. Audio confirmation
+and a focused ending retest remain necessary; this is not yet a confirmed causal diagnosis.
+
+Source inspection: our end-tool callback sets termination metadata, not final ended
+status. The controller waits through finalization, so it is not proven to delete the
+room immediately upon seeing that callback. LiveKit Agents 1.8.2's EndCallTool waits
+for the current patient speech handle and then shuts down the session; it does not
+explicitly wait for another remote closing turn. A premature tool decision is a
+plausible cause to test. Do not remove the duration bound to address this evidence.
+
+The v2 assessment now checks final turns with this metadata and distinguishes our
+caller behavior from office-agent quality. No hangup behavior is changed and #12
+remains open. Offline checks validate schema/citations and incomplete-ending rejection;
+they cannot establish an audible fix.

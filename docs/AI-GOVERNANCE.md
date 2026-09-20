@@ -42,7 +42,9 @@ review or model result never changes original call files. Detailed checklist row
 are optional; Usable requires explicit listening and complete-evidence approval.
 
 `--enable-assessments` separately enables an explicit paid request sending a saved
-scenario ID and transcript-turn projection through LiveKit Inference. The default
+scenario ID, transcript-turn projection and allowlisted capture/termination metadata
+through LiveKit Inference. Call-quality checks separate local file facts and model
+text judgments from audio-only topics explicitly marked Needs listening. The default
 viewer does not invoke models, but it can display previously saved assessments.
 The judge receives no raw audio, other calls or manual reviews. It has no tools and
 cannot change prompts, call numbers or code. Its instructions treat transcript text

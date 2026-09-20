@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock
 import pytest
 from fastapi.testclient import TestClient
 
-from src.analysis.assessment import DIMENSIONS, Assessment, score, validate_evidence
+from src.analysis.assessment import DIMENSIONS, Assessment, CallAssessment, score, validate_evidence
 from src.review.server import create_app
 from tests.test_review import evidence as evidence_fixture
 
@@ -12,7 +12,7 @@ evidence = evidence_fixture
 
 
 def report():
-    return Assessment.model_validate(
+    return CallAssessment.model_validate(
         {
             "summary": "Synthetic fixture assessment, not a call finding.",
             "dimensions": [
@@ -23,6 +23,19 @@ def report():
                     "evidence": [{"turn": 0, "quote": "<img src=x onerror=alert(1)>"}],
                 }
                 for d in DIMENSIONS
+            ],
+            "call_quality": [
+                {
+                    "topic": topic,
+                    "result": "not_assessable" if topic == "turn_taking" else "concern",
+                    "rationale": "Fixture concern; audio has not been reviewed.",
+                    "evidence": []
+                    if topic == "turn_taking"
+                    else [{"turn": 1, "quote": "Thank you"}],
+                    "attribution": "unknown",
+                    "next_step": "Listen to the final exchange.",
+                }
+                for topic in ("patient", "turn_taking", "ending")
             ],
             "observations": [
                 {
@@ -74,7 +87,16 @@ def test_assessment_persists_caches_and_never_changes_originals_or_human_review(
     assert {n: (call / n).read_bytes() for n in originals} == originals
     assert not (call / "review.json").exists()
     sent = judge.call_args.args[0]
-    assert set(sent) == {"scenario", "turns"}
+    assert set(sent) == {"scenario", "turns", "capture"}
+    assert sent["capture"]["ended_by"] == "remote_hangup"
+    assert "recording" not in sent and "patient_record" not in sent
+    checks = r.json()["quality_checks"]
+    assert len(checks) == 7
+    assert {c["topic"] for c in checks if c["result"] == "needs_audio"} == {
+        "transcript",
+        "pacing",
+        "audio",
+    }
     assert "private-dob" not in json.dumps(sent)
     with TestClient(create_app(evidence[0]), base_url="http://127.0.0.1") as reader:
         saved = reader.get(f"/api/calls/{call.name}/assessment").json()
@@ -266,10 +288,94 @@ def test_judge_sdk_boundary_closes_client_and_rejects_invalid_output(monkeypatch
     if output == "valid":
         result = asyncio.run(LiveKitJudge()({"scenario": "fixture", "turns": []}))
         assert result == report()
-        assert captured["response_format"] is Assessment
+        assert captured["response_format"] is CallAssessment
         assert captured["conn_options"].max_retry == 0
         assert captured["chat_ctx"].items[0].text_content == PROMPT
     else:
         with pytest.raises((ValueError, RuntimeError)):
             asyncio.run(LiveKitJudge()({"turns": []}))
     assert captured["closed"]
+
+
+def test_v1_history_stays_readable_but_requires_explicit_reassessment(setup):
+    client, call, judge = setup
+    assert post(client, call).status_code == 200
+    path = call / "assessment.json"
+    raw = json.loads(path.read_text())
+    raw["revisions"][0]["rubric"] = "transcript-v1"
+    del raw["revisions"][0]["result"]["call_quality"]
+    path.write_text(json.dumps(raw))
+    before = path.read_bytes()
+    state = client.get(f"/api/calls/{call.name}/assessment").json()
+    assert state["status"] == "stale" and state["score"] is None
+    assert state["latest"]["result"]["summary"] == report().summary
+    assert (
+        next(c for c in state["quality_checks"] if c["topic"] == "ending")["result"]
+        == "not_assessed"
+    )
+    assert path.read_bytes() == before and judge.await_count == 1
+    assert post(client, call).status_code == 200
+    assert judge.await_count == 2
+    assert len(json.loads(path.read_text())["revisions"]) == 2
+
+
+@pytest.mark.parametrize(
+    "kind",
+    [
+        "missing",
+        "duplicate",
+        "ungrounded",
+        "wrong_speaker",
+        "old_ending",
+        "false_clear",
+        "audio_clear",
+    ],
+)
+def test_quality_checks_reject_incomplete_or_unsupported_assessment(kind):
+    raw = report().model_dump()
+    turns = [
+        {"idx": 0, "role": "remote", "text": "<img src=x onerror=alert(1)>"},
+        {"idx": 1, "role": "patient", "text": "Thank you", "status": "completed"},
+    ]
+    if kind == "missing":
+        raw.pop("call_quality")
+    elif kind == "duplicate":
+        raw["call_quality"][0]["topic"] = "ending"
+    elif kind == "ungrounded":
+        raw["call_quality"][0]["evidence"] = []
+    elif kind == "wrong_speaker":
+        raw["call_quality"][0]["evidence"] = [{"turn": 0, "quote": "<img src=x onerror=alert(1)>"}]
+    elif kind == "old_ending":
+        turns.extend(
+            [
+                {"idx": 2, "role": "remote", "text": "More instructions"},
+                {"idx": 3, "role": "patient", "text": "Wait"},
+            ]
+        )
+    elif kind == "false_clear":
+        turns[-1]["text"] = "Thank you..."
+        raw["call_quality"][2]["result"] = "no_text_issue"
+    else:
+        raw["call_quality"][1]["result"] = "no_text_issue"
+        raw["call_quality"][1]["evidence"] = [{"turn": 1, "quote": "Thank you"}]
+    with pytest.raises(ValueError):
+        result = CallAssessment.model_validate(raw)
+        validate_evidence(result, turns)
+
+
+def test_local_capture_and_ending_context_do_not_claim_audio_verification(setup, evidence):
+    client, call, judge = setup
+    meta, transcript = evidence[2:]
+    meta.update(ended_by="end_call_tool", sip={"duration_limit_may_have_fired": True})
+    transcript["turns"][-1]["text"] = "Please bring your insurance..."
+    transcript["uncommitted_transcriptions"] = [{"text": "pending private text"}]
+    (call / "meta.json").write_text(json.dumps(meta))
+    (call / "transcript.json").write_text(json.dumps(transcript))
+    state = client.get(f"/api/calls/{call.name}/assessment").json()
+    checks = {c["topic"]: c for c in state["quality_checks"]}
+    assert checks["completeness"]["result"] == "attention"
+    assert "possible cutoff" in checks["ending"]["context"]
+    assert "may have fired" in checks["ending"]["context"]
+    assert "does not verify" in checks["ending"]["context"]
+    assert "pending private text" not in json.dumps(state)
+    judge.assert_not_called()

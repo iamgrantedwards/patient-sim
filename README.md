@@ -168,8 +168,8 @@ maps their overlap, actual inputs and the criteria that still require listening.
 
 Start with `uv run python -m src.review --enable-reviews --enable-assessments`
 (add `--enable-calls` only when you also want outbound controls). Open **AI assessment**
-in a call's details and choose **Assess transcript**. This sends the saved transcript
-to LiveKit Inference using the existing local credentials; `JUDGE_MODEL=gpt-4.1` selects
+in a call's details and choose **Assess transcript**. This sends the saved transcript,
+scenario ID and capture/termination metadata to LiveKit Inference using the existing local credentials; `JUDGE_MODEL=gpt-4.1` selects
 `openai/gpt-4.1`, separately from the caller's model. Each explicit assessment uses
 account credits. Identical evidence/model/rubric results are reused, not regenerated.
 
@@ -178,6 +178,12 @@ Five text-only dimensions use anchored 0/1/2 grades or not-assessable. The provi
 It is not a success probability or a benchmark. Exact quote validation rejects unsupported
 references but cannot establish that STT heard correctly. Follow-up suggestions never
 change prompts or start calls. Results do not confirm backend state or audio quality.
+
+A separate **Call quality** checklist covers all seven review topics: local capture
+checks, AI text checks for patient behavior, turn-taking and ending, and explicit
+Needs listening states for transcription accuracy, pacing and audio clarity. Ending
+opens expanded with termination context; caller hangup is never treated as proof of
+a clean farewell. These checks do not alter the office-agent score or human review.
 
 `calls/<call-id>/assessment.json` holds up to ten revisions with the input fingerprints,
 model, prompt hash, rubric version and generation time. Changed evidence/settings make
