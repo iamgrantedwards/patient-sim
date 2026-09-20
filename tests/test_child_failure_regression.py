@@ -12,7 +12,6 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import pytest
-
 from livekit.agents import AgentServer, utils
 from livekit.agents.ipc.job_executor import JobStatus
 from livekit.protocol import agent as protocol

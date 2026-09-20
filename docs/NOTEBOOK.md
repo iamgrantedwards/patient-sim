@@ -584,3 +584,29 @@ remain compact and aligned.
 - Native crash symbolication checked the installed binary UUID against the report:
   they match, but the native frames still lack names beyond livekit_ffi_request.
   This change handles that failure; it does not repair the native memory access.
+
+
+## 2026-09-19 — #46 second fix and native investigation
+
+- Added a one-job admission guard on the SDK's public request callback. Concurrent
+  offers, acceptance uncertainty, mismatched identity, and existing evidence are
+  covered by offline tests. The original exclusive-create evidence guard remains.
+- Added private assignment identity diagnostics and enabled structured worker logging
+  plus inherited Python fault-handler output for the parent and spawned children.
+- Ran five isolated local native probes, 20 audio initialization/capture/teardown
+  cycles each, against the unchanged LiveKit 1.1.18 binary. All exited 0. This did not
+  reproduce the connected-call crash; its triggering operation remains unknown.
+- Native crash prevention is still unverified. The implemented correction makes the
+  child failure observable and bounded, with cleanup uncertainty blocking a new call.
+  No live test call was placed, no provider/model configuration changed, and the
+  first two calls' original evidence remains untouched.
+
+- Full local verification passed after the admission/diagnostic changes: 246 Python
+  tests, 60 browser/accessibility tests, 96.1% coverage, lint/types, dependency and
+  secret checks, and package build/install checks. A final SDK review identified
+  that unassigned processes have no job status; the failure handler now reads the
+  nonzero exit first, with assigned/unassigned regression cases added.
+
+- Final affected checks after that guard: 248 Python tests passed, no xfails, 96.1%
+  coverage, and types clean. The native probe did not reproduce the crash; there is
+  still no claim that the segmentation fault's root cause has been fixed.

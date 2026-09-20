@@ -278,3 +278,78 @@ The follow-up must cover failure delivery, cleanup uncertainty, duplicate assign
 normal completion, and removal of this expected-failure marker. A separately
 authorized live call is still required. Native crash resolution remains distinct
 from detecting it correctly.
+
+
+## 2026-09-19 — targeted fixes after the before-fix checkpoint
+
+The previous checkpoint remains above as the historical failing result. The strict
+xfail has now been removed; the controller regression passes as a normal test.
+
+### Child failure reporting and cleanup
+
+The managed server subscribes to `process_closed` after `worker_started`, when the
+pinned SDK pool exists and before job dispatch runs. A failed child writes a
+separate `.runtime/<call-id>-failure.json` receipt with call identity, parent/child
+PIDs, job ID, exit code, and observation time. The receipt includes the existing
+worker nonce; the controller accepts only the current call/nonce/parent combination
+and never returns the nonce to the browser. The dedicated server stops accepting
+work and drains after a failure. Clean child exits do not generate failure receipts.
+
+The controller checks this signal before interpreting stale call metadata. It
+records `worker_child_exit` and routes through the existing room deletion, process
+shutdown, and room-absence verification. Successful cleanup produces Failed;
+unsuccessful cleanup produces Recovery required and blocks a new start. Original
+call metadata and event files are untouched. The regression verifies these outcomes,
+exit -11 provenance, one dispatch, and the absence of a redial.
+
+This adapter uses a private SDK pool event because AgentServer 1.8.2 exposes no
+public child-exit event. Tests bind that assumption to the pinned SDK. Dependency
+updates must review this integration. This is a worker-failure handling fix, not a
+repair to LiveKit's native memory access.
+
+### Repeated assignment
+
+A public `on_request` callback admits only one matching job for each managed worker.
+The slot is consumed before awaiting acceptance, so concurrent offers and uncertain
+acceptance cannot start another job. Mismatched room/call identities and existing
+evidence are rejected. Exclusive journal creation remains as a second protection.
+
+A private `.runtime/<call-id>-jobs.jsonl` journal records time, job ID, dispatch ID,
+room, and admission decision; it does not serialize complete requests or credentials.
+If the journal cannot be written, the job is rejected. This prevents repeated
+initialization; it does not retroactively prove the historical reassignment cause.
+
+### Native crash investigation and diagnostics
+
+The installed arm64 library UUID matches the crash report. `atos` still resolves
+most faulting frames only to offsets, so the originating Python operation remains
+unknown. No dependency or model configuration was changed on that evidence.
+
+Ran the opt-in local native probe in five isolated Python processes:
+
+```sh
+uv run python -X faulthandler scripts/probe-native-audio.py
+```
+
+Each process completed 20 audio source/track/stream, resampling, capture/read, and
+teardown cycles and exited 0: **100 cycles total** with `livekit==1.1.18`.
+The probe opens no Cloud room and makes no SIP or inference requests. It does not
+exercise remote media, call recording, or the full agent session. Consequently,
+this failed to reproduce the original crash and does **not** prove it is fixed.
+
+New managed workers inherit `PYTHONFAULTHANDLER=1` so a future native failure can
+include Python stacks in the private worker log. Their entrypoint now enables the
+SDK's structured INFO logging, retaining timestamps and job/process fields that the
+original warning-only log omitted. These are diagnostics, not crash prevention.
+
+A separately authorized call remains the next end-to-end check after code review.
+If it crashes, correlate the failure receipt, assignment journal, fault-handler
+stack, and native report before selecting a dependency change or upstream reproducer.
+
+
+Validation after the unassigned-process edge-case guard: **248 Python tests passed,
+no xfails**, 96.1% branch-inclusive coverage, and lint/types passed. The full local
+protocol also passed 60 browser/accessibility tests, secret/dependency checks, and
+package build/install verification before that final Python-only guard; affected
+Python coverage and type checks were rerun afterward. Hosted CI validates the final
+pushed revision independently. No live conversation was used as verification.

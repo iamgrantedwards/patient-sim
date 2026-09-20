@@ -48,7 +48,10 @@ async def run():
             exit_code = getattr(proc, "exitcode", None)
             if stop.is_set() or failure_seen:
                 return
-            if proc.status != JobStatus.FAILED and exit_code in (None, 0):
+            # An unassigned process has no job status; nonzero exit alone is sufficient.
+            if exit_code in (None, 0) and (
+                proc.running_job is None or proc.status != JobStatus.FAILED
+            ):
                 return
             failure_seen = True
             job = proc.running_job.job if proc.running_job else None
@@ -108,4 +111,8 @@ async def run():
 
 
 if __name__ == "__main__":
+    from livekit.agents.cli.log import setup_logging
+
+    # Include timestamps and SDK job/process fields in the already-private worker log.
+    setup_logging("INFO", devmode=False, console=False)
     asyncio.run(run())

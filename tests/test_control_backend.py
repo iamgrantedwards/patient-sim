@@ -25,6 +25,7 @@ def test_worker_registration_is_required_and_dispatch_is_unique(backend, monkeyp
         assert args[-1] == "src.caller.managed_worker"
         assert kwargs["start_new_session"] is True
         env = kwargs["env"]
+        assert env["PYTHONFAULTHANDLER"] == "1"
         assert env["PATIENT_SIM_AGENT_NAME"] == backend.agent_name
         write_json(
             backend.root / ".runtime/call-fixture-worker.json",

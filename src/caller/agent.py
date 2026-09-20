@@ -24,6 +24,7 @@ from livekit.agents import (
 from livekit.agents.beta.tools import EndCallTool
 from livekit.agents.llm import ChatMessage
 
+from .admission import accept_job
 from .config import PROJECT_ROOT, load
 from .lifecycle import disconnect_end, session_end, sip_failure
 from .patient import DEFAULT_PATIENT, build_instructions
@@ -83,7 +84,7 @@ async def shutdown_call(ctx: JobContext, reason: str) -> None:
         ctx.shutdown(reason=reason)
 
 
-@server.rtc_session(agent_name=AGENT_NAME, on_session_end=save_call)
+@server.rtc_session(agent_name=AGENT_NAME, on_request=accept_job, on_session_end=save_call)
 async def entrypoint(ctx: JobContext) -> None:
     metadata = json.loads(ctx.job.metadata or "{}")
     call_id = metadata.get("call_id", "")

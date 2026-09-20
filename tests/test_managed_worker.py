@@ -81,8 +81,12 @@ def test_invalid_managed_call_id_never_runs_server(monkeypatch):
 
 
 @pytest.mark.parametrize("exit_code", [0, -11])
-def test_child_exit_receipt_distinguishes_success_from_failure(tmp_path, monkeypatch, exit_code):
+@pytest.mark.parametrize("assigned", [True, False])
+def test_child_exit_receipt_distinguishes_success_from_failure(
+    tmp_path, monkeypatch, exit_code, assigned
+):
     (tmp_path / ".runtime").mkdir()
+
     async def run():
         handlers = {}
         pool = utils.EventEmitter()
@@ -101,12 +105,21 @@ def test_child_exit_receipt_distinguishes_success_from_failure(tmp_path, monkeyp
 
             async def run(self, **kwargs):
                 handlers["worker_started"]()
-                proc = SimpleNamespace(
-                    status=JobStatus.SUCCESS if exit_code == 0 else JobStatus.FAILED,
-                    exitcode=exit_code,
-                    pid=4567,
-                    running_job=SimpleNamespace(job=SimpleNamespace(id="job-test")),
-                )
+
+                class Process:
+                    exitcode = exit_code
+                    pid = 4567
+                    running_job = (
+                        SimpleNamespace(job=SimpleNamespace(id="job-test")) if assigned else None
+                    )
+
+                    @property
+                    def status(self):
+                        if not assigned:
+                            raise RuntimeError("job status not available")
+                        return JobStatus.SUCCESS if exit_code == 0 else JobStatus.FAILED
+
+                proc = Process()
                 pool.emit("process_closed", proc)
                 pool.emit("process_closed", proc)  # A repeated notification must not overwrite.
                 if exit_code == 0:
@@ -129,7 +142,7 @@ def test_child_exit_receipt_distinguishes_success_from_failure(tmp_path, monkeyp
         if exit_code:
             receipt = json.loads((tmp_path / ".runtime/call-test-failure.json").read_text())
             assert receipt["exit_code"] == -11
-            assert receipt["job_id"] == "job-test"
+            assert receipt["job_id"] == ("job-test" if assigned else None)
             assert receipt["parent_pid"] == os.getpid()
         else:
             assert not (tmp_path / ".runtime/call-test-failure.json").exists()

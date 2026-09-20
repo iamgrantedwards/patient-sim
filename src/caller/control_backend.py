@@ -31,6 +31,7 @@ class LiveBackend:
         write_json(self.root / ".runtime" / f"{call_id}-intent.json", {"nonce": nonce})
         env = dict(os.environ)
         env.update(
+            PYTHONFAULTHANDLER="1",
             PATIENT_SIM_AGENT_NAME=self.agent_name,
             PATIENT_SIM_CALL_ID=call_id,
             PATIENT_SIM_WORKER_NONCE=nonce,
